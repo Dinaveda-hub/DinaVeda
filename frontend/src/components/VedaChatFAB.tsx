@@ -1,7 +1,8 @@
 "use client";
 
-import { Sparkles, X, Send } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Sparkles, X, Send, Leaf, User } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function VedaChatFAB() {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +10,12 @@ export default function VedaChatFAB() {
         { role: "ai", text: "Namaste! How can I guide your wellness today?" }
     ]);
     const [input, setInput] = useState("");
-
     const [isTyping, setIsTyping] = useState(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     useEffect(() => {
         // Hydrate initial message with prakriti if available
@@ -22,6 +27,10 @@ export default function VedaChatFAB() {
             ]);
         }
     }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages, isTyping, isOpen]);
 
     const handleSend = async () => {
         if (!input.trim()) return;
@@ -61,66 +70,105 @@ export default function VedaChatFAB() {
                 {/* Toggle Button */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={`bg-[#2D7A5C] hover:bg-emerald-800 text-white rounded-full p-4 shadow-2xl transition-all duration-300 active:scale-95 flex items-center justify-center group ${isOpen ? "rotate-90" : ""}`}
+                    className={`bg-forest hover:bg-emerald-800 text-white rounded-[2rem] p-4 shadow-2xl transition-all duration-500 hover:scale-110 active:scale-95 flex items-center justify-center group ${isOpen ? "rotate-90 bg-slate-800 hover:bg-slate-900" : ""}`}
                 >
                     {isOpen ? <X className="w-6 h-6" /> : <Sparkles className="w-6 h-6 animate-pulse group-hover:animate-none" />}
                 </button>
 
                 {/* Chat Overlay */}
-                {isOpen && (
-                    <div className="absolute bottom-20 right-0 w-[calc(100vw-2rem)] max-w-[340px] bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden flex flex-col mb-4 origin-bottom-right animate-in fade-in zoom-in duration-300">
-                        {/* Header */}
-                        <div className="bg-white p-5 border-b border-slate-50 flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-[#E3F2ED] rounded-2xl flex items-center justify-center">
-                                    <Sparkles className="w-5 h-5 text-[#2D7A5C]" />
-                                </div>
-                                <div>
-                                    <span className="font-black text-sm text-slate-800 tracking-tight block">Veda Intelligence</span>
-                                    <div className="flex items-center gap-1">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                                        <span className="text-[10px] font-black text-emerald-600 uppercase">Live Pulse</span>
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20, transformOrigin: "bottom right" }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                            className="absolute bottom-20 right-0 w-[calc(100vw-2rem)] max-w-[360px] bg-white/90 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-white/50 overflow-hidden flex flex-col mb-4 origin-bottom-right"
+                        >
+                            {/* Header */}
+                            <div className="bg-white/50 p-6 border-b border-slate-100 flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-forest/10 rounded-full flex items-center justify-center shadow-inner border border-forest/5">
+                                        <Leaf className="w-6 h-6 text-forest" />
+                                    </div>
+                                    <div>
+                                        <span className="font-black text-base text-forest tracking-tight block">Veda Intelligence</span>
+                                        <div className="flex items-center gap-1.5 mt-0.5">
+                                            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Conscious</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Messages */}
-                        <div className="h-80 overflow-y-auto p-5 space-y-4 bg-[#F8F9F8]">
-                            {messages.map((msg, idx) => (
-                                <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                                    <div className={`max-w-[85%] p-4 rounded-[1.5rem] text-sm font-bold leading-relaxed break-words whitespace-pre-wrap ${msg.role === "user"
-                                        ? "bg-white text-slate-800 border border-slate-100 rounded-br-none shadow-sm"
-                                        : "bg-[#E3F2ED] text-[#2D7A5C] rounded-bl-none shadow-none"
-                                        }`}>
-                                        {msg.text}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                            {/* Messages */}
+                            <div className="h-[350px] overflow-y-auto p-5 space-y-5 bg-white/40 custom-scrollbar">
+                                <AnimatePresence initial={false}>
+                                    {messages.map((msg, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            transition={{ duration: 0.3 }}
+                                            className={`flex gap-3 ${msg.role === "user" ? "justify-end flex-row-reverse" : "justify-start"}`}
+                                        >
+                                            {/* Avatar */}
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-sm ${msg.role === "user" ? "bg-slate-100 hidden" : "bg-forest/10"}`}>
+                                                {msg.role === "ai" && <Leaf className="w-4 h-4 text-forest" />}
+                                            </div>
 
-                        {/* Input */}
-                        <div className="p-4 bg-white border-t border-slate-50 flex gap-2">
-                            <div className="flex-1 bg-slate-50 rounded-2xl border border-slate-100 flex items-center px-4 py-1 focus-within:border-[#2D7A5C] transition-colors">
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                    placeholder="Message Veda..."
-                                    className="flex-1 bg-transparent text-sm outline-none font-bold placeholder:text-slate-400"
-                                />
+                                            {/* Bubble */}
+                                            <div className={`max-w-[75%] p-4 text-sm font-bold leading-relaxed break-words whitespace-pre-wrap shadow-sm ${msg.role === "user"
+                                                ? "bg-slate-800 text-white rounded-[1.5rem] rounded-tr-sm"
+                                                : "bg-white text-slate-700 rounded-[1.5rem] border border-slate-100 rounded-tl-sm"
+                                                }`}>
+                                                {msg.text}
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                    {isTyping && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="flex gap-3 justify-start"
+                                        >
+                                            <div className="w-8 h-8 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
+                                                <Leaf className="w-4 h-4 text-forest" />
+                                            </div>
+                                            <div className="bg-white p-4 rounded-[1.5rem] rounded-tl-sm border border-slate-100 shadow-sm flex items-center gap-1.5">
+                                                <div className="w-1.5 h-1.5 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                                <div className="w-1.5 h-1.5 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                                <div className="w-1.5 h-1.5 bg-forest/40 rounded-full animate-bounce"></div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                    <div ref={messagesEndRef} />
+                                </AnimatePresence>
                             </div>
-                            <button
-                                onClick={handleSend}
-                                className="bg-[#2D7A5C] text-white p-3 rounded-2xl active:scale-90 transition-all hover:bg-emerald-800 disabled:opacity-50"
-                                disabled={!input.trim()}
-                            >
-                                <Send className="w-5 h-5" />
-                            </button>
-                        </div>
-                    </div>
-                )}
+
+                            {/* Input */}
+                            <div className="p-4 bg-white/80 border-t border-slate-100 flex gap-3 items-center backdrop-blur-md">
+                                <div className="flex-1 bg-white rounded-full border border-slate-200 shadow-inner flex items-center px-5 py-2 focus-within:border-forest/50 focus-within:ring-2 ring-forest/10 transition-all">
+                                    <input
+                                        type="text"
+                                        value={input}
+                                        onChange={(e) => setInput(e.target.value)}
+                                        onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                                        placeholder="Ask Veda..."
+                                        className="flex-1 bg-transparent text-sm outline-none font-bold text-slate-700 placeholder:text-slate-400"
+                                    />
+                                </div>
+                                <button
+                                    onClick={handleSend}
+                                    className="bg-forest text-white p-3.5 rounded-full active:scale-90 transition-all hover:bg-emerald-800 disabled:opacity-50 disabled:hover:scale-100 shadow-sm"
+                                    disabled={!input.trim()}
+                                >
+                                    <Send className="w-5 h-5 ml-0.5" />
+                                </button>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );
