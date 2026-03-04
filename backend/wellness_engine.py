@@ -3,9 +3,6 @@ from pathlib import Path
 from google import genai
 from google.genai import types
 
-# Configure the API key
-GOOGLE_API_KEY = "AIzaSyB1iVBo3K1TP1cdoSh54e985es_6rcrEi0"
-
 import json
 from datetime import datetime, date, timedelta
 
@@ -14,7 +11,9 @@ class VedaEngine:
         # Load system instructions to ground the engine's logic
         self.instructions_path = Path(__file__).parent.parent / "system_instructions.txt"
         self.system_instructions = self._load_instructions()
-        self.client = genai.Client(api_key=GOOGLE_API_KEY)
+        # Securely load API key from environment variables
+        api_key = os.getenv("GEMINI_API_KEY")
+        self.client = genai.Client(api_key=api_key) if api_key else None
         self.fallback_models = [
             'gemini-2.5-flash',
             'gemini-2.5-flash-lite',
