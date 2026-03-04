@@ -192,14 +192,14 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
           {/* Seasonal & Prakriti Focus */}
-          <div className="lg:col-span-4 space-y-10">
-            <motion.div variants={itemVariants} className="glass p-10 rounded-[3rem] shadow-premium border border-white/50">
-              <h2 className="text-[10px] font-black text-forest uppercase tracking-[0.4em] mb-8 flex items-center gap-3">
+          <div className="lg:col-span-4 space-y-6 md:space-y-10">
+            <motion.div variants={itemVariants} className="glass p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-premium border border-white/50">
+              <h2 className="text-[10px] font-black text-forest uppercase tracking-[0.4em] mb-6 md:mb-8 flex items-center gap-3">
                 <CloudSun className="w-4 h-4 text-orange-400" /> Seasonal Rhythm
               </h2>
               <div className="space-y-4">
-                <div className="w-full h-24 bg-fire/30 rounded-3xl flex items-center justify-center">
-                  <span className="text-orange-700 font-black text-2xl tracking-tighter">Vasanta</span>
+                <div className="w-full h-20 md:h-24 bg-fire/30 rounded-2xl md:rounded-3xl flex items-center justify-center">
+                  <span className="text-orange-700 font-black text-xl md:text-2xl tracking-tighter">Vasanta</span>
                 </div>
                 <p className="text-[11px] text-slate-500 font-bold tracking-tight">Spring is here. Time to gently clear the Kapha accumulation of winter.</p>
               </div>
@@ -207,15 +207,15 @@ export default function Dashboard() {
 
             <motion.div
               variants={itemVariants}
-              className="bg-forest p-10 rounded-[3rem] text-white relative overflow-hidden group hover:scale-[1.02] transition-all duration-700 shadow-xl shadow-forest/20"
+              className="bg-forest p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] text-white relative overflow-hidden group hover:scale-[1.02] transition-all duration-700 shadow-xl shadow-forest/20"
             >
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-10" />
               <div className="relative z-10">
-                <h3 className="text-3xl font-black mb-3 tracking-tighter">Your Nature</h3>
-                <p className="text-white/60 text-[10px] font-black uppercase tracking-widest mb-10">Discover your unique Dosha Blueprint</p>
+                <h3 className="text-2xl md:text-3xl font-black mb-3 tracking-tighter">Your Nature</h3>
+                <p className="text-white/60 text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-8 md:mb-10">Discover your unique Dosha Blueprint</p>
                 <Link
                   href="/veda-ai?tab=quiz"
-                  className="inline-flex items-center gap-4 bg-white text-forest px-10 py-4 rounded-3xl text-[10px] font-black uppercase tracking-widest hover:bg-gold hover:text-white transition-all shadow-lg"
+                  className="inline-flex items-center gap-3 md:gap-4 bg-white text-forest px-6 md:px-10 py-3 md:py-4 rounded-3xl text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:bg-gold hover:text-white transition-all shadow-lg"
                 >
                   Assessment Hub <ShieldCheck className="w-4 h-4" />
                 </Link>
@@ -225,26 +225,26 @@ export default function Dashboard() {
 
           {/* Morning Dialogue Navigation Card */}
           <motion.div variants={itemVariants} className="lg:col-span-8 flex flex-col">
-            <div className="glass p-10 md:p-14 rounded-[3rem] shadow-premium border border-white/60 h-full flex flex-col justify-center items-center text-center relative overflow-hidden group">
+            <div className="glass p-8 md:p-14 rounded-[2rem] md:rounded-[3rem] shadow-premium border border-white/60 h-full flex flex-col justify-center items-center text-center relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
-              <div className="w-24 h-24 rounded-[2.5rem] bg-emerald-50 text-emerald-500 flex items-center justify-center mb-10 shadow-lg group-hover:scale-110 transition-transform duration-700 relative z-10">
-                <HistoryIcon className="w-12 h-12" />
+              <div className="w-20 h-20 md:w-24 md:h-24 rounded-[2rem] md:rounded-[2.5rem] bg-emerald-50 text-emerald-500 flex items-center justify-center mb-8 md:mb-10 shadow-lg group-hover:scale-110 transition-transform duration-700 relative z-10">
+                <HistoryIcon className="w-10 h-10 md:w-12 md:h-12" />
               </div>
 
-              <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-6 relative z-10">
+              <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4 md:mb-6 relative z-10 text-balance">
                 Morning Dialogue
               </h2>
 
-              <p className="text-slate-500 font-bold text-lg max-w-lg mx-auto leading-relaxed mb-10 relative z-10">
+              <p className="text-slate-500 font-bold text-sm md:text-lg max-w-lg mx-auto leading-relaxed mb-8 md:mb-10 relative z-10 text-balance">
                 Audit your biological flow. Log your sleep, diet, and routines to calculate your daily Ojas and receive personalized AI guidance.
               </p>
 
               <Link
                 href="/veda-ai?tab=log"
-                className="inline-flex items-center gap-4 bg-forest text-white px-12 py-5 rounded-3xl text-xs font-black uppercase tracking-widest shadow-xl shadow-forest/20 hover:bg-forest/90 active:scale-[0.98] transition-all relative z-10"
+                className="inline-flex items-center gap-4 bg-forest text-white px-8 md:px-12 py-4 md:py-5 rounded-3xl text-[10px] md:text-xs font-black uppercase tracking-widest shadow-xl shadow-forest/20 hover:bg-forest/90 active:scale-[0.98] transition-all relative z-10 text-center"
               >
-                Log Daily Pulse <Activity className="w-5 h-5" />
+                Log Daily Pulse <Activity className="w-4 h-4 md:w-5 md:h-5" />
               </Link>
             </div>
           </motion.div>

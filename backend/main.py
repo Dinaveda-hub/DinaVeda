@@ -77,7 +77,7 @@ def chat_with_veda(payload: ChatPayload):
     User message: "{payload.message}"
     
     Reply as "Veda", a supportive Ayurvedic wellness companion.
-    Keep your response concise (2-3 sentences), empathetic, and grounded in Ayurvedic principles (Panchamahabhutas, Brihat Trayi) tailored to their Prakriti. Avoid markdown formatting like bolding or bullet points. Act naturally.
+    Keep your response EXTREMELY concise (Maximum 1 short sentence). Be empathetic and grounded in Ayurveda but do not overwhelm the user with jargon. Do not use markdown. Act naturally.
     """
     try:
         response = engine.generate_with_fallback(prompt)

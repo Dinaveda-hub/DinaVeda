@@ -251,29 +251,29 @@ class VedaEngine:
             prompt = (
                 f"Respond ONLY with a valid JSON object. No explanation, no markdown, just raw JSON.\n\n"
                 f"The JSON must have exactly these two keys:\n"
-                f"1. personalized_insight: an array of exactly 3 strings. Each string must be a specific sentence about how to achieve '{custom_note}' using Ayurveda.\n"
+                f"1. personalized_insight: an array of exactly 3 strings. Each string must be EXACTLY 1 SHORT SENTENCE (max 15 words) about how to achieve '{custom_note}'.\n"
                 f"2. dynamic_practices: an array of exactly 3 objects. Each object must have: "
-                f"name (a short, specific practice name to help achieve '{custom_note}'), "
+                f"name (short 2-3 word name), "
                 f"desc (exactly 4 words describing it), "
                 f"time (best time of day), "
-                f"detail (exactly 2 sentences: what to do and why it helps with '{custom_note}').\n\n"
+                f"detail (EXACTLY 1 SHORT SENTENCE: what to do and why it helps). KEEP IT VERY PUNCHY.\n\n"
                 f"Example format (fill in real content, not this example text):\n"
-                f'{{"personalized_insight": ["real sentence 1", "real sentence 2", "real sentence 3"], '
-                f'"dynamic_practices": [{{"name": "real name", "desc": "four word desc", "time": "Morning", "detail": "Real detail sentence one. Real detail sentence two."}}]}}'
+                f'{{"personalized_insight": ["Short punchy sentence one.", "Short punchy sentence two.", "Short punchy sentence three."], '
+                f'"dynamic_practices": [{{"name": "Real name", "desc": "four word desc", "time": "Morning", "detail": "One short punchy sentence explaining the action."}}]}}'
             )
         else:
             system_instr = self.system_instructions
             prompt = (
                 f"Respond ONLY with a valid JSON object. No explanation, no markdown, just raw JSON.\n\n"
-                f"Generate a personalized wellness plan for the {module_slug} module. "
+                f"Generate an EXTREMELY CONCISE personalized wellness plan for the {module_slug} module. "
                 f"User: Prakriti={prakriti}, Vikriti={vikriti}, Season={current_season}.\n\n"
                 f"The JSON must have exactly these two keys:\n"
-                f"1. personalized_insight: array of exactly 3 strings, each a specific insight about their constitution and season.\n"
+                f"1. personalized_insight: array of exactly 3 strings. Each string must be EXACTLY 1 SHORT SENTENCE (max 15 words).\n"
                 f"2. dynamic_practices: array of exactly 3 objects, each with: "
-                f"name, desc (4 words), time, detail (2 sentences).\n\n"
+                f"name (2-3 words), desc (4 words), time, detail (EXACTLY 1 SHORT SENTENCE).\n\n"
                 f"Example format:\n"
-                f'{{"personalized_insight": ["insight 1", "insight 2", "insight 3"], '
-                f'"dynamic_practices": [{{"name": "Practice Name", "desc": "four word desc", "time": "7:00 AM", "detail": "Sentence one. Sentence two."}}]}}'
+                f'{{"personalized_insight": ["Short punchy insight.", "Another punchy insight.", "Final short insight."], '
+                f'"dynamic_practices": [{{"name": "Practice Name", "desc": "four word desc", "time": "7:00 AM", "detail": "One short sentence describing the action."}}]}}'
             )
         
         try:

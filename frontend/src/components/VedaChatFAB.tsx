@@ -89,7 +89,7 @@ export default function VedaChatFAB() {
                         <div className="h-80 overflow-y-auto p-5 space-y-4 bg-[#F8F9F8]">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                                    <div className={`max-w-[85%] p-4 rounded-[1.5rem] text-sm font-bold leading-relaxed ${msg.role === "user"
+                                    <div className={`max-w-[85%] p-4 rounded-[1.5rem] text-sm font-bold leading-relaxed break-words whitespace-pre-wrap ${msg.role === "user"
                                         ? "bg-white text-slate-800 border border-slate-100 rounded-br-none shadow-sm"
                                         : "bg-[#E3F2ED] text-[#2D7A5C] rounded-bl-none shadow-none"
                                         }`}>

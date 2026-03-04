@@ -386,19 +386,19 @@ export default function ModuleDetail({ params }: { params: any }) {
                 </section>
 
                 {/* Specific Outcomes Input */}
-                <section className="glass rounded-[3.5rem] p-10 shadow-premium border border-white/60">
-                    <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                        <div className="w-12 h-12 rounded-2xl bg-forest/5 flex items-center justify-center shrink-0">
-                            <Info className="w-6 h-6 text-forest" />
+                <section className="glass rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-10 shadow-premium border border-white/60">
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-forest/5 flex items-center justify-center shrink-0">
+                            <Info className="w-5 h-5 md:w-6 md:h-6 text-forest" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Specific Goal?</h3>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
+                            <h3 className="text-xs md:text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Specific Goal?</h3>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
                                 Want to adapt this module for a specific goal? Tell Veda.
                             </p>
                         </div>
                     </div>
-                    <div className="mt-6 flex flex-col md:flex-row gap-4">
+                    <div className="mt-4 md:mt-6 flex flex-col md:flex-row gap-3 md:gap-4">
                         <textarea
                             value={customNote}
                             onChange={(e) => {
@@ -406,12 +406,12 @@ export default function ModuleDetail({ params }: { params: any }) {
                                 customNoteRef.current = e.target.value;
                             }}
                             placeholder="e.g. I want to specifically reduce inflammation..."
-                            className="flex-1 bg-white font-bold text-sm text-slate-700 p-5 rounded-[2rem] border border-slate-100 focus:outline-none focus:border-forest/30 shadow-sm resize-y min-h-[60px]"
+                            className="flex-1 bg-white font-bold text-[13px] md:text-sm text-slate-700 p-4 md:p-5 rounded-2xl md:rounded-[2rem] border border-slate-100 focus:outline-none focus:border-forest/30 shadow-sm resize-y min-h-[60px]"
                         />
                         <button
                             onClick={() => generateDynamicPlan(slug, customNoteRef.current)}
                             disabled={isGenerating}
-                            className={`px-8 py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] transition-all shadow-lg self-end md:self-stretch flex items-center justify-center ${isGenerating ? 'bg-slate-200 text-slate-400' : 'bg-forest text-white hover:bg-forest/90 active:scale-95'}`}
+                            className={`px-6 md:px-8 py-4 md:py-5 rounded-xl md:rounded-[2rem] font-black text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all shadow-lg self-stretch flex items-center justify-center ${isGenerating ? 'bg-slate-200 text-slate-400' : 'bg-forest text-white hover:bg-forest/90 active:scale-95'}`}
                         >
                             {isGenerating ? <div className="w-4 h-4 rounded-full border-2 border-slate-400 border-t-transparent animate-spin" /> : 'Adapt'}
                         </button>
@@ -452,22 +452,22 @@ export default function ModuleDetail({ params }: { params: any }) {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.1 }}
                                 onClick={() => handleRitualClick(practice)}
-                                className="glass p-8 rounded-[3rem] shadow-premium flex items-center justify-between group border border-white/60 text-left active:scale-[0.98] transition-all duration-700 relative z-10"
+                                className="glass p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] shadow-premium flex flex-col sm:flex-row items-start sm:items-center justify-between group border border-white/60 text-left active:scale-[0.98] transition-all duration-700 relative z-10 gap-4 sm:gap-0"
                             >
-                                <div className="flex items-center gap-8">
-                                    <div className={`w-20 h-20 rounded-[2rem] flex items-center justify-center transition-all duration-700 shadow-sm border ${completedRituals[practice.name] ? 'bg-forest text-white' : 'bg-forest/5 text-forest/40 border-forest/5'}`}>
-                                        {completedRituals[practice.name] ? <CheckCircle2 className="w-8 h-8" /> : <Icon className="w-8 h-8" />}
+                                <div className="flex items-start sm:items-center gap-4 md:gap-8 w-full">
+                                    <div className={`w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-[2rem] flex items-center justify-center transition-all duration-700 shadow-sm border ${completedRituals[practice.name] ? 'bg-forest text-white' : 'bg-forest/5 text-forest/40 border-forest/5'}`}>
+                                        {completedRituals[practice.name] ? <CheckCircle2 className="w-6 h-6 md:w-8 md:h-8" /> : <Icon className="w-6 h-6 md:w-8 md:h-8" />}
                                     </div>
-                                    <div>
-                                        <h4 className={`font-black text-2xl tracking-tighter leading-tight mb-2 ${completedRituals[practice.name] ? 'text-forest/50' : 'text-forest'}`}>{practice.name}</h4>
-                                        <p className={`text-xs font-bold uppercase tracking-widest ${completedRituals[practice.name] ? 'text-forest/30' : 'text-slate-500'}`}>{practice.desc}</p>
+                                    <div className="flex-1">
+                                        <h4 className={`font-black text-xl md:text-2xl tracking-tighter leading-tight mb-2 text-balance ${completedRituals[practice.name] ? 'text-forest/50' : 'text-forest'}`}>{practice.name}</h4>
+                                        <p className={`text-[10px] md:text-xs font-bold uppercase tracking-widest text-balance ${completedRituals[practice.name] ? 'text-forest/30' : 'text-slate-500'}`}>{practice.desc}</p>
                                     </div>
                                 </div>
-                                <div className="flex flex-col items-end gap-3 pr-4">
+                                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center w-full sm:w-auto gap-3 sm:pr-4 mt-2 sm:mt-0 pt-4 sm:pt-0 border-t sm:border-0 border-slate-100">
                                     <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 group-hover:text-forest transition-colors">
-                                        <Clock className="w-4 h-4" /> {practice.time}
+                                        <Clock className="w-3 h-3 md:w-4 md:h-4" /> {practice.time}
                                     </div>
-                                    <ChevronRight className="w-6 h-6 text-slate-200 group-hover:text-forest group-hover:translate-x-1 transition-all" />
+                                    <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-slate-200 group-hover:text-forest group-hover:translate-x-1 transition-all flex-shrink-0" />
                                 </div>
                             </motion.button>
                         ))}
@@ -475,13 +475,13 @@ export default function ModuleDetail({ params }: { params: any }) {
                 </section>
 
                 {/* Whispers of Wisdom */}
-                <div className="glass p-12 rounded-[3.5rem] border border-forest/10 flex flex-col md:flex-row gap-10 relative overflow-hidden group">
+                <div className="glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border border-forest/10 flex flex-col md:flex-row gap-6 md:gap-10 relative overflow-hidden group">
                     <div className="absolute inset-0 bg-gradient-to-br from-water/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                    <div className={`w-20 h-20 rounded-[2rem] ${isGenerating ? 'bg-slate-200' : 'bg-forest'} text-white flex items-center justify-center shrink-0 shadow-2xl shadow-forest/20 relative z-10 group-hover:scale-110 transition-transform duration-700`}>
-                        {isGenerating ? <div className="w-8 h-8 rounded-full border-4 border-white/20 border-t-white animate-spin" /> : <Info className="w-10 h-10" />}
+                    <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] ${isGenerating ? 'bg-slate-200' : 'bg-forest'} text-white flex items-center justify-center shrink-0 shadow-2xl shadow-forest/20 relative z-10 group-hover:scale-110 transition-transform duration-700`}>
+                        {isGenerating ? <div className="w-8 h-8 rounded-full border-4 border-white/20 border-t-white animate-spin" /> : <Info className="w-8 h-8 md:w-10 md:h-10" />}
                     </div>
                     <div className="relative z-10 w-full">
-                        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                        <div className="flex flex-wrap items-center justify-between gap-4 mb-4 md:mb-6">
                             <h4 className="text-[10px] font-black text-forest uppercase tracking-[0.4em]">AI Personalized Insight</h4>
                             {activeGoal && !isGenerating && (
                                 <span className="text-[9px] font-black bg-orange-100/80 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 flex items-center gap-2 shrink-0">
@@ -489,18 +489,18 @@ export default function ModuleDetail({ params }: { params: any }) {
                                 </span>
                             )}
                         </div>
-                        <div className={`text-base font-medium ${isGenerating ? 'text-slate-400' : 'text-slate-700'} leading-relaxed max-w-2xl text-balance mb-6 transition-colors space-y-4`}>
+                        <div className={`text-sm md:text-base font-medium ${isGenerating ? 'text-slate-400' : 'text-slate-700'} leading-relaxed max-w-2xl text-balance mb-6 transition-colors space-y-4`}>
                             {isGenerating ? (
                                 <p>Deep-parsing local environment and Dosha parameters to synthesize insight...</p>
                             ) : (
                                 Array.isArray(dynamicPlan?.personalized_insight)
                                     ? dynamicPlan.personalized_insight.map((paragraph: string, idx: number) => (
-                                        <p key={idx} className="bg-white/40 p-4 rounded-2xl border border-white/50 shadow-sm">{paragraph}</p>
+                                        <p key={idx} className="bg-white/40 p-4 rounded-xl md:rounded-2xl border border-white/50 shadow-sm">{paragraph}</p>
                                     ))
                                     : <p>{dynamicPlan?.personalized_insight || mod.vedaInsight}</p>
                             )}
                         </div>
-                        <p className="text-sm font-bold text-slate-500 leading-relaxed max-w-xl">
+                        <p className="text-[10px] md:text-sm font-bold text-slate-500 leading-relaxed max-w-xl text-balance italic">
                             "Let this wisdom settle into your heart. True vitality is a gentle dialogue between your choices and the cosmic rhythm."
                         </p>
                     </div>
