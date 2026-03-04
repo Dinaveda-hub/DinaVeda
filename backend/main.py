@@ -83,7 +83,8 @@ def chat_with_veda(payload: ChatPayload):
         response = engine.generate_with_fallback(prompt)
         return {"reply": response.text.strip()}
     except Exception as e:
-        return {"reply": f"I'm currently unable to access the neural core. Please try again. (Error: {e})"}
+        print(f"Chat error: {e}")
+        return {"reply": "I'm currently resting my neural core to process the universe's rhythms (Google AI limits reached). Please breathe deeply and share your thoughts with me in a few minutes."}
 
 class ModulePlanPayload(BaseModel):
     module_slug: str
