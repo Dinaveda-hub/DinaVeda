@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FDFEFE;
+  /* Pure, clean air */
+  --foreground: #2D3E40;
+  /* Soft charcoal-teal */
+
+  /* Elemental Palette */
+  --color-space: #4A5568;
+  /* Deep void */
+  --color-air: #E3F2FD;
+  /* Soft sky blue */
+  --color-fire: #FFF3E0;
+  /* Warm sunrise orange */
+  --color-water: #E0F7FA;
+  /* Clear spring water */
+  --color-earth: #F1F8E9;
+  /* Fresh sprout green */
+
+  /* Core Clinical/Wellness Colors */
+  --color-primary: #2D7A5C;
+  /* Mena Forest Green */
+  --color-accent: #52B788;
+  /* Supporting leaf green */
+  --color-gold: #D4AF37;
+  /* Sacred gold */
+  --color-petal: #FCE4EC;
+  /* Gentle pastel pink */
+
+  --color-glass-white: rgba(255, 255, 255, 0.6);
+  --radius-app: 2rem;
+  --shadow-premium: 0 15px 50px -10px rgba(0, 0, 0, 0.04), 0 5px 25px -5px rgba(0, 0, 0, 0.01);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-forest: var(--color-primary);
+  --color-gold: var(--color-gold);
+
+  /* Tailwind-accessible elements */
+  --color-air: var(--color-air);
+  --color-water: var(--color-water);
+  --color-fire: var(--color-fire);
+  --color-earth: var(--color-earth);
+  --color-space: var(--color-space);
+  --color-petal: var(--color-petal);
+
+  --radius-4xl: 3rem;
+  --radius-3xl: 2.25rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-glass: 0 4px 24px -1px rgba(0, 0, 0, 0.02);
+}
+
+/* Force light mode for clinical consistency */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #F8FAF9;
+    --foreground: #121A16;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+.glass {
+  background: var(--color-glass-white);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.shadow-premium {
+  box-shadow: var(--shadow-premium);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
