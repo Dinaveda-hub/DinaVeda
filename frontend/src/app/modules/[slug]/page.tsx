@@ -9,6 +9,9 @@ import {
     Sparkles, ListChecks, History, Clock, ChevronRight, Waves
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useVedaState } from "@/engine/useVedaState";
+import { VikritiEngine } from "@/engine/vikritiEngine";
+import { RecommendationEngine } from "@/engine/recommendationEngine";
 
 const moduleData: Record<string, any> = {
     somasleep: {
@@ -146,7 +149,8 @@ export default function ModuleDetail({ params }: { params: any }) {
     const [syncProgress, setSyncProgress] = useState(0);
     const [completedRituals, setCompletedRituals] = useState<Record<string, boolean>>({});
 
-    // Dynamic AI State
+    // Dynamic Local State
+    const { state, isLoaded } = useVedaState();
     const [isGenerating, setIsGenerating] = useState(true);
     const [dynamicPlan, setDynamicPlan] = useState<any>(null);
     const [customNote, setCustomNote] = useState("");
@@ -167,29 +171,39 @@ export default function ModuleDetail({ params }: { params: any }) {
         const goalToUse = noteOverride !== undefined ? noteOverride : customNote;
         setActiveGoal(goalToUse);
         setIsGenerating(true);
-        try {
-            const storedPrakriti = localStorage.getItem("prakriti_result");
-            const storedVikriti = localStorage.getItem("vikriti_result");
-            const prakriti = storedPrakriti ? JSON.parse(storedPrakriti).type : "Unknown";
-            const vikriti = storedVikriti ? JSON.parse(storedVikriti).type : "Unknown";
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001'}/module-plan`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    module_slug: currentSlug,
-                    prakriti,
-                    vikriti,
-                    custom_note: noteOverride !== undefined ? noteOverride : customNote
-                }),
-            });
-            const data = await res.json();
-            if (data && !data.error) {
-                setDynamicPlan(data);
+        try {
+            // Wait for local state to load before generating if accessed directly
+            if (!isLoaded) {
+                setTimeout(() => generateDynamicPlan(currentSlug, noteOverride), 100);
+                return;
             }
+
+            const vikritiEngine = new VikritiEngine();
+            const vikriti = vikritiEngine.calculateMetrics(state);
+
+            const recEngine = new RecommendationEngine();
+            const allRecs = recEngine.getRecommendations(state, vikriti);
+
+            // Filter down to this specific module 
+            // e.g., 'somasleep'
+            const moduleRecs = recEngine.getModuleProtocols(currentSlug, allRecs);
+
+            // Format to match the previous UI structure
+            setTimeout(() => {
+                setDynamicPlan({
+                    dynamic_practices: moduleRecs.length > 0 ? moduleRecs : [
+                        { name: "Sattvic Routine", desc: "Maintain balance", time: "Daily", detail: "Your state is currently balanced for this module." }
+                    ],
+                    personalized_insight: goalToUse
+                        ? `Focusing on ${goalToUse} with local deterministic adjustments based on your ${vikriti.dominant_dosha} metrics.`
+                        : `Your core protocol is tuned to pacify ${vikriti.dominant_dosha} and restore Ojas locally.`
+                });
+                setIsGenerating(false);
+            }, 600); // Simulate brief thought process for UI smoothness
+
         } catch (error) {
-            console.error("Failed to fetch dynamic module plan:", error);
-        } finally {
+            console.error("Failed to generate local module plan:", error);
             setIsGenerating(false);
         }
     };

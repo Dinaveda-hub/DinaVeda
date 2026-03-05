@@ -3,6 +3,8 @@
 import { Sparkles, X, Send, Leaf, User } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useVedaState } from "@/engine/useVedaState";
+import { StateUpdater } from "@/engine/stateUpdater";
 
 export default function VedaChatFAB() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +14,8 @@ export default function VedaChatFAB() {
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const { state, updateState } = useVedaState();
+    const updater = new StateUpdater();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,8 +56,16 @@ export default function VedaChatFAB() {
                 throw new Error("Backend not fully reloaded yet.");
             }
             const data = await res.json();
+
             if (data.reply) {
                 setMessages(prev => [...prev, { role: "ai", text: data.reply }]);
+
+                // If the backend returns signals from NLU extraction, apply them locally
+                if (data.signals && Array.isArray(data.signals) && data.signals.length > 0) {
+                    const nextState = updater.applySignals(state, data.signals);
+                    updateState(nextState);
+                }
+
             } else {
                 throw new Error("Empty reply");
             }

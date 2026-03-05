@@ -56,52 +56,22 @@ def read_root():
 
 @app.post("/analyze")
 def analyze_log(payload: DailyLogPayload):
-    # 1. Calculate the deterministic Ojas score
-    ojas_result = engine.calculate_ojas(payload.dict())
-    
-    # 2. Generate the AI Pathya Plan using Gemini
-    pathya_plan = engine.generate_pathya_plan(ojas_result)
-    
-    # 3. Return the combined response
+    # This endpoint is kept alive temporarily so frontend doesn't throw 404s,
+    # but the frontend no longer uses the response. It calculates Ojas locally.
     return {
-        "ojas_score": ojas_result["total_score"],
-        "breakdown": ojas_result["breakdown"],
-        "ritu_info": ojas_result["ritu_info"],
-        "pathya_plan": pathya_plan
+        "status": "success",
+        "message": "Logs received. Frontend local engine handles calculation."
     }
 
 @app.post("/chat")
 def chat_with_veda(payload: ChatPayload):
-    prompt = f"""
-    The user's Ayurvedic Constitution (Prakriti) is {payload.prakriti}.
-    User message: "{payload.message}"
-    
-    Reply as "Veda", a supportive Ayurvedic wellness companion.
-    Keep your response EXTREMELY concise (Maximum 1 short sentence). Be empathetic and grounded in Ayurveda but do not overwhelm the user with jargon. Do not use markdown. Act naturally.
-    """
     try:
-        response = engine.generate_with_fallback(prompt)
-        return {"reply": response.text.strip()}
+        # Route directly to the NLU extractor that strictly returns {"reply": str, "signals": []}
+        result = engine.process_chat_nlu(payload.message)
+        return result
     except Exception as e:
         print(f"Chat error: {e}")
         return {"reply": "I'm currently resting my neural core to process the universe's rhythms (Google AI limits reached). Please breathe deeply and share your thoughts with me in a few minutes."}
 
-class ModulePlanPayload(BaseModel):
-    module_slug: str
-    prakriti: str = "Unknown"
-    vikriti: str = "Unknown"
-    custom_note: str = ""
-
-@app.post("/module-plan")
-def generate_module_plan(payload: ModulePlanPayload):
-    ritu_info = engine.get_current_ritu()
-    season_name = ritu_info.get("name", "Unknown Season")
-    
-    plan = engine.generate_module_plan(
-        module_slug=payload.module_slug,
-        prakriti=payload.prakriti,
-        vikriti=payload.vikriti,
-        custom_note=payload.custom_note,
-        current_season=season_name
-    )
-    return plan
+# Module Plan Enpoints REMOVED
+# Module recommendations are now entirely deterministic and run locally using RecommendationEngine in the frontend.

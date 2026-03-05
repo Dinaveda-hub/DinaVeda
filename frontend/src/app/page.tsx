@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { Activity, History as HistoryIcon, ShieldCheck, CloudSun, Leaf, Zap } from "lucide-react";
+import { Activity, History as HistoryIcon, ShieldCheck, CloudSun, Leaf, Flame, Moon, Compass } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { useVedaState } from "@/engine/useVedaState";
+import { VikritiEngine } from "@/engine/vikritiEngine";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -30,8 +32,12 @@ export default function Dashboard() {
   };
 
   const [userName, setUserName] = useState("Seeker");
-  const [latestScore, setLatestScore] = useState<number | null>(null);
   const [streak, setStreak] = useState(0);
+
+  // Local Deterministic Engine
+  const { state, isLoaded } = useVedaState();
+  const vikritiEngine = new VikritiEngine();
+  const vikriti = vikritiEngine.calculateMetrics(state);
 
   useEffect(() => {
     const initDashboard = async () => {
@@ -41,14 +47,13 @@ export default function Dashboard() {
       if (user) {
         setUserName(user.user_metadata?.full_name || "Seeker");
 
-        // Fetch user's pulse logs to populate Vitality Bloom
+        // Fetch user's pulse logs to populate streak only, Ojas is deterministic now.
         const { data: logs, error } = await supabase
           .from('pulse_logs')
-          .select('ojas_score, created_at')
+          .select('created_at')
           .order('created_at', { ascending: false });
 
         if (!error && logs && logs.length > 0) {
-          setLatestScore(logs[0].ojas_score);
           setStreak(logs.length); // Dynamic streak (currently counts total logs)
         }
       }
@@ -130,8 +135,8 @@ export default function Dashboard() {
                 </div>
 
                 <div className="text-[8rem] md:text-[10rem] font-black text-forest leading-none tracking-tighter drop-shadow-sm relative">
-                  {latestScore !== null ? latestScore : '--'}
-                  {latestScore !== null && <span className="absolute top-4 -right-2 text-2xl text-emerald-500 animate-pulse">↑</span>}
+                  {isLoaded ? Math.round(state.ojas_score) : '--'}
+                  {isLoaded && state.ojas_score > 80 && <span className="absolute top-4 -right-2 text-2xl text-emerald-500 animate-pulse">↑</span>}
                 </div>
 
                 {/* Hooked Model: Variable Reward / Investment */}
@@ -223,8 +228,41 @@ export default function Dashboard() {
             </motion.div>
           </div>
 
-          {/* Morning Dialogue Navigation Card */}
-          <motion.div variants={itemVariants} className="lg:col-span-8 flex flex-col">
+          <motion.div variants={itemVariants} className="lg:col-span-8 flex flex-col gap-6">
+
+            {/* Deterministic Metrics Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Drift Index */}
+              <div className="glass p-6 rounded-3xl border border-white/60 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
+                <Compass className="w-5 h-5 text-forest/50 mb-4" />
+                <span className="text-[10px] font-black text-forest uppercase tracking-[0.2em] mb-1">Dosha Drift</span>
+                <div className="flex items-end gap-2">
+                  <span className="text-3xl font-black text-forest">{isLoaded ? Math.round(vikriti.drift_index) : '--'}%</span>
+                  {isLoaded && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
+                </div>
+              </div>
+
+              {/* Agni Engine */}
+              <div className="glass p-6 rounded-3xl border border-white/60 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
+                <Flame className="w-5 h-5 text-orange-400/70 mb-4" />
+                <span className="text-[10px] font-black text-forest uppercase tracking-[0.2em] mb-1">Agni Status</span>
+                <div className="flex items-end gap-2">
+                  <span className="text-3xl font-black text-orange-600">{isLoaded ? Math.round(state.agni_strength) : '--'}</span>
+                  {isLoaded && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">/ 100</span>}
+                </div>
+              </div>
+
+              {/* Circadian Sync */}
+              <div className="glass p-6 rounded-3xl border border-white/60 shadow-sm flex flex-col items-start hover:shadow-md transition-shadow">
+                <Moon className="w-5 h-5 text-blue-400/70 mb-4" />
+                <span className="text-[10px] font-black text-forest uppercase tracking-[0.2em] mb-1">Circadian Sync</span>
+                <div className="flex items-end gap-2">
+                  <span className="text-3xl font-black text-blue-600">{isLoaded ? Math.round(state.circadian_alignment) : '--'}%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Morning Dialogue Navigation Card */}
             <div className="glass p-8 md:p-14 rounded-[2rem] md:rounded-[3rem] shadow-premium border border-white/60 h-full flex flex-col justify-center items-center text-center relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 

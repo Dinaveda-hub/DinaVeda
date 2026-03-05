@@ -1,0 +1,98 @@
+[
+    {
+        "id": "padabhyanga",
+        "name": "Padabhyanga",
+        "category": "Vata Stabilizer",
+        "module": "Somasleep",
+        "dosha_effect": {
+            "vata": -6,
+            "pitta": -2,
+            "kapha": 0
+        },
+        "agni_effect": 0,
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "instructions": "Massage your feet with warm sesame oil before bed to ground Vata and induce deep sleep.",
+        "contraindications": "Skin infection, fever"
+    },
+    {
+        "id": "ginger_water",
+        "name": "Warm Ginger Water",
+        "category": "Agni Igniter",
+        "module": "Nutriveda",
+        "dosha_effect": {
+            "vata": -2,
+            "pitta": 2,
+            "kapha": -4
+        },
+        "agni_effect": 8,
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "instructions": "Sip hot water with fresh ginger slices 20 minutes before meals to stimulate digestive fire.",
+        "contraindications": "Acid reflux, active ulcers"
+    },
+    {
+        "id": "kapalabhati",
+        "name": "Kapalabhati Pranayama",
+        "category": "Kapha Opener",
+        "module": "Ayufit",
+        "dosha_effect": {
+            "vata": 2,
+            "pitta": 4,
+            "kapha": -8
+        },
+        "agni_effect": 5,
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "instructions": "Perform rapid, forceful exhalations engaging the abdomen to clear morning stagnation.",
+        "contraindications": "High blood pressure, pregnancy"
+    },
+    {
+        "id": "shitali",
+        "name": "Shitali Cooling Breath",
+        "category": "Pitta Pacifier",
+        "module": "Manasayur",
+        "dosha_effect": {
+            "vata": 0,
+            "pitta": -8,
+            "kapha": 2
+        },
+        "agni_effect": -2,
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "instructions": "Inhale through a rolled tongue and exhale through the nose to rapidly cool mental and physical heat.",
+        "contraindications": "Cold weather, congestion"
+    },
+    {
+        "id": "digital_sunset",
+        "name": "Digital Sunset",
+        "category": "Circadian Anchor",
+        "module": "Sattvaliving",
+        "dosha_effect": {
+            "vata": -4,
+            "pitta": -4,
+            "kapha": 0
+        },
+        "agni_effect": 0,
+        "time_of_day": "evening",
+        "duration": "ongoing",
+        "instructions": "Turn off all glowing screens 60 minutes before bed to allow natural melatonin release.",
+        "contraindications": "None"
+    },
+    {
+        "id": "triphala_flush",
+        "name": "Triphala Night Flush",
+        "category": "Ama Cleanser",
+        "module": "Rutuvada",
+        "dosha_effect": {
+            "vata": -2,
+            "pitta": -2,
+            "kapha": -2
+        },
+        "agni_effect": 2,
+        "time_of_day": "night",
+        "duration": "2 minutes",
+        "instructions": "Drink 1/2 tsp of Triphala powder in warm water before sleep to gently cleanse the digestive tract.",
+        "contraindications": "Severe diarrhea, pregnancy"
+    }
+]

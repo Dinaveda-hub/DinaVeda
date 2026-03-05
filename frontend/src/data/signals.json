@@ -1,0 +1,86 @@
+{
+  "poor_sleep": {
+    "effects": {
+      "vata_state": 8,
+      "ojas_score": -10,
+      "circadian_alignment": -8,
+      "sleep_debt": 15,
+      "mental_clarity": -10
+    }
+  },
+  "late_dinner": {
+    "effects": {
+      "kapha_state": 5,
+      "agni_strength": -6,
+      "circadian_alignment": -3,
+      "digestion_comfort": -5
+    }
+  },
+  "bloating": {
+    "effects": {
+      "vata_state": 10,
+      "agni_stability": -5,
+      "digestion_comfort": -15,
+      "ama_risk": 5
+    }
+  },
+  "high_stress": {
+    "effects": {
+      "vata_state": 12,
+      "pitta_state": 8,
+      "stress_load": 20,
+      "mental_clarity": -15,
+      "ojas_score": -5
+    }
+  },
+  "skipped_meal": {
+    "effects": {
+      "vata_state": 8,
+      "agni_strength": -10,
+      "appetite_quality": -5,
+      "ojas_score": -2
+    }
+  },
+  "good_hydration": {
+    "effects": {
+      "pitta_state": -5,
+      "vata_state": -2,
+      "hydration_status": 20,
+      "ama_risk": -3
+    }
+  },
+  "heavy_meal": {
+    "effects": {
+      "kapha_state": 10,
+      "agni_strength": -5,
+      "ama_risk": 8,
+      "digestion_comfort": -10
+    }
+  },
+  "morning_exercise": {
+    "effects": {
+      "kapha_state": -8,
+      "agni_strength": 5,
+      "movement_level": 20,
+      "circadian_alignment": 5,
+      "ojas_score": 2
+    }
+  },
+  "screen_fatigue": {
+    "effects": {
+      "vata_state": 5,
+      "pitta_state": 5,
+      "screen_exposure": 20,
+      "mental_clarity": -8
+    }
+  },
+  "nature_walk": {
+    "effects": {
+      "vata_state": -10,
+      "pitta_state": -5,
+      "stress_load": -15,
+      "movement_level": 10,
+      "ojas_recovery": 5
+    }
+  }
+}
