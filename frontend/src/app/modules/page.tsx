@@ -22,9 +22,13 @@ export default function ModulesPage() {
 
             <div className="max-w-7xl mx-auto relative z-10">
                 <header className="mb-24 flex flex-col items-center text-center">
-                    <div className="w-16 h-1.5 bg-forest mb-8 rounded-full opacity-30" />
-                    <h1 className="text-6xl md:text-9xl font-black text-forest tracking-tighter leading-none">Life Principles</h1>
-                    <p className="text-slate-500 mt-6 font-black uppercase tracking-[0.4em] text-xs md:text-sm">Harmonize the inner mahabhutas</p>
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-1 bg-forest/20 rounded-full" />
+                        <span className="text-xs md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">Genetic Core</span>
+                        <div className="w-12 h-1 bg-forest/20 rounded-full" />
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-6">Life Principles</h1>
+                    <p className="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-[0.3em] max-w-sm">Harmonize the inner mahabhutas</p>
                 </header>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">

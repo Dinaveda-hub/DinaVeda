@@ -260,13 +260,13 @@ export default function AyuOneHub() {
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
 
             {/* Header */}
-            <header className="px-6 pt-12 pb-4 md:px-12 md:pt-16 md:pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
+            <header className="px-6 pt-12 pb-8 md:px-12 md:pt-24 md:pb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
                 <div className="relative">
-                    <div className="flex items-center gap-3 mb-1">
-                        <Sparkles className="w-4 h-4 text-forest animate-pulse" />
-                        <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em] opacity-60">AyuOne Neural Interface</span>
+                    <div className="flex items-center gap-3 mb-4">
+                        <Sparkles className="w-4 h-4 text-forest/40 animate-pulse" />
+                        <span className="text-xs md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
                     </div>
-                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm">
+                    <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm leading-none">
                         {!isPrakritiSet ? "Protocol" : "Dialogue"}
                     </h1>
                 </div>

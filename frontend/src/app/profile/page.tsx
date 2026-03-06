@@ -235,10 +235,10 @@ export default function SettingsPage() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             <div className="max-w-2xl mx-auto relative z-10">
-                <header className="mb-16">
-                    <div className="w-12 h-1 bg-forest mb-6 rounded-full" />
-                    <h1 className="text-5xl font-black text-forest tracking-tighter transition-all hover:tracking-normal cursor-default">Settings</h1>
-                    <p className="text-slate-400 mt-2 font-bold uppercase tracking-[0.2em] text-xs">Customize your Veda experience</p>
+                <header className="mb-20">
+                    <div className="w-12 h-1 bg-forest/20 mb-6 rounded-full" />
+                    <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter transition-all hover:tracking-normal cursor-default leading-none mb-6">Settings</h1>
+                    <p className="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-[0.3em]">Customize your Veda experience</p>
                 </header>
 
                 <div className="space-y-12">
