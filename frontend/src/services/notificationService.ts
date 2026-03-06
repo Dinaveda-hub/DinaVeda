@@ -4,7 +4,7 @@
  * Interface for OneSignal REST API.
  */
 
-const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || "";
+const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env.ONESIGNAL_APP_ID || "";
 
 /**
  * Sends a notification via YOUR Backend API (Vercel).
