@@ -6,179 +6,22 @@ import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles } 
 import { useVedaState } from "@/engine/useVedaState";
 import { StateUpdater } from "@/engine/stateUpdater";
 
+import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
+import prakritiQuizData from "@/data/prakriti_quiz.json";
+
 interface Option {
     label: string;
-    value: { vata: number; pitta: number; kapha: number };
+    signal: string;
+    dosha_effect: { vata: number; pitta: number; kapha: number };
 }
 
 interface Question {
-    id: string;
-    domain: string;
-    text: string;
+    question_id: string;
+    question: string;
     options: Option[];
 }
 
-const quizFlow: Question[] = [
-    // DOMAIN 1 — Constitutional Tendencies
-    {
-        id: "frame",
-        domain: "Constitutional Baseline [Prakriti]",
-        text: "Your natural body frame and build is:",
-        options: [
-            { label: "Light, lean, or thin — I lose weight easily (Vata [Air + Ether])", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Medium build, defined athletic muscles (Pitta [Fire + Water])", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Broader frame, solid, gains weight easily (Kapha [Earth + Water])", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "A mix depending on lifestyle", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    {
-        id: "energy",
-        domain: "Kinetic State [Prana]",
-        text: "Your natural, untamed energy pattern feels like:",
-        options: [
-            { label: "Quick intense bursts, then sudden drops", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Steady, intense, and heavily driven", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Slow to start, but extremely long-lasting", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Highly unpredictable from day to day", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    {
-        id: "skin",
-        domain: "Physical Covering [Twak]",
-        text: "Your skin and temperature tendency:",
-        options: [
-            { label: "Dry or cold-sensitive (Vata [Air + Ether])", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Warm, sensitive, prone to redness (Pitta [Fire + Water])", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Cool, smooth, slightly oily (Kapha [Earth + Water])", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Seasonal changes affect it", value: { vata: 1, pitta: 0, kapha: 1 } },
-        ]
-    },
-    // DOMAIN 2 — Sleep & Circadian
-    {
-        id: "sleep_timing",
-        domain: "Circadian Rhythm [Nidra]",
-        text: "Your optimal sleep pattern is usually:",
-        options: [
-            { label: "Late sleeper, very light and easily disturbed", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Moderate sleep, but disrupted if I am stressed", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Very deep, heavy sleeper, hard to wake up", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Changes completely based on my schedule", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    {
-        id: "skip_sleep",
-        domain: "Circadian Rhythm [Nidra]",
-        text: "If you skip sleep, you feel:",
-        options: [
-            { label: "Anxious and scattered", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Irritable and overheated", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Heavy and dull", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Tired but functional", value: { vata: 0, pitta: 1, kapha: 1 } },
-        ]
-    },
-    {
-        id: "focus_time",
-        domain: "Circadian Rhythm [Nidra]",
-        text: "Your best focus time is:",
-        options: [
-            { label: "Early morning", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Midday", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Late evening", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Varies daily", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    // DOMAIN 3 — Digestion & Agni
-    {
-        id: "hunger_pattern",
-        domain: "Metabolic Fire [Agni]",
-        text: "Your hunger pattern is:",
-        options: [
-            { label: "Irregular — sometimes hungry, sometimes not", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Strong and sharp — I get irritated if I miss meals", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Mild and steady — I can skip meals", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Depends on stress", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    {
-        id: "after_meals",
-        domain: "Metabolic Fire [Agni]",
-        text: "After meals you often feel:",
-        options: [
-            { label: "Bloated or gassy", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Warm or acidic", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Heavy or sleepy", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Fine most of the time", value: { vata: 0, pitta: 0, kapha: 1 } },
-        ]
-    },
-    {
-        id: "food_preference",
-        domain: "Metabolic Fire [Agni]",
-        text: "Your preference for food is:",
-        options: [
-            { label: "Warm, comforting foods", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Cool, fresh foods", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Light, spicy foods", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Mixed cravings", value: { vata: 1, pitta: 0, kapha: 1 } },
-        ]
-    },
-    // DOMAIN 4 — Stress & Seasonal Sensitivity
-    {
-        id: "stress_reaction",
-        domain: "Neural Overload [Manas]",
-        text: "Under stress you become:",
-        options: [
-            { label: "Restless or anxious", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Irritated or controlling", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Withdrawn or unmotivated", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Calm externally but tense internally", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    {
-        id: "seasonal_change",
-        domain: "Seasonal Rhythm [Ritucharya]",
-        text: "Seasonal changes affect you most in:",
-        options: [
-            { label: "Dry or windy seasons", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Hot seasons", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Damp or cold seasons", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Transitional months", value: { vata: 1, pitta: 0, kapha: 1 } },
-        ]
-    },
-    {
-        id: "pace",
-        domain: "Daily Rhythm [Dinacharya]",
-        text: "Your natural pace in life is:",
-        options: [
-            { label: "Fast and multitasking", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Driven and goal-focused", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Slow and steady", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Balanced depending on environment", value: { vata: 1, pitta: 0, kapha: 1 } },
-        ]
-    },
-    // DOMAIN 5 — Mind & Processing
-    {
-        id: "learning",
-        domain: "Mind & Memory [Buddhi & Smriti]",
-        text: "How do you process new information?",
-        options: [
-            { label: "Learn quickly, forget quickly", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Learn systematically, good memory", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Learn slowly, remember forever", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Varies heavily", value: { vata: 1, pitta: 1, kapha: 0 } },
-        ]
-    },
-    {
-        id: "joints",
-        domain: "Structural Body [Dhatu]",
-        text: "Your joints and bones generally feel:",
-        options: [
-            { label: "Prominent, easily pop or crack", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Flexible, loose, well-proportioned", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Heavy, well-lubricated, strong", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "No distinct pattern", value: { vata: 1, pitta: 1, kapha: 1 } },
-        ]
-    },
-];
+const quizFlow = prakritiQuizData as Question[];
 
 export default function AyuOneHub() {
     // Shared State
@@ -231,45 +74,44 @@ export default function AyuOneHub() {
 
     // --- PRAKRITI LOGIC ---
     const calculateResult = (finalScores: { vata: number; pitta: number; kapha: number }) => {
-        const sorted = Object.entries(finalScores).sort((a, b) => b[1] - a[1]);
-        const [primary, primaryScore] = sorted[0];
-        const [secondary, secondaryScore] = sorted[1];
-        const [tertiary, tertiaryScore] = sorted[2];
-
-        let type = "";
-        if (primaryScore >= secondaryScore + 4) {
-            type = primary.charAt(0).toUpperCase() + primary.slice(1);
-        } else if (primaryScore - tertiaryScore <= 3) {
-            type = "Tridoshic";
-        } else {
-            type = `${primary.charAt(0).toUpperCase() + primary.slice(1)}-${secondary.charAt(0).toUpperCase() + secondary.slice(1)}`;
-        }
-
-        const insights = [
-            `Your ${type} nature suggests a natural affinity for ${primary === 'pitta' ? 'high-intensity' : primary === 'vata' ? 'fluid and creative' : 'grounded and steady'} environments.`,
-            `The ${secondaryScore > 10 ? 'strong' : 'present'} ${secondary} influence means you should balance ${secondary === 'pitta' ? 'heat' : secondary === 'vata' ? 'movement' : 'stability'} carefully.`,
-            `Focus on ${primaryScore > 18 ? 'aggressive' : 'gentle'} pacification of ${primary} during its peak times.`
-        ];
+        const engine = new PrakritiEngine();
+        const metrics = engine.calculateConstitution([finalScores]); // passing the aggregate sum as a single object for the engine logic
 
         const finalResult = {
             title: "Core Profile (Prakriti)",
-            type,
-            scores: finalScores,
-            insights,
-            seasonal: `During transitional months, emphasize ${primary === 'vata' ? 'grounding oils' : primary === 'pitta' ? 'cooling herbs' : 'light movement'}.`,
+            type: metrics.constitution_string,
+            prakriti_vata: metrics.prakriti_vata,
+            prakriti_pitta: metrics.prakriti_pitta,
+            prakriti_kapha: metrics.prakriti_kapha,
+            insights: [
+                `Your ${metrics.constitution_string} nature suggests a specific thermodynamic baseline.`,
+                `This biological blueprint is now the permanent anchor for your daily health analysis.`
+            ],
             timestamp: new Date().toISOString()
         };
 
         localStorage.setItem("prakriti_result", JSON.stringify(finalResult));
         setConstitution(finalResult);
+
+        // Core Engine Baseline Update
+        // Day 1 state perfectly equals constitution
+        updateState({
+            ...state,
+            prakriti_vata: metrics.prakriti_vata,
+            prakriti_pitta: metrics.prakriti_pitta,
+            prakriti_kapha: metrics.prakriti_kapha,
+            vata_state: metrics.prakriti_vata,
+            pitta_state: metrics.prakriti_pitta,
+            kapha_state: metrics.prakriti_kapha
+        });
     };
 
     const handleOptionSelect = (option: Option) => {
         setIsTransitioning(true);
         const newScores = {
-            vata: scores.vata + option.value.vata,
-            pitta: scores.pitta + option.value.pitta,
-            kapha: scores.kapha + option.value.kapha
+            vata: scores.vata + option.dosha_effect.vata,
+            pitta: scores.pitta + option.dosha_effect.pitta,
+            kapha: scores.kapha + option.dosha_effect.kapha
         };
         setScores(newScores);
 
@@ -403,10 +245,10 @@ export default function AyuOneHub() {
                                                 <BrainCircuit className="w-6 h-6" />
                                             </div>
                                             <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">
-                                                {quizFlow[currentStep].domain} ({currentStep + 1} of {quizFlow.length})
+                                                Question {currentStep + 1} of {quizFlow.length}
                                             </h4>
                                             <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tighter text-balance">
-                                                {quizFlow[currentStep].text}
+                                                {quizFlow[currentStep].question}
                                             </h2>
                                         </div>
 
@@ -441,12 +283,18 @@ export default function AyuOneHub() {
                                 </div>
 
                                 <div className="grid grid-cols-3 gap-6 py-6 border-y border-forest/5">
-                                    {Object.entries(constitution.scores).map(([dosha, score]: any) => (
-                                        <div key={dosha} className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
-                                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{dosha}</div>
-                                            <div className="text-3xl font-black text-forest">{score}</div>
-                                        </div>
-                                    ))}
+                                    <div className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Vata</div>
+                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
+                                    </div>
+                                    <div className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Pitta</div>
+                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
+                                    </div>
+                                    <div className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kapha</div>
+                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
+                                    </div>
                                 </div>
 
                                 <button onClick={completeOnboarding} className="block w-full text-center py-5 bg-forest text-white rounded-[1.5rem] text-xs font-black uppercase tracking-widest shadow-xl shadow-forest/20 hover:bg-forest/90 active:scale-[0.98] transition-all">

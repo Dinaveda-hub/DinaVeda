@@ -1,0 +1,695 @@
+[
+    {
+        "question_id": "body_frame",
+        "question": "Which body build best describes you since youth?",
+        "options": [
+            {
+                "label": "Thin, difficulty gaining weight",
+                "signal": "thin_frame",
+                "dosha_effect": {
+                    "vata": 3,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Moderate build with good muscle",
+                "signal": "medium_frame",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 3,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Broad frame, gains weight easily",
+                "signal": "broad_frame",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 3
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "weight_pattern",
+        "question": "How does your body weight usually behave?",
+        "options": [
+            {
+                "label": "Loses weight easily",
+                "signal": "weight_loss_easy",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Weight stays moderate",
+                "signal": "weight_stable",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Gains weight easily",
+                "signal": "weight_gain_easy",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "skin_type",
+        "question": "How would you describe your skin?",
+        "options": [
+            {
+                "label": "Dry or rough",
+                "signal": "dry_skin",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Warm or sensitive",
+                "signal": "sensitive_skin",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Smooth or oily",
+                "signal": "oily_skin",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "hair_type",
+        "question": "Which describes your natural hair?",
+        "options": [
+            {
+                "label": "Dry or frizzy",
+                "signal": "dry_hair",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Fine or early greying",
+                "signal": "fine_hair",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Thick and oily",
+                "signal": "thick_hair",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "eyes",
+        "question": "Which describes your eyes?",
+        "options": [
+            {
+                "label": "Small or active eyes",
+                "signal": "small_eyes",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Sharp or penetrating eyes",
+                "signal": "sharp_eyes",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Large calm eyes",
+                "signal": "large_eyes",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "temperature_preference",
+        "question": "Which climate do you tolerate least?",
+        "options": [
+            {
+                "label": "Cold weather",
+                "signal": "cold_intolerance",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Hot weather",
+                "signal": "heat_intolerance",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Damp or humid weather",
+                "signal": "humidity_intolerance",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "appetite_pattern",
+        "question": "Which describes your appetite pattern?",
+        "options": [
+            {
+                "label": "Irregular hunger",
+                "signal": "irregular_appetite",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Strong hunger at regular times",
+                "signal": "strong_appetite",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow appetite",
+                "signal": "slow_appetite",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "digestion",
+        "question": "How is your digestion typically?",
+        "options": [
+            {
+                "label": "Variable digestion",
+                "signal": "variable_digestion",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Strong digestion",
+                "signal": "strong_digestion",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow digestion",
+                "signal": "slow_digestion",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "sleep_pattern",
+        "question": "How do you usually sleep?",
+        "options": [
+            {
+                "label": "Light sleeper",
+                "signal": "light_sleep",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Moderate sleep",
+                "signal": "moderate_sleep",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Deep long sleep",
+                "signal": "deep_sleep",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "energy_pattern",
+        "question": "Which describes your daily energy?",
+        "options": [
+            {
+                "label": "Variable energy",
+                "signal": "variable_energy",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Intense and focused energy",
+                "signal": "intense_energy",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Steady endurance",
+                "signal": "steady_energy",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "speech_pattern",
+        "question": "How do you usually speak?",
+        "options": [
+            {
+                "label": "Fast speech",
+                "signal": "fast_speech",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Clear and sharp speech",
+                "signal": "sharp_speech",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow calm speech",
+                "signal": "slow_speech",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "memory_pattern",
+        "question": "Which describes your memory?",
+        "options": [
+            {
+                "label": "Quick learning but forget easily",
+                "signal": "quick_memory",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Sharp and analytical memory",
+                "signal": "analytical_memory",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow but long-lasting memory",
+                "signal": "stable_memory",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "decision_style",
+        "question": "How do you usually make decisions?",
+        "options": [
+            {
+                "label": "Quick but changeable",
+                "signal": "quick_decisions",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Confident and decisive",
+                "signal": "decisive",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow and careful",
+                "signal": "careful",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "stress_response",
+        "question": "How do you react to stress?",
+        "options": [
+            {
+                "label": "Anxiety or worry",
+                "signal": "anxiety_response",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Irritation or anger",
+                "signal": "anger_response",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Withdrawal or calmness",
+                "signal": "withdraw_response",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "movement_style",
+        "question": "How is your body movement?",
+        "options": [
+            {
+                "label": "Quick and restless",
+                "signal": "quick_movement",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Purposeful and direct",
+                "signal": "direct_movement",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow and steady",
+                "signal": "steady_movement",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "talking_style",
+        "question": "Which communication style fits you best?",
+        "options": [
+            {
+                "label": "Talkative and expressive",
+                "signal": "talkative",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Persuasive and assertive",
+                "signal": "assertive",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Calm and measured",
+                "signal": "calm_speech",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "learning_style",
+        "question": "How do you learn best?",
+        "options": [
+            {
+                "label": "Quickly but inconsistently",
+                "signal": "quick_learning",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Focused and analytical",
+                "signal": "analytical_learning",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow but thorough",
+                "signal": "slow_learning",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "social_behavior",
+        "question": "How would you describe your social nature?",
+        "options": [
+            {
+                "label": "Active and enthusiastic",
+                "signal": "active_social",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Leadership oriented",
+                "signal": "leader_social",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Calm and supportive",
+                "signal": "supportive_social",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "reaction_speed",
+        "question": "How quickly do you react to situations?",
+        "options": [
+            {
+                "label": "Very fast",
+                "signal": "fast_reaction",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Moderate",
+                "signal": "moderate_reaction",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Slow and steady",
+                "signal": "slow_reaction",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "daily_rhythm",
+        "question": "Which pattern best describes your natural rhythm?",
+        "options": [
+            {
+                "label": "Irregular routines",
+                "signal": "irregular_routine",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Structured routines",
+                "signal": "structured_routine",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Stable routines",
+                "signal": "stable_routine",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    },
+    {
+        "question_id": "emotional_tendency",
+        "question": "Which emotional tendency fits you best?",
+        "options": [
+            {
+                "label": "Excitable or anxious",
+                "signal": "excitable",
+                "dosha_effect": {
+                    "vata": 2,
+                    "pitta": 0,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Intense or passionate",
+                "signal": "passionate",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 2,
+                    "kapha": 0
+                }
+            },
+            {
+                "label": "Calm or patient",
+                "signal": "calm",
+                "dosha_effect": {
+                    "vata": 0,
+                    "pitta": 0,
+                    "kapha": 2
+                }
+            }
+        ]
+    }
+]
