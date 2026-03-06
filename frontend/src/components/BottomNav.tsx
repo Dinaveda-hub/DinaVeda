@@ -27,7 +27,7 @@ export default function BottomNav() {
                         <Link
                             key={item.name}
                             href={item.href}
-                            className={`flex items-center justify-center rounded-full p-4 transition-all duration-500 relative group ${isActive ? "bg-forest shadow-2xl shadow-forest/40 grow mx-1" : "hover:bg-forest/5 flex-1"
+                            className={`flex items-center justify-center rounded-full p-4 transition-all duration-500 relative group ${isActive ? "bg-forest/80 shadow-2xl shadow-forest/40 grow mx-1" : "hover:bg-forest/5 flex-1"
                                 }`}
                         >
                             <div className="flex items-center gap-2">
@@ -36,7 +36,7 @@ export default function BottomNav() {
                                     <motion.span
                                         initial={{ opacity: 0, width: 0 }}
                                         animate={{ opacity: 1, width: "auto" }}
-                                        className="text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap overflow-hidden pr-1"
+                                        className="text-sm font-black text-white uppercase tracking-widest whitespace-nowrap overflow-hidden pr-2"
                                     >
                                         {item.name}
                                     </motion.span>

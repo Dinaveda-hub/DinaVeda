@@ -60,12 +60,12 @@ export default function PrakritiPage() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/20 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             {/* Header */}
-            <header className="p-8 md:px-14 md:pt-20 pb-10">
-                <div className="flex items-center gap-3 mb-4">
-                    <ShieldCheck className="w-5 h-5 text-forest" />
-                    <span className="text-[10px] md:text-xs font-black text-forest uppercase tracking-[0.3em]">Biological Blueprint</span>
+            <header className="p-8 md:px-14 md:pt-24 pb-12">
+                <div className="flex items-center gap-4 mb-5">
+                    <ShieldCheck className="w-6 h-6 text-forest" />
+                    <span className="text-xs md:text-sm font-black text-forest uppercase tracking-[0.4em]">Genetic Intelligence</span>
                 </div>
-                <h1 className="text-6xl md:text-8xl font-black text-forest tracking-tighter drop-shadow-sm">Prakriti Core</h1>
+                <h1 className="text-6xl md:text-9xl font-black text-forest tracking-tighter leading-none">Prakriti Core</h1>
             </header>
 
             <main className="px-6 md:px-14 flex flex-col gap-10 max-w-6xl w-full mx-auto justify-center">
@@ -74,23 +74,23 @@ export default function PrakritiPage() {
                     {/* Prakriti (Constitution) */}
                     <section className="glass p-10 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-forest/20 transition-colors">
                         <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-8 flex items-center gap-3">
-                            <Target className="w-4 h-4 text-forest/50" /> Innate Constitution (Prakriti)
+                        <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-10 flex items-center gap-4">
+                            <Target className="w-5 h-5 text-forest/40" /> Biological Anchor
                         </h2>
 
                         {prakriti ? (
                             <>
-                                <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter mb-4">{prakriti.type}</h3>
-                                <p className="text-base font-bold text-slate-700 max-w-sm leading-relaxed text-balance mb-10">
-                                    This is your permanent biological baseline, determined at conception. It represents your optimal state of balance.
+                                <h3 className="text-5xl md:text-7xl font-black text-forest tracking-tighter mb-6">{prakriti.type}</h3>
+                                <p className="text-lg font-bold text-slate-700 max-w-md leading-relaxed mb-12">
+                                    Your primal constitution is the permanent physiological frame determined at conception. It represents your absolute state of balance.
                                 </p>
 
-                                <div className="space-y-6">
+                                <div className="space-y-8">
                                     {getPrakritiBars()?.map((bar) => (
                                         <div key={bar.id}>
-                                            <div className="flex justify-between text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
-                                                <span>{bar.id}</span>
-                                                <span>{bar.value}</span>
+                                            <div className="flex justify-between text-xs font-black uppercase tracking-widest text-slate-500 mb-3">
+                                                <span>{bar.id} Essence</span>
+                                                <span className="text-forest">{bar.value}</span>
                                             </div>
                                             <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
                                                 <motion.div
@@ -117,31 +117,31 @@ export default function PrakritiPage() {
                     {/* Vikriti (Current Imbalance) */}
                     <section className="glass p-10 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-orange-500/20 transition-colors">
                         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-8 flex items-center gap-3">
-                            <Compass className="w-4 h-4 text-orange-400" /> Current State (Vikriti)
+                        <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-10 flex items-center gap-4">
+                            <Compass className="w-5 h-5 text-orange-400/60" /> Dynamic Recalibration
                         </h2>
 
                         {vikriti && isLoaded ? (
                             <>
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className={`w-12 h-12 rounded-[1.2rem] flex items-center justify-center ${getDoshaColorClass(vikriti.dominant_dosha)}`}>
+                                <div className="flex items-center gap-6 mb-8">
+                                    <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center ${getDoshaColorClass(vikriti.dominant_dosha)}`}>
                                         {getDoshaIcon(vikriti.dominant_dosha)}
                                     </div>
                                     <div>
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Dominant Force</span>
-                                        <h3 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">{vikriti.dominant_dosha} ↑</h3>
+                                        <span className="text-xs font-black uppercase tracking-widest text-slate-500 block mb-1.5">Dominant Flux</span>
+                                        <h3 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter">{vikriti.dominant_dosha}</h3>
                                     </div>
                                 </div>
-                                <p className="text-base font-bold text-slate-700 max-w-sm leading-relaxed text-balance mb-10">
-                                    This represents your day-to-day fluctuations based on lifestyle, diet, and environment. We aim to move this back toward your Prakriti.
+                                <p className="text-lg font-bold text-slate-700 max-w-md leading-relaxed mb-12">
+                                    Vikriti tracks your daily biological fluctuations. It reveals where the environment or lifestyle is pulling you away from center.
                                 </p>
 
-                                <div className="space-y-6">
+                                <div className="space-y-8">
                                     {getVikritiBars()?.map((bar) => (
                                         <div key={bar.id}>
-                                            <div className="flex justify-between text-xs font-black uppercase tracking-widest text-slate-400 mb-2">
-                                                <span>{bar.id} Flux</span>
-                                                <span className={bar.id === vikriti.dominant_dosha ? 'text-orange-500' : ''}>{Math.round(bar.value)}</span>
+                                            <div className="flex justify-between text-xs font-black uppercase tracking-widest text-slate-500 mb-3">
+                                                <span>{bar.id} Activity</span>
+                                                <span className={bar.id === vikriti.dominant_dosha ? 'text-orange-600 font-extrabold' : 'text-slate-900'}>{Math.round(bar.value)}</span>
                                             </div>
                                             <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden relative">
                                                 <motion.div

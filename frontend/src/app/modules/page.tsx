@@ -21,10 +21,10 @@ export default function ModulesPage() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-fire/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             <div className="max-w-7xl mx-auto relative z-10">
-                <header className="mb-20 flex flex-col items-center text-center">
-                    <div className="w-12 h-1 bg-forest mb-6 rounded-full opacity-20" />
-                    <h1 className="text-6xl font-black text-forest tracking-tighter">Life Principles</h1>
-                    <p className="text-slate-400 mt-4 font-bold uppercase tracking-[0.3em] text-[10px]">Harmonize with the Panchamahabhutas</p>
+                <header className="mb-24 flex flex-col items-center text-center">
+                    <div className="w-16 h-1.5 bg-forest mb-8 rounded-full opacity-30" />
+                    <h1 className="text-6xl md:text-9xl font-black text-forest tracking-tighter leading-none">Life Principles</h1>
+                    <p className="text-slate-500 mt-6 font-black uppercase tracking-[0.4em] text-xs md:text-sm">Harmonize the inner mahabhutas</p>
                 </header>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
@@ -36,19 +36,19 @@ export default function ModulesPage() {
                         >
                             <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${mod.color} bg-opacity-10`} />
 
-                            <div className="relative z-10 mb-4 flex flex-col items-center">
-                                <span className="text-[7px] md:text-[8px] font-black text-slate-300 uppercase tracking-[0.3em] mb-4 block group-hover:text-forest/40 transition-colors">{mod.element}</span>
-                                <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] ${mod.color} flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-white/40`}>
-                                    <mod.icon className={`w-8 h-8 md:w-10 md:h-10 ${mod.text}`} />
+                            <div className="relative z-10 mb-6 flex flex-col items-center">
+                                <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-6 block group-hover:text-forest transition-colors">{mod.element}</span>
+                                <div className={`w-20 h-20 md:w-24 md:h-24 rounded-[1.8rem] md:rounded-[2.2rem] ${mod.color} flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 shadow-premium border border-white/60`}>
+                                    <mod.icon className={`w-10 h-10 md:w-12 md:h-12 ${mod.text} opacity-90`} />
                                 </div>
                             </div>
 
-                            <h3 className="font-black text-forest text-xl md:text-2xl tracking-tighter relative z-10 leading-none">{mod.title}</h3>
-                            <p className="text-[11px] text-slate-500 font-bold mt-4 tracking-tight relative z-10 max-w-[160px] leading-relaxed italic">{mod.subtitle}</p>
+                            <h3 className="font-black text-forest text-2xl md:text-4xl tracking-tighter relative z-10 leading-none">{mod.title}</h3>
+                            <p className="text-xs md:text-sm text-slate-600 font-bold mt-5 tracking-tight relative z-10 max-w-[200px] leading-relaxed italic">{mod.subtitle}</p>
 
-                            <div className="mt-10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 relative z-10">
-                                <span className="text-[10px] font-black text-forest uppercase tracking-widest">Enter Sanctum</span>
-                                <Leaf className="w-3 h-3 text-forest animate-pulse" />
+                            <div className="mt-12 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 relative z-10">
+                                <span className="text-xs font-black text-forest uppercase tracking-widest">Enter Sanctum</span>
+                                <Leaf className="w-4 h-4 text-forest animate-pulse" />
                             </div>
                         </Link>
                     ))}

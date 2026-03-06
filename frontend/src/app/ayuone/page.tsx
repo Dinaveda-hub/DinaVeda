@@ -242,14 +242,14 @@ export default function AyuOneHub() {
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
 
             {/* Header */}
-            <header className="px-6 py-6 md:px-10 md:pt-16 md:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-2 z-20 shrink-0">
+            <header className="px-6 py-6 md:px-12 md:pt-20 md:pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
                 <div className="relative">
-                    <div className="flex items-center gap-2 mb-1.5">
-                        <Sparkles className="w-4 h-4 text-forest animate-pulse" />
-                        <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em]">Neural Interface</span>
+                    <div className="flex items-center gap-3 mb-2">
+                        <Sparkles className="w-5 h-5 text-forest animate-pulse" />
+                        <span className="text-xs font-black text-forest uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
                     </div>
-                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm">
-                        {!isPrakritiSet ? "Constitution" : "AyuOne"}
+                    <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter drop-shadow-sm">
+                        {!isPrakritiSet ? "Protocol" : "Dialogue"}
                     </h1>
                 </div>
             </header>
@@ -412,27 +412,27 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Action Chips */}
-                                <div className="p-4 md:p-6 border-b border-forest/5 bg-white/20 flex gap-2 md:gap-4 overflow-x-auto custom-scrollbar items-center shrink-0">
+                                <div className="p-5 md:p-8 border-b border-forest/5 bg-white/20 flex gap-3 md:gap-4 overflow-x-auto custom-scrollbar items-center shrink-0">
                                     <button
                                         onClick={() => setActiveCheckinType("morning")}
-                                        className="flex items-center gap-2.5 bg-forest text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-emerald-800 border border-forest/20 shadow-xl shadow-forest/10 whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-3 bg-forest text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-emerald-900 border border-forest/20 shadow-xl shadow-forest/20 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <CloudSun className="w-4 h-4 text-amber-300" />
-                                        Morning
+                                        <CloudSun className="w-5 h-5 text-amber-300" />
+                                        Morning Ritual
                                     </button>
                                     <button
                                         onClick={() => setActiveCheckinType("evening")}
-                                        className="flex items-center gap-2.5 bg-indigo-600 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-indigo-700 border border-indigo-200 shadow-xl shadow-indigo-10/10 whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-3 bg-indigo-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-indigo-900 border border-indigo-200 shadow-xl shadow-indigo-10/20 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <Zap className="w-4 h-4 text-amber-300" />
-                                        Evening
+                                        <Zap className="w-5 h-5 text-amber-300" />
+                                        Evening Wind
                                     </button>
                                     <button
                                         onClick={() => setShowDetailedLog(true)}
-                                        className="flex items-center gap-2.5 bg-slate-900 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-slate-950 border border-slate-800 shadow-xl whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-3 bg-slate-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-black border border-slate-700 shadow-xl whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <BrainCircuit className="w-4 h-4 text-emerald-400" />
-                                        Audit
+                                        <BrainCircuit className="w-5 h-5 text-emerald-400" />
+                                        Deep Audit
                                     </button>
                                 </div>
 
@@ -484,9 +484,9 @@ export default function AyuOneHub() {
                                                         <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
                                                     </div>
                                                 )}
-                                                <div className={`max-w-[88%] md:max-w-[75%] p-4 md:p-5 text-sm md:text-base font-bold leading-relaxed shadow-sm border transition-all ${msg.role === "user"
-                                                    ? "bg-forest/10 text-forest rounded-[1.25rem] rounded-tr-sm border-forest/20"
-                                                    : "bg-white text-slate-800 rounded-[1.25rem] border-slate-200 rounded-tl-sm shadow-md"
+                                                <div className={`max-w-[90%] md:max-w-[80%] p-5 md:p-6 text-sm md:text-lg font-bold leading-relaxed shadow-sm border transition-all ${msg.role === "user"
+                                                    ? "bg-forest/10 text-forest rounded-[1.5rem] rounded-tr-sm border-forest/30"
+                                                    : "bg-white text-slate-900 rounded-[1.5rem] border-slate-300 rounded-tl-sm shadow-md"
                                                     }`}>
                                                     {msg.text}
                                                 </div>
