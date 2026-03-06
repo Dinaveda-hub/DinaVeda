@@ -8,15 +8,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import GoalSelector from "@/components/GoalSelector";
-import { useSubscription } from "@/hooks/useSubscription";
-import UpgradeModal from "@/components/billing/UpgradeModal";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 
 
 export default function SettingsPage() {
     const [activeModal, setActiveModal] = useState<{ title: string, content: any } | null>(null);
     const [userName, setUserName] = useState<string>("Seeker");
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
     const [notifications, setNotifications] = useState({
         pulseAudits: true,
         circadianReminders: false,
@@ -24,7 +21,6 @@ export default function SettingsPage() {
     });
 
     const router = useRouter();
-    const { isPremium, userId, getSmartTrigger } = useSubscription();
     const { state } = usePhysiologyState();
 
     useEffect(() => {
@@ -109,21 +105,6 @@ export default function SettingsPage() {
                             </div>
                         )
                     })
-                },
-                {
-                    name: "Subscription Tier",
-                    icon: Heart,
-                    detail: isPremium ? "Adept (Premium)" : "Seeker (Free)",
-                    action: () => {
-                        if (!isPremium) {
-                            setIsUpgradeModalOpen(true);
-                        } else {
-                            setActiveModal({
-                                title: "Subscription",
-                                content: <p className="text-sm font-bold text-slate-600">You are an Adept. Your premium neural access is active.</p>
-                            });
-                        }
-                    }
                 }
             ]
         },
@@ -324,14 +305,7 @@ export default function SettingsPage() {
                 )}
             </AnimatePresence>
 
-            {userId && (
-                <UpgradeModal
-                    isOpen={isUpgradeModalOpen}
-                    onClose={() => setIsUpgradeModalOpen(false)}
-                    userId={userId}
-                    contextualMessage={getSmartTrigger(state)}
-                />
-            )}
+            {/* Premium Gating Logic Removed */}
         </div>
     );
 }

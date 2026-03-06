@@ -11,9 +11,7 @@ import { motion } from "framer-motion";
 import { createBrowserClient } from "@supabase/ssr";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
-import { selectProtocols, filterProtocols } from "@/engine/protocolSelectionEngine";
-import { compileDailyProtocols } from "@/engine/protocolCompiler";
-import { generateModuleRoutine, ModuleSlug, PersonalizationResult } from "@/ai/modulePersonalizationEngine";
+import { selectProtocols } from "@/engine/protocolSelectionEngine";
 
 // Domain Module Pages
 import NutrivedaPage from "@/modules/nutriveda/NutrivedaPage";
@@ -162,14 +160,6 @@ function RoutineText({ content }: { content: string }) {
 
 export default function ModuleDetail({ params }: { params: any }) {
     const [slug, setSlug] = useState<string>("");
-    const [aiRoutine, setAiRoutine] = useState<PersonalizationResult | null>(null);
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [aiError, setAiError] = useState<string | null>(null);
-    const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
-
-    // Premium state — read from Supabase session + profiles table
-    const [isPremium, setIsPremium] = useState(false);
-    const [premiumChecked, setPremiumChecked] = useState(false);
 
     // Engine State
     const { state, isLoaded } = usePhysiologyState();
@@ -181,51 +171,6 @@ export default function ModuleDetail({ params }: { params: any }) {
         });
     }, [params]);
 
-    // ── Supabase premium check ───────────────────────────
-    useEffect(() => {
-        async function checkPremium() {
-            try {
-                const supabase = createBrowserClient(
-                    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-                    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-                );
-                const { data: { session } } = await supabase.auth.getSession();
-                if (!session) {
-                    setPremiumChecked(true);
-                    return;
-                }
-                const { data: profile } = await supabase
-                    .from('profiles')
-                    .select('is_premium')
-                    .eq('id', session.user.id)
-                    .single();
-                setIsPremium(profile?.is_premium === true);
-            } catch {
-                // Silently fall back to free tier if profile check fails
-            } finally {
-                setPremiumChecked(true);
-            }
-        }
-        checkPremium();
-
-        const savedGoal = localStorage.getItem("veda_health_goal");
-        if (savedGoal) setHealthGoal(savedGoal);
-    }, []);
-
-    // ── Auto-generate routine when module is opened (premium only) ──
-    useEffect(() => {
-        if (!slug || !isLoaded || !premiumChecked) return;
-        if (!isPremium) return;
-        if (aiRoutine || isGenerating) return;
-
-        // Only generate for AI-supported modules
-        const AI_MODULES: string[] = ['nutriveda', 'ayufit', 'manasayur', 'somasleep', 'sattvaliving'];
-        if (!AI_MODULES.includes(slug)) return;
-
-        triggerGeneration();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [slug, isLoaded, isPremium, premiumChecked]);
-
     if (!slug || !isLoaded) return null;
 
     const mod = moduleData[slug] || moduleData.dinaveda;
@@ -234,51 +179,8 @@ export default function ModuleDetail({ params }: { params: any }) {
     // ── Deterministic engine computes recommendations ────
     const vikriti = computeVikriti(state);
     const moduleRecs = selectProtocols(state).filter(p => p.module.toLowerCase() === (slug as string).toLowerCase());
-    const compiledPlan = compileDailyProtocols(moduleRecs);
-    const allCompiled = [...compiledPlan.morning, ...compiledPlan.midday, ...compiledPlan.evening];
 
-    const displayRecs = moduleRecs.length > 0 ? moduleRecs : [
-        {
-            name: "Maintain Baseline",
-            instructions: "Your current signals for this domain are balanced. Continue your existing routine. No acute interventions required.",
-            time_of_day: "daily",
-            duration: "ongoing",
-            category: "baseline",
-            module: mod.title,
-            variables: {},
-            contraindications: "None"
-        }
-    ];
-
-    // ── AI generation handler ────────────────────────────
-    async function triggerGeneration() {
-        if (!isPremium) return;
-        setIsGenerating(true);
-        setAiError(null);
-        try {
-            const result = await generateModuleRoutine(slug as ModuleSlug, {
-                state,
-                selectedProtocols: moduleRecs.map(p => p.name),
-                healthGoal,
-                isPremium,
-            });
-            setAiRoutine(result);
-        } catch {
-            setAiError('Could not generate personalized routine. Please try again.');
-        } finally {
-            setIsGenerating(false);
-        }
-    }
-
-    const getDoshaIcon = (dosha: string) => {
-        if (dosha === "Vata") return <Wind className="w-5 h-5 text-blue-400" />;
-        if (dosha === "Pitta") return <Flame className="w-5 h-5 text-orange-500" />;
-        return <Leaf className="w-5 h-5 text-green-600" />;
-    };
-
-    const AI_MODULES = ['nutriveda', 'ayufit', 'manasayur', 'somasleep', 'sattvaliving'];
-    const moduleSupportsAI = AI_MODULES.includes(slug);
-
+    // ── Placeholder for domain-specific views ───────────
     return (
         <div className="bg-[#F8FAF9] min-h-screen font-sans pb-40 relative overflow-x-hidden">
             {/* Ambient background glows */}
@@ -306,31 +208,26 @@ export default function ModuleDetail({ params }: { params: any }) {
                 {slug === 'nutriveda' && (
                     <NutrivedaPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'ayufit' && (
                     <AyufitPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'manasayur' && (
                     <ManasayurPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'somasleep' && (
                     <SomasleepPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'sattvaliving' && (
                     <SattvalivingPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine}
                     />
                 )}
 

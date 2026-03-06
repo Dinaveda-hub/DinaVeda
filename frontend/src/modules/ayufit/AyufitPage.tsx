@@ -1,22 +1,14 @@
-"use client";
-import React, { useState } from 'react';
+import React from 'react';
 import { Zap, Activity, BrainCircuit, Clock, CheckCircle2, Sparkles, Lock } from 'lucide-react';
-import { useSubscription } from "@/hooks/useSubscription";
-import UpgradeModal from "@/components/billing/UpgradeModal";
 import { motion } from 'framer-motion';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
-import { PersonalizationResult } from '@/ai/modulePersonalizationEngine';
 import { getMovementInsight } from './movementLogic';
 
 interface AyufitPageProps {
     state: VedaState;
     vikriti: any;
     protocols: Protocol[];
-    aiRoutine: PersonalizationResult | null;
-    // isPremium: boolean; // Removed, now from hook
-    // isGenerating: boolean; // Removed
-    // onGenerate: () => void; // Removed
 }
 
 const humanizeSlug = (slug: string) => {
@@ -30,10 +22,7 @@ export default function AyufitPage({
     state,
     vikriti,
     protocols,
-    aiRoutine,
 }: AyufitPageProps) {
-    const { isPremium, userId, getSmartTrigger } = useSubscription();
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
     const movementInsight = getMovementInsight(state);
 
     return (
@@ -99,56 +88,6 @@ export default function AyufitPage({
                     ))}
                 </div>
             </section>
-
-            {/* Premium AI Yoga Section */}
-            <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-amber-50 flex items-center justify-center text-amber-500">
-                            <Sparkles className="w-6 h-6" />
-                        </div>
-                        <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">AI Yoga Pulse</h2>
-                    </div>
-                    {!isPremium && (
-                        <span className="bg-gold/10 text-gold-dark text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest flex items-center gap-1">
-                            <Lock className="w-3 h-3" /> Premium
-                        </span>
-                    )}
-                </div>
-
-                {isPremium ? (
-                    <div className="bg-white/70 rounded-[2rem] p-8 border border-slate-100 text-sm leading-relaxed whitespace-pre-wrap font-medium text-slate-700">
-                        {aiRoutine ? aiRoutine.content : "Calculating your personalized yoga routine..."}
-                    </div>
-                ) : (
-                    <div className="bg-emerald-50/50 rounded-[2.5rem] p-10 border border-emerald-100/50 text-center flex flex-col items-center gap-6">
-                        <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-100">
-                            <Activity className="w-8 h-8" />
-                        </div>
-                        <div className="max-w-xs">
-                            <h3 className="text-xl font-black text-slate-800 tracking-tight mb-2">Unlock AI Routine</h3>
-                            <p className="text-xs font-bold text-slate-500 leading-relaxed">
-                                Get dynamic yoga and movement protocols that adapt to your Vata/Kapha state and daily energy levels.
-                            </p>
-                        </div>
-                        <button
-                            onClick={() => setIsUpgradeModalOpen(true)}
-                            className="bg-forest text-white px-10 py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-105 active:scale-95 transition-all"
-                        >
-                            Unlock Physical Pulse
-                        </button>
-                    </div>
-                )}
-            </section>
-
-            {userId && (
-                <UpgradeModal
-                    isOpen={isUpgradeModalOpen}
-                    onClose={() => setIsUpgradeModalOpen(false)}
-                    userId={userId}
-                    contextualMessage={getSmartTrigger(state)}
-                />
-            )}
         </div>
     );
 }

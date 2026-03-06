@@ -1,22 +1,14 @@
-"use client";
-import React, { useState } from 'react';
-import { Utensils, Flame, BrainCircuit, Activity, Clock, CheckCircle2, Zap, ShoppingBasket, TrendingUp, Sparkles, Lock } from 'lucide-react';
-import { useSubscription } from "@/hooks/useSubscription";
-import UpgradeModal from "@/components/billing/UpgradeModal";
+import React from 'react';
+import { Utensils, Flame, BrainCircuit, Activity, Clock, CheckCircle2, Zap, ShoppingBasket, TrendingUp, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
-import { PersonalizationResult } from '@/ai/modulePersonalizationEngine';
 import { getAgniInsight } from './dietLogic';
 
 interface NutrivedaPageProps {
     state: VedaState;
     vikriti: any;
     protocols: Protocol[];
-    aiRoutine: PersonalizationResult | null;
-    // isPremium: boolean; // Removed, now from hook
-    // isGenerating: boolean; // Removed, now handled internally or by AI section
-    // onGenerate: () => void; // Removed, now handled internally or by AI section
 }
 
 const humanizeSlug = (slug: string) => {
@@ -30,14 +22,9 @@ export default function NutrivedaPage({
     state,
     vikriti,
     protocols,
-    aiRoutine,
 }: NutrivedaPageProps) {
-    const { isPremium, userId, getSmartTrigger } = useSubscription();
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
-
     // Agni Metrics
     const agniStrength = state.agni_strength || 50;
-
     const agniInsight = getAgniInsight(state);
 
     return (
@@ -110,77 +97,6 @@ export default function NutrivedaPage({
                     ))}
                 </div>
             </section>
-
-            {/* Premium AI Insights Section */}
-            <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-forest/10 rounded-xl text-forest">
-                            <Sparkles className="w-5 h-5" />
-                        </div>
-                        <h3 className="text-xl font-black text-forest tracking-tight">AI Personalized Diet</h3>
-                    </div>
-                    {!isPremium && (
-                        <span className="bg-gold/10 text-gold-dark text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest flex items-center gap-1">
-                            <Lock className="w-3 h-3" /> Premium
-                        </span>
-                    )}
-                </div>
-
-                {isPremium ? (
-                    <div className="glass p-8 rounded-[2rem] border-white/40 shadow-premium">
-                        <p className="text-slate-600 font-medium leading-relaxed mb-6">
-                            Based on your current Agni strength ({agniStrength}%) and {state.rutu_season} seasonal multipliers,
-                            your personalized diet should focus on warm, light, and easily digestible foods.
-                        </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="bg-white/50 p-4 rounded-2xl border border-white/50">
-                                <h4 className="text-xs font-black text-forest uppercase tracking-widest mb-2">Recommended Meals</h4>
-                                <ul className="text-sm font-bold text-slate-600 space-y-1">
-                                    <li>• Moong Dal Kitchari</li>
-                                    <li>• Steamed seasonal greens</li>
-                                    <li>• Ginger infusion to stoke Agni</li>
-                                </ul>
-                            </div>
-                            <div className="bg-white/50 p-4 rounded-2xl border border-white/50">
-                                <h4 className="text-xs font-black text-amber-600 uppercase tracking-widest mb-2">Avoid Today</h4>
-                                <ul className="text-sm font-bold text-slate-600 space-y-1">
-                                    <li>• Cold beverages</li>
-                                    <li>• Heavy dairy products</li>
-                                    <li>• Raw salads in the evening</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="bg-forest/5 rounded-[2.5rem] p-10 border border-forest/10 text-center flex flex-col items-center gap-6">
-                        <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center text-forest shadow-sm border border-forest/10">
-                            <Sparkles className="w-8 h-8" />
-                        </div>
-                        <div className="max-w-xs">
-                            <h3 className="text-xl font-black text-slate-800 tracking-tight mb-2">Personalize Your Fuel</h3>
-                            <p className="text-xs font-bold text-slate-500 leading-relaxed">
-                                Unlock AI-driven meal planning that adapts to your digestive fire (Agni) and daily physiological shifts.
-                            </p>
-                        </div>
-                        <button
-                            onClick={() => setIsUpgradeModalOpen(true)}
-                            className="bg-forest text-white px-10 py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-105 active:scale-95 transition-all"
-                        >
-                            Unlock Metabolic Intelligence
-                        </button>
-                    </div>
-                )}
-            </section>
-
-            {userId && (
-                <UpgradeModal
-                    isOpen={isUpgradeModalOpen}
-                    onClose={() => setIsUpgradeModalOpen(false)}
-                    userId={userId}
-                    contextualMessage={getSmartTrigger(state)}
-                />
-            )}
         </div>
     );
 }

@@ -155,21 +155,9 @@ def get_protocols(payload: PhysiologyRequest):
 @app.post("/personalize")
 async def personalize_module(payload: PersonalizeRequest):
     """
-    Premium AI Personalization — Orchestrated by SupervisorAgent.
-
-    1. Premium check (server-side gate).
-    2. Route to correct module agent.
-    3. Return human-readable coaching routine.
-
-    AI is called EXACTLY ONCE per request.
+    AI Personalization — Orchestrated by SupervisorAgent.
+    Now available to all users.
     """
-    # 1. Premium gate
-    if not payload.is_premium:
-        raise HTTPException(
-            status_code=403,
-            detail="Premium subscription required for AI personalization."
-        )
-
     # 2. Dispatch to supervisor
     try:
         content = await supervisor.dispatch(

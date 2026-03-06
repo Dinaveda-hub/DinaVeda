@@ -4,8 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles, Lock } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import { useSubscription } from "@/hooks/useSubscription";
-import UpgradeModal from "@/components/billing/UpgradeModal";
 import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
 import { createBrowserClient } from "@supabase/ssr";
 import { registerUserWithOneSignal } from "@/services/notificationService";
@@ -68,24 +66,6 @@ export default function AyuOneHub() {
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
 
     const { state, updateState } = usePhysiologyState();
-    const { isPremium, userId, getSmartTrigger } = useSubscription();
-
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
-    const [messageCount, setMessageCount] = useState(0);
-
-    useEffect(() => {
-        const count = parseInt(localStorage.getItem("ayuone_chat_count") || "0");
-        const lastChatDate = localStorage.getItem("ayuone_last_chat_date");
-        const today = new Date().toDateString();
-
-        if (lastChatDate === today) {
-            setMessageCount(count);
-        } else {
-            localStorage.setItem("ayuone_last_chat_date", today);
-            localStorage.setItem("ayuone_chat_count", "0");
-            setMessageCount(0);
-        }
-    }, []);
 
     useEffect(() => {
         setMounted(true);
@@ -128,7 +108,7 @@ export default function AyuOneHub() {
     // --- PRAKRITI LOGIC ---
     const calculateResult = (finalScores: { vata: number; pitta: number; kapha: number }) => {
         const engine = new PrakritiEngine();
-        const metrics = engine.calculateConstitution([finalScores]); // passing the aggregate sum as a single object for the engine logic
+        const metrics = engine.calculateConstitution([finalScores]);
 
         const finalResult = {
             title: "Core Profile (Prakriti)",
@@ -146,8 +126,6 @@ export default function AyuOneHub() {
         localStorage.setItem("prakriti_result", JSON.stringify(finalResult));
         setConstitution(finalResult);
 
-        // Core Engine Baseline Update
-        // Day 1 state perfectly equals constitution
         updateState({
             ...state,
             prakriti_vata: metrics.prakriti_vata,
@@ -207,13 +185,10 @@ export default function AyuOneHub() {
     };
 
     const finishCheckin = (effectsList: Partial<Record<string, number>>[]) => {
-        // Pass the aggregated effects directly into the State Updater pipelines
-        // This ensures Seasonal Multipliers, Variable Sensitivity, and Cascades apply uniformly.
-        const nextState = applyEffects(state, effectsList, userId || undefined);
+        const nextState = applyEffects(state, effectsList);
 
         updateState(nextState);
 
-        // Reset check-in UI and post confirmation chat
         const typeLabel = activeCheckinType === "morning" ? "Morning" : "Evening";
         setActiveCheckinType(null);
         setCheckinStep(0);
@@ -225,26 +200,14 @@ export default function AyuOneHub() {
         scrollToBottom();
     };
 
-
     // --- CHAT LOGIC ---
     const handleSend = async () => {
         if (!input.trim()) return;
-
-        // Check limit for free users
-        if (!isPremium && messageCount >= 5) {
-            setIsUpgradeModalOpen(true);
-            return;
-        }
 
         const userMessage = input;
         setMessages(prev => [...prev, { role: "user", text: userMessage }]);
         setInput("");
         setIsTyping(true);
-
-        // Update count
-        const newCount = messageCount + 1;
-        setMessageCount(newCount);
-        localStorage.setItem("ayuone_chat_count", newCount.toString());
 
         const storedResult = localStorage.getItem("prakriti_result");
         const prakriti = storedResult ? JSON.parse(storedResult).type : "Unknown";
@@ -264,9 +227,8 @@ export default function AyuOneHub() {
             if (data.reply) {
                 setMessages(prev => [...prev, { role: "ai", text: data.reply }]);
 
-                // Apply core engine state updates
                 if (data.signals && Array.isArray(data.signals) && data.signals.length > 0) {
-                    const nextState = applySignals(data.signals, state, userId || undefined);
+                    const nextState = applySignals(data.signals, state);
                     updateState(nextState);
                 }
             } else {
@@ -538,14 +500,6 @@ export default function AyuOneHub() {
                     </div>
                 )}
             </main>
-            {userId && (
-                <UpgradeModal
-                    isOpen={isUpgradeModalOpen}
-                    onClose={() => setIsUpgradeModalOpen(false)}
-                    userId={userId}
-                    contextualMessage={getSmartTrigger(state)}
-                />
-            )}
         </div>
     );
 }
