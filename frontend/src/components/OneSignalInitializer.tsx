@@ -11,6 +11,10 @@ export default function OneSignalInitializer() {
             try {
                 await OneSignal.init({
                     appId: ONESIGNAL_APP_ID,
+                    safari_web_id: "web.onesignal.auto.1ad4c923-47e5-493e-8349-b8f3b81ccfd9",
+                    notifyButton: {
+                        enable: true,
+                    },
                     allowLocalhostAsSecureOrigin: true, // For development
                 });
             } catch (error) {
