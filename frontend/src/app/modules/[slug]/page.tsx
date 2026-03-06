@@ -9,11 +9,18 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { createBrowserClient } from "@supabase/ssr";
-import { useVedaState } from "@/engine/useVedaState";
+import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
 import { RecommendationEngine } from "@/engine/recommendationEngine";
-import { compileDailyProtocols } from "@/engine/dailyProtocolCompiler";
+import { compileDailyProtocols } from "@/engine/protocolCompiler";
 import { generateModuleRoutine, ModuleSlug, PersonalizationResult } from "@/ai/modulePersonalizationEngine";
+
+// Domain Module Pages
+import NutrivedaPage from "@/modules/nutriveda/NutrivedaPage";
+import AyufitPage from "@/modules/ayufit/AyufitPage";
+import ManasayurPage from "@/modules/manasayur/ManasayurPage";
+import SomasleepPage from "@/modules/somasleep/SomasleepPage";
+import SattvalivingPage from "@/modules/sattvaliving/SattvalivingPage";
 
 // ─────────────────────────────────────────────────────────
 // Module Data Registry
@@ -156,7 +163,7 @@ export default function ModuleDetail({ params }: { params: any }) {
     const [premiumChecked, setPremiumChecked] = useState(false);
 
     // Engine State
-    const { state, isLoaded } = useVedaState();
+    const { state, isLoaded } = usePhysiologyState();
 
     // ── Resolve slug from async params ──────────────────
     useEffect(() => {
@@ -288,197 +295,58 @@ export default function ModuleDetail({ params }: { params: any }) {
                 </div>
             </header>
 
-            {/* Main Content */}
+            {/* Main Content: Delegated to Domain Modules */}
             <main className="px-6 -mt-24 relative z-20 space-y-8 max-w-4xl mx-auto">
-
-                {/* Section 1: Guiding Principle */}
-                <section className="glass rounded-[3rem] p-10 md:p-12 shadow-premium border border-white">
-                    <div className="flex items-center gap-4 mb-8">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-forest/5 flex items-center justify-center text-forest">
-                            <BrainCircuit className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Guiding Principle</h2>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight text-balance">Classical Ayurvedic Logic</p>
-                        </div>
-                    </div>
-                    <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-forest/20 pl-6 text-balance">
-                        {mod.principles}
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {mod.stats.map((stat: any, i: number) => (
-                            <div key={i} className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">{stat.label}</p>
-                                <p className="text-3xl font-black text-forest tracking-tighter">{stat.getValue(state, vikriti)}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Section 2: State Analysis */}
-                <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-                    <div className="flex items-center gap-4 mb-8">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-orange-50 flex items-center justify-center text-orange-500">
-                            <Activity className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">State Analysis</h2>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Deterministically computed from your pulse</p>
-                        </div>
-                    </div>
-                    <div className="bg-white/60 rounded-[2rem] p-8 border border-slate-100 flex flex-col md:flex-row items-center gap-8 justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-4 bg-forest/5 rounded-2xl flex items-center justify-center">
-                                {getDoshaIcon(vikriti.dominant_dosha)}
-                            </div>
-                            <div>
-                                <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Primary Drift</span>
-                                <span className="block text-3xl font-black text-forest tracking-tighter">{vikriti.dominant_dosha} Aggravation</span>
-                            </div>
-                        </div>
-                        <div className="h-12 w-px bg-slate-200 hidden md:block" />
-                        <div className="flex flex-col items-center md:items-end w-full md:w-auto text-center md:text-right">
-                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Drift Severity</span>
-                            <div className="flex items-center gap-2">
-                                <span className="text-2xl font-black text-slate-700">{Math.round(vikriti.drift_index)}%</span>
-                                <div className="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full bg-forest rounded-full transition-all"
-                                        style={{ width: `${Math.min(100, vikriti.drift_index)}%` }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Section 3: Deterministic Protocols */}
-                <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-                    <div className="flex items-center gap-4 mb-8">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-600">
-                            <ListChecks className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Recommended Protocols</h2>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Rule engine — deterministic selection</p>
-                        </div>
-                    </div>
-
-                    <div className="space-y-4">
-                        {displayRecs.map((practice: any, i: number) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                className="bg-white/60 p-6 md:p-8 rounded-[2rem] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-100 hover:bg-white transition-colors"
-                            >
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-forest/5 flex items-center justify-center text-forest shrink-0 mt-1">
-                                        <CheckCircle2 className="w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{practice.name}</h4>
-                                        <p className="text-[11px] font-bold text-slate-500 leading-relaxed max-w-lg mb-2">{practice.instructions}</p>
-                                        <div className="text-[10px] font-black uppercase tracking-widest text-emerald-600 inline-flex items-center gap-2 bg-emerald-50 px-3 py-1 rounded-full">
-                                            Priority Action
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl shrink-0">
-                                    <Clock className="w-3 h-3" /> {practice.time_of_day}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Section 4: AI Personalization (Premium only) */}
-                {moduleSupportsAI && (
-                    <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-12 h-12 rounded-[1.2rem] bg-amber-50 flex items-center justify-center text-amber-500">
-                                <Sparkles className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">AI Personalized Routine</h2>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">
-                                    {isPremium ? "Generated from your protocols" : "Premium — upgrade to unlock"}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Free User: Paywall Teaser */}
-                        {premiumChecked && !isPremium && (
-                            <div className="bg-amber-50/80 rounded-[2rem] p-8 border border-amber-100 text-center">
-                                <div className="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                                    <Lock className="w-6 h-6 text-amber-600" />
-                                </div>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-amber-700/60 mb-2">Premium Feature</p>
-                                <p className="text-sm font-bold text-slate-700 mb-5 text-balance max-w-sm mx-auto">
-                                    Upgrade to receive an AI-personalized {mod.title} routine tailored to your exact physiology state and selected protocols. Free users still receive all deterministic protocols above.
-                                </p>
-                                <button
-                                    disabled
-                                    className="px-8 py-3 rounded-full bg-amber-400/30 text-amber-800 font-black text-[11px] uppercase tracking-[0.2em] cursor-not-allowed"
-                                >
-                                    Unlock Premium
-                                </button>
-                            </div>
-                        )}
-
-                        {/* Premium: Generating state */}
-                        {isPremium && isGenerating && (
-                            <div className="text-center py-10">
-                                <div className="inline-flex items-center gap-3 text-forest">
-                                    <Sparkles className="w-5 h-5 animate-pulse" />
-                                    <p className="text-sm font-black uppercase tracking-widest">Generating your routine…</p>
-                                </div>
-                                <p className="text-[10px] text-slate-400 font-bold mt-2">Personalizing {moduleRecs.length} protocols for your physiology</p>
-                            </div>
-                        )}
-
-                        {/* Premium: Not yet generated, show button */}
-                        {isPremium && !aiRoutine && !isGenerating && (
-                            <div className="text-center">
-                                <p className="text-sm font-bold text-slate-500 mb-6 text-balance">
-                                    Generate a personalized routine from your {moduleRecs.length} active protocol{moduleRecs.length !== 1 ? 's' : ''}.
-                                </p>
-                                <button
-                                    onClick={triggerGeneration}
-                                    className="px-8 py-3 rounded-full bg-forest text-white font-black text-[11px] uppercase tracking-[0.2em] hover:bg-forest/90 transition-colors"
-                                >
-                                    Generate My Routine
-                                </button>
-                                {aiError && <p className="text-xs font-bold text-red-500 mt-4">{aiError}</p>}
-                            </div>
-                        )}
-
-                        {/* Premium: Routine ready */}
-                        {isPremium && aiRoutine && !isGenerating && (
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between mb-2">
-                                    {aiRoutine.cached && (
-                                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-                                            Cached today
-                                        </span>
-                                    )}
-                                    {aiError && <p className="text-xs font-bold text-red-500">{aiError}</p>}
-                                </div>
-                                <div className="bg-white/70 rounded-[2rem] p-8 border border-slate-100">
-                                    <RoutineText content={aiRoutine.content} />
-                                </div>
-                                <button
-                                    onClick={triggerGeneration}
-                                    className="text-[10px] font-black uppercase tracking-widest text-forest hover:underline mt-2"
-                                >
-                                    Regenerate
-                                </button>
-                            </div>
-                        )}
-                    </section>
+                {slug === 'nutriveda' && (
+                    <NutrivedaPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
+                        onGenerate={triggerGeneration}
+                    />
+                )}
+                {slug === 'ayufit' && (
+                    <AyufitPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
+                        onGenerate={triggerGeneration}
+                    />
+                )}
+                {slug === 'manasayur' && (
+                    <ManasayurPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
+                        onGenerate={triggerGeneration}
+                    />
+                )}
+                {slug === 'somasleep' && (
+                    <SomasleepPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
+                        onGenerate={triggerGeneration}
+                    />
+                )}
+                {slug === 'sattvaliving' && (
+                    <SattvalivingPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
+                        onGenerate={triggerGeneration}
+                    />
                 )}
 
+                {/* Default/Fallback for non-personalized modules */}
+                {!['nutriveda', 'ayufit', 'manasayur', 'somasleep', 'sattvaliving'].includes(slug) && (
+                    <section className="glass rounded-[3rem] p-10 md:p-12 shadow-premium border border-white">
+                        <p className="text-xl font-bold text-slate-700">Detailed insights for this module are coming soon.</p>
+                        <div className="mt-8 space-y-4">
+                            {moduleRecs.map((p, i) => (
+                                <div key={i} className="bg-white/60 p-6 rounded-2xl border border-slate-100 flex justify-between">
+                                    <span className="font-bold text-forest">{p.name}</span>
+                                    <span className="text-xs text-slate-400 font-bold uppercase">{p.time_of_day}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
             </main>
         </div>
     );

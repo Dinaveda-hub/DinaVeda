@@ -1,0 +1,22 @@
+{
+    "spring": {
+        "vata_multiplier": 1.0,
+        "pitta_multiplier": 1.0,
+        "kapha_multiplier": 1.2
+    },
+    "summer": {
+        "vata_multiplier": 1.0,
+        "pitta_multiplier": 1.15,
+        "kapha_multiplier": 1.0
+    },
+    "autumn": {
+        "vata_multiplier": 1.15,
+        "pitta_multiplier": 1.2,
+        "kapha_multiplier": 1.0
+    },
+    "winter": {
+        "vata_multiplier": 1.2,
+        "pitta_multiplier": 1.0,
+        "kapha_multiplier": 1.0
+    }
+}

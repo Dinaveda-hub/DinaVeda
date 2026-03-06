@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { defaultState, VedaState } from './stateModel';
+import { defaultState, VedaState } from '../engine/stateModel';
 
 const STORAGE_KEY = 'veda_health_state';
 
@@ -8,7 +8,7 @@ const STORAGE_KEY = 'veda_health_state';
  * A simple hook to manage the central deterministic VedaState.
  * Automatically saves and loads from localStorage.
  */
-export function useVedaState() {
+export function usePhysiologyState() {
     const [state, setState] = useState<VedaState>(defaultState);
     const [isLoaded, setIsLoaded] = useState(false);
 

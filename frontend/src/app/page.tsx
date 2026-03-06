@@ -7,12 +7,13 @@ import {
   Sunrise, Sun, Sunset, AlertCircle, CheckCircle2,
   Sparkles, Leaf, Activity
 } from "lucide-react";
-import { useVedaState } from "@/engine/useVedaState";
+import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
 import { RecommendationEngine } from "@/engine/recommendationEngine";
 import { HealthScoreEngine } from "@/engine/healthScoreEngine";
+import { ImbalancePressureEngine } from "@/engine/imbalancePressureEngine";
 import { PredictionEngine } from "@/engine/predictionEngine";
-import { compileDailyProtocols, CompiledProtocolItem } from "@/engine/dailyProtocolCompiler";
+import { compileDailyProtocols, CompiledProtocolItem } from "@/engine/protocolCompiler";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -32,15 +33,16 @@ export default function Dashboard() {
     }
   };
 
-  const { state, isLoaded } = useVedaState();
+  const { state, isLoaded } = usePhysiologyState();
   const vikritiEngine = new VikritiEngine();
   const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
   const recEngine = new RecommendationEngine();
   const healthEngine = new HealthScoreEngine();
+  const pressureEngine = new ImbalancePressureEngine();
   const predictionEngine = new PredictionEngine();
 
   const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
-  const pressureIndex = isLoaded && vikriti ? healthEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
+  const pressureIndex = isLoaded && vikriti ? pressureEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
 
   // Health Goal state
   const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
