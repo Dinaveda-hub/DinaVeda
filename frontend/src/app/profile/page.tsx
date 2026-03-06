@@ -1,4 +1,5 @@
 "use client";
+// Force rebuild for Settings & Profile enhancements
 
 import { useState, useEffect } from "react";
 import { User, Settings as SettingsIcon, Bell, Shield, LogOut, ChevronRight, Binary, Heart, X, Zap, Lock, FileText, Activity } from "lucide-react";
@@ -70,6 +71,25 @@ export default function SettingsPage() {
         title: string;
         items: SettingItem[];
     }
+
+    const NotificationToggle = ({ label, description, enabled, onChange }: { label: string, description: string, enabled: boolean, onChange: (val: boolean) => void }) => (
+        <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+                <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{description}</p>
+            </div>
+            <button
+                onClick={() => onChange(!enabled)}
+                className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${enabled ? 'bg-forest' : 'bg-slate-200'}`}
+            >
+                <motion.div
+                    animate={{ x: enabled ? 24 : 0 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    className="w-4 h-4 bg-white rounded-full shadow-sm"
+                />
+            </button>
+        </div>
+    );
 
     const sections: Section[] = [
         {
@@ -158,7 +178,6 @@ export default function SettingsPage() {
         },
         {
             title: "Privacy & Trust",
-
             items: [
                 {
                     name: "Data Security & Compliance",
@@ -206,24 +225,6 @@ export default function SettingsPage() {
             ]
         }
     ];
-    const NotificationToggle = ({ label, description, enabled, onChange }: { label: string, description: string, enabled: boolean, onChange: (val: boolean) => void }) => (
-        <div className="flex items-center justify-between gap-4">
-            <div className="flex-1">
-                <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{description}</p>
-            </div>
-            <button
-                onClick={() => onChange(!enabled)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${enabled ? 'bg-forest' : 'bg-slate-200'}`}
-            >
-                <motion.div
-                    animate={{ x: enabled ? 24 : 0 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    className="w-4 h-4 bg-white rounded-full shadow-sm"
-                />
-            </button>
-        </div>
-    );
 
     const handleClick = (item: SettingItem) => {
         if (item.action) {
