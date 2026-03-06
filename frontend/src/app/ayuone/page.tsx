@@ -412,29 +412,42 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Action Chips */}
-                                <div className="p-5 md:p-8 border-b border-forest/5 bg-white/20 flex gap-3 md:gap-4 overflow-x-auto custom-scrollbar items-center shrink-0">
-                                    <button
-                                        onClick={() => setActiveCheckinType("morning")}
-                                        className="flex items-center gap-3 bg-forest text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-emerald-900 border border-forest/20 shadow-xl shadow-forest/20 whitespace-nowrap transition-all active:scale-95"
-                                    >
-                                        <CloudSun className="w-5 h-5 text-amber-300" />
-                                        Morning Ritual
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveCheckinType("evening")}
-                                        className="flex items-center gap-3 bg-indigo-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-indigo-900 border border-indigo-200 shadow-xl shadow-indigo-10/20 whitespace-nowrap transition-all active:scale-95"
-                                    >
-                                        <Zap className="w-5 h-5 text-amber-300" />
-                                        Evening Wind
-                                    </button>
-                                    <button
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="p-5 md:p-8 border-b border-forest/5 bg-white/20 flex gap-3 md:gap-4 overflow-x-auto custom-scrollbar items-center shrink-0"
+                                >
+                                    {[
+                                        { id: "morning", label: "Morning Ritual", icon: CloudSun, color: "bg-forest", hover: "hover:bg-emerald-900", accent: "text-amber-300" },
+                                        { id: "evening", label: "Evening Wind", icon: Zap, color: "bg-indigo-700", hover: "hover:bg-indigo-900", accent: "text-amber-300" },
+                                    ].map((chip, idx) => (
+                                        <motion.button
+                                            key={chip.id}
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: idx * 0.1 }}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={() => setActiveCheckinType(chip.id as any)}
+                                            className={`flex items-center gap-3 ${chip.color} text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest ${chip.hover} border border-white/10 shadow-xl shadow-forest/20 whitespace-nowrap transition-all`}
+                                        >
+                                            <chip.icon className={`w-5 h-5 ${chip.accent}`} />
+                                            {chip.label}
+                                        </motion.button>
+                                    ))}
+                                    <motion.button
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.2 }}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
                                         onClick={() => setShowDetailedLog(true)}
-                                        className="flex items-center gap-3 bg-slate-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-black border border-slate-700 shadow-xl whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-3 bg-slate-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-black border border-slate-700 shadow-xl whitespace-nowrap transition-all"
                                     >
                                         <BrainCircuit className="w-5 h-5 text-emerald-400" />
                                         Deep Audit
-                                    </button>
-                                </div>
+                                    </motion.button>
+                                </motion.div>
 
                                 <AnimatePresence>
                                     {showDetailedLog && (
