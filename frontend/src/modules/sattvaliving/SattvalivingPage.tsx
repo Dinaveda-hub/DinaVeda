@@ -18,6 +18,13 @@ interface SattvalivingPageProps {
     // onGenerate: () => void; // Removed
 }
 
+const humanizeSlug = (slug: string) => {
+    return slug
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+};
+
 export default function SattvalivingPage({
     state,
     vikriti,
@@ -79,7 +86,7 @@ export default function SattvalivingPage({
                 <div className="space-y-4">
                     {protocols.map((p, i) => (
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 hover:bg-white transition-colors">
-                            <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{p.name}</h4>
+                            <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
                             <p className="text-[11px] font-bold text-slate-500 max-w-lg">{p.instructions}</p>
                         </div>
                     ))}
@@ -107,13 +114,21 @@ export default function SattvalivingPage({
                         {aiRoutine ? aiRoutine.content : "Calculating your personalized lifestyle coaching..."}
                     </div>
                 ) : (
-                    <div className="text-center py-10">
-                        <p className="text-sm font-bold text-slate-500 mb-6">Unlock AI-generated behavioral rituals tailored to your real-time Sattva balance.</p>
+                    <div className="bg-forest/5 rounded-[2.5rem] p-10 border border-forest/10 text-center flex flex-col items-center gap-6">
+                        <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center text-forest shadow-sm border border-forest/10">
+                            <Leaf className="w-8 h-8" />
+                        </div>
+                        <div className="max-w-xs">
+                            <h3 className="text-xl font-black text-slate-800 tracking-tight mb-2">Unlock Harmony</h3>
+                            <p className="text-xs font-bold text-slate-500 leading-relaxed">
+                                Get AI-driven behavioral rituals (Dinaracharya) that adapt to your physiological state and Sattva balance.
+                            </p>
+                        </div>
                         <button
                             onClick={() => setIsUpgradeModalOpen(true)}
-                            className="bg-forest text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-forest/20 hover:scale-105 transition-all"
+                            className="bg-forest text-white px-10 py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-105 active:scale-95 transition-all"
                         >
-                            Upgrade to Premium
+                            Unlock Lifestyle Harmony
                         </button>
                     </div>
                 )}

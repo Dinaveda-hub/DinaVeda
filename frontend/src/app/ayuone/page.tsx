@@ -289,13 +289,13 @@ export default function AyuOneHub() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             {/* Header */}
-            <header className="p-6 md:px-10 md:pt-10 flex flex-col md:flex-row md:items-end justify-between gap-4 sticky top-0 bg-gradient-to-b from-[#F8FAF9] to-transparent z-10">
-                <div>
+            <header className="p-6 md:px-10 md:pt-12 flex flex-col md:flex-row md:items-end justify-between gap-4 sticky top-0 bg-gradient-to-b from-[#F8FAF9] via-[#F8FAF9]/80 to-transparent z-20">
+                <div className="relative">
                     <div className="flex items-center gap-2 mb-2">
                         <Sparkles className="w-4 h-4 text-forest" />
                         <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em]">AyuOne Engine</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-black text-forest tracking-tighter">
+                    <h1 className="text-4xl md:text-5xl font-black text-forest tracking-tight">
                         {!isPrakritiSet ? "Constitution Mapping" : "Veda Interface"}
                     </h1>
                 </div>

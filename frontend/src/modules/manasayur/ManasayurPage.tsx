@@ -18,6 +18,13 @@ interface ManasayurPageProps {
     // onGenerate: () => void; // Removed
 }
 
+const humanizeSlug = (slug: string) => {
+    return slug
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+};
+
 export default function ManasayurPage({
     state,
     vikriti,
@@ -78,7 +85,7 @@ export default function ManasayurPage({
                     {protocols.map((p, i) => (
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 flex justify-between items-center group hover:bg-white transition-colors">
                             <div>
-                                <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{p.name}</h4>
+                                <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
                                 <p className="text-[11px] font-bold text-slate-500 max-w-lg">{p.instructions}</p>
                             </div>
                             <Clock className="w-4 h-4 text-slate-300" />
@@ -108,13 +115,21 @@ export default function ManasayurPage({
                         {aiRoutine ? aiRoutine.content : "Calculating your personalized pranayama routine..."}
                     </div>
                 ) : (
-                    <div className="text-center py-10">
-                        <p className="text-sm font-bold text-slate-500 mb-6">Unlock AI-generated breathing and focus routines tailored to your cognitive clarity.</p>
+                    <div className="bg-indigo-50/50 rounded-[2.5rem] p-10 border border-indigo-100/50 text-center flex flex-col items-center gap-6">
+                        <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center text-indigo-500 shadow-sm border border-indigo-100">
+                            <BrainCircuit className="w-8 h-8" />
+                        </div>
+                        <div className="max-w-xs">
+                            <h3 className="text-xl font-black text-slate-800 tracking-tight mb-2">Unlock Mental Pulse</h3>
+                            <p className="text-xs font-bold text-slate-500 leading-relaxed">
+                                Get AI-generated pranayama and focus routines dynamically adjusted to your real-time mental clarity and stress markers.
+                            </p>
+                        </div>
                         <button
                             onClick={() => setIsUpgradeModalOpen(true)}
-                            className="bg-forest text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-forest/20 hover:scale-105 transition-all"
+                            className="bg-forest text-white px-10 py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-105 active:scale-95 transition-all"
                         >
-                            Upgrade to Premium
+                            Unlock Cognitive Clarity
                         </button>
                     </div>
                 )}
