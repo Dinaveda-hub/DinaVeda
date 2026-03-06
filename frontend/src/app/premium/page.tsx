@@ -4,14 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
     Check, Sparkles, Star, ArrowRight, ShieldCheck,
-    ब्रेन as Brain, Heart, Zap, Infinity, Lock,
+    Brain, Heart, Zap, Infinity, Lock,
     Crown, Compass, Anchor, Leaf
 } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 
 export default function PremiumPage() {
-    const { state } = usePhysiologyState();
-    const userId = state?.userId || "guest";
+    const { isPremium, userId } = useSubscription();
     const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("yearly");
     const [loading, setLoading] = useState(false);
 
