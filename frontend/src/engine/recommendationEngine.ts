@@ -102,20 +102,24 @@ export class RecommendationEngine {
             }
         }
 
-        // Filter maximums per time_of_day deterministically to prevent UI overflow
-        const timeGroups: Record<string, Protocol[]> = { morning: [], midday: [], afternoon: [], evening: [], night: [], daily: [], meal_time: [], before_meal: [], after_meal: [], any: [] };
+        // 4. Map to 3 primary UI buckets with specific caps: Morning (3), Midday (2), Evening (3)
+        const morning: Protocol[] = [];
+        const midday: Protocol[] = [];
+        const evening: Protocol[] = [];
 
-        validProtocols.forEach(p => {
-            if (timeGroups[p.time_of_day]) {
-                if (timeGroups[p.time_of_day].length < 2) { // 2 items per distinct time bucket max
-                    timeGroups[p.time_of_day].push(p);
-                }
-            } else {
-                timeGroups['any'].push(p);
+        for (const p of validProtocols) {
+            const tod = p.time_of_day.toLowerCase();
+
+            if (tod === 'morning' || tod === 'before_meal') {
+                if (morning.length < 3) morning.push(p);
+            } else if (tod === 'midday' || tod === 'meal_time' || tod === 'afternoon' || tod === 'any' || tod === 'daily') {
+                if (midday.length < 2) midday.push(p);
+            } else if (tod === 'evening' || tod === 'night' || tod === 'after_meal') {
+                if (evening.length < 3) evening.push(p);
             }
-        });
+        }
 
-        return Object.values(timeGroups).flat();
+        return [...morning, ...midday, ...evening];
     }
 
     /**

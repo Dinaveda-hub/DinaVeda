@@ -11,6 +11,7 @@ import { useVedaState } from "@/engine/useVedaState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
 import { RecommendationEngine, Protocol } from "@/engine/recommendationEngine";
 import { HealthScoreEngine } from "@/engine/healthScoreEngine";
+import { PredictionEngine } from "@/engine/predictionEngine";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -35,6 +36,7 @@ export default function Dashboard() {
   const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
   const recEngine = new RecommendationEngine();
   const healthEngine = new HealthScoreEngine();
+  const predictionEngine = new PredictionEngine();
 
   const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
   const pressureIndex = isLoaded && vikriti ? healthEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
@@ -42,46 +44,12 @@ export default function Dashboard() {
   // Recommendations
   const allRecs = isLoaded && vikriti ? recEngine.getRecommendations(state, vikriti) : [];
 
-  const getProtocolsByTime = (time: string, recs: Protocol[]) => {
-    return recs.filter(p => p.time_of_day === time || (time === 'any' && p.time_of_day === 'any'));
-  };
+  // Filtering logic aligned with engine selection buckets
+  const morningRecs = allRecs.filter(p => ['morning', 'before_meal', 'sunrise'].includes(p.time_of_day.toLowerCase()));
+  const middayRecs = allRecs.filter(p => ['midday', 'meal_time', 'afternoon', 'any', 'daily'].includes(p.time_of_day.toLowerCase()));
+  const eveningRecs = allRecs.filter(p => ['evening', 'night', 'after_meal', 'sunset'].includes(p.time_of_day.toLowerCase()));
 
-  const morningRecs = getProtocolsByTime('morning', allRecs);
-  const middayRecs = getProtocolsByTime('any', allRecs);
-  const eveningRecs = [...getProtocolsByTime('evening', allRecs), ...getProtocolsByTime('night', allRecs)];
-
-  const getDynamicAdjustments = () => {
-    if (!isLoaded || !vikriti) return [];
-    const adjustments = [];
-    if (state.circadian_alignment < 50) {
-      adjustments.push({
-        issue: "Circadian rhythm disruption detected",
-        recommendation: "Strict digital detox 2 hours before sleep tonight."
-      });
-    }
-    if (state.ama_risk > 30 || state.agni_strength < 40) {
-      adjustments.push({
-        issue: "Low digestive fire (Agni)",
-        recommendation: "Lighter, warm cooked meals today. Avoid raw foods."
-      });
-    }
-    if (state.stress_load > 60 || (vikriti.dominant_dosha === 'Vata' && vikriti.vikriti_vata > 20)) {
-      adjustments.push({
-        issue: "Elevated subtle stress / High Vata",
-        recommendation: "Prioritize grounding practices and slow movement."
-      });
-    }
-    return adjustments;
-  };
-
-  const getReflection = () => {
-    if (!isLoaded) return "Calibrating systemic balance...";
-    if (state.ojas_score > 80) return "Your vitality is flourishing. Continue your consistent daily rhythms to maintain this high Ojas.";
-    if (state.ojas_score > 50) return "Your routines are stabilizing your circadian rhythm. Focus on deep rest tonight.";
-    return "Your system is seeking balance. Gentle, restorative practices are key right now to rebuild Ojas.";
-  };
-
-  const adjustments = getDynamicAdjustments();
+  const adjustments = isLoaded && vikriti ? predictionEngine.getAdjustments(state, vikriti) : [];
 
   return (
     <motion.div
@@ -291,7 +259,7 @@ export default function Dashboard() {
             </div>
             <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 mb-3">Dinaveda Observation</h4>
             <p className="text-xs md:text-sm font-bold text-slate-500 leading-relaxed italic text-balance px-4">
-              "{getReflection()}"
+              "{isLoaded ? predictionEngine.getSystemReflection(state) : "Calibrating systemic balance..."}"
             </p>
           </div>
         </motion.section>
