@@ -237,7 +237,7 @@ export default function SettingsPage() {
             <div className="max-w-2xl mx-auto relative z-10">
                 <header className="mb-16 md:mb-20">
                     <div className="w-12 h-1 bg-forest/20 mb-6 rounded-full" />
-                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter transition-all hover:tracking-normal cursor-default leading-none mb-5 md:mb-6">Settings</h1>
+                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5 md:mb-6">Settings</h1>
                     <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">Customize your Veda experience</p>
                 </header>
 
