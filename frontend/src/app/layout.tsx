@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { useEffect } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalNav from "@/components/GlobalNav";
@@ -38,14 +39,35 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <OneSignalInitializer />
+        <RootRegistration />
         <NotificationMonitor />
         <div className="flex flex-col md:flex-row min-h-screen">
           <GlobalNav />
-          <main className="flex-1 pb-20 md:pb-0 overflow-x-hidden">
+          <main className="flex-1 pb-24 md:pb-0 overflow-x-hidden">
             {children}
           </main>
         </div>
       </body>
     </html>
   );
+}
+
+import { createBrowserClient } from "@supabase/ssr";
+import { registerUserWithOneSignal } from "@/services/notificationService";
+
+function RootRegistration() {
+  useEffect(() => {
+    async function loadSession() {
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        registerUserWithOneSignal(session.user.id);
+      }
+    }
+    loadSession();
+  }, []);
+  return null;
 }

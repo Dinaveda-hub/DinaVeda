@@ -141,6 +141,12 @@ export default function SettingsPage() {
                         )
                     })
                 },
+                {
+                    name: "Biological Logs",
+                    icon: Activity,
+                    detail: "View your rhythmic pulse history",
+                    link: "/profile/history"
+                },
             ]
         },
         {

@@ -11,6 +11,7 @@ import { registerUserWithOneSignal } from "@/services/notificationService";
 import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
 import prakritiQuizData from "@/data/prakriti_questions.json";
 import dailyCheckinData from "@/data/daily_checkin.json";
+import DailyLogForm from "@/components/DailyLogForm";
 
 interface CheckinOption {
     answer: string;
@@ -64,22 +65,12 @@ export default function AyuOneHub() {
     const [activeCheckinType, setActiveCheckinType] = useState<"morning" | "evening" | null>(null);
     const [checkinStep, setCheckinStep] = useState(0);
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
+    const [showDetailedLog, setShowDetailedLog] = useState(false);
 
     const { state, updateState } = usePhysiologyState();
 
     useEffect(() => {
         setMounted(true);
-        async function loadSession() {
-            const supabase = createBrowserClient(
-                process.env.NEXT_PUBLIC_SUPABASE_URL!,
-                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-            );
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                registerUserWithOneSignal(session.user.id);
-            }
-        }
-        loadSession();
 
         if (typeof window !== "undefined") {
             const storedPrakriti = localStorage.getItem("prakriti_result");
@@ -424,19 +415,59 @@ export default function AyuOneHub() {
                                 <div className="p-4 border-b border-white/50 bg-white/40 flex gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
                                     <button
                                         onClick={() => setActiveCheckinType("morning")}
-                                        className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-white border border-slate-100 shadow-sm whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2 bg-forest text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-emerald-800 border border-forest/20 shadow-lg shadow-forest/10 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <CloudSun className="w-4 h-4 text-amber-500" />
+                                        <CloudSun className="w-4 h-4 text-amber-300" />
                                         Morning Check-In
                                     </button>
                                     <button
                                         onClick={() => setActiveCheckinType("evening")}
-                                        className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-white border border-slate-100 shadow-sm whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-indigo-700 border border-indigo-200 shadow-lg shadow-indigo-10/10 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <Zap className="w-4 h-4 text-indigo-500" />
+                                        <Zap className="w-4 h-4 text-amber-300" />
                                         Evening Check-In
                                     </button>
+                                    <button
+                                        onClick={() => setShowDetailedLog(true)}
+                                        className="flex items-center gap-2 bg-slate-800 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-900 border border-slate-700 shadow-lg whitespace-nowrap transition-all active:scale-95"
+                                    >
+                                        <BrainCircuit className="w-4 h-4 text-emerald-400" />
+                                        Detailed Audit
+                                    </button>
                                 </div>
+
+                                <AnimatePresence>
+                                    {showDetailedLog && (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md p-4 md:p-10 flex items-center justify-center"
+                                        >
+                                            <motion.div
+                                                initial={{ scale: 0.9, y: 20 }}
+                                                animate={{ scale: 1, y: 0 }}
+                                                exit={{ scale: 0.9, y: 20 }}
+                                                className="bg-white rounded-[3rem] w-full max-w-2xl h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl relative p-8 md:p-12"
+                                            >
+                                                <button
+                                                    onClick={() => setShowDetailedLog(false)}
+                                                    className="absolute top-8 right-8 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
+                                                >
+                                                    <Zap className="w-4 h-4 rotate-45" />
+                                                </button>
+                                                <DailyLogForm
+                                                    onResult={(data) => {
+                                                        setShowDetailedLog(false);
+                                                        setMessages(prev => [...prev, { role: "ai", text: "✅ Detailed Audit Complete. Your physiological pulse has been updated with these deep signals." }]);
+                                                    }}
+                                                    isLoading={isTyping}
+                                                    setIsLoading={setIsTyping}
+                                                />
+                                            </motion.div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
 
                                 {/* Chat Messages Area */}
                                 <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar bg-slate-50/30">
