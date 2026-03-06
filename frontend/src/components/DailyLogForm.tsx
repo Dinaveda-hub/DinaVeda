@@ -110,13 +110,13 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
     };
 
     const SegmentedControl = ({ name, options, value }: { name: string, options: { label: string, value: string }[], value: string }) => (
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
             {options.map((opt) => (
                 <button
                     key={opt.value}
                     type="button"
                     onClick={() => handleSelect(name, opt.value)}
-                    className={`px-4 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border ${value === opt.value
+                    className={`px-3 py-2 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all border ${value === opt.value
                         ? 'bg-forest text-white border-forest shadow-md shadow-forest/10 scale-[1.02]'
                         : 'bg-white text-slate-400 border-slate-100 hover:border-forest/20'
                         }`}
@@ -128,23 +128,23 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
     );
 
     return (
-        <div className="space-y-10">
-            <header className="mb-4">
-                <h3 className="text-forest font-black uppercase tracking-[0.4em] text-[10px] mb-2">Morning Dialogue</h3>
-                <p className="text-slate-400 text-xs font-bold leading-relaxed">Let's audit your biological flow. Be honest with your inner nature.</p>
+        <div className="space-y-6 md:space-y-10">
+            <header className="mb-2 md:mb-4">
+                <h3 className="text-forest font-black uppercase tracking-[0.4em] text-[10px] mb-1 md:mb-2">Morning Dialogue</h3>
+                <p className="text-slate-400 text-[10px] md:text-xs font-bold leading-relaxed">Let's audit your biological flow. Be honest with your inner nature.</p>
             </header>
 
-            <form onSubmit={analyzeLog} className="space-y-12">
+            <form onSubmit={analyzeLog} className="space-y-8 md:space-y-12">
 
                 {/* Agni & Ahara (The Fire) */}
-                <section className="space-y-6">
+                <section className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-[1.5rem] bg-fire/10 flex items-center justify-center text-fire shadow-sm">
-                            <Utensils className="w-5 h-5" />
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl md:rounded-[1.5rem] bg-fire/10 flex items-center justify-center text-fire shadow-sm">
+                            <Utensils className="w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h4 className="text-sm font-black text-forest uppercase tracking-widest">Metabolic Fire & Nourishment [Agni & Ahara]</h4>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Digestion & Elimination</p>
+                            <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Metabolic Fire & Nourishment</h4>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Digestion & Elimination</p>
                         </div>
                     </div>
 
@@ -223,14 +223,14 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     </div>
                 </section>
 
-                <section className="space-y-6">
+                <section className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500">
-                            <Zap className="w-5 h-5" />
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+                            <Zap className="w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h4 className="text-sm font-black text-forest uppercase tracking-widest">Exercise & Movement [Vyayama]</h4>
-                            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Movement Dynamics</p>
+                            <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Exercise & Movement</h4>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">Movement Dynamics</p>
                         </div>
                     </div>
 
@@ -252,19 +252,18 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     </div>
                 </section>
 
-                {/* Nidra (Restoration) */}
-                <section className="space-y-6">
+                <section className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-water/10 flex items-center justify-center text-water">
-                            <Moon className="w-5 h-5" />
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-water/10 flex items-center justify-center text-water">
+                            <Moon className="w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h4 className="text-sm font-black text-forest uppercase tracking-widest">Sleep Sanctuary [Nidra]</h4>
-                            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">The Architecture of Sleep</p>
+                            <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Sleep Sanctuary</h4>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">The Architecture of Sleep</p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div className="space-y-4">
                             <div className="flex justify-between items-end">
                                 <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50">Duration</label>
@@ -292,15 +291,14 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     </div>
                 </section>
 
-                {/* Manas & Prana (The Subtle) */}
-                <section className="space-y-6">
+                <section className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-air/10 flex items-center justify-center text-blue-500">
-                            <BrainCircuit className="w-5 h-5" />
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-air/10 flex items-center justify-center text-blue-500">
+                            <BrainCircuit className="w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h4 className="text-sm font-black text-forest uppercase tracking-widest">Mind & Energy [Manas & Prana]</h4>
-                            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Mental Flow & Energy</p>
+                            <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Mind & Energy</h4>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">Mental Flow & Energy</p>
                         </div>
                     </div>
 
@@ -341,31 +339,30 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     </div>
                 </section>
 
-                {/* Dinacharya (The Anchors) */}
-                <section className="space-y-6">
+                <section className="space-y-4 md:space-y-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-earth/10 flex items-center justify-center text-forest">
-                            <Sparkles className="w-5 h-5" />
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-earth/10 flex items-center justify-center text-forest">
+                            <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h4 className="text-sm font-black text-forest uppercase tracking-widest">Routine Anchors [Dinacharya]</h4>
-                            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Biological Rhythms</p>
+                            <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Routine Anchors</h4>
+                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">Biological Rhythms</p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                         {["warm_water", "tongue_scraping", "abhyanga", "meditation"].map((habit) => (
                             <button
                                 key={habit}
                                 type="button"
                                 onClick={() => handleToggleRoutine(habit)}
-                                className={`p-4 rounded-[1.5rem] flex items-center justify-between transition-all border ${form.routines.includes(habit)
+                                className={`p-3 md:p-4 rounded-xl md:rounded-[1.5rem] flex items-center justify-between transition-all border ${form.routines.includes(habit)
                                     ? 'bg-forest/5 border-forest text-forest'
                                     : 'bg-white border-slate-100 text-slate-400'
                                     }`}
                             >
-                                <span className="text-[10px] font-black uppercase tracking-widest capitalize">{habit.replace("_", " ")}</span>
-                                {form.routines.includes(habit) ? <CheckCircle2 className="w-4 h-4" /> : <div className="w-4 h-4 rounded-full border border-slate-200" />}
+                                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest capitalize">{habit.replace("_", " ")}</span>
+                                {form.routines.includes(habit) ? <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-forest" /> : <div className="w-4 h-4 rounded-full border border-slate-200" />}
                             </button>
                         ))}
                     </div>

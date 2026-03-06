@@ -330,28 +330,28 @@ export default function AyuOneHub() {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="glass p-8 md:p-10 rounded-[2.5rem] border border-white/40 shadow-premium space-y-8"
+                                className="glass p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/40 shadow-premium space-y-6 md:space-y-8"
                             >
                                 <div className="text-center flex flex-col items-center">
-                                    <div className="w-16 h-16 rounded-[2rem] bg-forest/5 flex items-center justify-center text-forest mb-4">
-                                        <ShieldCheck className="w-8 h-8" />
+                                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[2rem] bg-forest/5 flex items-center justify-center text-forest mb-4">
+                                        <ShieldCheck className="w-7 h-7 md:w-8 md:h-8" />
                                     </div>
                                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
-                                    <h3 className="text-4xl font-black text-forest tracking-tighter">{constitution.type}</h3>
+                                    <h3 className="text-3xl md:text-4xl font-black text-forest tracking-tighter">{constitution.type}</h3>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-6 py-6 border-y border-forest/5">
-                                    <div className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 py-6 border-y border-forest/5">
+                                    <div className="text-center bg-white/40 p-4 rounded-xl md:rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Vata</div>
-                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
+                                        <div className="text-2xl md:text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
                                     </div>
-                                    <div className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
+                                    <div className="text-center bg-white/40 p-4 rounded-xl md:rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Pitta</div>
-                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
+                                        <div className="text-2xl md:text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
                                     </div>
-                                    <div className="text-center bg-white/40 p-4 rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
+                                    <div className="text-center bg-white/40 p-4 rounded-xl md:rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
                                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kapha</div>
-                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
+                                        <div className="text-2xl md:text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
                                     </div>
                                 </div>
 
@@ -362,10 +362,10 @@ export default function AyuOneHub() {
                         )}
                     </div>
                 ) : (
-                    <div className="w-full max-w-4xl flex flex-col bg-white/60 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-white/80 h-full max-h-[calc(100%-20px)] overflow-hidden">
+                    <div className="w-full max-w-4xl flex flex-col bg-white/60 backdrop-blur-2xl rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-white/80 h-full max-h-[calc(100%-10px)] md:max-h-[calc(100%-20px)] overflow-hidden">
 
                         {activeCheckinType ? (
-                            <div className="flex-1 flex flex-col p-6 md:p-12 items-center justify-center overflow-y-auto w-full custom-scrollbar relative">
+                            <div className="flex-1 flex flex-col p-4 md:p-12 items-center justify-center overflow-y-auto w-full custom-scrollbar relative">
                                 {/* Close Button */}
                                 <button
                                     onClick={() => { setActiveCheckinType(null); setCheckinStep(0); setAccumulatedEffects([]); }}
@@ -412,27 +412,27 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Action Chips */}
-                                <div className="p-4 border-b border-white/50 bg-white/40 flex gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
+                                <div className="p-3 md:p-4 border-b border-white/50 bg-white/40 flex gap-2 md:gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
                                     <button
                                         onClick={() => setActiveCheckinType("morning")}
-                                        className="flex items-center gap-2 bg-forest text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-emerald-800 border border-forest/20 shadow-lg shadow-forest/10 whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2 bg-forest text-white px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-emerald-800 border border-forest/20 shadow-lg shadow-forest/10 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <CloudSun className="w-4 h-4 text-amber-300" />
-                                        Morning Check-In
+                                        <CloudSun className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-300" />
+                                        Morning
                                     </button>
                                     <button
                                         onClick={() => setActiveCheckinType("evening")}
-                                        className="flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-indigo-700 border border-indigo-200 shadow-lg shadow-indigo-10/10 whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2 bg-indigo-600 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-indigo-700 border border-indigo-200 shadow-lg shadow-indigo-10/10 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <Zap className="w-4 h-4 text-amber-300" />
-                                        Evening Check-In
+                                        <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-300" />
+                                        Evening
                                     </button>
                                     <button
                                         onClick={() => setShowDetailedLog(true)}
-                                        className="flex items-center gap-2 bg-slate-800 text-white px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-slate-900 border border-slate-700 shadow-lg whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2 bg-slate-800 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-slate-900 border border-slate-700 shadow-lg whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <BrainCircuit className="w-4 h-4 text-emerald-400" />
-                                        Detailed Audit
+                                        <BrainCircuit className="w-3.5 h-3.5 md:w-4 md:h-4 text-emerald-400" />
+                                        Audit
                                     </button>
                                 </div>
 
@@ -448,11 +448,11 @@ export default function AyuOneHub() {
                                                 initial={{ scale: 0.9, y: 20 }}
                                                 animate={{ scale: 1, y: 0 }}
                                                 exit={{ scale: 0.9, y: 20 }}
-                                                className="bg-white rounded-[3rem] w-full max-w-2xl h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl relative p-8 md:p-12"
+                                                className="bg-white rounded-[2rem] md:rounded-[3rem] w-full max-w-2xl h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl relative p-5 md:p-12"
                                             >
                                                 <button
                                                     onClick={() => setShowDetailedLog(false)}
-                                                    className="absolute top-8 right-8 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
+                                                    className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors z-10"
                                                 >
                                                     <Zap className="w-4 h-4 rotate-45" />
                                                 </button>
@@ -470,7 +470,7 @@ export default function AyuOneHub() {
                                 </AnimatePresence>
 
                                 {/* Chat Messages Area */}
-                                <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar bg-slate-50/30">
+                                <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 custom-scrollbar bg-slate-50/30">
                                     <AnimatePresence initial={false}>
                                         {messages.map((msg, idx) => (
                                             <motion.div
@@ -484,9 +484,9 @@ export default function AyuOneHub() {
                                                         <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
                                                     </div>
                                                 )}
-                                                <div className={`max-w-[85%] md:max-w-[75%] p-4 md:p-5 text-sm md:text-base font-medium leading-relaxed shadow-sm border transition-all ${msg.role === "user"
-                                                    ? "bg-slate-800 text-white rounded-[1.5rem] rounded-tr-sm border-slate-700"
-                                                    : "bg-white/90 backdrop-blur-sm text-slate-700 rounded-[1.5rem] border-white/60 rounded-tl-sm"
+                                                <div className={`max-w-[88%] md:max-w-[75%] p-3 md:p-5 text-sm md:text-base font-medium leading-relaxed shadow-sm border transition-all ${msg.role === "user"
+                                                    ? "bg-slate-800 text-white rounded-[1.25rem] rounded-tr-sm border-slate-700"
+                                                    : "bg-white/90 backdrop-blur-sm text-slate-700 rounded-[1.25rem] border-white/60 rounded-tl-sm"
                                                     }`}>
                                                     {msg.text}
                                                 </div>
@@ -514,24 +514,24 @@ export default function AyuOneHub() {
                                 </div>
 
                                 {/* Chat Input Area */}
-                                <div className="p-4 md:p-8 bg-white/60 backdrop-blur-md border-t border-white/40 flex gap-3 md:gap-4 items-center shrink-0">
-                                    <div className="flex-1 bg-white/80 rounded-3xl border border-slate-200 shadow-sm flex items-center px-5 py-3 md:py-4 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
+                                <div className="p-3 md:p-8 bg-white/60 backdrop-blur-md border-t border-white/40 flex gap-2 md:gap-4 items-center shrink-0">
+                                    <div className="flex-1 bg-white/80 rounded-2xl md:rounded-3xl border border-slate-200 shadow-sm flex items-center px-4 md:px-5 py-2.5 md:py-4 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
                                         <input
                                             type="text"
                                             value={input}
                                             onChange={(e) => setInput(e.target.value)}
                                             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                            placeholder="Log your lifestyle signals..."
-                                            className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400 text-sm md:text-base"
+                                            placeholder="Log signals..."
+                                            className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400 text-xs md:text-base"
                                             disabled={isTyping}
                                         />
                                     </div>
                                     <button
                                         onClick={handleSend}
                                         disabled={!input.trim() || isTyping}
-                                        className="w-12 h-12 md:w-14 md:h-14 bg-forest text-white rounded-2xl flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-lg shadow-forest/20 shrink-0"
+                                        className="w-10 h-10 md:w-14 md:h-14 bg-forest text-white rounded-xl md:rounded-2xl flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-lg shadow-forest/20 shrink-0"
                                     >
-                                        <Send className="w-5 h-5 md:w-6 md:h-6" />
+                                        <Send className="w-4 h-4 md:w-6 md:h-6" />
                                     </button>
                                 </div>
                             </>
