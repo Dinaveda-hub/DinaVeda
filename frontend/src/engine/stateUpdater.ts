@@ -1,6 +1,6 @@
 import { VedaState } from './stateModel';
 import { getSeasonalMultipliers } from './seasonalAdjuster';
-import { getSensitivityConfig } from './sensitivityConfig';
+import { getSensitivityConfig, variableSensitivity } from './sensitivityConfig';
 import signalsData from '../data/signals.json';
 
 // Type representing the array of signal objects defined in `signals.json`
@@ -20,47 +20,57 @@ export class StateUpdater {
     /**
      * Complete Layer 4 Pipeline:
      * Applies a list of extracted signals to the current state deterministically.
-     * Signal -> Season -> Sensitivity -> Update -> Clamp
+     * Resolves signal strings to their effect objects and passes them to applyEffects.
      */
     public applySignals(currentState: VedaState, incomingSignals: string[]): VedaState {
-        // Clone the state to avoid direct mutation (Layer 4 Start)
+        const signalMap = new Map((signalsData as SignalConfig[]).map(s => [s.signal, s.effects]));
+        const effectsList = incomingSignals
+            .map(signalName => signalMap.get(signalName))
+            .filter(effects => effects !== undefined) as Partial<Record<keyof VedaState, number>>[];
+
+        return this.applyEffects(currentState, effectsList);
+    }
+
+    /**
+     * Applies a raw list of payload effects to the current state deterministically.
+     * Pipeline: Effects -> Season -> Base Elasticity -> Global Sensitivity -> Update -> Cascade -> Clamp
+     */
+    public applyEffects(currentState: VedaState, effectsList: Partial<Record<keyof VedaState, number>>[]): VedaState {
         let nextState = { ...currentState };
 
         // 1. Seasonal Multipliers
         const seasonMultipliers = getSeasonalMultipliers(nextState.rutu_season);
 
-        // 2. Variable Sensitivity (Elasticity)
-        const sensitivity = getSensitivityConfig(
+        // 2. Variable Sensitivity (Prakriti Elasticity)
+        const plasticity = getSensitivityConfig(
             nextState.prakriti_vata,
             nextState.prakriti_pitta,
             nextState.prakriti_kapha
         );
 
-        // Map the signal definitions
-        const signalMap = new Map((signalsData as SignalConfig[]).map(s => [s.signal, s.effects]));
-
-        for (const signalName of incomingSignals) {
-            const effects = signalMap.get(signalName);
-            if (!effects) continue;
-
+        for (const effects of effectsList) {
             for (const [key, rawEffect] of Object.entries(effects)) {
-                if (key in nextState) {
+                if (key in nextState && rawEffect !== undefined) {
                     let effectValue = rawEffect as number;
 
-                    // 3. Apply seasonal & sensitivity modifiers dynamically
+                    // 3. Apply seasonal & prakriti elasticity modifiers dynamically
                     if (key === 'vata_state') {
-                        effectValue *= seasonMultipliers.vata_multiplier * (effectValue > 0 ? sensitivity.vata_elasticity : 1);
+                        effectValue *= seasonMultipliers.vata_multiplier * (effectValue > 0 ? plasticity.vata_elasticity : 1);
                     } else if (key === 'pitta_state') {
-                        effectValue *= seasonMultipliers.pitta_multiplier * (effectValue > 0 ? sensitivity.pitta_elasticity : 1);
+                        effectValue *= seasonMultipliers.pitta_multiplier * (effectValue > 0 ? plasticity.pitta_elasticity : 1);
                     } else if (key === 'kapha_state') {
-                        effectValue *= seasonMultipliers.kapha_multiplier * (effectValue > 0 ? sensitivity.kapha_elasticity : 1);
+                        effectValue *= seasonMultipliers.kapha_multiplier * (effectValue > 0 ? plasticity.kapha_elasticity : 1);
                     } else if (key === 'agni_strength') {
-                        effectValue *= (effectValue < 0 ? sensitivity.agni_elasticity : 1);
+                        effectValue *= (effectValue < 0 ? plasticity.agni_elasticity : 1);
                     } else if (key === 'ojas_score') {
-                        effectValue *= (effectValue < 0 ? sensitivity.ojas_elasticity : 1);
+                        effectValue *= (effectValue < 0 ? plasticity.ojas_elasticity : 1);
                     }
 
-                    // 4. State Update
+                    // 4. Apply Global Variable Sensitivity Scaler
+                    const globalSens = variableSensitivity[key] !== undefined ? variableSensitivity[key] : 1.0;
+                    effectValue *= globalSens;
+
+                    // 5. State Update
                     (nextState as any)[key] += effectValue;
                 }
             }
@@ -69,7 +79,7 @@ export class StateUpdater {
         // --- LAYER 4.5: PHYSIOLOGICAL STATE CASCADES ---
         nextState = this.applyCascades(nextState);
 
-        // 5. Clamp all 26 variables to 0-100 bounds
+        // 6. Clamp all 26 variables to 0-100 bounds
         for (const key of Object.keys(nextState)) {
             if (typeof (nextState as any)[key] === 'number') {
                 (nextState as any)[key] = this.clamp((nextState as any)[key]);

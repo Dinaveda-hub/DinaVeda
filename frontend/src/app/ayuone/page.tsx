@@ -174,35 +174,9 @@ export default function AyuOneHub() {
     };
 
     const finishCheckin = (effectsList: Partial<Record<string, number>>[]) => {
-        // Flatten and aggregate all 7 effects payloads deterministically
-        const aggregatedSignals: Record<string, number> = {};
-        for (const eff of effectsList) {
-            for (const [key, val] of Object.entries(eff)) {
-                if (val !== undefined) {
-                    aggregatedSignals[key] = (aggregatedSignals[key] || 0) + val;
-                }
-            }
-        }
-
-        // Apply via StateUpdater (which expects an array of simple effect records or known strings)
-        // Since updater.applySignals primarily was looking up strings in signals.json,
-        // and our Check-in strictly defines the `effects` object payloads, we can update state directly here
-        // or format them. We'll simulate applying these direct numeric adjustments before clamping.
-
-        let nextState = { ...state };
-        for (const [key, value] of Object.entries(aggregatedSignals)) {
-            if (typeof (nextState as any)[key] === 'number') {
-                (nextState as any)[key] += value;
-            }
-        }
-
-        // Pass through clamp cascade bounds using the engine
-        nextState = (updater as any).applyCascades(nextState); // Cast to any because applyCascades is private, but we need to run it after bulk linear injection. Or just apply bulk linearly and let the hook clamp.
-        for (const key of Object.keys(nextState)) {
-            if (typeof (nextState as any)[key] === 'number') {
-                (nextState as any)[key] = Math.max(0, Math.min(100, (nextState as any)[key]));
-            }
-        }
+        // Pass the aggregated effects directly into the State Updater pipelines
+        // This ensures Seasonal Multipliers, Variable Sensitivity, and Cascades apply uniformly.
+        const nextState = updater.applyEffects(state, effectsList);
 
         updateState(nextState);
 
