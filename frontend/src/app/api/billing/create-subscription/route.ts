@@ -8,8 +8,11 @@ export async function POST(req: Request) {
         const razorpay = getRazorpay();
 
         // DEBUG: Log which variables the server can actually see (names only)
-        const envKeys = Object.keys(process.env).filter(k => k.includes('RAZOR')).join(', ');
-        console.log(`[Environment Check] Available Razor-related keys: ${envKeys || 'NONE FOUND'}`);
+        const allKeys = Object.keys(process.env);
+        const razorKeys = allKeys.filter(k => k.toLowerCase().includes('razor')).join(', ');
+        console.log(`[Environment Check] Total keys: ${allKeys.length}`);
+        console.log(`[Environment Check] Razor-related keys: ${razorKeys || 'NONE FOUND'}`);
+        console.log(`[Environment Check] Sample keys: ${allKeys.slice(0, 5).join(', ')}`);
 
         const planId = planType === 'yearly'
             ? (process.env.RAZORPAY_PLAN_ID_YEARLY || 'plan_SNzd3k1dHZi1hQ')
