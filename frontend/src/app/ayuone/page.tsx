@@ -440,20 +440,20 @@ export default function AyuOneHub() {
                                                     label: "Morning Ritual",
                                                     description: "Align your physiology with the rising sun. Sync Agni and clear metabolic toxins.",
                                                     icon: CloudSun,
-                                                    color: "bg-forest",
-                                                    hover: "hover:bg-emerald-800",
-                                                    accent: "text-amber-300",
-                                                    gradient: "from-forest/10 to-emerald-50/50"
+                                                    color: "bg-forest/80",
+                                                    hover: "hover:bg-forest",
+                                                    accent: "text-amber-200",
+                                                    gradient: "from-forest/5 to-emerald-50/20"
                                                 },
                                                 {
                                                     id: "evening",
                                                     label: "Evening Wind",
                                                     description: "Decompress the nervous system and prepare for deep, restorative Nidra.",
                                                     icon: Zap,
-                                                    color: "bg-indigo-700",
-                                                    hover: "hover:bg-indigo-800",
-                                                    accent: "text-amber-300",
-                                                    gradient: "from-indigo-50/10 to-blue-50/50"
+                                                    color: "bg-slate-700/80",
+                                                    hover: "hover:bg-slate-800",
+                                                    accent: "text-amber-200",
+                                                    gradient: "from-indigo-50/5 to-blue-50/20"
                                                 },
                                             ].map((ritual) => {
                                                 const isDone = completedLogs.includes(ritual.id);
@@ -513,11 +513,11 @@ export default function AyuOneHub() {
                                             whileHover={{ scale: 1.1, rotate: 5 }}
                                             whileTap={{ scale: 0.9 }}
                                             onClick={() => setIsChatOpen(true)}
-                                            className="w-16 h-16 md:w-20 md:h-20 bg-forest text-white rounded-full flex items-center justify-center shadow-2xl shadow-forest/40 border-4 border-white relative overflow-hidden group"
+                                            className="w-16 h-16 md:w-20 md:h-20 bg-slate-800/90 text-white rounded-full flex items-center justify-center shadow-2xl shadow-slate-900/20 border-4 border-white/80 backdrop-blur-md relative overflow-hidden group"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-forest opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            <BrainCircuit className="w-8 h-8 relative z-10" />
-                                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full border-2 border-white animate-pulse" />
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-slate-700 to-slate-800 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <BrainCircuit className="w-8 h-8 relative z-10 opacity-80" />
+                                            <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
                                         </motion.button>
                                     </div>
 
