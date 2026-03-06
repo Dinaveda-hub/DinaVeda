@@ -10,6 +10,7 @@ import {
 import { useVedaState } from "@/engine/useVedaState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
 import { RecommendationEngine, Protocol } from "@/engine/recommendationEngine";
+import { HealthScoreEngine } from "@/engine/healthScoreEngine";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -33,6 +34,9 @@ export default function Dashboard() {
   const vikritiEngine = new VikritiEngine();
   const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
   const recEngine = new RecommendationEngine();
+  const healthEngine = new HealthScoreEngine();
+
+  const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
 
   // Recommendations
   const allRecs = isLoaded && vikriti ? recEngine.getRecommendations(state, vikriti) : [];
@@ -124,33 +128,49 @@ export default function Dashboard() {
           </div>
         </motion.section>
 
-        {/* 3. Physiology Snapshot */}
-        <motion.section variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors">Ojas Recovery</span>
-            <span className="text-2xl font-black text-forest tracking-tighter">
-              {isLoaded ? Math.round(state.ojas_score) : '--'}
-            </span>
+        {/* 3. Ojas Balance & Physiology Snapshot */}
+        <motion.section variants={itemVariants} className="flex flex-col gap-4">
+          {/* Main Hero Card: Ojas Balance */}
+          <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group hover:bg-white transition-colors">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
+            <div>
+              <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-gold" /> Daily Health Score
+              </h2>
+              <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter leading-none">
+                {isLoaded && ojasBalance !== null ? ojasBalance : '--'}
+              </h3>
+            </div>
+            <div className="md:text-right">
+              <span className="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-1">Ojas Balance</span>
+              <p className="text-xs text-slate-400 max-w-[200px] leading-relaxed">
+                A synthesized measure of vitality, metabolic function, and rhythmic stability.
+              </p>
+            </div>
           </div>
-          <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors">Circadian Sync</span>
-            <span className="text-2xl font-black text-blue-600 tracking-tighter">
-              {isLoaded ? `${Math.round(state.circadian_alignment)}%` : '--'}
-            </span>
-          </div>
-          <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors">Agni</span>
-            <span className="text-2xl font-black text-orange-600 tracking-tighter">
-              {isLoaded ? (state.agni_strength > 65 ? 'Strong' : state.agni_strength > 40 ? 'Balanced' : 'Weak') : '--'}
-            </span>
-          </div>
-          <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors">Dosha Drift</span>
-            <div className="flex items-end gap-2">
-              <span className="text-2xl font-black text-forest tracking-tighter">
-                {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
+
+          {/* Sub Grid: Component Indicators */}
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
+              <span className="text-xl md:text-2xl font-black text-orange-600 tracking-tighter">
+                {isLoaded ? (state.agni_strength > 65 ? 'Strong' : state.agni_strength > 40 ? 'Balanced' : 'Weak') : '--'}
               </span>
-              {isLoaded && vikriti && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
+            </div>
+            <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
+              <span className="text-xl md:text-2xl font-black text-blue-600 tracking-tighter">
+                {isLoaded ? `${Math.round(state.circadian_alignment)}%` : '--'}
+              </span>
+            </div>
+            <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
+              <div className="flex items-end gap-1.5">
+                <span className="text-xl md:text-2xl font-black text-forest tracking-tighter">
+                  {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
+                </span>
+                {isLoaded && vikriti && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
+              </div>
             </div>
           </div>
         </motion.section>
