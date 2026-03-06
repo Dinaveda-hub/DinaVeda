@@ -60,12 +60,12 @@ export default function PrakritiPage() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/20 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             {/* Header */}
-            <header className="p-8 md:px-14 md:pt-24 pb-16">
-                <div className="flex items-center gap-4 mb-6">
+            <header className="p-8 md:px-14 md:pt-24 pb-12 md:pb-16">
+                <div className="flex items-center gap-4 mb-4 md:mb-6">
                     <ShieldCheck className="w-6 h-6 text-forest/40" />
-                    <span className="text-xs md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">Genetic Intelligence</span>
+                    <span className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">Genetic Intelligence</span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none">Prakriti Core</h1>
+                <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none">Prakriti Core</h1>
             </header>
 
             <main className="px-6 md:px-14 flex flex-col gap-10 max-w-6xl w-full mx-auto justify-center">

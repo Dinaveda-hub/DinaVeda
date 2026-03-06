@@ -219,8 +219,8 @@ export default function ModuleDetail({ params }: { params: any }) {
                         <div className="w-20 h-20 bg-white shadow-premium border border-slate-100 rounded-[2rem] flex items-center justify-center mb-8">
                             <Icon className="w-10 h-10 text-forest" />
                         </div>
-                        <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter mb-6 leading-none">{mod.title}</h1>
-                        <p className="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-[0.3em]">{mod.subtitle}</p>
+                        <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-5 md:mb-6 leading-none">{mod.title}</h1>
+                        <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">{mod.subtitle}</p>
                     </motion.div>
                 </div>
             </header>

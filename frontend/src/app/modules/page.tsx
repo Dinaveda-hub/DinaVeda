@@ -21,14 +21,14 @@ export default function ModulesPage() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-fire/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             <div className="max-w-7xl mx-auto relative z-10">
-                <header className="mb-24 flex flex-col items-center text-center">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="w-12 h-1 bg-forest/20 rounded-full" />
-                        <span className="text-xs md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">Genetic Core</span>
-                        <div className="w-12 h-1 bg-forest/20 rounded-full" />
+                <header className="mb-16 md:mb-24 flex flex-col items-center text-center">
+                    <div className="flex items-center gap-3 mb-3 md:mb-4">
+                        <div className="w-8 h-0.5 md:w-12 md:h-1 bg-forest/20 rounded-full" />
+                        <span className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.2em] md:tracking-[0.3em]">Genetic Core</span>
+                        <div className="w-8 h-0.5 md:w-12 md:h-1 bg-forest/20 rounded-full" />
                     </div>
-                    <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-6">Life Principles</h1>
-                    <p className="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-[0.3em] max-w-sm">Harmonize the inner mahabhutas</p>
+                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5 md:mb-6">Life Principles</h1>
+                    <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] max-w-sm px-4">Harmonize the inner mahabhutas</p>
                 </header>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">

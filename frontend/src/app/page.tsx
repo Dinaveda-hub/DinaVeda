@@ -105,14 +105,14 @@ export default function Dashboard() {
       <main className="max-w-4xl mx-auto px-6 md:px-10 pt-20 relative z-10 flex flex-col gap-12 font-sans md:pt-32">
 
         {/* 1. Header */}
-        <motion.header variants={itemVariants} className="text-left mb-8">
-          <p className="text-xs md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
+        <motion.header variants={itemVariants} className="text-left mb-6">
+          <p className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] mb-3 flex items-center gap-2">
             Dinaveda <Sparkles className="w-3.5 h-3.5 text-gold/60" />
           </p>
-          <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-6">
+          <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5">
             Today's guidance
           </h1>
-          <p className="text-xs md:text-sm font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
+          <p className="text-[10px] md:text-sm font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
             Aligned with your Prakriti • <span className="text-forest/60 underline decoration-forest/20 underline-offset-4">{healthGoal.replace(/_/g, ' ').toUpperCase()}</span>
           </p>
         </motion.header>
