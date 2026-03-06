@@ -429,7 +429,7 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Fixed App Area */}
-                                <div className="flex-1 w-full max-w-5xl flex flex-col bg-slate-50/30 overflow-hidden relative pb-2 md:pb-0">
+                                <div className="flex-1 w-full max-w-5xl flex flex-col bg-slate-50/30 overflow-hidden relative pb-8 md:pb-0 mb-[-5rem] md:mb-0">
                                     {/* Action Chips - Now conditional and floating */}
                                     <div className="absolute top-0 left-0 right-0 z-30 pointer-events-none">
                                         <motion.div
