@@ -149,6 +149,7 @@ export default function ModuleDetail({ params }: { params: any }) {
     const [aiRoutine, setAiRoutine] = useState<PersonalizationResult | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [aiError, setAiError] = useState<string | null>(null);
+    const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
 
     // Premium state — read from Supabase session + profiles table
     const [isPremium, setIsPremium] = useState(false);
@@ -190,6 +191,9 @@ export default function ModuleDetail({ params }: { params: any }) {
             }
         }
         checkPremium();
+
+        const savedGoal = localStorage.getItem("veda_health_goal");
+        if (savedGoal) setHealthGoal(savedGoal);
     }, []);
 
     // ── Auto-generate routine when module is opened (premium only) ──
@@ -215,7 +219,7 @@ export default function ModuleDetail({ params }: { params: any }) {
     const vikritiEngine = new VikritiEngine();
     const vikriti = vikritiEngine.calculateMetrics(state);
     const recEngine = new RecommendationEngine();
-    const allRecs = recEngine.getRecommendations(state, vikriti);
+    const allRecs = recEngine.getRecommendations(state, vikriti, healthGoal);
     const moduleRecs = recEngine.getModuleProtocols(slug, allRecs);
     const compiledPlan = compileDailyProtocols(moduleRecs);
     const allCompiled = [...compiledPlan.morning, ...compiledPlan.midday, ...compiledPlan.evening];
@@ -242,6 +246,7 @@ export default function ModuleDetail({ params }: { params: any }) {
             const result = await generateModuleRoutine(slug as ModuleSlug, {
                 state,
                 selectedProtocols: moduleRecs.map(p => p.name),
+                healthGoal,
                 isPremium,
             });
             setAiRoutine(result);

@@ -1,8 +1,9 @@
 from datetime import datetime, timezone
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from wellness_engine import VedaEngine
+from ai.supervisor_agent import SupervisorAgent
 
 app = FastAPI(title="Veda AI API")
 
@@ -16,6 +17,7 @@ app.add_middleware(
 )
 
 engine = VedaEngine()
+supervisor = SupervisorAgent()
 
 
 # ─────────────────────────────────────────────
@@ -61,13 +63,29 @@ class ChatPayload(BaseModel):
 class PhysiologyRequest(BaseModel):
     """
     POST /state or POST /protocols
-
-    Engine pipeline:
-    User signals → Deterministic state computation → Protocol selection → AI personalization (premium)
-
-    signals: list of user-reported signal strings (e.g. 'poor_sleep', 'high_stress')
+    signals: list of user-reported signal strings
     """
     signals: list[str] = []
+
+
+class PersonalizeRequest(BaseModel):
+    """
+    POST /personalize
+    Body: {
+      "module": "nutriveda",
+      "state": { ...26 variables... },
+      "protocols": ["warm_meals", "light_dinner"],
+      "season": "spring",
+      "health_goal": "improve_digestion",
+      "is_premium": true
+    }
+    """
+    module: str
+    state: dict
+    protocols: list[str]
+    season: str = "spring"
+    health_goal: str = "general_wellness"
+    is_premium: bool = False
 
 
 # ─────────────────────────────────────────────
@@ -106,11 +124,7 @@ def chat_with_veda(payload: ChatPayload):
 def get_default_state():
     """
     Returns the default physiology state (no signals applied).
-
-    Architecture note:
-    This is a pure deterministic endpoint. AI is NOT involved.
-    The engine determines the state; the AI personalization layer (in the frontend
-    premium modules) only converts selected protocols into structured routines.
+    Purely deterministic.
     """
     state = engine.get_physiology_state(signals=[])
     return {
@@ -124,14 +138,6 @@ def get_default_state():
 def get_protocols(payload: PhysiologyRequest):
     """
     Deterministic pipeline: signals → physiology state → selected protocols.
-
-    1. Applies user signals to compute updated physiology state.
-    2. Evaluates threshold rules to select protocols.
-    3. Returns both the computed state and the selected protocol names.
-
-    AI is NOT involved here. This is the rule engine output.
-    The AI personalization layer (premium frontend) converts these protocols
-    into human-readable routines when the user opens a module.
     """
     state = engine.get_physiology_state(signals=payload.signals)
     selected_protocols = engine.select_protocols(state)
@@ -144,3 +150,42 @@ def get_protocols(payload: PhysiologyRequest):
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "engine": "deterministic",
     }
+
+
+@app.post("/personalize")
+async def personalize_module(payload: PersonalizeRequest):
+    """
+    Premium AI Personalization — Orchestrated by SupervisorAgent.
+
+    1. Premium check (server-side gate).
+    2. Route to correct module agent.
+    3. Return human-readable coaching routine.
+
+    AI is called EXACTLY ONCE per request.
+    """
+    # 1. Premium gate
+    if not payload.is_premium:
+        raise HTTPException(
+            status_code=403,
+            detail="Premium subscription required for AI personalization."
+        )
+
+    # 2. Dispatch to supervisor
+    try:
+        content = await supervisor.dispatch(
+            module=payload.module,
+            state=payload.state,
+            protocols=payload.protocols,
+            season=payload.season,
+            health_goal=payload.health_goal
+        )
+        return {
+            "content": content,
+            "module": payload.module,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(f"Personalization error: {e}")
+        raise HTTPException(status_code=502, detail="AI personalization failed.")

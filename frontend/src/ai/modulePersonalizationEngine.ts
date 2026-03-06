@@ -35,6 +35,7 @@ export interface PersonalizationInput {
     state: VedaState;
     selectedProtocols: string[];   // Names from the daily protocol compiler
     season?: string;               // e.g. 'spring', 'summer', 'autumn', 'winter'
+    healthGoal?: string;           // e.g. 'improve_digestion'
     isPremium: boolean;
 }
 
@@ -64,7 +65,7 @@ function detectSeason(): string {
 /**
  * Replaces {{variable}} placeholders in a prompt template with actual values.
  */
-function interpolatePrompt(template: string, state: VedaState, protocols: string[], season: string): string {
+function interpolatePrompt(template: string, state: VedaState, protocols: string[], season: string, healthGoal: string): string {
     const protocolListFormatted = protocols.map(p => `• ${p.replace(/_/g, ' ')}`).join('\n');
 
     return template
@@ -79,6 +80,7 @@ function interpolatePrompt(template: string, state: VedaState, protocols: string
         .replace(/{{mental_clarity}}/g, String(Math.round(state.mental_clarity)))
         .replace(/{{movement_level}}/g, String(Math.round(state.movement_level)))
         .replace(/{{season}}/g, season)
+        .replace(/{{health_goal}}/g, healthGoal.replace(/_/g, ' ').toUpperCase())
         .replace(/{{protocol_list}}/g, protocolListFormatted);
 }
 
@@ -182,15 +184,24 @@ export async function generateModuleRoutine(
 
     // 3. Load prompt template, interpolate values, split into system + user parts
     const season = input.season ?? detectSeason();
+    const healthGoal = input.healthGoal ?? 'general_wellness';
     const rawTemplate = await loadPromptTemplate(module);
-    const interpolated = interpolatePrompt(rawTemplate, input.state, input.selectedProtocols, season);
+    const interpolated = interpolatePrompt(rawTemplate, input.state, input.selectedProtocols, season, healthGoal);
     const { systemPrompt, userPrompt } = splitPrompt(interpolated);
 
     // 4. Call the Next.js API route (proxies to AI model — keeps API key server-side)
     const response = await fetch('/api/personalize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ module, systemPrompt, userPrompt }),
+        body: JSON.stringify({
+            module,
+            systemPrompt,
+            userPrompt,
+            state: input.state,
+            protocols: input.selectedProtocols,
+            season,
+            healthGoal
+        }),
     });
 
     if (!response.ok) {

@@ -2,6 +2,8 @@ import { VedaState } from './stateModel';
 import { VikritiMetrics } from './vikritiEngine';
 import protocolsData from '../data/protocols.json';
 import rulesData from '../data/recommendation_rules.json';
+import { applyGoalBoost } from './goalEngine';
+
 
 export interface Protocol {
     name: string;
@@ -66,7 +68,8 @@ export class RecommendationEngine {
     /**
      * Selects protocols deterministically by evaluating configurable rule datasets.
      */
-    public getRecommendations(state: VedaState, vikriti: VikritiMetrics): Protocol[] {
+    public getRecommendations(state: VedaState, vikriti: VikritiMetrics, healthGoal: string = "general_wellness"): Protocol[] {
+
         // Track unique protocol names and trace their highest priority (lower number = higher priority).
         const protocolPriorities = new Map<string, number>();
 
@@ -102,12 +105,15 @@ export class RecommendationEngine {
             }
         }
 
+        // 3a. Apply Health Goal priority boost
+        const boostedProtocols = applyGoalBoost(validProtocols, healthGoal);
+
         // 4. Map to 3 primary UI buckets with specific caps: Morning (3), Midday (2), Evening (3)
         const morning: Protocol[] = [];
         const midday: Protocol[] = [];
         const evening: Protocol[] = [];
 
-        for (const p of validProtocols) {
+        for (const p of boostedProtocols) {
             const tod = p.time_of_day.toLowerCase();
 
             if (tod === 'morning' || tod === 'before_meal') {

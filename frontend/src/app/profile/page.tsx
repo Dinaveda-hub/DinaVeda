@@ -6,6 +6,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import GoalSelector from "@/components/GoalSelector";
+
 
 export default function SettingsPage() {
     const [activeModal, setActiveModal] = useState<{ title: string, content: any } | null>(null);
@@ -85,7 +87,22 @@ export default function SettingsPage() {
             ]
         },
         {
+            title: "Health & Vitality",
+            items: [
+                {
+                    name: "Primary Health Goal",
+                    icon: Zap,
+                    detail: "Personalize your daily guidance",
+                    action: () => setActiveModal({
+                        title: "Select Your Primary Goal",
+                        content: <GoalSelector />
+                    })
+                }
+            ]
+        },
+        {
             title: "Privacy & Trust",
+
             items: [
                 {
                     name: "Data Security & Compliance",

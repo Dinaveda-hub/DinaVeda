@@ -1,0 +1,110 @@
+[
+    {
+        "id": "improve_digestion",
+        "label": "Improve Digestion",
+        "icon": "Flame",
+        "color": "orange",
+        "description": "Balance Agni and clear Ama accumulation",
+        "module_boosts": {
+            "nutriveda": 2
+        },
+        "protocol_tags": [
+            "digestive",
+            "agni",
+            "nutriveda",
+            "ginger",
+            "warm",
+            "light_dinner",
+            "meal"
+        ]
+    },
+    {
+        "id": "better_sleep",
+        "label": "Better Sleep",
+        "icon": "Moon",
+        "color": "blue",
+        "description": "Restore circadian alignment and rebuild Ojas",
+        "module_boosts": {
+            "somasleep": 2
+        },
+        "protocol_tags": [
+            "circadian",
+            "sleep",
+            "somasleep",
+            "digital_detox",
+            "padabhyanga",
+            "early_sleep",
+            "sleep_ritual"
+        ]
+    },
+    {
+        "id": "reduce_stress",
+        "label": "Reduce Stress",
+        "icon": "Wind",
+        "color": "violet",
+        "description": "Calm Vata and lower stress load",
+        "module_boosts": {
+            "manasayur": 2,
+            "sattvaliving": 1
+        },
+        "protocol_tags": [
+            "stress",
+            "mental",
+            "vata",
+            "manasayur",
+            "breathing",
+            "meditation",
+            "slow_breathing",
+            "nature"
+        ]
+    },
+    {
+        "id": "increase_energy",
+        "label": "Increase Energy",
+        "icon": "Zap",
+        "color": "amber",
+        "description": "Rebuild Ojas and strengthen movement",
+        "module_boosts": {
+            "ayufit": 2,
+            "nutriveda": 1
+        },
+        "protocol_tags": [
+            "movement",
+            "ojas",
+            "ayufit",
+            "exercise",
+            "grounding_yoga",
+            "brisk_walk",
+            "hydration"
+        ]
+    },
+    {
+        "id": "balance_hormones",
+        "label": "Balance Hormones",
+        "icon": "Activity",
+        "color": "emerald",
+        "description": "Regulate circadian rhythm and lifestyle patterns",
+        "module_boosts": {
+            "somasleep": 1,
+            "sattvaliving": 2
+        },
+        "protocol_tags": [
+            "circadian",
+            "lifestyle",
+            "sattvaliving",
+            "gratitude",
+            "early_wake",
+            "morning_sunlight",
+            "regular_meal"
+        ]
+    },
+    {
+        "id": "general_wellness",
+        "label": "General Wellness",
+        "icon": "Leaf",
+        "color": "forest",
+        "description": "Balanced guidance across all domains",
+        "module_boosts": {},
+        "protocol_tags": []
+    }
+]

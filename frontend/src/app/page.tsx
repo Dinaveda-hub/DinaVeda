@@ -42,13 +42,29 @@ export default function Dashboard() {
   const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
   const pressureIndex = isLoaded && vikriti ? healthEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
 
+  // Health Goal state
+  const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("veda_health_goal");
+    if (saved) setHealthGoal(saved);
+
+    const handleGoalChange = () => {
+      const updated = localStorage.getItem("veda_health_goal");
+      if (updated) setHealthGoal(updated);
+    };
+
+    window.addEventListener("veda_goal_changed", handleGoalChange);
+    return () => window.removeEventListener("veda_goal_changed", handleGoalChange);
+  }, []);
+
   // State history and prediction protocols
   const stateHistory = isLoaded ? predictionEngine.loadStateHistory() : [];
   const predictionProtocolNames = isLoaded ? predictionEngine.getPredictionProtocols(stateHistory) : [];
 
   // Compile all module outputs into a single structured daily plan
   const dailyPlan = (isLoaded && vikriti)
-    ? compileDailyProtocols(recEngine.getRecommendations(state, vikriti), predictionProtocolNames)
+    ? compileDailyProtocols(recEngine.getRecommendations(state, vikriti, healthGoal), predictionProtocolNames)
     : { morning: [], midday: [], evening: [] };
 
   const morningRecs: CompiledProtocolItem[] = dailyPlan.morning;
@@ -87,7 +103,7 @@ export default function Dashboard() {
             Today's guidance
           </h1>
           <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
-            Aligned with your Prakriti
+            Aligned with your Prakriti • <span className="text-forest/60">{healthGoal.replace(/_/g, ' ').toUpperCase()}</span>
           </p>
         </motion.header>
 
