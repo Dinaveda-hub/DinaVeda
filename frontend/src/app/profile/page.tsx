@@ -121,24 +121,31 @@ export default function SettingsPage() {
                         title: "Neural Notifications",
                         content: (
                             <div className="space-y-6">
+                                <div className="p-4 bg-forest/5 rounded-2xl border border-forest/10 mb-2">
+                                    <p className="text-[10px] font-black text-forest uppercase tracking-widest flex items-center gap-2">
+                                        <Zap className="w-3 h-3" /> Neural Core Status: Active
+                                    </p>
+                                    <p className="text-[9px] text-slate-500 mt-1 uppercase font-bold tracking-tighter">Your preferences are synchronized with the Veda Engine via OneSignal tags.</p>
+                                </div>
                                 <NotificationToggle
                                     label="Pulse Audit Reminders"
-                                    description="Receive alerts for daily biological synchronization."
+                                    description="Sync daily biological checks."
                                     enabled={notifications.pulseAudits}
                                     onChange={(val) => saveNotifications({ ...notifications, pulseAudits: val })}
                                 />
                                 <NotificationToggle
                                     label="Circadian Sync"
-                                    description="Alerts for optimal sleep and wake windows."
+                                    description="Sleep/Wake window alerts."
                                     enabled={notifications.circadianReminders}
                                     onChange={(val) => saveNotifications({ ...notifications, circadianReminders: val })}
                                 />
                                 <NotificationToggle
                                     label="Routine Updates"
-                                    description="Notifications for AI-personalized routine recalibrations."
+                                    description="Personalized recalibrations."
                                     enabled={notifications.routineUpdates}
                                     onChange={(val) => saveNotifications({ ...notifications, routineUpdates: val })}
                                 />
+                                <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest text-center mt-6">Alpha Release • Real-time triggers optimized dynamically</p>
                             </div>
                         )
                     })
