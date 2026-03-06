@@ -82,7 +82,7 @@ body {
 }
 
 .mesh-gradient {
-  background-color: #ffffff;
+  background-color: var(--background);
   background-image:
     radial-gradient(at 0% 0%, hsla(158, 64%, 91%, 1) 0, transparent 50%),
     radial-gradient(at 50% 0%, hsla(43, 76%, 94%, 1) 0, transparent 50%),

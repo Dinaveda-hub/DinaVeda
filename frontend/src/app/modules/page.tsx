@@ -17,8 +17,8 @@ export default function ModulesPage() {
     return (
         <div className="min-h-screen bg-background relative overflow-hidden p-6 md:p-14 pb-40">
             {/* Background elements - Optimized */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-water/10 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-fire/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             <div className="max-w-7xl mx-auto relative z-10">
                 <header className="mb-16 md:mb-24 flex flex-col items-center text-center">

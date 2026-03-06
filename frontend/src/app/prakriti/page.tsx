@@ -54,10 +54,10 @@ export default function PrakritiPage() {
     };
 
     return (
-        <div className="flex flex-col min-h-screen mesh-gradient relative overflow-hidden pb-40">
+        <div className="flex flex-col min-h-screen bg-background relative overflow-hidden pb-40">
             {/* Background elements */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/20 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/20 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/10 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             {/* Header */}
             <header className="p-8 md:px-14 md:pt-24 pb-12 md:pb-16">
