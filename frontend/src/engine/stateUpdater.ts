@@ -62,14 +62,83 @@ export class StateUpdater {
 
                     // 4. State Update
                     (nextState as any)[key] += effectValue;
-
-                    // 5. Clamp to 0-100 bounds
-                    (nextState as any)[key] = this.clamp((nextState as any)[key]);
                 }
             }
         }
 
+        // --- LAYER 4.5: PHYSIOLOGICAL STATE CASCADES ---
+        nextState = this.applyCascades(nextState);
+
+        // 5. Clamp all 26 variables to 0-100 bounds
+        for (const key of Object.keys(nextState)) {
+            if (typeof (nextState as any)[key] === 'number') {
+                (nextState as any)[key] = this.clamp((nextState as any)[key]);
+            }
+        }
+
         return nextState;
+    }
+
+    /**
+     * Enforces the thermodynamic rules of the Ayurvedic Physiology Graph.
+     * Circadian -> Dosha -> Agni -> Ama -> Ojas
+     */
+    private applyCascades(state: VedaState): VedaState {
+        let cascadeState = { ...state };
+
+        // 1. Circadian -> Dosha + Agni + Ojas
+        if (cascadeState.circadian_alignment < 70) {
+            const penalty = (70 - cascadeState.circadian_alignment) * 0.2;
+            cascadeState.vata_state += penalty;
+            cascadeState.agni_strength -= penalty * 0.5;
+            cascadeState.ojas_score -= penalty * 0.5;
+        }
+
+        // 2. Dosha -> Agni (Digestion mechanics)
+        if (cascadeState.vata_state > 65) {
+            cascadeState.agni_stability -= (cascadeState.vata_state - 65) * 0.5; // Vishama Agni
+        }
+        if (cascadeState.pitta_state > 65) {
+            cascadeState.agni_strength += (cascadeState.pitta_state - 65) * 0.5; // Tikshna Agni
+            cascadeState.agni_stability -= (cascadeState.pitta_state - 65) * 0.3;
+        }
+        if (cascadeState.kapha_state > 65) {
+            cascadeState.agni_strength -= (cascadeState.kapha_state - 65) * 0.5; // Manda Agni
+        }
+
+        // 3. Agni -> Ama (Waste accumulation)
+        if (cascadeState.agni_strength < 50) {
+            cascadeState.ama_risk += (50 - cascadeState.agni_strength) * 0.5;
+        }
+
+        // 4. Ama & Stress -> Ojas (Vitality reservoir)
+        if (cascadeState.ama_risk > 40) {
+            cascadeState.ojas_score -= (cascadeState.ama_risk - 40) * 0.3;
+        }
+        if (cascadeState.stress_load > 60) {
+            cascadeState.ojas_score -= (cascadeState.stress_load - 60) * 0.4;
+        }
+
+        // 5. Mind -> Dosha & Circadian
+        if (cascadeState.stress_load > 60) {
+            cascadeState.vata_state += (cascadeState.stress_load - 60) * 0.3;
+        }
+        if (cascadeState.screen_exposure > 70) {
+            cascadeState.circadian_alignment -= (cascadeState.screen_exposure - 70) * 0.4;
+            cascadeState.sleep_debt += (cascadeState.screen_exposure - 70) * 0.2;
+        }
+
+        // 6. Digestive Signals -> Agni Feedback
+        if (cascadeState.bloating_level > 50) {
+            cascadeState.agni_strength -= (cascadeState.bloating_level - 50) * 0.3;
+            cascadeState.ama_risk += (cascadeState.bloating_level - 50) * 0.2;
+        }
+        if (cascadeState.bowel_quality < 40) {
+            cascadeState.agni_strength -= (40 - cascadeState.bowel_quality) * 0.3;
+            cascadeState.ama_risk += (40 - cascadeState.bowel_quality) * 0.2;
+        }
+
+        return cascadeState;
     }
 
     /**
