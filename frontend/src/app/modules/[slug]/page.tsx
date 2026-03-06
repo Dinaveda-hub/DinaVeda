@@ -109,10 +109,15 @@ export default function ModuleDetail({ params }: { params: any }) {
     // Fallback if no specific recommendations trigger for this module
     const displayRecs = moduleRecs.length > 0 ? moduleRecs : [
         {
+            id: "fallback",
             name: "Maintain Baseline",
-            desc: "Your current signals for this domain are balanced.",
-            time: "Daily",
-            detail: "Continue your existing routine. No acute interventions required."
+            instructions: "Your current signals for this domain are balanced. Continue your existing routine. No acute interventions required.",
+            time_of_day: "daily",
+            duration: "ongoing",
+            category: "baseline",
+            module: mod.title,
+            variables: {},
+            contraindications: "None"
         }
     ];
 
@@ -235,14 +240,14 @@ export default function ModuleDetail({ params }: { params: any }) {
                                     </div>
                                     <div>
                                         <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{practice.name}</h4>
-                                        <p className="text-[11px] font-bold text-slate-500 leading-relaxed max-w-lg mb-2">{practice.detail}</p>
+                                        <p className="text-[11px] font-bold text-slate-500 leading-relaxed max-w-lg mb-2">{practice.instructions}</p>
                                         <div className="text-[10px] font-black uppercase tracking-widest text-emerald-600 inline-flex items-center gap-2 bg-emerald-50 px-3 py-1 rounded-full">
                                             Priority Action
                                         </div>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl shrink-0">
-                                    <Clock className="w-3 h-3" /> {practice.time}
+                                    <Clock className="w-3 h-3" /> {practice.time_of_day}
                                 </div>
                             </motion.div>
                         ))}

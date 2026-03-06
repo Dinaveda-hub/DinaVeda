@@ -1,8 +1,13 @@
 import { VedaState } from './stateModel';
 import { getSeasonalMultipliers } from './seasonalAdjuster';
+import { getSensitivityConfig } from './sensitivityConfig';
 import signalsData from '../data/signals.json';
 
-type ValidSignal = keyof typeof signalsData;
+// Type representing the array of signal objects defined in `signals.json`
+type SignalConfig = {
+    signal: string;
+    effects: Partial<Record<keyof VedaState, number>>;
+};
 
 export class StateUpdater {
     /**
@@ -13,36 +18,52 @@ export class StateUpdater {
     }
 
     /**
-     * Applies a list of NLU extracted signals to the current state deterministically.
+     * Complete Layer 4 Pipeline:
+     * Applies a list of extracted signals to the current state deterministically.
+     * Signal -> Season -> Sensitivity -> Update -> Clamp
      */
-    public applySignals(currentState: VedaState, signals: string[]): VedaState {
-        // Clone the state to avoid direct mutation
+    public applySignals(currentState: VedaState, incomingSignals: string[]): VedaState {
+        // Clone the state to avoid direct mutation (Layer 4 Start)
         let nextState = { ...currentState };
+
+        // 1. Seasonal Multipliers
         const seasonMultipliers = getSeasonalMultipliers(nextState.rutu_season);
 
-        for (const signalName of signals) {
-            const signalConfig = (signalsData as any)[signalName];
-            if (!signalConfig || !signalConfig.effects) continue;
+        // 2. Variable Sensitivity (Elasticity)
+        const sensitivity = getSensitivityConfig(
+            nextState.prakriti_vata,
+            nextState.prakriti_pitta,
+            nextState.prakriti_kapha
+        );
 
-            const effects = signalConfig.effects;
+        // Map the signal definitions
+        const signalMap = new Map((signalsData as SignalConfig[]).map(s => [s.signal, s.effects]));
 
-            for (const [key, value] of Object.entries(effects)) {
+        for (const signalName of incomingSignals) {
+            const effects = signalMap.get(signalName);
+            if (!effects) continue;
+
+            for (const [key, rawEffect] of Object.entries(effects)) {
                 if (key in nextState) {
-                    let effectValue = value as number;
+                    let effectValue = rawEffect as number;
 
-                    // Apply seasonal sensitivities to doshas
+                    // 3. Apply seasonal & sensitivity modifiers dynamically
                     if (key === 'vata_state') {
-                        effectValue *= seasonMultipliers.vata_multiplier;
+                        effectValue *= seasonMultipliers.vata_multiplier * (effectValue > 0 ? sensitivity.vata_elasticity : 1);
                     } else if (key === 'pitta_state') {
-                        effectValue *= seasonMultipliers.pitta_multiplier;
+                        effectValue *= seasonMultipliers.pitta_multiplier * (effectValue > 0 ? sensitivity.pitta_elasticity : 1);
                     } else if (key === 'kapha_state') {
-                        effectValue *= seasonMultipliers.kapha_multiplier;
+                        effectValue *= seasonMultipliers.kapha_multiplier * (effectValue > 0 ? sensitivity.kapha_elasticity : 1);
+                    } else if (key === 'agni_strength') {
+                        effectValue *= (effectValue < 0 ? sensitivity.agni_elasticity : 1);
+                    } else if (key === 'ojas_score') {
+                        effectValue *= (effectValue < 0 ? sensitivity.ojas_elasticity : 1);
                     }
 
-                    // Apply the effect
+                    // 4. State Update
                     (nextState as any)[key] += effectValue;
 
-                    // Clamp to 0-100 bounds
+                    // 5. Clamp to 0-100 bounds
                     (nextState as any)[key] = this.clamp((nextState as any)[key]);
                 }
             }

@@ -1,98 +1,205 @@
 [
     {
         "id": "padabhyanga",
-        "name": "Padabhyanga",
-        "category": "Vata Stabilizer",
+        "name": "Padabhyanga (Foot Massage)",
+        "category": "vata_stabilizer",
         "module": "Somasleep",
-        "dosha_effect": {
-            "vata": -6,
-            "pitta": -2,
-            "kapha": 0
-        },
-        "agni_effect": 0,
         "time_of_day": "evening",
         "duration": "10 minutes",
-        "instructions": "Massage your feet with warm sesame oil before bed to ground Vata and induce deep sleep.",
-        "contraindications": "Skin infection, fever"
+        "variables": {
+            "vata_state": -6,
+            "stress_load": -5,
+            "ojas_recovery": 3,
+            "circadian_alignment": 5,
+            "sleep_debt": -2
+        },
+        "instructions": "Massage warm sesame oil on the soles of your feet before sleep to draw energy down, calm the nervous system, and stabilize Vata.",
+        "contraindications": "Skin infection, fever, active indigestion"
     },
     {
         "id": "ginger_water",
         "name": "Warm Ginger Water",
-        "category": "Agni Igniter",
+        "category": "agni_igniter",
         "module": "Nutriveda",
-        "dosha_effect": {
-            "vata": -2,
-            "pitta": 2,
-            "kapha": -4
-        },
-        "agni_effect": 8,
         "time_of_day": "morning",
         "duration": "5 minutes",
-        "instructions": "Sip hot water with fresh ginger slices 20 minutes before meals to stimulate digestive fire.",
-        "contraindications": "Acid reflux, active ulcers"
+        "variables": {
+            "vata_state": -2,
+            "pitta_state": 2,
+            "kapha_state": -4,
+            "agni_strength": 8,
+            "ama_risk": -5,
+            "digestion_comfort": 5
+        },
+        "instructions": "Sip hot water with fresh ginger slices 20 minutes before meals to stimulate the digestive fire (Jatharagni) without aggravating Pitta excessively.",
+        "contraindications": "Acid reflux, active ulcers, severe Pitta aggravation"
     },
     {
         "id": "kapalabhati",
         "name": "Kapalabhati Pranayama",
-        "category": "Kapha Opener",
+        "category": "kapha_opener",
         "module": "Ayufit",
-        "dosha_effect": {
-            "vata": 2,
-            "pitta": 4,
-            "kapha": -8
-        },
-        "agni_effect": 5,
         "time_of_day": "morning",
         "duration": "3 minutes",
-        "instructions": "Perform rapid, forceful exhalations engaging the abdomen to clear morning stagnation.",
-        "contraindications": "High blood pressure, pregnancy"
+        "variables": {
+            "vata_state": 2,
+            "pitta_state": 4,
+            "kapha_state": -8,
+            "agni_strength": 5,
+            "mental_clarity": 10,
+            "stress_load": -2
+        },
+        "instructions": "Perform rapid, forceful exhalations engaging the abdomen. This 'Skull Shining' breath clears morning stagnation, mucus, and lethargy.",
+        "contraindications": "High blood pressure, pregnancy, hernia, severe Vata imbalance"
     },
     {
         "id": "shitali",
         "name": "Shitali Cooling Breath",
-        "category": "Pitta Pacifier",
+        "category": "pitta_pacifier",
         "module": "Manasayur",
-        "dosha_effect": {
-            "vata": 0,
-            "pitta": -8,
-            "kapha": 2
-        },
-        "agni_effect": -2,
         "time_of_day": "any",
         "duration": "5 minutes",
-        "instructions": "Inhale through a rolled tongue and exhale through the nose to rapidly cool mental and physical heat.",
-        "contraindications": "Cold weather, congestion"
+        "variables": {
+            "pitta_state": -8,
+            "kapha_state": 2,
+            "stress_load": -5,
+            "mental_clarity": 5
+        },
+        "instructions": "Roll your tongue into a tube, inhale deeply through the mouth, and exhale through the nose. Rapidly cools mental frustration and physical heat.",
+        "contraindications": "Cold weather, active respiratory congestion, high Vata"
     },
     {
         "id": "digital_sunset",
         "name": "Digital Sunset",
-        "category": "Circadian Anchor",
+        "category": "circadian_anchor",
         "module": "Sattvaliving",
-        "dosha_effect": {
-            "vata": -4,
-            "pitta": -4,
-            "kapha": 0
-        },
-        "agni_effect": 0,
         "time_of_day": "evening",
         "duration": "ongoing",
-        "instructions": "Turn off all glowing screens 60 minutes before bed to allow natural melatonin release.",
+        "variables": {
+            "vata_state": -4,
+            "pitta_state": -4,
+            "screen_exposure": -30,
+            "circadian_alignment": 15,
+            "ojas_recovery": 5
+        },
+        "instructions": "Turn off all glowing screens 60 minutes before bed. Use dim, warm lighting to trigger natural melatonin release and allow the subtle body to wind down.",
         "contraindications": "None"
     },
     {
         "id": "triphala_flush",
         "name": "Triphala Night Flush",
-        "category": "Ama Cleanser",
+        "category": "ama_cleanser",
         "module": "Rutuvada",
-        "dosha_effect": {
-            "vata": -2,
-            "pitta": -2,
-            "kapha": -2
-        },
-        "agni_effect": 2,
         "time_of_day": "night",
         "duration": "2 minutes",
-        "instructions": "Drink 1/2 tsp of Triphala powder in warm water before sleep to gently cleanse the digestive tract.",
-        "contraindications": "Severe diarrhea, pregnancy"
+        "variables": {
+            "vata_state": -2,
+            "pitta_state": -2,
+            "kapha_state": -2,
+            "ama_risk": -10,
+            "bowel_quality": 15,
+            "agni_stability": 5
+        },
+        "instructions": "Drink 1/2 tsp of Triphala powder steeped in warm water right before sleep to gently cleanse the GI tract and scrape toxic Ama.",
+        "contraindications": "Severe diarrhea, pregnancy, extreme weakness"
+    },
+    {
+        "id": "brahmamuhurta",
+        "name": "Brahmamuhurta Wake",
+        "category": "circadian_anchor",
+        "module": "Dinaveda",
+        "time_of_day": "morning",
+        "duration": "ongoing",
+        "variables": {
+            "kapha_state": -5,
+            "mental_clarity": 15,
+            "circadian_alignment": 20,
+            "ojas_score": 2
+        },
+        "instructions": "Wake up 90 minutes before sunrise. The atmospheric Vata brings natural lightness to the body and profound Sattvic clarity to the mind.",
+        "contraindications": "Children, elderly, severe exhaustion, illness"
+    },
+    {
+        "id": "tongue_scraping",
+        "name": "Jivha Nirlekhana",
+        "category": "ama_cleanser",
+        "module": "Dinaveda",
+        "time_of_day": "morning",
+        "duration": "2 minutes",
+        "variables": {
+            "ama_risk": -5,
+            "appetite_quality": 5,
+            "digestion_comfort": 2
+        },
+        "instructions": "Gently scrape the tongue from back to front 7-10 times using a copper or stainless steel scraper to remove overnight metabolic waste before drinking water.",
+        "contraindications": "Mouth ulcers, cuts on tongue"
+    },
+    {
+        "id": "oil_pulling",
+        "name": "Gandusha (Oil Pulling)",
+        "category": "ojas_builder",
+        "module": "Dinaveda",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "vata_state": -3,
+            "ojas_score": 2,
+            "ama_risk": -2
+        },
+        "instructions": "Swish 1 tablespoon of warm sesame or coconut oil in the mouth for 10-15 minutes. Spit it out and rinse with warm water. Strengthens jaw, voice, and immunity.",
+        "contraindications": "None. Do not swallow the oil."
+    },
+    {
+        "id": "kitchari_cleanse",
+        "name": "Kitchari Mono-Diet",
+        "category": "agni_stabilizer",
+        "module": "Nutriveda",
+        "time_of_day": "any",
+        "duration": "1-3 days",
+        "variables": {
+            "vata_state": -5,
+            "pitta_state": -5,
+            "kapha_state": -5,
+            "agni_strength": 10,
+            "agni_stability": 15,
+            "ama_risk": -20,
+            "digestion_comfort": 20
+        },
+        "instructions": "Consume only warm, well-cooked Kitchari (basmati rice, mung dal, ginger, cumin, coriander, ghee) for all meals to completely rest the digestive engine.",
+        "contraindications": "Severe diabetes (consult practitioner regarding rice volume)"
+    },
+    {
+        "id": "golden_milk",
+        "name": "Golden Turmeric Milk",
+        "category": "ojas_builder",
+        "module": "Somasleep",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "vata_state": -5,
+            "pitta_state": -2,
+            "ojas_recovery": 10,
+            "stress_load": -5,
+            "sleep_debt": -5
+        },
+        "instructions": "Simmer organic whole milk (or almond milk) with 1/2 tsp turmeric, a pinch of black pepper, nutmeg, and ghee. Drink warm 1 hour before bed.",
+        "contraindications": "High Ama, acute Kapha congestion, strict dairy intolerance"
+    },
+    {
+        "id": "nadi_shodhana",
+        "name": "Alternate Nostril Breathing",
+        "category": "vata_stabilizer",
+        "module": "Manasayur",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "vata_state": -8,
+            "pitta_state": -2,
+            "stress_load": -15,
+            "mental_clarity": 10,
+            "ojas_score": 2
+        },
+        "instructions": "Use your right thumb and ring finger to alternate breathing between nostrils. Balances the solar and lunar channels (Ida and Pingala) of the nervous system.",
+        "contraindications": "Active nasal congestion"
     }
 ]

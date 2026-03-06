@@ -7,8 +7,7 @@ export interface Protocol {
     name: string;
     category: string;
     module: string;
-    dosha_effect: { vata: number; pitta: number; kapha: number };
-    agni_effect: number;
+    variables: Partial<Record<string, number>>;
     time_of_day: string;
     duration: string;
     instructions: string;
@@ -28,38 +27,52 @@ export class RecommendationEngine {
     public getRecommendations(state: VedaState, vikriti: VikritiMetrics): Protocol[] {
         const recommendedIds = new Set<string>();
 
-        // Rule 1: High Vata
-        if (vikriti.vikriti_vata > 10 || state.vata_state > 55) {
+        // Rule 1: High Vata or Sleep Debt
+        if (vikriti.vikriti_vata > 10 || state.vata_state > 55 || state.sleep_debt > 20) {
             recommendedIds.add("padabhyanga");
-            // Also recommend digital sunset to calm the nervous system
-            if (state.screen_exposure > 50) {
-                recommendedIds.add("digital_sunset");
-            }
+            recommendedIds.add("nadi_shodhana");
         }
 
         // Rule 2: Low Agni (Digestive Fire) or High Ama
         if (state.agni_strength < 50 || state.ama_risk > 30) {
             recommendedIds.add("ginger_water");
+            recommendedIds.add("tongue_scraping");
 
-            // If Ama is very high, push a stronger evening flush
             if (state.ama_risk > 50) {
                 recommendedIds.add("triphala_flush");
+                recommendedIds.add("kitchari_cleanse");
             }
         }
 
-        // Rule 3: High Kapha
-        if (vikriti.vikriti_kapha > 10 || state.kapha_state > 55) {
+        // Rule 3: High Kapha / Lethargy
+        if (vikriti.vikriti_kapha > 10 || state.kapha_state > 55 || state.movement_level < 30) {
             recommendedIds.add("kapalabhati");
         }
 
-        // Rule 4: High Pitta / Stress
-        if (vikriti.vikriti_pitta > 15 || state.stress_load > 60) {
+        // Rule 4: High Pitta / Stress / Overwork
+        if (vikriti.vikriti_pitta > 15 || state.stress_load > 60 || state.screen_exposure > 70) {
             recommendedIds.add("shitali");
+            recommendedIds.add("digital_sunset");
         }
 
-        // Rule 5: Low Circadian Alignment
-        if (state.circadian_alignment < 50) {
+        // Rule 5: Low Circadian Alignment / Routine Building
+        if (state.circadian_alignment < 60) {
+            recommendedIds.add("brahmamuhurta");
             recommendedIds.add("digital_sunset");
+        }
+
+        // Rule 6: Low Ojas (Vitality)
+        if (state.ojas_score < 50 || state.ojas_recovery < 40) {
+            recommendedIds.add("golden_milk");
+            recommendedIds.add("oil_pulling");
+        }
+
+        // Ensure we always have a baseline morning and evening anchor if the system is balanced
+        if (recommendedIds.size < 4) {
+            recommendedIds.add("tongue_scraping");
+            recommendedIds.add("brahmamuhurta");
+            recommendedIds.add("digital_sunset");
+            recommendedIds.add("nadi_shodhana");
         }
 
         // Map Set of IDs back to full Protocol objects

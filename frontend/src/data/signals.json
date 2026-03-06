@@ -1,5 +1,6 @@
-{
-  "poor_sleep": {
+[
+  {
+    "signal": "poor_sleep",
     "effects": {
       "vata_state": 8,
       "ojas_score": -10,
@@ -8,23 +9,38 @@
       "mental_clarity": -10
     }
   },
-  "late_dinner": {
+  {
+    "signal": "late_sleep",
+    "effects": {
+      "vata_state": 6,
+      "pitta_state": 4,
+      "circadian_alignment": -10,
+      "ojas_recovery": -5,
+      "sleep_debt": 10
+    }
+  },
+  {
+    "signal": "late_dinner",
     "effects": {
       "kapha_state": 5,
       "agni_strength": -6,
       "circadian_alignment": -3,
-      "digestion_comfort": -5
+      "digestion_comfort": -5,
+      "ama_risk": 4
     }
   },
-  "bloating": {
+  {
+    "signal": "bloating",
     "effects": {
       "vata_state": 10,
       "agni_stability": -5,
       "digestion_comfort": -15,
-      "ama_risk": 5
+      "ama_risk": 5,
+      "bloating_level": 20
     }
   },
-  "high_stress": {
+  {
+    "signal": "high_stress",
     "effects": {
       "vata_state": 12,
       "pitta_state": 8,
@@ -33,15 +49,18 @@
       "ojas_score": -5
     }
   },
-  "skipped_meal": {
+  {
+    "signal": "skipped_meal",
     "effects": {
       "vata_state": 8,
       "agni_strength": -10,
       "appetite_quality": -5,
-      "ojas_score": -2
+      "ojas_score": -2,
+      "meal_timing": -10
     }
   },
-  "good_hydration": {
+  {
+    "signal": "good_hydration",
     "effects": {
       "pitta_state": -5,
       "vata_state": -2,
@@ -49,15 +68,18 @@
       "ama_risk": -3
     }
   },
-  "heavy_meal": {
+  {
+    "signal": "heavy_meal",
     "effects": {
       "kapha_state": 10,
       "agni_strength": -5,
       "ama_risk": 8,
-      "digestion_comfort": -10
+      "digestion_comfort": -10,
+      "bloating_level": 5
     }
   },
-  "morning_exercise": {
+  {
+    "signal": "morning_exercise",
     "effects": {
       "kapha_state": -8,
       "agni_strength": 5,
@@ -66,21 +88,113 @@
       "ojas_score": 2
     }
   },
-  "screen_fatigue": {
+  {
+    "signal": "screen_fatigue",
     "effects": {
       "vata_state": 5,
       "pitta_state": 5,
       "screen_exposure": 20,
-      "mental_clarity": -8
+      "mental_clarity": -8,
+      "stress_load": 5
     }
   },
-  "nature_walk": {
+  {
+    "signal": "nature_walk",
     "effects": {
       "vata_state": -10,
       "pitta_state": -5,
       "stress_load": -15,
       "movement_level": 10,
-      "ojas_recovery": 5
+      "ojas_recovery": 5,
+      "mental_clarity": 10
+    }
+  },
+  {
+    "signal": "caffeine_crash",
+    "effects": {
+      "vata_state": 15,
+      "pitta_state": 5,
+      "stress_load": 10,
+      "ojas_score": -4,
+      "mental_clarity": -5
+    }
+  },
+  {
+    "signal": "deep_sleep",
+    "effects": {
+      "vata_state": -10,
+      "pitta_state": -5,
+      "kapha_state": 2,
+      "ojas_recovery": 20,
+      "ojas_score": 5,
+      "sleep_debt": -20,
+      "circadian_alignment": 10
+    }
+  },
+  {
+    "signal": "constipation",
+    "effects": {
+      "vata_state": 15,
+      "ama_risk": 10,
+      "bowel_quality": -25,
+      "agni_stability": -10,
+      "digestion_comfort": -10
+    }
+  },
+  {
+    "signal": "heartburn",
+    "effects": {
+      "pitta_state": 15,
+      "ama_risk": 5,
+      "digestion_comfort": -20,
+      "agni_stability": -15
+    }
+  },
+  {
+    "signal": "sunlight_exposure",
+    "effects": {
+      "kapha_state": -5,
+      "circadian_alignment": 15,
+      "light_exposure": 20,
+      "ojas_recovery": 5,
+      "mental_clarity": 10
+    }
+  },
+  {
+    "signal": "low_movement",
+    "effects": {
+      "kapha_state": 10,
+      "movement_level": -20,
+      "ama_risk": 5,
+      "agni_strength": -5
+    }
+  },
+  {
+    "signal": "cold_weather",
+    "effects": {
+      "vata_state": 10,
+      "kapha_state": 5,
+      "climate_quality": -10,
+      "agni_strength": -5
+    }
+  },
+  {
+    "signal": "hot_weather",
+    "effects": {
+      "pitta_state": 15,
+      "climate_quality": -10,
+      "hydration_status": -10
+    }
+  },
+  {
+    "signal": "overworking",
+    "effects": {
+      "vata_state": 10,
+      "pitta_state": 10,
+      "stress_load": 25,
+      "ojas_recovery": -15,
+      "sleep_debt": 5,
+      "screen_exposure": 10
     }
   }
-}
+]
