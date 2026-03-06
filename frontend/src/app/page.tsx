@@ -9,9 +9,10 @@ import {
 } from "lucide-react";
 import { useVedaState } from "@/engine/useVedaState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
-import { RecommendationEngine, Protocol } from "@/engine/recommendationEngine";
+import { RecommendationEngine } from "@/engine/recommendationEngine";
 import { HealthScoreEngine } from "@/engine/healthScoreEngine";
 import { PredictionEngine } from "@/engine/predictionEngine";
+import { compileDailyProtocols, CompiledProtocolItem } from "@/engine/dailyProtocolCompiler";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -45,13 +46,14 @@ export default function Dashboard() {
   const stateHistory = isLoaded ? predictionEngine.loadStateHistory() : [];
   const predictionProtocolNames = isLoaded ? predictionEngine.getPredictionProtocols(stateHistory) : [];
 
-  // Recommendations (base rules)
-  const allRecs = isLoaded && vikriti ? recEngine.getRecommendations(state, vikriti) : [];
+  // Compile all module outputs into a single structured daily plan
+  const dailyPlan = (isLoaded && vikriti)
+    ? compileDailyProtocols(recEngine.getRecommendations(state, vikriti), predictionProtocolNames)
+    : { morning: [], midday: [], evening: [] };
 
-  // Filtering logic aligned with engine selection buckets
-  const morningRecs = allRecs.filter(p => ['morning', 'before_meal', 'sunrise'].includes(p.time_of_day.toLowerCase()));
-  const middayRecs = allRecs.filter(p => ['midday', 'meal_time', 'afternoon', 'any', 'daily'].includes(p.time_of_day.toLowerCase()));
-  const eveningRecs = allRecs.filter(p => ['evening', 'night', 'after_meal', 'sunset'].includes(p.time_of_day.toLowerCase()));
+  const morningRecs: CompiledProtocolItem[] = dailyPlan.morning;
+  const middayRecs: CompiledProtocolItem[] = dailyPlan.midday;
+  const eveningRecs: CompiledProtocolItem[] = dailyPlan.evening;
 
   const adjustments = isLoaded && vikriti ? predictionEngine.getAdjustments(state, vikriti) : [];
 
@@ -188,8 +190,8 @@ export default function Dashboard() {
                   <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2.5 shrink-0 opacity-80" />
                     <div>
-                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.name}</h4>
-                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.instructions}</p>
+                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
+                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.description}</p>
                     </div>
                   </div>
                 )) : (
@@ -208,8 +210,8 @@ export default function Dashboard() {
                   <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2.5 shrink-0 opacity-80" />
                     <div>
-                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.name}</h4>
-                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.instructions}</p>
+                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
+                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.description}</p>
                     </div>
                   </div>
                 )) : (
@@ -228,8 +230,8 @@ export default function Dashboard() {
                   <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2.5 shrink-0 opacity-80" />
                     <div>
-                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.name}</h4>
-                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.instructions}</p>
+                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
+                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.description}</p>
                     </div>
                   </div>
                 )) : (
