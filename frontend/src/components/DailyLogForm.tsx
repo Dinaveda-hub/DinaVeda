@@ -129,23 +129,23 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
     );
 
     return (
-        <div className="space-y-8 md:space-y-12">
-            <header className="mb-4 md:mb-8">
-                <h3 className="text-forest font-black uppercase tracking-[0.4em] text-xs md:text-sm mb-2 md:mb-3">Temporal Health Audit</h3>
-                <p className="text-slate-500 text-xs md:text-sm font-bold leading-relaxed">Honest dialogue with your inner nature facilitates biological accuracy.</p>
+        <div className="space-y-10 md:space-y-16">
+            <header className="mb-6 md:mb-10">
+                <h3 className="text-forest font-black uppercase tracking-[0.4em] text-sm md:text-md mb-3 md:mb-4">Temporal Health Audit</h3>
+                <p className="text-slate-600 text-sm md:text-base font-bold leading-relaxed">Honest dialogue with your inner nature facilitates biological accuracy.</p>
             </header>
 
             <form onSubmit={analyzeLog} className="space-y-8 md:space-y-12">
 
                 {/* Agni & Ahara (The Fire) */}
                 <section className="space-y-4 md:space-y-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl md:rounded-[1.5rem] bg-fire/10 flex items-center justify-center text-fire shadow-sm">
-                            <Utensils className="w-4 h-4 md:w-5 md:h-5" />
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl md:rounded-[1.8rem] bg-fire/10 flex items-center justify-center text-fire shadow-sm border border-fire/10">
+                            <Utensils className="w-6 h-6 md:w-7 md:h-7" />
                         </div>
                         <div>
-                            <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Metabolic Fire & Nourishment</h4>
-                            <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Digestion & Elimination</p>
+                            <h4 className="text-sm md:text-lg font-black text-forest uppercase tracking-widest leading-none mb-1.5">Metabolic Fire & Nourishment</h4>
+                            <p className="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-widest">Digestion & Elimination</p>
                         </div>
                     </div>
 
@@ -267,7 +267,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         <div className="space-y-4">
                             <div className="flex justify-between items-end">
-                                <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50">Duration</label>
+                                <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50">Duration</label>
                                 <span className="text-xs font-black text-forest tabular-nums">{form.sleepHours}h</span>
                             </div>
                             <input
@@ -279,7 +279,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
                         <div className="space-y-4">
                             <div className="flex justify-between items-end">
-                                <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50">Depth Quality</label>
+                                <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50">Depth Quality</label>
                                 <span className="text-xs font-black text-forest tabular-nums">{form.sleepQuality}/5</span>
                             </div>
                             <input
@@ -299,13 +299,13 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
                         <div>
                             <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Mind & Energy</h4>
-                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">Mental Flow & Energy</p>
+                            <p className="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-widest">Mental Flow & Energy</p>
                         </div>
                     </div>
 
                     <div className="space-y-6">
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Predominant Mood</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Predominant Mood</label>
                             <SegmentedControl
                                 name="mood"
                                 value={form.mood}
@@ -319,7 +319,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Hydration Flow [Jala]</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Hydration Flow [Jala]</label>
                             <div className="flex items-center gap-4">
                                 <div className="flex gap-2">
                                     {[1, 2, 3, 4].map(n => (
@@ -334,7 +334,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                         </button>
                                     ))}
                                 </div>
-                                <span className="text-[10px] font-black text-slate-400">Liters / Standard Glasses</span>
+                                <span className="text-xs font-black text-slate-400">Liters / Standard Glasses</span>
                             </div>
                         </div>
                     </div>
@@ -347,7 +347,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
                         <div>
                             <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Routine Anchors</h4>
-                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">Biological Rhythms</p>
+                            <p className="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-widest">Biological Rhythms</p>
                         </div>
                     </div>
 
@@ -362,7 +362,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                     : 'bg-white border-slate-100 text-slate-400'
                                     }`}
                             >
-                                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest capitalize">{habit.replace("_", " ")}</span>
+                                <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em]">{habit.replace("_", " ")}</span>
                                 {form.routines.includes(habit) ? <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-forest" /> : <div className="w-4 h-4 rounded-full border border-slate-200" />}
                             </button>
                         ))}
