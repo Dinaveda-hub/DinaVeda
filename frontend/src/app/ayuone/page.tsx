@@ -440,9 +440,9 @@ export default function AyuOneHub() {
                                                     label: "Morning Ritual",
                                                     description: "Align your physiology with the rising sun. Sync Agni and clear metabolic toxins.",
                                                     icon: CloudSun,
-                                                    color: "bg-forest/80",
-                                                    hover: "hover:bg-forest",
-                                                    accent: "bg-emerald-50/50 border-emerald-100/50",
+                                                    color: "bg-forest",
+                                                    hover: "hover:border-forest/50 hover:bg-emerald-50/80",
+                                                    accent: "bg-white border-slate-100",
                                                     gradient: "from-forest/10 to-transparent"
                                                 },
                                                 {
@@ -450,10 +450,10 @@ export default function AyuOneHub() {
                                                     label: "Evening Wind",
                                                     description: "Decompress the nervous system and prepare for deep, restorative Nidra.",
                                                     icon: Zap,
-                                                    color: "bg-slate-700/80",
-                                                    hover: "hover:bg-slate-800",
-                                                    accent: "bg-slate-50 border-slate-200/50",
-                                                    gradient: "from-slate-200/10 to-transparent"
+                                                    color: "bg-indigo-600",
+                                                    hover: "hover:border-indigo-400/50 hover:bg-slate-50",
+                                                    accent: "bg-white border-slate-100",
+                                                    gradient: "from-indigo-100/10 to-transparent"
                                                 },
                                             ].map((ritual) => {
                                                 const isDone = completedLogs.includes(ritual.id);
@@ -510,14 +510,14 @@ export default function AyuOneHub() {
                                     {/* Floating Chat Bubble Toggle */}
                                     <div className="fixed bottom-32 right-6 z-[60] md:right-12">
                                         <motion.button
-                                            whileHover={{ scale: 1.1, rotate: 5 }}
+                                            whileHover={{ scale: 1.1, y: -5 }}
                                             whileTap={{ scale: 0.9 }}
                                             onClick={() => setIsChatOpen(true)}
-                                            className="w-16 h-16 md:w-20 md:h-20 bg-slate-800/90 text-white rounded-full flex items-center justify-center shadow-2xl shadow-slate-900/20 border-4 border-white/80 backdrop-blur-md relative overflow-hidden group"
+                                            className="w-16 h-16 md:w-20 md:h-20 bg-forest text-white rounded-full flex items-center justify-center shadow-2xl shadow-forest/30 border-4 border-white relative overflow-hidden group"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-tr from-slate-700 to-slate-800 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            <BrainCircuit className="w-8 h-8 relative z-10 opacity-80" />
-                                            <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-forest opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <BrainCircuit className="w-8 h-8 relative z-10" />
+                                            <div className="absolute top-4 right-4 w-2.5 h-2.5 bg-amber-400 rounded-full border-2 border-forest animate-pulse" />
                                         </motion.button>
                                     </div>
 
