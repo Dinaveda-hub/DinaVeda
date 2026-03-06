@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { razorpay } from "@/lib/razorpay";
+import { getRazorpay } from "@/lib/razorpay";
 
 export async function POST(req: Request) {
     try {
         const { userId, planType } = await req.json();
+        const razorpay = getRazorpay();
 
         // Use different Plan IDs based on the user's selection
         const planId = planType === 'yearly'
