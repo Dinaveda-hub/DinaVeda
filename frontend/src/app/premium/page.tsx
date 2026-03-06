@@ -24,8 +24,13 @@ export default function PremiumPage() {
         }
         setLoading(true);
         try {
-            const billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || process.env.NEXT_PUBLIC_API_URL || "";
-            const res = await fetch(`${billingBaseUrl}/api/billing/create-subscription`, {
+            let billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || process.env.NEXT_PUBLIC_API_URL || "";
+            // Sanitize: Remove trailing slash
+            billingBaseUrl = billingBaseUrl.replace(/\/$/, "");
+
+            const apiUrl = `${billingBaseUrl}/api/billing/create-subscription`;
+
+            const res = await fetch(apiUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId, planType: billingCycle }),

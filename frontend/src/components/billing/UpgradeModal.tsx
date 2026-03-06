@@ -25,9 +25,14 @@ export default function UpgradeModal({ isOpen, onClose, userId, contextualMessag
         setLoading(true);
         try {
             // Support for cross-platform (Render/Vercel) setup where API might be on a diff domain
-            const billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || process.env.NEXT_PUBLIC_API_URL || "";
+            let billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || process.env.NEXT_PUBLIC_API_URL || "";
+            // Sanitize: Remove trailing slash if it exists
+            billingBaseUrl = billingBaseUrl.replace(/\/$/, "");
 
-            const res = await fetch(`${billingBaseUrl}/api/billing/create-subscription`, {
+            const apiUrl = `${billingBaseUrl}/api/billing/create-subscription`;
+            console.log("Initializing subscription at:", apiUrl);
+
+            const res = await fetch(apiUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
