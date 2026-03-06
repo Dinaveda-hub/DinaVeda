@@ -12,6 +12,11 @@ export async function POST(req: Request) {
             ? process.env.RAZORPAY_PLAN_ID_YEARLY
             : process.env.RAZORPAY_PLAN_ID_MONTHLY;
 
+        console.log(`[Billing API] PlanType: ${planType}`);
+        console.log(`[Billing API] RAZORPAY_PLAN_ID_MONTHLY: ${process.env.RAZORPAY_PLAN_ID_MONTHLY ? 'PRESENT' : 'MISSING'}`);
+        console.log(`[Billing API] RAZORPAY_PLAN_ID_YEARLY: ${process.env.RAZORPAY_PLAN_ID_YEARLY ? 'PRESENT' : 'MISSING'}`);
+        console.log(`[Billing API] RAZORPAY_KEY_SECRET: ${process.env.RAZORPAY_KEY_SECRET ? 'PRESENT' : 'MISSING'}`);
+
         if (!planId) {
             return NextResponse.json(
                 { error: `Missing Razorpay Plan ID for ${planType} plan. Please check your Vercel environment variables.` },
