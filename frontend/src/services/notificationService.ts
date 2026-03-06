@@ -39,10 +39,26 @@ export async function sendNotification(userId: string, message: string) {
 
 /**
  * Sets external user ID in OneSignal (Client-side helper).
- * Note: OneSignal should be initialized before calling this.
  */
 export function registerUserWithOneSignal(userId: string) {
     if (typeof window !== "undefined" && (window as any).OneSignal) {
-        (window as any).OneSignal.setExternalUserId(userId);
+        (window as any).OneSignal.push(() => {
+            (window as any).OneSignal.setExternalUserId(userId);
+        });
+    }
+}
+
+/**
+ * Syncs notification preferences as OneSignal tags.
+ */
+export function syncNotificationTags(settings: { pulseAudits: boolean, circadianReminders: boolean, routineUpdates: boolean }) {
+    if (typeof window !== "undefined" && (window as any).OneSignal) {
+        (window as any).OneSignal.push(() => {
+            (window as any).OneSignal.sendTags({
+                pulse_audits: settings.pulseAudits ? "1" : "0",
+                circadian_sync: settings.circadianReminders ? "1" : "0",
+                routine_updates: settings.routineUpdates ? "1" : "0",
+            });
+        });
     }
 }

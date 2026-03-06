@@ -9,6 +9,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import GoalSelector from "@/components/GoalSelector";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
+import { syncNotificationTags } from "@/services/notificationService";
 
 
 export default function SettingsPage() {
@@ -41,6 +42,7 @@ export default function SettingsPage() {
     const saveNotifications = (newSettings: any) => {
         setNotifications(newSettings);
         localStorage.setItem("veda_notifications", JSON.stringify(newSettings));
+        syncNotificationTags(newSettings);
     };
 
     const handleSignOut = async () => {
