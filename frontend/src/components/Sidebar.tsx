@@ -30,7 +30,7 @@ export default function Sidebar() {
                         </div>
                         <div>
                             <h1 className="text-3xl font-black text-forest tracking-tighter leading-none">Dinaveda</h1>
-                            <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mt-1 block">Aura Systems</span>
+                            <span className="text-xs font-black text-white/40 uppercase tracking-[0.3em] pl-1">Veda Engine</span>
                         </div>
                     </div>
                 </motion.div>

@@ -33,7 +33,7 @@ export default function ManasayurPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Manas Logic</h2>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Mind-Body Flow</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Mind-Body Flow</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-indigo-200 pl-6 text-balance">
@@ -41,11 +41,11 @@ export default function ManasayurPage({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Mental Clarity</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Mental Clarity</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(state.mental_clarity)}%</p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Stress Load</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Stress Load</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(state.stress_load)}%</p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ export default function ManasayurPage({
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 flex justify-between items-center group hover:bg-white transition-colors">
                             <div>
                                 <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
-                                <p className="text-[11px] font-bold text-slate-500 max-w-lg">{p.instructions}</p>
+                                <p className="text-xs font-bold text-slate-500 max-w-lg">{p.instructions}</p>
                             </div>
                             <Clock className="w-4 h-4 text-slate-300" />
                         </div>

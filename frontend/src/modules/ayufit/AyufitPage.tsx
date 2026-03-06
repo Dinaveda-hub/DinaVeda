@@ -34,7 +34,7 @@ export default function AyufitPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Vyayama Logic</h2>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Movement for Vitality</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Movement for Vitality</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-forest/20 pl-6 text-balance">
@@ -42,13 +42,13 @@ export default function AyufitPage({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Dosha Tension</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Dosha Tension</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">
                             {state.vata_state > 50 ? "High Vata" : state.kapha_state > 50 ? "High Kapha" : "Balanced"}
                         </p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Movement Pulse</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Movement Pulse</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(state.movement_level)}%</p>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ export default function AyufitPage({
                                     <p className="text-[11px] font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>
-                            <div className="text-[10px] font-black text-slate-400">{p.time_of_day}</div>
+                            <div className="text-xs font-black text-slate-400">{p.time_of_day}</div>
                         </div>
                     ))}
                 </div>
