@@ -32,7 +32,6 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#2D5A43" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}
