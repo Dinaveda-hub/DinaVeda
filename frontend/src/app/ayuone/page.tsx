@@ -442,8 +442,8 @@ export default function AyuOneHub() {
                                                     icon: CloudSun,
                                                     color: "bg-forest/80",
                                                     hover: "hover:bg-forest",
-                                                    accent: "text-amber-200",
-                                                    gradient: "from-forest/5 to-emerald-50/20"
+                                                    accent: "bg-emerald-50/50 border-emerald-100/50",
+                                                    gradient: "from-forest/10 to-transparent"
                                                 },
                                                 {
                                                     id: "evening",
@@ -452,8 +452,8 @@ export default function AyuOneHub() {
                                                     icon: Zap,
                                                     color: "bg-slate-700/80",
                                                     hover: "hover:bg-slate-800",
-                                                    accent: "text-amber-200",
-                                                    gradient: "from-indigo-50/5 to-blue-50/20"
+                                                    accent: "bg-slate-50 border-slate-200/50",
+                                                    gradient: "from-slate-200/10 to-transparent"
                                                 },
                                             ].map((ritual) => {
                                                 const isDone = completedLogs.includes(ritual.id);
@@ -463,7 +463,7 @@ export default function AyuOneHub() {
                                                         whileHover={{ y: -8, scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
                                                         onClick={() => !isDone && setActiveCheckinType(ritual.id as any)}
-                                                        className={`relative group flex flex-col text-left overflow-hidden rounded-[2.5rem] border transition-all duration-500 shadow-sm hover:shadow-xl ${isDone ? "bg-slate-100/50 border-slate-200 opacity-60 grayscale-[0.5]" : `bg-white border-white ${ritual.hover}`
+                                                        className={`relative group flex flex-col text-left overflow-hidden rounded-[2.5rem] border transition-all duration-500 shadow-sm hover:shadow-xl ${isDone ? "bg-slate-100/30 border-slate-200/50 opacity-60 grayscale-[0.5]" : `${ritual.accent} backdrop-blur-sm ${ritual.hover}`
                                                             }`}
                                                     >
                                                         <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${ritual.gradient} rounded-full -mr-16 -mt-16 blur-2xl opacity-50 group-hover:opacity-100 transition-opacity`} />
