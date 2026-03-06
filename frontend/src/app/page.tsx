@@ -14,6 +14,7 @@ import { computeHealthScore } from "@/engine/healthScoreEngine";
 import { computeIPI } from "@/engine/imbalancePressureEngine";
 import { PredictionEngine } from "@/engine/predictionEngine";
 import { CompiledProtocolItem } from "@/engine/protocolCompiler";
+import { humanizeProtocolName } from "@/utils/stringUtils";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -68,7 +69,7 @@ export default function Dashboard() {
   const mapToCompiled = (protos: Protocol[]): CompiledProtocolItem[] =>
     protos.map(p => ({
       name: p.name,
-      title: p.name.replace(/_/g, ' '),
+      title: humanizeProtocolName(p.name),
       description: p.instructions,
       time_of_day: p.time_of_day,
       duration: p.duration,

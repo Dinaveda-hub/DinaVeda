@@ -6,7 +6,7 @@
 const PROTOCOL_MAPPINGS: Record<string, string> = {
     "abhyanga": "Abhyanga",
     "grounding_yoga": "Ground yoga",
-    "padabhyanga": "Padaabhyanga",
+    "padabhyanga": "Padabhyanga",
     "nasya": "Nasya",
     "early_wake": "Early wake",
     "morning_sunlight": "Morning sunlight",
@@ -16,7 +16,10 @@ const PROTOCOL_MAPPINGS: Record<string, string> = {
     "dry_brushing": "Dry brushing",
     "morning_hydration": "Morning hydration",
     "meditation": "Meditation",
-    "pranayama": "Pranayama"
+    "pranayama": "Pranayama",
+    "midday_main_meal": "Midday main meal",
+    "mindful_chewing": "Mindful chewing",
+    "evening_wind_down": "Evening wind down"
 };
 
 /**
@@ -34,8 +37,7 @@ export const humanizeProtocolName = (slug: string): string => {
         return PROTOCOL_MAPPINGS[key];
     }
 
-    // 2. Default: Sentence Case (First letter upper, rest as is or forced lower)
-    // The user said "every protocols first letter be capital"
-    const humanized = slug.replace(/_/g, ' ');
+    // 2. Default: Sentence Case (Only first letter upper, rest forced lower)
+    const humanized = slug.replace(/_/g, ' ').toLowerCase();
     return humanized.charAt(0).toUpperCase() + humanized.slice(1);
 };
