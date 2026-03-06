@@ -19,7 +19,7 @@ export default function PremiumPage() {
         if (loading) return;
         setLoading(true);
         try {
-            let billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || process.env.NEXT_PUBLIC_API_URL || "";
+            let billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || "";
             billingBaseUrl = billingBaseUrl.replace(/\/$/, "");
 
             const apiUrl = `${billingBaseUrl}/api/billing/create-subscription`;

@@ -24,8 +24,8 @@ export default function UpgradeModal({ isOpen, onClose, userId, contextualMessag
         if (loading) return;
         setLoading(true);
         try {
-            // Robust URL handling
-            let billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || process.env.NEXT_PUBLIC_API_URL || "";
+            // Ensure we hit the Next.js billing routes local to this app
+            let billingBaseUrl = process.env.NEXT_PUBLIC_BILLING_API_URL || "";
             billingBaseUrl = billingBaseUrl.replace(/\/$/, "");
 
             const apiUrl = `${billingBaseUrl}/api/billing/create-subscription`;
