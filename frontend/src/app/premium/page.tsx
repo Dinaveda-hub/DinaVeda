@@ -144,7 +144,7 @@ export default function PremiumPage() {
                         <BenefitCard icon={<Wind className="w-7 h-7" />} title="Manasayur" sub="Pranayama and mental balance practices." />
                         <BenefitCard icon={<Moon className="w-7 h-7" />} title="Somasleep" sub="Sleep optimization and circadian correction." />
                         <BenefitCard icon={<BrainCircuit className="w-7 h-7" />} title="AyuOne Coach" sub="Unlimited AI wellness assistant." />
-                        <BenefitCard icon={<ShieldCheck className="w-7 h-7" />} title="Deep Insights" sub="Deterministic health engine tracking." />
+                        <BenefitCard icon={<ShieldCheck className="w-7 h-7" />} title="Deep Insights" sub="Core Intelligence Engine tracking." />
                     </div>
                 </section>
 
@@ -228,7 +228,7 @@ export default function PremiumPage() {
                     {/* 6. TRUST SECTION */}
                     <div className="mt-24 pt-12 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-12 max-w-3xl mx-auto">
                         <TrustItem icon={<ShieldCheck className="w-6 h-6" />} label="Built using classical Ayurvedic physiology" />
-                        <TrustItem icon={<BrainCircuit className="w-6 h-6" />} label="Deterministic health engine" />
+                        <TrustItem icon={<BrainCircuit className="w-6 h-6" />} label="Core Intelligence Engine" />
                         <TrustItem icon={<Heart className="w-6 h-6" />} label="Evidence-based wellness principles" />
                     </div>
 

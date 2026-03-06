@@ -111,8 +111,17 @@ const moduleData: Record<string, any> = {
 // ─────────────────────────────────────────────────────────
 
 /**
+ * Formats a snake_case slug into Title Case.
+ */
+const humanizeSlug = (slug: string) => {
+    return slug
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+};
+
+/**
  * Renders the AI routine text with basic formatting:
- * Bold section headers (lines ending in ":") and normal body text.
  */
 function RoutineText({ content }: { content: string }) {
     const lines = content.split('\n');
@@ -297,36 +306,31 @@ export default function ModuleDetail({ params }: { params: any }) {
                 {slug === 'nutriveda' && (
                     <NutrivedaPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
-                        onGenerate={triggerGeneration}
+                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'ayufit' && (
                     <AyufitPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
-                        onGenerate={triggerGeneration}
+                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'manasayur' && (
                     <ManasayurPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
-                        onGenerate={triggerGeneration}
+                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'somasleep' && (
                     <SomasleepPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
-                        onGenerate={triggerGeneration}
+                        aiRoutine={aiRoutine}
                     />
                 )}
                 {slug === 'sattvaliving' && (
                     <SattvalivingPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
-                        aiRoutine={aiRoutine} isPremium={isPremium} isGenerating={isGenerating}
-                        onGenerate={triggerGeneration}
+                        aiRoutine={aiRoutine}
                     />
                 )}
 
@@ -337,7 +341,7 @@ export default function ModuleDetail({ params }: { params: any }) {
                         <div className="mt-8 space-y-4">
                             {moduleRecs.map((p, i) => (
                                 <div key={i} className="bg-white/60 p-6 rounded-2xl border border-slate-100 flex justify-between">
-                                    <span className="font-bold text-forest">{p.name}</span>
+                                    <span className="font-bold text-forest">{humanizeSlug(p.name)}</span>
                                     <span className="text-xs text-slate-400 font-bold uppercase">{p.time_of_day}</span>
                                 </div>
                             ))}

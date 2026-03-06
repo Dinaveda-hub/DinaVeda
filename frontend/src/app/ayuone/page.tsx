@@ -220,7 +220,7 @@ export default function AyuOneHub() {
         setAccumulatedEffects([]);
         setMessages(prev => [
             ...prev,
-            { role: "ai", text: `✅ ${typeLabel} Check-in Complete. I have dynamically synced these signals to your thermodynamic model. Ojas, Digestion, and Circadian reserves have been updated.` }
+            { role: "ai", text: `✅ ${typeLabel} Check-in Complete. I have dynamically synced these signals to your biological pulse. Ojas, Digestion, and Circadian reserves have been updated.` }
         ]);
         scrollToBottom();
     };
@@ -264,7 +264,7 @@ export default function AyuOneHub() {
             if (data.reply) {
                 setMessages(prev => [...prev, { role: "ai", text: data.reply }]);
 
-                // Apply deterministic state updates
+                // Apply core engine state updates
                 if (data.signals && Array.isArray(data.signals) && data.signals.length > 0) {
                     const nextState = applySignals(data.signals, state, userId || undefined);
                     updateState(nextState);

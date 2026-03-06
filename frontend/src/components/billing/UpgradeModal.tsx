@@ -261,7 +261,7 @@ export default function UpgradeModal({ isOpen, onClose, userId, contextualMessag
                                     </div>
                                     <div className="flex flex-col items-center gap-2">
                                         <BrainCircuit className="w-5 h-5 text-forest/40" />
-                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-tighter leading-tight">Deterministic health engine</p>
+                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-tighter leading-tight">Core Intelligence Engine</p>
                                     </div>
                                     <div className="flex flex-col items-center gap-2">
                                         <Heart className="w-5 h-5 text-forest/40" />
