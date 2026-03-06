@@ -117,9 +117,9 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     key={opt.value}
                     type="button"
                     onClick={() => handleSelect(name, opt.value)}
-                    className={`px-3 py-2 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest transition-all border ${value === opt.value
-                        ? 'bg-forest text-white border-forest shadow-md shadow-forest/10 scale-[1.02]'
-                        : 'bg-white text-slate-400 border-slate-100 hover:border-forest/20'
+                    className={`px-4 py-3 rounded-xl md:rounded-2xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border ${value === opt.value
+                        ? 'bg-forest text-white border-forest shadow-lg shadow-forest/10 scale-[1.02]'
+                        : 'bg-white text-slate-500 border-slate-100 hover:border-forest/20'
                         }`}
                 >
                     {opt.label}
@@ -129,10 +129,10 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
     );
 
     return (
-        <div className="space-y-6 md:space-y-10">
-            <header className="mb-2 md:mb-4">
-                <h3 className="text-forest font-black uppercase tracking-[0.4em] text-[10px] mb-1 md:mb-2">Morning Dialogue</h3>
-                <p className="text-slate-400 text-[10px] md:text-xs font-bold leading-relaxed">Let's audit your biological flow. Be honest with your inner nature.</p>
+        <div className="space-y-8 md:space-y-12">
+            <header className="mb-4 md:mb-8">
+                <h3 className="text-forest font-black uppercase tracking-[0.4em] text-xs md:text-sm mb-2 md:mb-3">Temporal Health Audit</h3>
+                <p className="text-slate-500 text-xs md:text-sm font-bold leading-relaxed">Honest dialogue with your inner nature facilitates biological accuracy.</p>
             </header>
 
             <form onSubmit={analyzeLog} className="space-y-8 md:space-y-12">

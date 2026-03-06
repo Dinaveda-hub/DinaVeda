@@ -236,25 +236,25 @@ export default function AyuOneHub() {
     if (!mounted) return null;
 
     return (
-        <div className="flex flex-col h-screen h-[100dvh] bg-[#F8FAF9] relative overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
+        <div className="flex-1 flex flex-col bg-background relative overflow-hidden">
+            {/* Ambient background glows */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest/10 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
 
-            {/* Header - Removed sticky, using flex-col flow */}
-            <header className="px-6 py-4 md:px-10 md:pt-12 flex flex-col md:flex-row md:items-end justify-between gap-2 z-20 shrink-0">
+            {/* Header */}
+            <header className="px-6 py-6 md:px-10 md:pt-16 md:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-2 z-20 shrink-0">
                 <div className="relative">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1.5">
                         <Sparkles className="w-4 h-4 text-forest animate-pulse" />
-                        <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em]">AyuOne Engine</span>
+                        <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em]">Neural Interface</span>
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-black text-forest tracking-tight">
-                        {!isPrakritiSet ? "Constitution Mapping" : "Veda Interface"}
+                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm">
+                        {!isPrakritiSet ? "Constitution" : "AyuOne"}
                     </h1>
                 </div>
             </header>
 
-            <main className="flex-1 flex flex-col items-center overflow-hidden px-3 md:px-10 pb-4 md:pb-6">
+            <main className="flex-1 flex flex-col items-center overflow-hidden px-3 md:px-10 pb-4 md:pb-12 h-full">
                 {!isPrakritiSet ? (
                     <div className="w-full max-w-xl space-y-8 py-8 overflow-y-auto custom-scrollbar">
                         {!constitution && currentStep < quizFlow.length && (
@@ -330,39 +330,39 @@ export default function AyuOneHub() {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="glass p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/40 shadow-premium space-y-6 md:space-y-8"
+                                className="glass p-8 md:p-12 rounded-[2.5rem] md:rounded-[3rem] border border-white/60 shadow-premium space-y-8"
                             >
                                 <div className="text-center flex flex-col items-center">
-                                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-[1.5rem] md:rounded-[2rem] bg-forest/5 flex items-center justify-center text-forest mb-4">
-                                        <ShieldCheck className="w-7 h-7 md:w-8 md:h-8" />
+                                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-forest text-white flex items-center justify-center mb-6 shadow-xl shadow-forest/20">
+                                        <ShieldCheck className="w-8 h-8 md:w-10 md:h-10" />
                                     </div>
                                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
-                                    <h3 className="text-3xl md:text-4xl font-black text-forest tracking-tighter">{constitution.type}</h3>
+                                    <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter">{constitution.type}</h3>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 py-6 border-y border-forest/5">
-                                    <div className="text-center bg-white/40 p-4 rounded-xl md:rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Vata</div>
-                                        <div className="text-2xl md:text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 py-8 border-y border-forest/5">
+                                    <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Vata</div>
+                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
                                     </div>
-                                    <div className="text-center bg-white/40 p-4 rounded-xl md:rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Pitta</div>
-                                        <div className="text-2xl md:text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
+                                    <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Pitta</div>
+                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
                                     </div>
-                                    <div className="text-center bg-white/40 p-4 rounded-xl md:rounded-2xl relative overflow-hidden group border border-slate-50 transition-all hover:border-forest/20 shadow-sm">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kapha</div>
-                                        <div className="text-2xl md:text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
+                                    <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Kapha</div>
+                                        <div className="text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
                                     </div>
                                 </div>
 
-                                <button onClick={completeOnboarding} className="block w-full text-center py-5 bg-forest text-white rounded-[1.5rem] text-xs font-black uppercase tracking-widest shadow-xl shadow-forest/20 hover:bg-forest/90 active:scale-[0.98] transition-all">
+                                <button onClick={completeOnboarding} className="block w-full text-center py-6 bg-forest text-white rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-forest/30 hover:bg-forest/90 active:scale-95 transition-all">
                                     Enter Veda
                                 </button>
                             </motion.div>
                         )}
                     </div>
                 ) : (
-                    <div className="w-full max-w-4xl flex flex-col bg-white/60 backdrop-blur-2xl rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-white/80 h-full max-h-[calc(100%-10px)] md:max-h-[calc(100%-20px)] overflow-hidden">
+                    <div className="w-full max-w-5xl flex flex-col glass rounded-[2rem] md:rounded-[3rem] shadow-premium border border-white/80 flex-1 overflow-hidden h-full">
 
                         {activeCheckinType ? (
                             <div className="flex-1 flex flex-col p-4 md:p-12 items-center justify-center overflow-y-auto w-full custom-scrollbar relative">
@@ -412,26 +412,26 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Action Chips */}
-                                <div className="p-3 md:p-4 border-b border-white/50 bg-white/40 flex gap-2 md:gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
+                                <div className="p-4 md:p-6 border-b border-forest/5 bg-white/20 flex gap-2 md:gap-4 overflow-x-auto custom-scrollbar items-center shrink-0">
                                     <button
                                         onClick={() => setActiveCheckinType("morning")}
-                                        className="flex items-center gap-2 bg-forest text-white px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-emerald-800 border border-forest/20 shadow-lg shadow-forest/10 whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2.5 bg-forest text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-emerald-800 border border-forest/20 shadow-xl shadow-forest/10 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <CloudSun className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-300" />
+                                        <CloudSun className="w-4 h-4 text-amber-300" />
                                         Morning
                                     </button>
                                     <button
                                         onClick={() => setActiveCheckinType("evening")}
-                                        className="flex items-center gap-2 bg-indigo-600 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-indigo-700 border border-indigo-200 shadow-lg shadow-indigo-10/10 whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2.5 bg-indigo-600 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-indigo-700 border border-indigo-200 shadow-xl shadow-indigo-10/10 whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-300" />
+                                        <Zap className="w-4 h-4 text-amber-300" />
                                         Evening
                                     </button>
                                     <button
                                         onClick={() => setShowDetailedLog(true)}
-                                        className="flex items-center gap-2 bg-slate-800 text-white px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-slate-900 border border-slate-700 shadow-lg whitespace-nowrap transition-all active:scale-95"
+                                        className="flex items-center gap-2.5 bg-slate-900 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest hover:bg-slate-950 border border-slate-800 shadow-xl whitespace-nowrap transition-all active:scale-95"
                                     >
-                                        <BrainCircuit className="w-3.5 h-3.5 md:w-4 md:h-4 text-emerald-400" />
+                                        <BrainCircuit className="w-4 h-4 text-emerald-400" />
                                         Audit
                                     </button>
                                 </div>
@@ -470,8 +470,8 @@ export default function AyuOneHub() {
                                 </AnimatePresence>
 
                                 {/* Chat Messages Area */}
-                                <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 custom-scrollbar bg-slate-50/50">
-                                    <div className="flex flex-col gap-4">
+                                <div className="flex-1 overflow-y-auto p-5 md:p-10 space-y-4 md:space-y-8 custom-scrollbar bg-slate-50/30">
+                                    <div className="flex flex-col gap-5 md:gap-8">
                                         {messages.map((msg, idx) => (
                                             <motion.div
                                                 key={idx}
@@ -514,24 +514,24 @@ export default function AyuOneHub() {
                                 </div>
 
                                 {/* Chat Input Area */}
-                                <div className="p-3 md:p-8 bg-white/60 backdrop-blur-md border-t border-white/40 flex gap-2 md:gap-4 items-center shrink-0">
-                                    <div className="flex-1 bg-white/80 rounded-2xl md:rounded-3xl border border-slate-200 shadow-sm flex items-center px-4 md:px-5 py-2.5 md:py-4 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
+                                <div className="p-4 md:p-10 bg-white/80 backdrop-blur-md border-t border-forest/5 flex gap-3 md:gap-6 items-center shrink-0">
+                                    <div className="flex-1 bg-white rounded-2xl md:rounded-[2rem] border border-slate-200 shadow-sm flex items-center px-5 md:px-8 py-3 md:py-5 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
                                         <input
                                             type="text"
                                             value={input}
                                             onChange={(e) => setInput(e.target.value)}
                                             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                            placeholder="Log signals..."
-                                            className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400 text-xs md:text-base"
+                                            placeholder="Dialogue with Veda..."
+                                            className="w-full bg-transparent outline-none text-slate-800 font-bold placeholder:text-slate-400 text-sm md:text-lg"
                                             disabled={isTyping}
                                         />
                                     </div>
                                     <button
                                         onClick={handleSend}
                                         disabled={!input.trim() || isTyping}
-                                        className="w-10 h-10 md:w-14 md:h-14 bg-forest text-white rounded-xl md:rounded-2xl flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-lg shadow-forest/20 shrink-0"
+                                        className="w-12 h-12 md:w-20 md:h-20 bg-forest text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center hover:bg-emerald-900 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-xl shadow-forest/20 shrink-0"
                                     >
-                                        <Send className="w-4 h-4 md:w-6 md:h-6" />
+                                        <Send className="w-5 h-5 md:w-8 md:h-8" />
                                     </button>
                                 </div>
                             </>
