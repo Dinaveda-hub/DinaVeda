@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         const subscription = await razorpay.subscriptions.create({
             plan_id: planId,
             customer_notify: 1,
-            total_count: planType === 'yearly' ? 10 : 120, // 10 years of coverage
+            total_count: planType === 'yearly' ? 12 : 60, // 1 year for yearly, 5 years for monthly
             notes: {
                 user_id: userId
             }
