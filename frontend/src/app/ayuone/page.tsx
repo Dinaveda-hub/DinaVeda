@@ -66,6 +66,7 @@ export default function AyuOneHub() {
     const [checkinStep, setCheckinStep] = useState(0);
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
     const [showDetailedLog, setShowDetailedLog] = useState(false);
+    const [completedLogs, setCompletedLogs] = useState<string[]>([]);
 
     const { state, updateState } = usePhysiologyState();
 
@@ -74,6 +75,15 @@ export default function AyuOneHub() {
 
         if (typeof window !== "undefined") {
             const storedPrakriti = localStorage.getItem("prakriti_result");
+            const today = new Date().toISOString().split('T')[0];
+            const storedLogs = JSON.parse(localStorage.getItem("completed_logs") || "{}");
+
+            // Filter logs completed today
+            const dailyLogs = Object.entries(storedLogs)
+                .filter(([key, val]) => val === today)
+                .map(([key]) => key);
+            setCompletedLogs(dailyLogs);
+
             if (storedPrakriti) {
                 setIsPrakritiSet(true);
                 const data = JSON.parse(storedPrakriti);
@@ -177,10 +187,19 @@ export default function AyuOneHub() {
 
     const finishCheckin = (effectsList: Partial<Record<string, number>>[]) => {
         const nextState = applyEffects(state, effectsList);
-
         updateState(nextState);
 
         const typeLabel = activeCheckinType === "morning" ? "Morning" : "Evening";
+
+        // Persist completion
+        if (activeCheckinType) {
+            const today = new Date().toISOString().split('T')[0];
+            const storedLogs = JSON.parse(localStorage.getItem("completed_logs") || "{}");
+            storedLogs[activeCheckinType] = today;
+            localStorage.setItem("completed_logs", JSON.stringify(storedLogs));
+            setCompletedLogs(prev => [...prev, activeCheckinType!]);
+        }
+
         setActiveCheckinType(null);
         setCheckinStep(0);
         setAccumulatedEffects([]);
@@ -242,19 +261,19 @@ export default function AyuOneHub() {
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
 
             {/* Header */}
-            <header className="px-6 pt-12 pb-6 md:px-12 md:pt-20 md:pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
+            <header className="px-6 pt-12 pb-4 md:px-12 md:pt-16 md:pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
                 <div className="relative">
-                    <div className="flex items-center gap-3 mb-2">
-                        <Sparkles className="w-5 h-5 text-forest animate-pulse" />
-                        <span className="text-xs font-black text-forest uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
+                    <div className="flex items-center gap-3 mb-1">
+                        <Sparkles className="w-4 h-4 text-forest animate-pulse" />
+                        <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em] opacity-60">AyuOne Neural Interface</span>
                     </div>
-                    <h1 className="text-4xl md:text-8xl font-black text-forest tracking-tighter drop-shadow-sm">
+                    <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm">
                         {!isPrakritiSet ? "Protocol" : "Dialogue"}
                     </h1>
                 </div>
             </header>
 
-            <main className="flex-1 flex flex-col items-center overflow-hidden px-3 md:px-10 pb-4 md:pb-12 w-full">
+            <main className="flex-1 flex flex-col items-center overflow-hidden w-full relative">
                 {!isPrakritiSet ? (
                     <div className="w-full max-w-xl space-y-8 py-8 overflow-y-auto custom-scrollbar">
                         {!constitution && currentStep < quizFlow.length && (
@@ -411,141 +430,146 @@ export default function AyuOneHub() {
                             </div>
                         ) : (
                             <>
-                                {/* Action Chips */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="p-5 md:p-8 border-b border-forest/5 bg-white/20 flex gap-3 md:gap-4 overflow-x-auto custom-scrollbar items-center shrink-0"
-                                >
-                                    {[
-                                        { id: "morning", label: "Morning Ritual", icon: CloudSun, color: "bg-forest", hover: "hover:bg-emerald-900", accent: "text-amber-300" },
-                                        { id: "evening", label: "Evening Wind", icon: Zap, color: "bg-indigo-700", hover: "hover:bg-indigo-900", accent: "text-amber-300" },
-                                    ].map((chip, idx) => (
-                                        <motion.button
-                                            key={chip.id}
-                                            initial={{ opacity: 0, scale: 0.9 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ delay: idx * 0.1 }}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            onClick={() => setActiveCheckinType(chip.id as any)}
-                                            className={`flex items-center gap-3 ${chip.color} text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest ${chip.hover} border border-white/10 shadow-xl shadow-forest/20 whitespace-nowrap transition-all`}
-                                        >
-                                            <chip.icon className={`w-5 h-5 ${chip.accent}`} />
-                                            {chip.label}
-                                        </motion.button>
-                                    ))}
-                                    <motion.button
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.2 }}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => setShowDetailedLog(true)}
-                                        className="flex items-center gap-3 bg-slate-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-xs font-black uppercase tracking-widest hover:bg-black border border-slate-700 shadow-xl whitespace-nowrap transition-all"
-                                    >
-                                        <BrainCircuit className="w-5 h-5 text-emerald-400" />
-                                        Deep Audit
-                                    </motion.button>
-                                </motion.div>
-
-                                <AnimatePresence>
-                                    {showDetailedLog && (
+                                {/* Fixed App Area */}
+                                <div className="flex-1 w-full max-w-5xl flex flex-col bg-slate-50/30 overflow-hidden relative mb-[110px] md:mb-0">
+                                    {/* Action Chips - Now conditional and floating */}
+                                    <div className="absolute top-0 left-0 right-0 z-30 pointer-events-none">
                                         <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md p-4 md:p-10 flex items-center justify-center"
+                                            initial={{ opacity: 0, y: -20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="p-5 flex gap-3 overflow-x-auto custom-scrollbar no-scrollbar items-center shrink-0 pointer-events-auto"
                                         >
-                                            <motion.div
-                                                initial={{ scale: 0.9, y: 20 }}
-                                                animate={{ scale: 1, y: 0 }}
-                                                exit={{ scale: 0.9, y: 20 }}
-                                                className="bg-white rounded-[2rem] md:rounded-[3rem] w-full max-w-2xl h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl relative p-5 md:p-12"
-                                            >
-                                                <button
-                                                    onClick={() => setShowDetailedLog(false)}
-                                                    className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors z-10"
+                                            {[
+                                                { id: "morning", label: "Morning Ritual", icon: CloudSun, color: "bg-forest", hover: "hover:bg-emerald-900", accent: "text-amber-300" },
+                                                { id: "evening", label: "Evening Wind", icon: Zap, color: "bg-indigo-700", hover: "hover:bg-indigo-900", accent: "text-amber-300" },
+                                            ].filter(chip => !completedLogs.includes(chip.id)).map((chip, idx) => (
+                                                <motion.button
+                                                    key={chip.id}
+                                                    initial={{ opacity: 0, scale: 0.9 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: idx * 0.1 }}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => setActiveCheckinType(chip.id as any)}
+                                                    className={`flex items-center gap-3 ${chip.color} text-white px-5 py-3 rounded-full text-[10px] font-black uppercase tracking-widest ${chip.hover} border border-white/10 shadow-xl whitespace-nowrap transition-all`}
                                                 >
-                                                    <Zap className="w-4 h-4 rotate-45" />
-                                                </button>
-                                                <DailyLogForm
-                                                    onResult={(data) => {
-                                                        setShowDetailedLog(false);
-                                                        setMessages(prev => [...prev, { role: "ai", text: "✅ Detailed Audit Complete. Your physiological pulse has been updated with these deep signals." }]);
-                                                    }}
-                                                    isLoading={isTyping}
-                                                    setIsLoading={setIsTyping}
-                                                />
-                                            </motion.div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-
-                                {/* Chat Messages Area */}
-                                <div className="flex-1 overflow-y-auto p-5 md:p-10 space-y-4 md:space-y-8 custom-scrollbar bg-slate-50/30">
-                                    <div className="flex flex-col gap-5 md:gap-8">
-                                        {messages.map((msg, idx) => (
-                                            <motion.div
-                                                key={idx}
-                                                initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                className={`flex gap-3 md:gap-4 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                                                    <chip.icon className={`w-4 h-4 ${chip.accent}`} />
+                                                    {chip.label}
+                                                </motion.button>
+                                            ))}
+                                            <motion.button
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 0.2 }}
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                onClick={() => setShowDetailedLog(true)}
+                                                className="flex items-center gap-3 bg-slate-900 text-white px-5 py-3 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-black border border-slate-700 shadow-xl whitespace-nowrap transition-all"
                                             >
-                                                {msg.role === "ai" && (
-                                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm border border-forest/5">
-                                                        <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
-                                                    </div>
-                                                )}
-                                                <div className={`max-w-[90%] md:max-w-[80%] p-5 md:p-6 text-sm md:text-lg font-bold leading-relaxed shadow-sm border transition-all ${msg.role === "user"
-                                                    ? "bg-forest/10 text-forest rounded-[1.5rem] rounded-tr-sm border-forest/30"
-                                                    : "bg-white text-slate-900 rounded-[1.5rem] border-slate-300 rounded-tl-sm shadow-md"
-                                                    }`}>
-                                                    {msg.text}
-                                                </div>
-                                                {msg.role === "user" && (
-                                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 shadow-sm border border-slate-300">
-                                                        <User className="w-4 h-4 md:w-5 md:h-5 text-slate-500" />
-                                                    </div>
-                                                )}
-                                            </motion.div>
-                                        ))}
-                                        {isTyping && (
-                                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 md:gap-4 justify-start">
-                                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
-                                                    <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
-                                                </div>
-                                                <div className="bg-white/90 backdrop-blur-sm p-4 md:p-5 rounded-[1.5rem] rounded-tl-sm border border-white/60 shadow-sm flex items-center gap-1.5">
-                                                    <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                                                    <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                                                    <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce"></div>
-                                                </div>
+                                                <BrainCircuit className="w-4 h-4 text-emerald-400" />
+                                                Deep Audit
+                                            </motion.button>
+                                        </motion.div>
+                                    </div>
+
+                                    <AnimatePresence>
+                                        {showDetailedLog && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md p-4 md:p-10 flex items-center justify-center"
+                                            >
+                                                <motion.div
+                                                    initial={{ scale: 0.9, y: 20 }}
+                                                    animate={{ scale: 1, y: 0 }}
+                                                    exit={{ scale: 0.9, y: 20 }}
+                                                    className="bg-white rounded-[2rem] md:rounded-[3rem] w-full max-w-2xl h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl relative p-5 md:p-12"
+                                                >
+                                                    <button
+                                                        onClick={() => setShowDetailedLog(false)}
+                                                        className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors z-10"
+                                                    >
+                                                        <Zap className="w-4 h-4 rotate-45" />
+                                                    </button>
+                                                    <DailyLogForm
+                                                        onResult={(data) => {
+                                                            setShowDetailedLog(false);
+                                                            setMessages(prev => [...prev, { role: "ai", text: "✅ Detailed Audit Complete. Your physiological pulse has been updated with these deep signals." }]);
+                                                        }}
+                                                        isLoading={isTyping}
+                                                        setIsLoading={setIsTyping}
+                                                    />
+                                                </motion.div>
                                             </motion.div>
                                         )}
-                                        <div ref={messagesEndRef} className="h-2" />
-                                    </div>
-                                </div>
+                                    </AnimatePresence>
 
-                                {/* Chat Input Area */}
-                                <div className="p-4 md:p-10 bg-white/80 backdrop-blur-md border-t border-forest/5 flex gap-3 md:gap-6 items-center shrink-0">
-                                    <div className="flex-1 bg-white rounded-2xl md:rounded-[2rem] border border-slate-200 shadow-sm flex items-center px-5 md:px-8 py-3 md:py-5 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
-                                        <input
-                                            type="text"
-                                            value={input}
-                                            onChange={(e) => setInput(e.target.value)}
-                                            onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                            placeholder="Dialogue with Veda..."
-                                            className="w-full bg-transparent outline-none text-slate-800 font-bold placeholder:text-slate-400 text-sm md:text-lg"
-                                            disabled={isTyping}
-                                        />
+                                    {/* Chat Messages Area */}
+                                    <div className="flex-1 overflow-y-auto p-5 md:p-10 space-y-4 md:space-y-8 custom-scrollbar pt-20">
+                                        <div className="flex flex-col gap-5 md:gap-8">
+                                            {messages.map((msg, idx) => (
+                                                <motion.div
+                                                    key={idx}
+                                                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    className={`flex gap-3 md:gap-4 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                                                >
+                                                    {msg.role === "ai" && (
+                                                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm border border-forest/5">
+                                                            <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
+                                                        </div>
+                                                    )}
+                                                    <div className={`max-w-[90%] md:max-w-[80%] p-5 md:p-6 text-sm md:text-lg font-bold leading-relaxed shadow-sm border transition-all ${msg.role === "user"
+                                                        ? "bg-forest text-white rounded-[1.5rem] rounded-tr-sm border-forest/30 shadow-lg shadow-forest/10"
+                                                        : "bg-white text-slate-900 rounded-[1.5rem] border-slate-300 rounded-tl-sm shadow-md"
+                                                        }`}>
+                                                        {msg.text}
+                                                    </div>
+                                                    {msg.role === "user" && (
+                                                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 shadow-sm border border-slate-300">
+                                                            <User className="w-4 h-4 md:w-5 md:h-5 text-slate-500" />
+                                                        </div>
+                                                    )}
+                                                </motion.div>
+                                            ))}
+                                            {isTyping && (
+                                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 md:gap-4 justify-start">
+                                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
+                                                        <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
+                                                    </div>
+                                                    <div className="bg-white/90 backdrop-blur-sm p-4 md:p-5 rounded-[1.5rem] rounded-tl-sm border border-white/60 shadow-sm flex items-center gap-1.5">
+                                                        <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                                        <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                                        <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce"></div>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                            <div ref={messagesEndRef} className="h-4" />
+                                        </div>
                                     </div>
-                                    <button
-                                        onClick={handleSend}
-                                        disabled={!input.trim() || isTyping}
-                                        className="w-12 h-12 md:w-20 md:h-20 bg-forest text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center hover:bg-emerald-900 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-xl shadow-forest/20 shrink-0"
-                                    >
-                                        <Send className="w-5 h-5 md:w-8 md:h-8" />
-                                    </button>
+
+                                    {/* Chat Input Area - Pinned to bottom of the glass container */}
+                                    <div className="p-4 md:p-10 bg-white/80 backdrop-blur-md border-t border-forest/5 flex gap-3 md:gap-6 items-center shrink-0">
+                                        <div className="flex-1 bg-white rounded-2xl md:rounded-[2rem] border border-slate-200 shadow-sm flex items-center px-4 md:px-8 py-3 md:py-5 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
+                                            <input
+                                                type="text"
+                                                value={input}
+                                                onChange={(e) => setInput(e.target.value)}
+                                                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                                                placeholder="Dialogue with Veda..."
+                                                className="w-full bg-transparent outline-none text-slate-800 font-bold placeholder:text-slate-400 text-sm md:text-lg"
+                                                disabled={isTyping}
+                                            />
+                                        </div>
+                                        <button
+                                            onClick={handleSend}
+                                            disabled={!input.trim() || isTyping}
+                                            className="w-12 h-12 md:w-20 md:h-20 bg-forest text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center hover:bg-emerald-900 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-xl shadow-forest/20 shrink-0"
+                                        >
+                                            <Send className="w-5 h-5 md:w-8 md:h-8" />
+                                        </button>
+                                    </div>
                                 </div>
                             </>
                         )}
