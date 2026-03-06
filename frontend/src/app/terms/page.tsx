@@ -19,7 +19,7 @@ export default function TermsPage() {
 
             <main className="max-w-4xl mx-auto px-6 py-24">
                 <h1 className="text-5xl font-black text-forest tracking-tighter mb-4">Terms of Service</h1>
-                <p className="text-slate-500 font-bold mb-16 tracking-widest uppercase text-[10px]">Last Updated: {new Date().toLocaleDateString()}</p>
+                <p className="text-slate-500 font-bold mb-16 tracking-widest uppercase text-xs">Last Updated: {new Date().toLocaleDateString()}</p>
 
                 <div className="prose prose-lg prose-slate max-w-none text-slate-600 space-y-8 font-medium leading-relaxed">
                     <p>

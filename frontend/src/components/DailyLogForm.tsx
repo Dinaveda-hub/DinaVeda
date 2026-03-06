@@ -117,7 +117,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     key={opt.value}
                     type="button"
                     onClick={() => handleSelect(name, opt.value)}
-                    className={`px-4 py-3 rounded-xl md:rounded-2xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border ${value === opt.value
+                    className={`px-4 py-3 rounded-xl md:rounded-2xl text-xs md:text-xs font-black uppercase tracking-widest transition-all border ${value === opt.value
                         ? 'bg-forest text-white border-forest shadow-lg shadow-forest/10 scale-[1.02]'
                         : 'bg-white text-slate-500 border-slate-100 hover:border-forest/20'
                         }`}
@@ -151,7 +151,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
 
                     <div className="space-y-6">
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Appetite [Agni]</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Appetite [Agni]</label>
                             <SegmentedControl
                                 name="agniStatus"
                                 value={form.agniStatus}
@@ -162,13 +162,13 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                     { label: "Variable", value: "variable" }
                                 ]}
                             />
-                            <p className="text-[9px] text-slate-400 italic font-bold flex items-center gap-2">
+                            <p className="text-xs text-slate-400 italic font-bold flex items-center gap-2">
                                 <Info className="w-3 h-3 text-orange-400" /> Morning hunger indicates a clean, efficient Agni.
                             </p>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Tongue Coating [Ama]</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Tongue Coating [Ama]</label>
                             <SegmentedControl
                                 name="amaStatus"
                                 value={form.amaStatus}
@@ -178,13 +178,13 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                     { label: "Thick Yellow", value: "high_ama" }
                                 ]}
                             />
-                            <p className="text-[9px] text-slate-400 italic font-bold flex items-center gap-2">
+                            <p className="text-xs text-slate-400 italic font-bold flex items-center gap-2">
                                 <AlertCircle className="w-3 h-3 text-red-300" /> Coating reflects undigested waste (Ama) in the gut.
                             </p>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Bowel Movements [Mala]</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Bowel Movements [Mala]</label>
                             <SegmentedControl
                                 name="bowelStatus"
                                 value={form.bowelStatus}
@@ -197,7 +197,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Micturition / Urination [Mutra]</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Micturition / Urination [Mutra]</label>
                             <SegmentedControl
                                 name="micturitionStatus"
                                 value={form.micturitionStatus}
@@ -210,7 +210,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Dinner Quality</label>
+                            <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Dinner Quality</label>
                             <SegmentedControl
                                 name="foodQuality"
                                 value={form.foodQuality}
@@ -231,12 +231,12 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
                         <div>
                             <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Exercise & Movement</h4>
-                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">Movement Dynamics</p>
+                            <p className="text-xs md:text-xs font-bold text-slate-300 uppercase tracking-widest">Movement Dynamics</p>
                         </div>
                     </div>
 
                     <div className="space-y-3">
-                        <label className="text-[10px] font-black text-forest uppercase tracking-widest opacity-50 block">Morning Flow [Dinacharya]</label>
+                        <label className="text-xs font-black text-forest uppercase tracking-widest opacity-50 block">Morning Flow [Dinacharya]</label>
                         <SegmentedControl
                             name="movement"
                             value={form.movement}
@@ -247,7 +247,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                 { label: "None", value: "none" }
                             ]}
                         />
-                        <p className="text-[9px] text-slate-400 italic font-bold flex items-center gap-2">
+                        <p className="text-xs text-slate-400 italic font-bold flex items-center gap-2">
                             <Info className="w-3 h-3 text-orange-400" /> Vyayama to half-capacity creates lightness (Laghava) without depleting Ojas.
                         </p>
                     </div>
@@ -260,7 +260,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
                         <div>
                             <h4 className="text-xs md:text-sm font-black text-forest uppercase tracking-widest">Sleep Sanctuary</h4>
-                            <p className="text-[9px] md:text-[10px] font-bold text-slate-300 uppercase tracking-widest">The Architecture of Sleep</p>
+                            <p className="text-xs md:text-xs font-bold text-slate-300 uppercase tracking-widest">The Architecture of Sleep</p>
                         </div>
                     </div>
 
@@ -377,7 +377,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                         </div>
                         <div>
                             <h4 className="text-sm font-black text-forest uppercase tracking-widest">Additional Nuance</h4>
-                            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Anything else Veda should know?</p>
+                            <p className="text-xs font-bold text-slate-300 uppercase tracking-widest">Anything else Veda should know?</p>
                         </div>
                     </div>
                     <textarea

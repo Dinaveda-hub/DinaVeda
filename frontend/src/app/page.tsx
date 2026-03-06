@@ -105,13 +105,13 @@ export default function Dashboard() {
 
         {/* 1. Header */}
         <motion.header variants={itemVariants} className="text-left mb-4">
-          <p className="text-[10px] md:text-xs font-black text-forest uppercase tracking-[0.3em] mb-2 flex items-center gap-2">
+          <p className="text-xs md:text-xs font-black text-forest uppercase tracking-[0.3em] mb-2 flex items-center gap-2">
             Dinaveda <Sparkles className="w-3 h-3 text-gold" />
           </p>
           <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-3">
             Today's guidance
           </h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+          <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">
             Aligned with your Prakriti • <span className="text-forest/60">{healthGoal.replace(/_/g, ' ').toUpperCase()}</span>
           </p>
         </motion.header>
@@ -124,7 +124,7 @@ export default function Dashboard() {
                 <CloudSun className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Seasonal Rhythm</h2>
+                <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Seasonal Rhythm</h2>
                 <h3 className="text-2xl font-black text-forest tracking-tighter leading-none">Vasanta (Spring)</h3>
               </div>
             </div>
@@ -175,24 +175,24 @@ export default function Dashboard() {
           {/* Sub Grid: Component Indicators */}
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
+              <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
               <span className="text-xl md:text-2xl font-black text-orange-600 tracking-tighter">
                 {isLoaded ? (state.agni_strength > 65 ? 'Strong' : state.agni_strength > 40 ? 'Balanced' : 'Weak') : '--'}
               </span>
             </div>
             <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
+              <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
               <span className="text-xl md:text-2xl font-black text-blue-600 tracking-tighter">
                 {isLoaded ? `${Math.round(state.circadian_alignment)}%` : '--'}
               </span>
             </div>
             <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
+              <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
               <div className="flex items-end gap-1.5">
                 <span className="text-xl md:text-2xl font-black text-forest tracking-tighter">
                   {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
                 </span>
-                {isLoaded && vikriti && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
+                {isLoaded && vikriti && <span className="text-xs font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function Dashboard() {
 
         {/* 4. Today's Protocol & 5. Time-Based Guidance */}
         <motion.section variants={itemVariants} className="mt-4">
-          <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+          <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
             <ShieldCheck className="w-4 h-4 text-forest/40" /> Today's Protocol
           </h2>
 
@@ -270,7 +270,7 @@ export default function Dashboard() {
         {/* 6. Dynamic Adjustments */}
         {isLoaded && adjustments.length > 0 && (
           <motion.section variants={itemVariants} className="mt-4">
-            <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+            <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
               <AlertCircle className="w-4 h-4 text-orange-400" /> Dynamic Adjustments
             </h2>
             <div className="space-y-4">
@@ -280,7 +280,7 @@ export default function Dashboard() {
                     <AlertCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-orange-800/60 mb-1">Adjustment Detected</p>
+                    <p className="text-xs font-black uppercase tracking-widest text-orange-800/60 mb-1">Adjustment Detected</p>
                     <h4 className="text-sm font-black text-orange-900 mb-1">{adj.issue}</h4>
                     <p className="text-sm font-bold text-slate-700 leading-snug">Recommendation: {adj.recommendation}</p>
                   </div>
@@ -296,7 +296,7 @@ export default function Dashboard() {
             <div className="w-10 h-10 rounded-[1.2rem] bg-forest/5 flex items-center justify-center mx-auto mb-5 text-forest">
               <Leaf className="w-5 h-5" />
             </div>
-            <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 mb-3">Dinaveda Observation</h4>
+            <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-3">Dinaveda Observation</h4>
             <p className="text-xs md:text-sm font-bold text-slate-500 leading-relaxed italic text-balance px-4">
               "{isLoaded ? predictionEngine.getSystemReflection(state) : "Calibrating systemic balance..."}"
             </p>

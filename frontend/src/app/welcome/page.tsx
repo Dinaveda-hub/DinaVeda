@@ -153,7 +153,7 @@ export default function WelcomeLandingPage() {
                 {/* Hero Section */}
                 <section className="pt-20 pb-12 lg:pt-32 lg:pb-24 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
                     <div className="flex-1 space-y-8 text-center lg:text-left z-10 w-full">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-forest/10 shadow-sm text-[10px] font-black uppercase tracking-[0.2em] text-forest/80">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-forest/10 shadow-sm text-xs font-black uppercase tracking-[0.2em] text-forest/80">
                             <Sparkles className="w-4 h-4 text-gold" /> Beyond Generic Wellness
                         </div>
 
@@ -221,7 +221,7 @@ export default function WelcomeLandingPage() {
                                 <p className="text-sm text-slate-500 mb-8 font-medium px-4">
                                     This elegant 4-step flow reveals the primary elemental forces guiding your life.
                                 </p>
-                                <button className="mx-auto flex items-center gap-2 bg-forest text-white px-8 py-4 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-forest/20 group-hover:scale-105 transition-transform">
+                                <button className="mx-auto flex items-center gap-2 bg-forest text-white px-8 py-4 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 group-hover:scale-105 transition-transform">
                                     Start Journey
                                 </button>
                             </div>
@@ -238,16 +238,16 @@ export default function WelcomeLandingPage() {
                                         </div>
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Full Name</label>
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Full Name</label>
                                                 <input type="text" value={userInfo.name} onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} className="w-full bg-slate-50 font-bold text-slate-700 px-6 py-4 rounded-2xl border border-slate-100 focus:outline-none focus:border-forest/30 focus:bg-white transition-all shadow-sm" placeholder="Your Name" />
                                             </div>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div>
-                                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Age</label>
+                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Age</label>
                                                     <input type="number" value={userInfo.age} onChange={(e) => setUserInfo({ ...userInfo, age: e.target.value })} className="w-full bg-slate-50 font-bold text-slate-700 px-6 py-4 rounded-2xl border border-slate-100 focus:outline-none focus:border-forest/30 focus:bg-white transition-all shadow-sm" placeholder="Age" />
                                                 </div>
                                                 <div>
-                                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Gender</label>
+                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Gender</label>
                                                     <select value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })} className="w-full bg-slate-50 font-bold text-slate-700 px-6 py-4 rounded-2xl border border-slate-100 focus:outline-none focus:border-forest/30 focus:bg-white transition-all shadow-sm cursor-pointer appearance-none">
                                                         <option value="">Select</option>
                                                         <option value="male">Male</option>
@@ -280,7 +280,7 @@ export default function WelcomeLandingPage() {
                                         </div>
 
                                         <div className="mb-10 mt-4 text-center">
-                                            <h4 className="inline-block px-3 py-1 bg-forest/5 text-[9px] font-black text-forest uppercase tracking-[0.3em] rounded-full mb-6">
+                                            <h4 className="inline-block px-3 py-1 bg-forest/5 text-xs font-black text-forest uppercase tracking-[0.3em] rounded-full mb-6">
                                                 {quizFlow[currentStep].domain} ({currentStep + 1}/{quizFlow.length})
                                             </h4>
                                             <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tighter text-balance leading-snug">
@@ -313,14 +313,14 @@ export default function WelcomeLandingPage() {
                                             <div className="w-16 h-16 rounded-[2rem] bg-forest/5 flex items-center justify-center text-forest mx-auto mb-4">
                                                 <ShieldCheck className="w-8 h-8" />
                                             </div>
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2 block">Your Core Nature Revealed</span>
+                                            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-2 block">Your Core Nature Revealed</span>
                                             <h3 className="text-5xl font-black text-forest tracking-tighter mb-2">{resultData.type}</h3>
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-6 py-4">
                                             {Object.entries(resultData.scores).map(([dosha, score]: any) => (
                                                 <div key={dosha} className="text-center">
-                                                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{dosha}</div>
+                                                    <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">{dosha}</div>
                                                     <div className="text-2xl font-black text-forest">{score}</div>
                                                 </div>
                                             ))}
@@ -338,7 +338,7 @@ export default function WelcomeLandingPage() {
                                         <div className="pt-8 text-center bg-gradient-to-b from-transparent to-forest/5 p-8 -mx-8 -my-8 md:-mx-14 md:-my-14 rounded-b-[3rem] mt-8">
                                             <h4 className="text-xl font-black text-forest mb-2">Want deeper insights?</h4>
                                             <p className="text-sm text-slate-500 mb-6 max-w-sm mx-auto">Sign up to permanently save this beautiful profile, unlock daily tracking, and access personalized lifestyle paths.</p>
-                                            <Link href="/login" className="inline-flex items-center justify-center w-full md:w-auto px-10 py-5 rounded-[2rem] bg-forest text-white font-black text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:bg-forest/90 active:scale-95 transition-all group">
+                                            <Link href="/login" className="inline-flex items-center justify-center w-full md:w-auto px-10 py-5 rounded-[2rem] bg-forest text-white font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:bg-forest/90 active:scale-95 transition-all group">
                                                 Sign Up For Free <ArrowRight className="inline-block w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                             </Link>
                                         </div>
@@ -410,7 +410,7 @@ export default function WelcomeLandingPage() {
                     </div>
 
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.2em] text-[10px] text-emerald-400 mb-6">Platform</h4>
+                        <h4 className="font-black uppercase tracking-[0.2em] text-xs text-emerald-400 mb-6">Platform</h4>
                         <ul className="space-y-4 text-sm font-medium text-emerald-100/80">
                             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
                             <li><button onClick={() => {
@@ -421,7 +421,7 @@ export default function WelcomeLandingPage() {
                     </div>
 
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.2em] text-[10px] text-emerald-400 mb-6">Legal & Connect</h4>
+                        <h4 className="font-black uppercase tracking-[0.2em] text-xs text-emerald-400 mb-6">Legal & Connect</h4>
                         <ul className="space-y-4 text-sm font-medium text-emerald-100/80">
                             <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
                             <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
@@ -430,7 +430,7 @@ export default function WelcomeLandingPage() {
                     </div>
                 </div>
 
-                <div className="text-center text-emerald-100/40 text-[10px] font-black uppercase tracking-widest border-t border-white/10 pt-10 mx-6">
+                <div className="text-center text-emerald-100/40 text-xs font-black uppercase tracking-widest border-t border-white/10 pt-10 mx-6">
                     © {new Date().getFullYear()} Dinaveda Neural Systems. All rights reserved.
                 </div>
             </footer>

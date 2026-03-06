@@ -146,7 +146,7 @@ export default function LoginPage() {
                             <div className="flex flex-col gap-3 py-2 text-left">
                                 <label className="flex items-center gap-3 cursor-pointer group">
                                     <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${keepLogged ? 'bg-forest border-forest text-white' : 'border-slate-300 bg-white group-hover:border-forest/50'}`}>
-                                        {keepLogged && <span className="text-[10px] font-black">✓</span>}
+                                        {keepLogged && <span className="text-xs font-black">✓</span>}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={keepLogged} onChange={(e) => setKeepLogged(e.target.checked)} />
                                     <span className="text-xs font-bold text-slate-500">Keep me synchronized (stay logged in)</span>
@@ -155,7 +155,7 @@ export default function LoginPage() {
                                 {mode === 'signup' && (
                                     <label className="flex items-center gap-3 cursor-pointer group">
                                         <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all shrink-0 ${acceptTos ? 'bg-forest border-forest text-white' : 'border-slate-300 bg-white group-hover:border-forest/50'}`}>
-                                            {acceptTos && <span className="text-[10px] font-black">✓</span>}
+                                            {acceptTos && <span className="text-xs font-black">✓</span>}
                                         </div>
                                         <input type="checkbox" className="hidden" checked={acceptTos} onChange={(e) => setAcceptTos(e.target.checked)} />
                                         <span className="text-xs font-bold text-slate-500 leading-tight">I agree to the <a href="#" className="text-forest underline underline-offset-2">Terms of Service</a> & <a href="#" className="text-forest underline underline-offset-2">Privacy Policy</a></span>
@@ -204,7 +204,7 @@ export default function LoginPage() {
                                 setMode(mode === 'signin' ? 'signup' : 'signin');
                                 setMessage(null);
                             }}
-                            className="text-[11px] font-black uppercase tracking-widest text-forest/70 hover:text-forest transition-colors"
+                            className="text-xs font-black uppercase tracking-widest text-forest/70 hover:text-forest transition-colors"
                         >
                             {mode === 'signin' ? "Need a sanctuary? Sign up" : "Already grounded? Sign In"}
                         </button>
@@ -212,7 +212,7 @@ export default function LoginPage() {
                 </div>
 
                 <div className="mt-8 text-center px-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center gap-2">
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center gap-2">
                         <ShieldCheck className="w-3 h-3" /> Military-grade encrypted
                     </p>
                 </div>

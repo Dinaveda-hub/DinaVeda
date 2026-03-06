@@ -24,17 +24,17 @@ export default function SeasonalPulseBadge({ ritu_info }: SeasonalPulseBadgeProp
             <div className="flex flex-col">
                 <div className="flex items-center gap-2 mb-2">
                     <div className="w-2 h-2 rounded-full bg-[#2D7A5C] animate-pulse"></div>
-                    <span className="text-[11px] font-black text-[#2D7A5C] uppercase tracking-widest">
+                    <span className="text-xs font-black text-[#2D7A5C] uppercase tracking-widest">
                         {name.split(' ')[0]} Seasonal Pulse
                     </span>
                 </div>
                 <h3 className="text-xl font-black text-slate-800 tracking-tight leading-none mb-2">{focus}</h3>
                 {ritu_info.is_transition && (
                     <div className="flex items-center gap-2 mt-1">
-                        <span className="text-[10px] font-black text-white bg-[#2D7A5C] px-3 py-1 rounded-full uppercase tracking-widest">
+                        <span className="text-xs font-black text-white bg-[#2D7A5C] px-3 py-1 rounded-full uppercase tracking-widest">
                             Transition Active
                         </span>
-                        <span className="text-[10px] font-bold text-slate-400 italic">Moving towards {ritu_info.transition_to?.split(' ')[0]}</span>
+                        <span className="text-xs font-bold text-slate-400 italic">Moving towards {ritu_info.transition_to?.split(' ')[0]}</span>
                     </div>
                 )}
             </div>

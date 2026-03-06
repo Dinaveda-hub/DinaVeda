@@ -33,7 +33,7 @@ export default function SomasleepPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Nidra Logic</h2>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Biological Rest</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Biological Rest</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-indigo-300 pl-6 text-balance">
@@ -41,11 +41,11 @@ export default function SomasleepPage({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Circadian Sync</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Circadian Sync</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(state.circadian_alignment)}%</p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Sleep Debt</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Sleep Debt</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(state.sleep_debt)}%</p>
                     </div>
                 </div>
@@ -74,8 +74,8 @@ export default function SomasleepPage({
                     {protocols.map((p, i) => (
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 group hover:bg-white transition-colors">
                             <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
-                            <p className="text-[11px] font-bold text-slate-500 max-w-lg mb-2">{p.instructions}</p>
-                            <div className="text-[9px] font-black uppercase text-slate-400 italic">{p.time_of_day} focus</div>
+                            <p className="text-xs font-bold text-slate-500 max-w-lg mb-2">{p.instructions}</p>
+                            <div className="text-xs font-black uppercase text-slate-400 italic">{p.time_of_day} focus</div>
                         </div>
                     ))}
                 </div>

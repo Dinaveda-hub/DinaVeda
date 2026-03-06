@@ -80,7 +80,7 @@ export default function AyufitPage({
                                 <CheckCircle2 className="w-5 h-5 text-forest mt-1 shrink-0" />
                                 <div>
                                     <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
-                                    <p className="text-[11px] font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
+                                    <p className="text-xs font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>
                             <div className="text-xs font-black text-slate-400">{p.time_of_day}</div>

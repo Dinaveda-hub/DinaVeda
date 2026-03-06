@@ -51,7 +51,7 @@ export default function AboutPage() {
                         <p className="text-slate-600 mb-8 max-w-lg mx-auto">
                             The journey back to your core begins with a single step. Discover your Prakriti today.
                         </p>
-                        <Link href="/welcome" className="inline-block px-8 py-4 rounded-[1.5rem] bg-forest text-white font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:-translate-y-1 transition-transform">
+                        <Link href="/welcome" className="inline-block px-8 py-4 rounded-[1.5rem] bg-forest text-white font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:-translate-y-1 transition-transform">
                             Take The Assessment
                         </Link>
                     </div>

@@ -74,7 +74,7 @@ export default function Sidebar() {
                 <div className="mt-auto">
                     <div className="glass p-6 rounded-[2rem] border border-forest/10 relative overflow-hidden group hover:border-forest/30 transition-all duration-500">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-forest/5 rounded-full -mr-10 -mt-10 blur-xl group-hover:bg-forest/10 transition-all" />
-                        <p className="text-[10px] font-black text-forest uppercase tracking-[0.2em] mb-4">Neural Harmony</p>
+                        <p className="text-xs font-black text-forest uppercase tracking-[0.2em] mb-4">Neural Harmony</p>
                         <div className="flex items-center gap-3">
                             <div className="relative">
                                 <div className="w-2.5 h-2.5 rounded-full bg-forest animate-ping absolute inset-0 opacity-40"></div>

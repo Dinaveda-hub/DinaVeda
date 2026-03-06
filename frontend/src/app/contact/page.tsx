@@ -33,7 +33,7 @@ export default function ContactPage() {
                         <p className="text-slate-500 font-medium mb-8">
                             Response times are typically within 24-48 hours. Our team is fully distributed across global timezones.
                         </p>
-                        <a href="mailto:support@dinaveda.com" className="inline-flex items-center gap-3 text-forest font-black uppercase text-[10px] tracking-[0.2em] bg-emerald-50 px-6 py-4 rounded-full hover:bg-forest hover:text-white transition-colors cursor-pointer border border-forest/10">
+                        <a href="mailto:support@dinaveda.com" className="inline-flex items-center gap-3 text-forest font-black uppercase text-xs tracking-[0.2em] bg-emerald-50 px-6 py-4 rounded-full hover:bg-forest hover:text-white transition-colors cursor-pointer border border-forest/10">
                             support@dinaveda.com
                         </a>
                     </div>
@@ -47,7 +47,7 @@ export default function ContactPage() {
                         <p className="text-slate-500 font-medium mb-8">
                             We are a borderless entity, merging technologists from the West with ancient scholars from the East.
                         </p>
-                        <div className="inline-flex items-center gap-3 text-slate-500 font-black uppercase text-[10px] tracking-[0.2em] bg-slate-50 px-6 py-4 rounded-full border border-slate-200">
+                        <div className="inline-flex items-center gap-3 text-slate-500 font-black uppercase text-xs tracking-[0.2em] bg-slate-50 px-6 py-4 rounded-full border border-slate-200">
                             Remote First
                         </div>
                     </div>

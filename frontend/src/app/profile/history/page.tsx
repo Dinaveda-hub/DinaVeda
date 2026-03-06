@@ -70,23 +70,23 @@ export default function HistoryPage() {
 
             <header className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
                 <div>
-                    <Link href="/profile" className="inline-flex items-center gap-2 text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px] hover:text-forest transition-all mb-6 group">
+                    <Link href="/profile" className="inline-flex items-center gap-2 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs hover:text-forest transition-all mb-6 group">
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Profile
                     </Link>
                     <h1 className="text-5xl font-black text-forest tracking-tighter">Biological Logs</h1>
-                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] mt-2">Temporal Health Archive</p>
+                    <p className="text-xs font-black text-slate-300 uppercase tracking-[0.3em] mt-2">Temporal Health Archive</p>
                 </div>
                 {logs.length > 0 && (
                     <div className="bg-white/60 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/80 shadow-premium flex items-center gap-6">
                         <div className="text-center">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">Average Ojas</span>
+                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-0.5">Average Ojas</span>
                             <span className="text-xl font-black text-forest">
                                 {Math.round(logs.reduce((a, b) => a + (b.ojas_score || 0), 0) / logs.length)}
                             </span>
                         </div>
                         <div className="w-px h-8 bg-slate-100" />
                         <div className="text-center">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">Total Logs</span>
+                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-0.5">Total Logs</span>
                             <span className="text-xl font-black text-slate-700">{logs.length}</span>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ export default function HistoryPage() {
                         >
                             <BrainCircuit className="w-12 h-12" />
                         </motion.div>
-                        <p className="text-slate-400 font-black uppercase tracking-[0.3em] text-[10px]">Accessing Archives...</p>
+                        <p className="text-slate-400 font-black uppercase tracking-[0.3em] text-xs">Accessing Archives...</p>
                     </div>
                 ) : logs.length === 0 ? (
                     <div className="text-center py-32 glass rounded-[3rem] border border-white/40 shadow-premium flex flex-col items-center gap-6">
@@ -112,16 +112,16 @@ export default function HistoryPage() {
                         </div>
                         <div>
                             <p className="text-slate-400 font-black uppercase tracking-[0.2em] text-xs">No entries found in your pulse history.</p>
-                            <p className="text-[10px] font-bold text-slate-300 mt-2">Log your daily dialogue to populate this archive.</p>
+                            <p className="text-xs font-bold text-slate-300 mt-2">Log your daily dialogue to populate this archive.</p>
                         </div>
-                        <Link href="/ayuone" className="text-forest font-black uppercase tracking-widest text-[10px] bg-forest/5 px-6 py-3 rounded-full hover:bg-forest hover:text-white transition-all">
+                        <Link href="/ayuone" className="text-forest font-black uppercase tracking-widest text-xs bg-forest/5 px-6 py-3 rounded-full hover:bg-forest hover:text-white transition-all">
                             Initialize Log
                         </Link>
                     </div>
                 ) : (
                     Object.entries(groupedLogs).map(([date, dayLogs]: [string, any]) => (
                         <section key={date} className="space-y-6">
-                            <h2 className="text-[10px] font-black text-forest uppercase tracking-[0.4em] ml-4 flex items-center gap-3">
+                            <h2 className="text-xs font-black text-forest uppercase tracking-[0.4em] ml-4 flex items-center gap-3">
                                 <Calendar className="w-3.5 h-3.5" />
                                 {date}
                             </h2>
@@ -146,7 +146,7 @@ export default function HistoryPage() {
                                                             {log.mood} Energy • {log.movement.replace("_", " ")}
                                                         </h3>
                                                         <div className="flex items-center gap-4 mt-1.5">
-                                                            <span className="flex items-center gap-1.5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                                            <span className="flex items-center gap-1.5 text-xs font-black text-slate-400 uppercase tracking-widest">
                                                                 <Clock className="w-3.5 h-3.5 text-slate-300" />
                                                                 {new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                             </span>
@@ -157,19 +157,19 @@ export default function HistoryPage() {
                                                 <div className="flex flex-wrap items-center gap-4 md:gap-8">
                                                     <div className="flex items-center gap-8 px-8 py-5 bg-white/40 rounded-[2rem] border border-white/60">
                                                         <div className="text-center">
-                                                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Ojas</span>
+                                                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-1">Ojas</span>
                                                             <span className="text-2xl font-black text-forest">{log.ojas_score || "--"}</span>
                                                         </div>
                                                         <div className="w-px h-10 bg-forest/5" />
                                                         <div className="text-center">
-                                                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Sleep</span>
+                                                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-1">Sleep</span>
                                                             <span className="text-2xl font-black text-slate-700 flex items-baseline gap-0.5">
-                                                                {log.sleep_hours}<span className="text-[10px] text-slate-400">h</span>
+                                                                {log.sleep_hours}<span className="text-xs text-slate-400">h</span>
                                                             </span>
                                                         </div>
                                                         <div className="w-px h-10 bg-forest/5" />
                                                         <div className="text-center">
-                                                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Agni</span>
+                                                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-1">Agni</span>
                                                             <span className={`text-2xl font-black capitalize ${log.agni === 'high' ? 'text-amber-600' :
                                                                 log.agni === 'low' ? 'text-blue-600' : 'text-emerald-600'
                                                                 }`}>{log.agni}</span>
@@ -189,7 +189,7 @@ export default function HistoryPage() {
                                             {/* Details Expandable */}
                                             {log.detailed_analysis && (
                                                 <div className="mt-8 pt-8 border-t border-forest/5">
-                                                    <p className="text-[10px] font-black text-forest uppercase tracking-widest mb-4 opacity-50">Veda Insights</p>
+                                                    <p className="text-xs font-black text-forest uppercase tracking-widest mb-4 opacity-50">Veda Insights</p>
                                                     <p className="text-sm font-bold text-slate-600 leading-relaxed italic">
                                                         "{log.detailed_analysis}"
                                                     </p>
@@ -199,7 +199,7 @@ export default function HistoryPage() {
                                             {log.routines && log.routines.length > 0 && (
                                                 <div className={`mt-8 pt-8 border-t border-forest/5 flex flex-wrap gap-3 ${log.detailed_analysis ? 'border-t-0 pt-4' : ''}`}>
                                                     {log.routines.map((r: string) => (
-                                                        <span key={r} className="inline-flex items-center gap-2 px-4 py-2 bg-white/40 rounded-full text-[9px] font-black text-forest uppercase tracking-widest border border-white/60">
+                                                        <span key={r} className="inline-flex items-center gap-2 px-4 py-2 bg-white/40 rounded-full text-xs font-black text-forest uppercase tracking-widest border border-white/60">
                                                             <CheckCircle2 className="w-3.5 h-3.5" />
                                                             {r.replace("_", " ")}
                                                         </span>

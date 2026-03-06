@@ -28,9 +28,9 @@ export default function PrakritiPage() {
     };
 
     const getDoshaColorClass = (dosha: string) => {
-        if (dosha === "Vata") return "bg-sky-500 text-white shadow-lg shadow-sky-200/50";
-        if (dosha === "Pitta") return "bg-orange-500 text-white shadow-lg shadow-orange-200/50";
-        return "bg-emerald-500 text-white shadow-lg shadow-emerald-200/50";
+        if (dosha === "Vata") return "bg-air text-forest shadow-premium border border-white/20";
+        if (dosha === "Pitta") return "bg-fire text-white shadow-premium border border-white/20";
+        return "bg-earth text-forest shadow-premium border border-white/20";
     };
 
     const getPrakritiBars = () => {
@@ -177,7 +177,7 @@ export default function PrakritiPage() {
                     {isLoaded && prakriti ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div>
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Correlation</h4>
+                                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Correlation</h4>
                                 <p className="text-sm font-bold text-slate-600 leading-relaxed text-balance">
                                     Your core constitution is <strong className="text-forest">{prakriti.type}</strong>.
                                     Currently, your <strong className="text-orange-600">{vikriti?.dominant_dosha}</strong> is accumulating.
@@ -186,7 +186,7 @@ export default function PrakritiPage() {
                                 </p>
                             </div>
                             <div>
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Drift Severity</h4>
+                                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Drift Severity</h4>
                                 <div className="flex items-baseline gap-2 mb-2">
                                     <span className="text-5xl font-black text-forest">{Math.round(vikriti?.drift_index || 0)}%</span>
                                     <span className="text-base font-black text-slate-400">Deviation</span>

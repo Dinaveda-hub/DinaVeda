@@ -37,7 +37,7 @@ export default function NutrivedaPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Ahara Logic</h2>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Food as Medicine</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Food as Medicine</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-forest/20 pl-6 text-balance">
@@ -45,11 +45,11 @@ export default function NutrivedaPage({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Agni Strength</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Agni Strength</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(agniStrength)}/100</p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Metabolic Pulse</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Metabolic Pulse</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">
                             {agniStrength > 75 ? "Teekshna" : agniStrength > 50 ? "Sama" : "Manda"}
                         </p>
@@ -87,10 +87,10 @@ export default function NutrivedaPage({
                                 </div>
                                 <div>
                                     <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
-                                    <p className="text-[11px] font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
+                                    <p className="text-xs font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl">
+                            <div className="flex items-center gap-2 text-xs font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl">
                                 <Clock className="w-3 h-3" /> {p.time_of_day}
                             </div>
                         </div>

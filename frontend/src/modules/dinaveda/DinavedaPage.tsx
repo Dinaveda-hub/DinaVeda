@@ -34,7 +34,7 @@ export default function DinavedaPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Dinacharya Logic</h2>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Mastery of the Day</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Mastery of the Day</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-forest/20 pl-6 text-balance">
@@ -42,11 +42,11 @@ export default function DinavedaPage({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Ojas Core</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Ojas Core</p>
                         <p className="text-4xl font-black text-forest tracking-tighter">{Math.round(ojasScore)}</p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Vitality State</p>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Vitality State</p>
                         <p className="text-4xl font-black text-forest tracking-tighter">
                             {ojasScore > 85 ? "Tejas" : ojasScore > 60 ? "Sama" : "Ojas-Kshaya"}
                         </p>
@@ -74,7 +74,7 @@ export default function DinavedaPage({
                                     <p className="text-sm font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100/50">
+                            <div className="flex items-center gap-2 text-xs font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100/50">
                                 <Clock className="w-3 h-3 text-forest" /> {p.time_of_day}
                             </div>
                         </div>

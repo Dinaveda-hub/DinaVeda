@@ -74,7 +74,7 @@ export default function SettingsPage() {
         <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
                 <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{description}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{description}</p>
             </div>
             <button
                 onClick={() => onChange(!enabled)}
@@ -122,10 +122,10 @@ export default function SettingsPage() {
                         content: (
                             <div className="space-y-6">
                                 <div className="p-4 bg-forest/5 rounded-2xl border border-forest/10 mb-2">
-                                    <p className="text-[10px] font-black text-forest uppercase tracking-widest flex items-center gap-2">
+                                    <p className="text-xs font-black text-forest uppercase tracking-widest flex items-center gap-2">
                                         <Zap className="w-3 h-3" /> Neural Core Status: Active
                                     </p>
-                                    <p className="text-[9px] text-slate-500 mt-1 uppercase font-bold tracking-tighter">Your preferences are synchronized with the Veda Engine via OneSignal tags.</p>
+                                    <p className="text-xs text-slate-500 mt-1 uppercase font-bold tracking-tighter">Your preferences are synchronized with the Veda Engine via OneSignal tags.</p>
                                 </div>
                                 <NotificationToggle
                                     label="Pulse Audit Reminders"
@@ -145,7 +145,7 @@ export default function SettingsPage() {
                                     enabled={notifications.routineUpdates}
                                     onChange={(val) => saveNotifications({ ...notifications, routineUpdates: val })}
                                 />
-                                <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest text-center mt-6">Alpha Release • Real-time triggers optimized dynamically</p>
+                                <p className="text-xs font-black text-slate-300 uppercase tracking-widest text-center mt-6">Alpha Release • Real-time triggers optimized dynamically</p>
                             </div>
                         )
                     })
@@ -238,13 +238,13 @@ export default function SettingsPage() {
                 <header className="mb-16">
                     <div className="w-12 h-1 bg-forest mb-6 rounded-full" />
                     <h1 className="text-5xl font-black text-forest tracking-tighter transition-all hover:tracking-normal cursor-default">Settings</h1>
-                    <p className="text-slate-400 mt-2 font-bold uppercase tracking-[0.2em] text-[10px]">Customize your Veda experience</p>
+                    <p className="text-slate-400 mt-2 font-bold uppercase tracking-[0.2em] text-xs">Customize your Veda experience</p>
                 </header>
 
                 <div className="space-y-12">
                     {sections.map((section, idx) => (
                         <div key={idx}>
-                            <h2 className="text-[10px] font-black text-forest uppercase tracking-[0.3em] mb-6 ml-2">{section.title}</h2>
+                            <h2 className="text-xs font-black text-forest uppercase tracking-[0.3em] mb-6 ml-2">{section.title}</h2>
                             <div className="glass rounded-[2.5rem] overflow-hidden border border-white/40 shadow-premium">
                                 {section.items.map((item, i) => {
                                     const Icon = item.icon;
@@ -263,7 +263,7 @@ export default function SettingsPage() {
                                                 </div>
                                                 <div className="text-left">
                                                     <p className="font-black text-forest text-lg tracking-tight leading-none mb-1">{item.name}</p>
-                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.detail}</p>
+                                                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest">{item.detail}</p>
                                                 </div>
                                             </div>
                                             <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-forest group-hover:translate-x-1 transition-all" />
@@ -280,7 +280,7 @@ export default function SettingsPage() {
                         </div>
                         <div className="text-left">
                             <p className="text-lg tracking-tight leading-none mb-1">Sign Out</p>
-                            <p className="text-[10px] uppercase tracking-widest text-rose-400 opacity-60">Disconnect from Veda Neural Core</p>
+                            <p className="text-xs uppercase tracking-widest text-rose-400 opacity-60">Disconnect from Veda Neural Core</p>
                         </div>
                     </button>
                 </div>

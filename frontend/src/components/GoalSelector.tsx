@@ -76,7 +76,7 @@ export default function GoalSelector() {
                                 }`}>
                                 {goal.label}
                             </h4>
-                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest truncate">
+                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest truncate">
                                 {goal.description}
                             </p>
                         </div>

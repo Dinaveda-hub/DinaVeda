@@ -35,7 +35,7 @@ const InsightPills = ({ breakdown, score }: { breakdown: any; score: number }) =
     return (
         <div className="flex flex-wrap gap-2 mb-4">
             {pills.map((p, i) => (
-                <span key={i} className={`text-[10px] font-black px-4 py-2 rounded-full border uppercase tracking-widest ${p.color}`}>
+                <span key={i} className={`text-xs font-black px-4 py-2 rounded-full border uppercase tracking-widest ${p.color}`}>
                     {p.label}
                 </span>
             ))}
@@ -67,7 +67,7 @@ const PrincipleAlert = ({ principle }: { principle: string }) => (
             </div>
         </div>
         <div>
-            <h3 className="font-black text-[#2D7A5C] mb-1 uppercase tracking-widest text-[10px]">Veda Principle</h3>
+            <h3 className="font-black text-[#2D7A5C] mb-1 uppercase tracking-widest text-xs">Veda Principle</h3>
             <p className="text-emerald-900 leading-relaxed text-sm font-semibold opacity-80">
                 {principle}
             </p>
@@ -111,12 +111,12 @@ export default function PathyaPlanDisplay({ observation, principle, timeline, sc
                             <Sun className="w-5 h-5" />
                         </div>
                         <div>
-                            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#2D7A5C] opacity-70">Seasonal Pulse</h4>
+                            <h4 className="text-xs font-black uppercase tracking-widest text-[#2D7A5C] opacity-70">Seasonal Pulse</h4>
                             <p className="text-sm font-bold text-slate-700">{rituInfo.name}</p>
                         </div>
                     </div>
                     {rituInfo.is_transition && (
-                        <div className="px-3 py-1.5 rounded-full bg-orange-100/50 border border-orange-200 text-[9px] font-black uppercase tracking-widest text-orange-600 flex items-center gap-1.5">
+                        <div className="px-3 py-1.5 rounded-full bg-orange-100/50 border border-orange-200 text-xs font-black uppercase tracking-widest text-orange-600 flex items-center gap-1.5">
                             <Activity className="w-3 h-3" />
                             Transitioning to {rituInfo.transition_to}
                         </div>

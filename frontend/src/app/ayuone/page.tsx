@@ -282,7 +282,7 @@ export default function AyuOneHub() {
                                                 <option value="other">Other</option>
                                             </select>
                                         </div>
-                                        <button disabled={!userInfo.name || !userInfo.age || !userInfo.gender} onClick={() => setIsIdentified(true)} className="w-full mt-6 bg-forest text-white py-4 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-forest/20 active:scale-95 disabled:opacity-50 transition-all">
+                                        <button disabled={!userInfo.name || !userInfo.age || !userInfo.gender} onClick={() => setIsIdentified(true)} className="w-full mt-6 bg-forest text-white py-4 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 active:scale-95 disabled:opacity-50 transition-all">
                                             Begin Assessment
                                         </button>
                                     </div>
@@ -302,7 +302,7 @@ export default function AyuOneHub() {
                                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-forest/5 text-forest mb-4">
                                                 <BrainCircuit className="w-6 h-6" />
                                             </div>
-                                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">
+                                            <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-2">
                                                 Question {currentStep + 1} of {quizFlow.length}
                                             </h4>
                                             <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tighter text-balance">
@@ -336,26 +336,26 @@ export default function AyuOneHub() {
                                     <div className="w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-forest text-white flex items-center justify-center mb-6 shadow-xl shadow-forest/20">
                                         <ShieldCheck className="w-8 h-8 md:w-10 md:h-10" />
                                     </div>
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
+                                    <span className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
                                     <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter">{constitution.type}</h3>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 py-8 border-y border-forest/5">
                                     <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Vata</div>
+                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Vata</div>
                                         <div className="text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
                                     </div>
                                     <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Pitta</div>
+                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Pitta</div>
                                         <div className="text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
                                     </div>
                                     <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
-                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Kapha</div>
+                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Kapha</div>
                                         <div className="text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
                                     </div>
                                 </div>
 
-                                <button onClick={completeOnboarding} className="block w-full text-center py-6 bg-forest text-white rounded-[2rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-forest/30 hover:bg-forest/90 active:scale-95 transition-all">
+                                <button onClick={completeOnboarding} className="block w-full text-center py-6 bg-forest text-white rounded-[2rem] text-xs font-black uppercase tracking-[0.2em] shadow-xl shadow-forest/30 hover:bg-forest/90 active:scale-95 transition-all">
                                     Enter Veda
                                 </button>
                             </motion.div>
@@ -382,7 +382,7 @@ export default function AyuOneHub() {
                                         transition={{ duration: 0.5 }}
                                     />
                                 </div>
-                                <div className="mt-8 absolute top-8 left-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
+                                <div className="mt-8 absolute top-8 left-6 text-xs font-black text-slate-400 uppercase tracking-[0.3em]">
                                     Question {checkinStep + 1} of {activeQuestions.length}
                                 </div>
 
