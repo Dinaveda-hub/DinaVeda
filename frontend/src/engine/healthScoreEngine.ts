@@ -28,4 +28,30 @@ export class HealthScoreEngine {
 
         return Math.round(score);
     }
+
+    /**
+     * Calculates the Imbalance Pressure Index (IPI)
+     * A secondary predictive score measuring physiological strain to warn of accumulating imbalance.
+     * 
+     * Dosha Drift -> 35%
+     * Agni Instability (100 - stability) -> 20%
+     * Circadian Misalignment (100 - alignment) -> 20%
+     * Stress Load -> 15%
+     * Sleep Debt -> 10%
+     * 
+     * @param state The current VedaState
+     * @param driftIndex The calculated Dosha Drift Index (0-100)
+     * @returns The final 0-100 integer score (Higher = more strain)
+     */
+    public calculateImbalancePressure(state: VedaState, driftIndex: number): number {
+        const driftPressure = driftIndex * 0.35;
+        const agniInstability = (100 - state.agni_stability) * 0.20;
+        const circadianMisalignment = (100 - state.circadian_alignment) * 0.20;
+        const stressPressure = state.stress_load * 0.15;
+        const sleepPressure = state.sleep_debt * 0.10;
+
+        const pressure = driftPressure + agniInstability + circadianMisalignment + stressPressure + sleepPressure;
+
+        return Math.min(100, Math.max(0, Math.round(pressure)));
+    }
 }

@@ -5,7 +5,7 @@ import { motion, Variants } from "framer-motion";
 import {
   CloudSun, ShieldCheck, Flame, Compass, Moon,
   Sunrise, Sun, Sunset, AlertCircle, CheckCircle2,
-  Sparkles, Leaf
+  Sparkles, Leaf, Activity
 } from "lucide-react";
 import { useVedaState } from "@/engine/useVedaState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
@@ -37,6 +37,7 @@ export default function Dashboard() {
   const healthEngine = new HealthScoreEngine();
 
   const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
+  const pressureIndex = isLoaded && vikriti ? healthEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
 
   // Recommendations
   const allRecs = isLoaded && vikriti ? recEngine.getRecommendations(state, vikriti) : [];
@@ -128,24 +129,39 @@ export default function Dashboard() {
           </div>
         </motion.section>
 
-        {/* 3. Ojas Balance & Physiology Snapshot */}
+        {/* 3. Ojas Balance & Imbalance Pressure */}
         <motion.section variants={itemVariants} className="flex flex-col gap-4">
-          {/* Main Hero Card: Ojas Balance */}
-          <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group hover:bg-white transition-colors">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-            <div>
-              <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-gold" /> Daily Health Score
-              </h2>
-              <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter leading-none">
-                {isLoaded && ojasBalance !== null ? ojasBalance : '--'}
-              </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Main Hero Card: Ojas Balance */}
+            <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col justify-between relative overflow-hidden group hover:bg-white transition-colors h-48">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
+              <div>
+                <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-gold" /> Daily Health Score
+                </h2>
+                <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter leading-none">
+                  {isLoaded && ojasBalance !== null ? ojasBalance : '--'}
+                </h3>
+              </div>
+              <div>
+                <span className="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-1">Ojas Balance</span>
+              </div>
             </div>
-            <div className="md:text-right">
-              <span className="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-1">Ojas Balance</span>
-              <p className="text-xs text-slate-400 max-w-[200px] leading-relaxed">
-                A synthesized measure of vitality, metabolic function, and rhythmic stability.
-              </p>
+
+            {/* Secondary Hero Card: Imbalance Pressure */}
+            <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col justify-between relative overflow-hidden group hover:bg-white transition-colors h-48">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
+              <div>
+                <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-orange-500" /> Physiological Strain
+                </h2>
+                <h3 className="text-5xl md:text-6xl font-black text-orange-600 tracking-tighter leading-none">
+                  {isLoaded && pressureIndex !== null ? pressureIndex : '--'}
+                </h3>
+              </div>
+              <div>
+                <span className="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-1">Imbalance Pressure</span>
+              </div>
             </div>
           </div>
 
