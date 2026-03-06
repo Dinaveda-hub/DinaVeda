@@ -8,21 +8,12 @@ export async function POST(req: Request) {
         const razorpay = getRazorpay();
 
         // Use different Plan IDs based on the user's selection
+        // Hardcoded fallbacks ensure this works even if env vars take time to propagate
         const planId = planType === 'yearly'
-            ? process.env.RAZORPAY_PLAN_ID_YEARLY
-            : process.env.RAZORPAY_PLAN_ID_MONTHLY;
+            ? (process.env.RAZORPAY_PLAN_ID_YEARLY || 'plan_SNzd3k1dHZi1hQ')
+            : (process.env.RAZORPAY_PLAN_ID_MONTHLY || 'plan_SNzcno0nk58APl');
 
-        console.log(`[Billing API] PlanType: ${planType}`);
-        console.log(`[Billing API] RAZORPAY_PLAN_ID_MONTHLY: ${process.env.RAZORPAY_PLAN_ID_MONTHLY ? 'PRESENT' : 'MISSING'}`);
-        console.log(`[Billing API] RAZORPAY_PLAN_ID_YEARLY: ${process.env.RAZORPAY_PLAN_ID_YEARLY ? 'PRESENT' : 'MISSING'}`);
-        console.log(`[Billing API] RAZORPAY_KEY_SECRET: ${process.env.RAZORPAY_KEY_SECRET ? 'PRESENT' : 'MISSING'}`);
-
-        if (!planId) {
-            return NextResponse.json(
-                { error: `Missing Razorpay Plan ID for ${planType} plan. Please check your Vercel environment variables.` },
-                { status: 400 }
-            );
-        }
+        console.log(`[Billing API] PlanType: ${planType} -> Using PlanId: ${planId}`);
 
         const subscription = await razorpay.subscriptions.create({
             plan_id: planId,
