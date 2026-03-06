@@ -253,7 +253,7 @@ export default function AyuOneHub() {
     if (!mounted) return null;
 
     return (
-        <div className="h-[100dvh] max-h-[100dvh] w-full flex flex-col bg-background relative overflow-hidden fixed inset-0 z-50">
+        <div className="flex-1 w-full flex flex-col bg-background relative overflow-hidden">
             {/* Ambient background glows */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest/10 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
@@ -429,7 +429,7 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Fixed App Area */}
-                                <div className="flex-1 w-full max-w-5xl flex flex-col bg-slate-50/30 overflow-hidden relative mb-[110px] md:mb-0">
+                                <div className="flex-1 w-full max-w-5xl flex flex-col bg-slate-50/30 overflow-hidden relative pb-2 md:pb-0">
                                     {/* Action Chips - Now conditional and floating */}
                                     <div className="absolute top-0 left-0 right-0 z-30 pointer-events-none">
                                         <motion.div
