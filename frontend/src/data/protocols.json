@@ -1,205 +1,1637 @@
 [
     {
-        "id": "padabhyanga",
-        "name": "Padabhyanga (Foot Massage)",
+        "name": "early_wake",
+        "module": "dinaveda",
+        "category": "circadian_stabilizer",
+        "time_of_day": "morning",
+        "duration": "habit",
+        "variables": {
+            "circadian_alignment": 4,
+            "kapha_state": -2,
+            "sleep_debt": -1
+        },
+        "instructions": "Wake up close to sunrise. Early waking synchronizes circadian rhythm with natural light cycles and reduces morning Kapha heaviness.",
+        "contraindications": "avoid if recovering from sleep deprivation or illness"
+    },
+    {
+        "name": "morning_sunlight",
+        "module": "dinaveda",
+        "category": "circadian_stabilizer",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "circadian_alignment": 5,
+            "light_exposure": 4,
+            "ojas_recovery": 1
+        },
+        "instructions": "Spend time outdoors in morning sunlight. Natural light resets circadian rhythm signals and supports hormone balance.",
+        "contraindications": "avoid prolonged exposure in intense sun"
+    },
+    {
+        "name": "tongue_scraping",
+        "module": "dinaveda",
+        "category": "digestive_activation",
+        "time_of_day": "morning",
+        "duration": "2 minutes",
+        "variables": {
+            "ama_risk": -2,
+            "agni_strength": 2
+        },
+        "instructions": "Use a tongue scraper after waking to remove metabolic waste from the tongue and stimulate digestive reflexes.",
+        "contraindications": "avoid if tongue has wounds or infection"
+    },
+    {
+        "name": "warm_water_morning",
+        "module": "nutriveda",
+        "category": "agni_support",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "agni_strength": 2,
+            "hydration_status": 2,
+            "digestion_comfort": 1
+        },
+        "instructions": "Drink a glass of warm water after waking to stimulate digestion and rehydrate the body after sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "oil_pulling",
+        "module": "dinaveda",
+        "category": "oral_care",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "ama_risk": -1,
+            "vata_state": -1
+        },
+        "instructions": "Swish sesame or coconut oil in the mouth for several minutes to improve oral hygiene and reduce dryness.",
+        "contraindications": "jaw pain or oral infections"
+    },
+    {
+        "name": "nasya",
+        "module": "dinaveda",
         "category": "vata_stabilizer",
-        "module": "Somasleep",
+        "time_of_day": "morning",
+        "duration": "2 minutes",
+        "variables": {
+            "vata_state": -3,
+            "stress_load": -1
+        },
+        "instructions": "Apply a few drops of medicated oil into the nostrils to lubricate nasal passages and calm Vata in the head region.",
+        "contraindications": "avoid during acute sinus infection"
+    },
+    {
+        "name": "abhyanga",
+        "module": "dinaveda",
+        "category": "vata_stabilizer",
+        "time_of_day": "morning",
+        "duration": "15 minutes",
+        "variables": {
+            "vata_state": -6,
+            "stress_load": -2,
+            "ojas_recovery": 3
+        },
+        "instructions": "Massage warm oil over the body before bathing. Oil nourishes tissues, improves circulation, and stabilizes the nervous system.",
+        "contraindications": "avoid during fever or indigestion"
+    },
+    {
+        "name": "gentle_morning_stretch",
+        "module": "ayufit",
+        "category": "movement_activation",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "movement_level": 2,
+            "vata_state": -1
+        },
+        "instructions": "Perform gentle stretching movements after waking to activate muscles and improve circulation.",
+        "contraindications": "avoid with acute injuries"
+    },
+    {
+        "name": "grounding_yoga",
+        "module": "ayufit",
+        "category": "vata_stabilizer",
+        "time_of_day": "morning",
+        "duration": "20 minutes",
+        "variables": {
+            "vata_state": -4,
+            "movement_level": 3,
+            "mental_clarity": 2
+        },
+        "instructions": "Practice slow grounding yoga postures to calm the nervous system and stabilize Vata.",
+        "contraindications": "joint injuries"
+    },
+    {
+        "name": "brisk_walk",
+        "module": "ayufit",
+        "category": "kapha_activator",
+        "time_of_day": "morning",
+        "duration": "20 minutes",
+        "variables": {
+            "kapha_state": -5,
+            "movement_level": 4,
+            "agni_strength": 2
+        },
+        "instructions": "Walk briskly to stimulate metabolism and reduce Kapha stagnation.",
+        "contraindications": "severe joint pain"
+    },
+    {
+        "name": "dry_brushing",
+        "module": "dinaveda",
+        "category": "kapha_activator",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "kapha_state": -3,
+            "movement_level": 1
+        },
+        "instructions": "Brush the skin before bathing to stimulate lymphatic circulation and reduce Kapha accumulation.",
+        "contraindications": "sensitive or irritated skin"
+    },
+    {
+        "name": "warming_spices",
+        "module": "nutriveda",
+        "category": "kapha_activator",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "kapha_state": -3,
+            "agni_strength": 3,
+            "ama_risk": -1
+        },
+        "instructions": "Add digestive spices such as ginger, cumin, and black pepper to meals to stimulate metabolism.",
+        "contraindications": "avoid with gastric ulcers"
+    },
+    {
+        "name": "ginger_before_meal",
+        "module": "nutriveda",
+        "category": "agni_regulator",
+        "time_of_day": "before_meal",
+        "duration": "1 minute",
+        "variables": {
+            "agni_strength": 3,
+            "kapha_state": -2
+        },
+        "instructions": "Consume a slice of fresh ginger before meals to activate digestive enzymes and improve appetite.",
+        "contraindications": "avoid in severe acidity"
+    },
+    {
+        "name": "midday_main_meal",
+        "module": "nutriveda",
+        "category": "agni_alignment",
+        "time_of_day": "midday",
+        "duration": "meal",
+        "variables": {
+            "agni_stability": 2,
+            "digestion_comfort": 2
+        },
+        "instructions": "Eat the largest meal around midday when digestive fire is strongest.",
+        "contraindications": "none"
+    },
+    {
+        "name": "digestive_walk",
+        "module": "ayufit",
+        "category": "agni_regulator",
+        "time_of_day": "after_meal",
+        "duration": "10 minutes",
+        "variables": {
+            "bloating_level": -2,
+            "agni_stability": 2,
+            "movement_level": 1
+        },
+        "instructions": "Take a slow walk after meals to stimulate digestion and prevent heaviness.",
+        "contraindications": "avoid immediately after very heavy meals"
+    },
+    {
+        "name": "mindful_chewing",
+        "module": "nutriveda",
+        "category": "digestion_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion_comfort": 2,
+            "agni_stability": 1
+        },
+        "instructions": "Chew food thoroughly before swallowing to support proper digestion.",
+        "contraindications": "none"
+    },
+    {
+        "name": "meal_spacing",
+        "module": "nutriveda",
+        "category": "agni_regulation",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "agni_stability": 2
+        },
+        "instructions": "Maintain adequate spacing between meals to allow digestion to complete.",
+        "contraindications": "none"
+    },
+    {
+        "name": "afternoon_hydration",
+        "module": "nutriveda",
+        "category": "hydration_support",
+        "time_of_day": "afternoon",
+        "duration": "drink",
+        "variables": {
+            "hydration_status": 2
+        },
+        "instructions": "Drink water or herbal infusions during the afternoon to maintain hydration.",
+        "contraindications": "none"
+    },
+    {
+        "name": "nature_exposure",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "any",
+        "duration": "15 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 2
+        },
+        "instructions": "Spend time in nature to calm the nervous system and improve mental clarity.",
+        "contraindications": "none"
+    },
+    {
+        "name": "meditation",
+        "module": "manasayur",
+        "category": "mental_regulation",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -4,
+            "mental_clarity": 3,
+            "ojas_recovery": 2
+        },
+        "instructions": "Practice meditation to calm mental activity and restore emotional balance.",
+        "contraindications": "none"
+    },
+    {
+        "name": "breathing_practice",
+        "module": "manasayur",
+        "category": "stress_regulation",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -3,
+            "mental_clarity": 1
+        },
+        "instructions": "Practice slow breathing exercises to regulate the nervous system and reduce stress.",
+        "contraindications": "none"
+    },
+    {
+        "name": "padabhyanga",
+        "module": "somasleep",
+        "category": "vata_stabilizer",
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata_state": -6,
-            "stress_load": -5,
-            "ojas_recovery": 3,
+            "vata_state": -5,
+            "sleep_debt": -2,
+            "stress_load": -2
+        },
+        "instructions": "Massage warm oil into the soles of the feet before sleep to calm the nervous system.",
+        "contraindications": "avoid with foot infections"
+    },
+    {
+        "name": "digital_detox",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "1 hour",
+        "variables": {
+            "screen_exposure": -4,
+            "circadian_alignment": 3
+        },
+        "instructions": "Avoid screens before bedtime to allow natural melatonin release and improve sleep quality.",
+        "contraindications": "none"
+    },
+    {
+        "name": "sleep_ritual",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "night",
+        "duration": "15 minutes",
+        "variables": {
+            "circadian_alignment": 4,
+            "sleep_debt": -2,
+            "ojas_recovery": 2
+        },
+        "instructions": "Follow a consistent relaxing routine before sleep to signal the body to prepare for rest.",
+        "contraindications": "none"
+    },
+    {
+        "name": "gratitude_journaling",
+        "module": "sattvaliving",
+        "category": "mental_regulation",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -1,
+            "mental_clarity": 1,
+            "ojas_recovery": 2
+        },
+        "instructions": "Write down positive experiences from the day to cultivate a balanced emotional state.",
+        "contraindications": "none"
+    },
+    {
+        "name": "warm_breakfast",
+        "module": "nutriveda",
+        "category": "vata_stabilizer",
+        "time_of_day": "morning",
+        "duration": "meal",
+        "variables": {
+            "vata_state": -2,
+            "agni_strength": 2,
+            "digestion_comfort": 1
+        },
+        "instructions": "Eat a warm, freshly prepared breakfast such as porridge or cooked grains. Warm foods support digestion and stabilize Vata in the morning.",
+        "contraindications": "none"
+    },
+    {
+        "name": "light_breakfast",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "morning",
+        "duration": "meal",
+        "variables": {
+            "kapha_state": -2,
+            "agni_strength": 1
+        },
+        "instructions": "Choose a light breakfast like fruit or herbal tea when appetite is low. This prevents Kapha heaviness and sluggish digestion.",
+        "contraindications": "avoid when very hungry or weak"
+    },
+    {
+        "name": "midday_sunlight_break",
+        "module": "dinaveda",
+        "category": "circadian_support",
+        "time_of_day": "midday",
+        "duration": "10 minutes",
+        "variables": {
+            "circadian_alignment": 2,
+            "light_exposure": 2
+        },
+        "instructions": "Step outside for natural light exposure around midday to reinforce circadian rhythm signals.",
+        "contraindications": "avoid excessive heat exposure"
+    },
+    {
+        "name": "standing_work_break",
+        "module": "ayufit",
+        "category": "movement_activation",
+        "time_of_day": "midday",
+        "duration": "5 minutes",
+        "variables": {
+            "movement_level": 2,
+            "kapha_state": -1
+        },
+        "instructions": "Stand or move briefly after prolonged sitting to stimulate circulation and reduce Kapha stagnation.",
+        "contraindications": "none"
+    },
+    {
+        "name": "hydration_reminder",
+        "module": "nutriveda",
+        "category": "hydration_support",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "hydration_status": 2
+        },
+        "instructions": "Drink water periodically throughout the day to maintain hydration and support metabolic processes.",
+        "contraindications": "none"
+    },
+    {
+        "name": "herbal_digestive_tea",
+        "module": "nutriveda",
+        "category": "agni_regulator",
+        "time_of_day": "after_meal",
+        "duration": "drink",
+        "variables": {
+            "agni_strength": 2,
+            "bloating_level": -1
+        },
+        "instructions": "Drink a mild digestive tea with ginger, cumin, or fennel after meals to support digestion.",
+        "contraindications": "avoid in severe acidity"
+    },
+    {
+        "name": "cooling_pranayama",
+        "module": "manasayur",
+        "category": "pitta_balancer",
+        "time_of_day": "afternoon",
+        "duration": "5 minutes",
+        "variables": {
+            "pitta_state": -4,
+            "stress_load": -1
+        },
+        "instructions": "Practice cooling breathing such as sheetali pranayama to reduce internal heat and calm Pitta.",
+        "contraindications": "avoid in cold environments"
+    },
+    {
+        "name": "shade_walk",
+        "module": "ayufit",
+        "category": "pitta_balance",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "pitta_state": -2,
+            "movement_level": 2
+        },
+        "instructions": "Walk in a shaded or cool environment to calm body heat and improve circulation.",
+        "contraindications": "avoid extreme heat exposure"
+    },
+    {
+        "name": "evening_stretch",
+        "module": "ayufit",
+        "category": "relaxation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "vata_state": -2,
+            "movement_level": 1
+        },
+        "instructions": "Perform gentle stretches to release tension accumulated during the day.",
+        "contraindications": "injury"
+    },
+    {
+        "name": "warm_bath",
+        "module": "dinaveda",
+        "category": "vata_relief",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "vata_state": -3,
+            "stress_load": -2
+        },
+        "instructions": "Take a warm bath to relax muscles and calm the nervous system.",
+        "contraindications": "fever"
+    },
+    {
+        "name": "cooling_bath",
+        "module": "dinaveda",
+        "category": "pitta_balance",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "pitta_state": -3,
+            "stress_load": -1
+        },
+        "instructions": "Use lukewarm water for bathing during hot conditions to reduce body heat.",
+        "contraindications": "cold sensitivity"
+    },
+    {
+        "name": "calming_music",
+        "module": "manasayur",
+        "category": "mental_relaxation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Listen to calming instrumental music to relax the nervous system.",
+        "contraindications": "none"
+    },
+    {
+        "name": "mindful_walking",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 2
+        },
+        "instructions": "Walk slowly while observing breathing and surroundings to calm mental activity.",
+        "contraindications": "none"
+    },
+    {
+        "name": "reading_evening",
+        "module": "somasleep",
+        "category": "sleep_preparation",
+        "time_of_day": "night",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -1,
+            "sleep_debt": -1
+        },
+        "instructions": "Read calming material before sleep to transition the mind into rest mode.",
+        "contraindications": "avoid stimulating content"
+    },
+    {
+        "name": "consistent_bedtime",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
             "circadian_alignment": 5,
             "sleep_debt": -2
         },
-        "instructions": "Massage warm sesame oil on the soles of your feet before sleep to draw energy down, calm the nervous system, and stabilize Vata.",
-        "contraindications": "Skin infection, fever, active indigestion"
+        "instructions": "Maintain a consistent sleep time daily to stabilize circadian rhythm.",
+        "contraindications": "none"
     },
     {
-        "id": "ginger_water",
-        "name": "Warm Ginger Water",
-        "category": "agni_igniter",
-        "module": "Nutriveda",
-        "time_of_day": "morning",
+        "name": "evening_meditation",
+        "module": "manasayur",
+        "category": "mental_regulation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -3,
+            "mental_clarity": 2
+        },
+        "instructions": "Meditate briefly in the evening to reduce accumulated stress.",
+        "contraindications": "none"
+    },
+    {
+        "name": "light_dinner",
+        "module": "nutriveda",
+        "category": "agni_regulator",
+        "time_of_day": "evening",
+        "duration": "meal",
+        "variables": {
+            "agni_stability": 2,
+            "kapha_state": -2
+        },
+        "instructions": "Eat a light dinner to prevent nighttime digestive overload and support sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "avoid_late_snacking",
+        "module": "nutriveda",
+        "category": "agni_regulation",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "agni_stability": 2,
+            "ama_risk": -1
+        },
+        "instructions": "Avoid eating late snacks to allow digestion to complete before sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "evening_wind_down",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "20 minutes",
+        "variables": {
+            "circadian_alignment": 3,
+            "stress_load": -1
+        },
+        "instructions": "Reduce stimulation and activity gradually in the evening to prepare the body for sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "screen_break_day",
+        "module": "sattvaliving",
+        "category": "mental_regulation",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "screen_exposure": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Take short breaks from screens throughout the day to reduce mental fatigue.",
+        "contraindications": "none"
+    },
+    {
+        "name": "gratitude_reflection",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "vata_state": -2,
-            "pitta_state": 2,
-            "kapha_state": -4,
-            "agni_strength": 8,
-            "ama_risk": -5,
-            "digestion_comfort": 5
+            "stress_load": -1,
+            "ojas_recovery": 1
         },
-        "instructions": "Sip hot water with fresh ginger slices 20 minutes before meals to stimulate the digestive fire (Jatharagni) without aggravating Pitta excessively.",
-        "contraindications": "Acid reflux, active ulcers, severe Pitta aggravation"
+        "instructions": "Reflect on positive experiences from the day to cultivate emotional stability.",
+        "contraindications": "none"
     },
     {
-        "id": "kapalabhati",
-        "name": "Kapalabhati Pranayama",
-        "category": "kapha_opener",
-        "module": "Ayufit",
-        "time_of_day": "morning",
-        "duration": "3 minutes",
+        "name": "sunset_observation",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
         "variables": {
-            "vata_state": 2,
-            "pitta_state": 4,
-            "kapha_state": -8,
-            "agni_strength": 5,
-            "mental_clarity": 10,
-            "stress_load": -2
+            "pitta_state": -2,
+            "mental_clarity": 1
         },
-        "instructions": "Perform rapid, forceful exhalations engaging the abdomen. This 'Skull Shining' breath clears morning stagnation, mucus, and lethargy.",
-        "contraindications": "High blood pressure, pregnancy, hernia, severe Vata imbalance"
+        "instructions": "Observe the sunset quietly to help the body transition from activity to rest.",
+        "contraindications": "none"
     },
     {
-        "id": "shitali",
-        "name": "Shitali Cooling Breath",
-        "category": "pitta_pacifier",
-        "module": "Manasayur",
+        "name": "silence_period",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Spend time in silence without stimulation to calm the mind.",
+        "contraindications": "none"
+    },
+    {
+        "name": "mindful_tea_break",
+        "module": "nutriveda",
+        "category": "mental_balance",
+        "time_of_day": "afternoon",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Pause for a warm herbal tea break to reset mental focus.",
+        "contraindications": "avoid stimulants late evening"
+    },
+    {
+        "name": "posture_reset",
+        "module": "ayufit",
+        "category": "movement_activation",
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "pitta_state": -8,
-            "kapha_state": 2,
-            "stress_load": -5,
-            "mental_clarity": 5
+            "movement_level": 1,
+            "vata_state": -1
         },
-        "instructions": "Roll your tongue into a tube, inhale deeply through the mouth, and exhale through the nose. Rapidly cools mental frustration and physical heat.",
-        "contraindications": "Cold weather, active respiratory congestion, high Vata"
+        "instructions": "Correct posture and stretch the spine periodically during the day to prevent stiffness.",
+        "contraindications": "spinal injury"
     },
     {
-        "id": "digital_sunset",
-        "name": "Digital Sunset",
-        "category": "circadian_anchor",
-        "module": "Sattvaliving",
-        "time_of_day": "evening",
-        "duration": "ongoing",
+        "name": "cooked_vegetable_meal",
+        "module": "nutriveda",
+        "category": "digestion_support",
+        "time_of_day": "meal_time",
+        "duration": "meal",
         "variables": {
-            "vata_state": -4,
-            "pitta_state": -4,
-            "screen_exposure": -30,
-            "circadian_alignment": 15,
-            "ojas_recovery": 5
+            "digestion_comfort": 2,
+            "agni_strength": 1,
+            "ama_risk": -1
         },
-        "instructions": "Turn off all glowing screens 60 minutes before bed. Use dim, warm lighting to trigger natural melatonin release and allow the subtle body to wind down.",
-        "contraindications": "None"
+        "instructions": "Prefer cooked vegetables rather than raw foods when digestion feels weak. Cooking softens fiber and makes nutrients easier to absorb.",
+        "contraindications": "none"
     },
     {
-        "id": "triphala_flush",
-        "name": "Triphala Night Flush",
-        "category": "ama_cleanser",
-        "module": "Rutuvada",
+        "name": "warm_soup_meal",
+        "module": "nutriveda",
+        "category": "agni_support",
+        "time_of_day": "evening",
+        "duration": "meal",
+        "variables": {
+            "agni_strength": 2,
+            "digestion_comfort": 2,
+            "vata_state": -1
+        },
+        "instructions": "Eat warm soups or broths during dinner to support digestion while keeping the meal light.",
+        "contraindications": "none"
+    },
+    {
+        "name": "avoid_cold_foods",
+        "module": "nutriveda",
+        "category": "agni_protection",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni_strength": 2,
+            "kapha_state": -1
+        },
+        "instructions": "Avoid very cold foods and drinks during meals because they weaken digestive fire.",
+        "contraindications": "none"
+    },
+    {
+        "name": "digestive_spice_mix",
+        "module": "nutriveda",
+        "category": "agni_regulator",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "agni_strength": 2,
+            "bloating_level": -1
+        },
+        "instructions": "Use digestive spices such as cumin, coriander, fennel, and ginger while cooking meals.",
+        "contraindications": "gastric ulcers"
+    },
+    {
+        "name": "midday_rest_pause",
+        "module": "dinaveda",
+        "category": "energy_balance",
+        "time_of_day": "midday",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Take a brief pause during midday to relax and reset mental focus.",
+        "contraindications": "none"
+    },
+    {
+        "name": "deep_breath_reset",
+        "module": "manasayur",
+        "category": "stress_regulation",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Pause for slow deep breathing to calm the nervous system and reduce stress.",
+        "contraindications": "none"
+    },
+    {
+        "name": "sunrise_observation",
+        "module": "manasayur",
+        "category": "circadian_support",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "circadian_alignment": 3,
+            "mental_clarity": 1
+        },
+        "instructions": "Observe the sunrise calmly to strengthen circadian rhythm and promote alertness.",
+        "contraindications": "none"
+    },
+    {
+        "name": "morning_journaling",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "stress_load": -1
+        },
+        "instructions": "Write brief thoughts or intentions for the day to organize mental focus.",
+        "contraindications": "none"
+    },
+    {
+        "name": "gratitude_meditation",
+        "module": "manasayur",
+        "category": "mental_regulation",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -2,
+            "ojas_recovery": 1
+        },
+        "instructions": "Reflect on gratitude during meditation to cultivate positive mental states.",
+        "contraindications": "none"
+    },
+    {
+        "name": "vigorous_exercise",
+        "module": "ayufit",
+        "category": "kapha_activator",
+        "time_of_day": "morning",
+        "duration": "30 minutes",
+        "variables": {
+            "kapha_state": -6,
+            "movement_level": 5,
+            "agni_strength": 2
+        },
+        "instructions": "Perform vigorous exercise such as jogging or cycling to stimulate metabolism and reduce Kapha stagnation.",
+        "contraindications": "cardiac risk or severe fatigue"
+    },
+    {
+        "name": "dynamic_yoga",
+        "module": "ayufit",
+        "category": "kapha_activation",
+        "time_of_day": "morning",
+        "duration": "20 minutes",
+        "variables": {
+            "kapha_state": -4,
+            "movement_level": 3
+        },
+        "instructions": "Practice dynamic yoga sequences that stimulate circulation and increase energy.",
+        "contraindications": "injuries"
+    },
+    {
+        "name": "intermittent_fasting_window",
+        "module": "nutriveda",
+        "category": "metabolic_regulation",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "kapha_state": -2,
+            "agni_stability": 1,
+            "ama_risk": -2
+        },
+        "instructions": "Maintain a natural fasting gap between dinner and breakfast to support metabolic balance.",
+        "contraindications": "pregnancy or medical conditions requiring regular meals"
+    },
+    {
+        "name": "reduce_sugar_intake",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "kapha_state": -2,
+            "ama_risk": -1
+        },
+        "instructions": "Reduce sugary foods and beverages to prevent Kapha accumulation and metabolic sluggishness.",
+        "contraindications": "none"
+    },
+    {
+        "name": "stimulating_pranayama",
+        "module": "manasayur",
+        "category": "kapha_activation",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "kapha_state": -3,
+            "mental_clarity": 2
+        },
+        "instructions": "Practice energizing breathing techniques such as kapalabhati to stimulate metabolism.",
+        "contraindications": "hypertension"
+    },
+    {
+        "name": "morning_music_activation",
+        "module": "manasayur",
+        "category": "energy_activation",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 1,
+            "kapha_state": -1
+        },
+        "instructions": "Listen to uplifting music in the morning to increase alertness and motivation.",
+        "contraindications": "none"
+    },
+    {
+        "name": "outdoor_activity",
+        "module": "ayufit",
+        "category": "movement_activation",
+        "time_of_day": "afternoon",
+        "duration": "20 minutes",
+        "variables": {
+            "movement_level": 3,
+            "stress_load": -1
+        },
+        "instructions": "Spend time outdoors performing physical activity such as walking or light sports.",
+        "contraindications": "extreme weather"
+    },
+    {
+        "name": "gentle_evening_walk",
+        "module": "ayufit",
+        "category": "digestion_support",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "bloating_level": -1,
+            "movement_level": 2
+        },
+        "instructions": "Walk gently in the evening to support digestion and relax the body.",
+        "contraindications": "fatigue"
+    },
+    {
+        "name": "calming_breathing_evening",
+        "module": "manasayur",
+        "category": "stress_relief",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -3,
+            "mental_clarity": 1
+        },
+        "instructions": "Practice slow breathing to calm the nervous system before sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "warm_herbal_milk",
+        "module": "nutriveda",
+        "category": "sleep_support",
         "time_of_day": "night",
-        "duration": "2 minutes",
+        "duration": "drink",
+        "variables": {
+            "sleep_debt": -1,
+            "ojas_recovery": 2
+        },
+        "instructions": "Drink warm herbal milk with calming spices before sleep to promote relaxation.",
+        "contraindications": "lactose intolerance"
+    },
+    {
+        "name": "digital_sunset",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "screen_exposure": -3,
+            "circadian_alignment": 2
+        },
+        "instructions": "Stop using screens after sunset to protect natural sleep hormone rhythms.",
+        "contraindications": "none"
+    },
+    {
+        "name": "bedroom_darkening",
+        "module": "somasleep",
+        "category": "sleep_environment",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "sleep_debt": -1,
+            "circadian_alignment": 1
+        },
+        "instructions": "Keep the bedroom dark to promote deeper sleep and proper melatonin release.",
+        "contraindications": "none"
+    },
+    {
+        "name": "bedroom_cooling",
+        "module": "somasleep",
+        "category": "sleep_environment",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "pitta_state": -1,
+            "sleep_debt": -1
+        },
+        "instructions": "Maintain a slightly cool bedroom temperature to improve sleep quality.",
+        "contraindications": "extreme cold sensitivity"
+    },
+    {
+        "name": "reflective_writing",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "night",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 1,
+            "stress_load": -1
+        },
+        "instructions": "Write reflections about the day to process thoughts and release mental tension.",
+        "contraindications": "none"
+    },
+    {
+        "name": "compassion_practice",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -1,
+            "ojas_recovery": 1
+        },
+        "instructions": "Practice compassion or kindness meditation to cultivate emotional balance.",
+        "contraindications": "none"
+    },
+    {
+        "name": "creative_expression",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "20 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 2
+        },
+        "instructions": "Engage in creative activities like drawing, music, or writing to release emotional tension.",
+        "contraindications": "none"
+    },
+    {
+        "name": "regular_meal_timing",
+        "module": "nutriveda",
+        "category": "agni_regulation",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "agni_stability": 2,
+            "circadian_alignment": 1
+        },
+        "instructions": "Eat meals at consistent times each day. Regular meal timing stabilizes digestive rhythms and prevents irregular hunger patterns.",
+        "contraindications": "none"
+    },
+    {
+        "name": "avoid_overeating",
+        "module": "nutriveda",
+        "category": "digestion_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion_comfort": 2,
+            "ama_risk": -2
+        },
+        "instructions": "Eat until comfortably satisfied rather than overly full. Overeating weakens digestion and increases metabolic waste.",
+        "contraindications": "none"
+    },
+    {
+        "name": "warm_lunch_preference",
+        "module": "nutriveda",
+        "category": "agni_support",
+        "time_of_day": "midday",
+        "duration": "meal",
+        "variables": {
+            "agni_strength": 2,
+            "digestion_comfort": 1
+        },
+        "instructions": "Choose freshly cooked warm meals at lunch to support strong midday digestion.",
+        "contraindications": "none"
+    },
+    {
+        "name": "bitter_greens_intake",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "midday",
+        "duration": "meal",
+        "variables": {
+            "pitta_state": -2,
+            "agni_strength": 1
+        },
+        "instructions": "Include bitter greens such as spinach or fenugreek leaves to reduce excess heat and support liver metabolism.",
+        "contraindications": "none"
+    },
+    {
+        "name": "cooling_food_choice",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "pitta_state": -2
+        },
+        "instructions": "Favor cooling foods such as cucumber, coconut, or leafy greens during hot conditions.",
+        "contraindications": "avoid excessive cold foods in weak digestion"
+    },
+    {
+        "name": "reduce_spicy_foods",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "pitta_state": -2,
+            "agni_stability": 1
+        },
+        "instructions": "Limit very spicy foods if experiencing heat, acidity, or irritability.",
+        "contraindications": "none"
+    },
+    {
+        "name": "herbal_coriander_water",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "afternoon",
+        "duration": "drink",
+        "variables": {
+            "pitta_state": -2,
+            "hydration_status": 1
+        },
+        "instructions": "Drink coriander-infused water to gently cool digestion and reduce internal heat.",
+        "contraindications": "none"
+    },
+    {
+        "name": "moonlight_walk",
+        "module": "manasayur",
+        "category": "pitta_balance",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "pitta_state": -2,
+            "stress_load": -1
+        },
+        "instructions": "Take a calm walk under moonlight or cool evening air to reduce accumulated heat and tension.",
+        "contraindications": "extreme cold weather"
+    },
+    {
+        "name": "evening_relaxation_yoga",
+        "module": "ayufit",
+        "category": "relaxation",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
         "variables": {
             "vata_state": -2,
-            "pitta_state": -2,
-            "kapha_state": -2,
-            "ama_risk": -10,
-            "bowel_quality": 15,
-            "agni_stability": 5
+            "stress_load": -1
         },
-        "instructions": "Drink 1/2 tsp of Triphala powder steeped in warm water right before sleep to gently cleanse the GI tract and scrape toxic Ama.",
-        "contraindications": "Severe diarrhea, pregnancy, extreme weakness"
+        "instructions": "Practice slow restorative yoga postures in the evening to relax muscles and calm the nervous system.",
+        "contraindications": "acute injuries"
     },
     {
-        "id": "brahmamuhurta",
-        "name": "Brahmamuhurta Wake",
-        "category": "circadian_anchor",
-        "module": "Dinaveda",
-        "time_of_day": "morning",
-        "duration": "ongoing",
+        "name": "grounding_breathing",
+        "module": "manasayur",
+        "category": "vata_stabilizer",
+        "time_of_day": "any",
+        "duration": "5 minutes",
         "variables": {
-            "kapha_state": -5,
-            "mental_clarity": 15,
-            "circadian_alignment": 20,
-            "ojas_score": 2
+            "vata_state": -3,
+            "stress_load": -2
         },
-        "instructions": "Wake up 90 minutes before sunrise. The atmospheric Vata brings natural lightness to the body and profound Sattvic clarity to the mind.",
-        "contraindications": "Children, elderly, severe exhaustion, illness"
+        "instructions": "Use slow diaphragmatic breathing to stabilize nervous system activity and reduce Vata agitation.",
+        "contraindications": "none"
     },
     {
-        "id": "tongue_scraping",
-        "name": "Jivha Nirlekhana",
-        "category": "ama_cleanser",
-        "module": "Dinaveda",
-        "time_of_day": "morning",
-        "duration": "2 minutes",
-        "variables": {
-            "ama_risk": -5,
-            "appetite_quality": 5,
-            "digestion_comfort": 2
-        },
-        "instructions": "Gently scrape the tongue from back to front 7-10 times using a copper or stainless steel scraper to remove overnight metabolic waste before drinking water.",
-        "contraindications": "Mouth ulcers, cuts on tongue"
-    },
-    {
-        "id": "oil_pulling",
-        "name": "Gandusha (Oil Pulling)",
-        "category": "ojas_builder",
-        "module": "Dinaveda",
-        "time_of_day": "morning",
+        "name": "warm_oil_head_massage",
+        "module": "dinaveda",
+        "category": "vata_stabilizer",
+        "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
             "vata_state": -3,
-            "ojas_score": 2,
-            "ama_risk": -2
+            "stress_load": -2,
+            "sleep_debt": -1
         },
-        "instructions": "Swish 1 tablespoon of warm sesame or coconut oil in the mouth for 10-15 minutes. Spit it out and rinse with warm water. Strengthens jaw, voice, and immunity.",
-        "contraindications": "None. Do not swallow the oil."
+        "instructions": "Massage warm oil gently into the scalp to calm nerves and reduce tension before sleep.",
+        "contraindications": "scalp infection"
     },
     {
-        "id": "kitchari_cleanse",
-        "name": "Kitchari Mono-Diet",
-        "category": "agni_stabilizer",
-        "module": "Nutriveda",
-        "time_of_day": "any",
-        "duration": "1-3 days",
-        "variables": {
-            "vata_state": -5,
-            "pitta_state": -5,
-            "kapha_state": -5,
-            "agni_strength": 10,
-            "agni_stability": 15,
-            "ama_risk": -20,
-            "digestion_comfort": 20
-        },
-        "instructions": "Consume only warm, well-cooked Kitchari (basmati rice, mung dal, ginger, cumin, coriander, ghee) for all meals to completely rest the digestive engine.",
-        "contraindications": "Severe diabetes (consult practitioner regarding rice volume)"
-    },
-    {
-        "id": "golden_milk",
-        "name": "Golden Turmeric Milk",
-        "category": "ojas_builder",
-        "module": "Somasleep",
+        "name": "warm_foot_bath",
+        "module": "somasleep",
+        "category": "sleep_support",
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata_state": -5,
-            "pitta_state": -2,
-            "ojas_recovery": 10,
-            "stress_load": -5,
-            "sleep_debt": -5
+            "vata_state": -2,
+            "sleep_debt": -1
         },
-        "instructions": "Simmer organic whole milk (or almond milk) with 1/2 tsp turmeric, a pinch of black pepper, nutmeg, and ghee. Drink warm 1 hour before bed.",
-        "contraindications": "High Ama, acute Kapha congestion, strict dairy intolerance"
+        "instructions": "Soak the feet in warm water to relax the body and improve sleep readiness.",
+        "contraindications": "foot wounds"
     },
     {
-        "id": "nadi_shodhana",
-        "name": "Alternate Nostril Breathing",
-        "category": "vata_stabilizer",
-        "module": "Manasayur",
+        "name": "reduce_evening_caffeine",
+        "module": "nutriveda",
+        "category": "sleep_support",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "sleep_debt": -1,
+            "circadian_alignment": 1
+        },
+        "instructions": "Avoid caffeine late in the day to prevent stimulation of the nervous system before sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "evening_screen_filter",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "screen_exposure": -2,
+            "circadian_alignment": 1
+        },
+        "instructions": "Use screen filters or reduce brightness in the evening to reduce blue-light disruption.",
+        "contraindications": "none"
+    },
+    {
+        "name": "morning_hydration",
+        "module": "nutriveda",
+        "category": "hydration_support",
+        "time_of_day": "morning",
+        "duration": "drink",
+        "variables": {
+            "hydration_status": 2,
+            "digestion_comfort": 1
+        },
+        "instructions": "Drink water shortly after waking to restore hydration and activate metabolism.",
+        "contraindications": "none"
+    },
+    {
+        "name": "breathing_pause_break",
+        "module": "manasayur",
+        "category": "stress_regulation",
+        "time_of_day": "any",
+        "duration": "2 minutes",
+        "variables": {
+            "stress_load": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Take short breathing pauses during stressful work periods to reset mental focus.",
+        "contraindications": "none"
+    },
+    {
+        "name": "desk_stretch_routine",
+        "module": "ayufit",
+        "category": "movement_activation",
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "vata_state": -8,
-            "pitta_state": -2,
-            "stress_load": -15,
-            "mental_clarity": 10,
-            "ojas_score": 2
+            "movement_level": 2,
+            "vata_state": -1
         },
-        "instructions": "Use your right thumb and ring finger to alternate breathing between nostrils. Balances the solar and lunar channels (Ida and Pingala) of the nervous system.",
-        "contraindications": "Active nasal congestion"
+        "instructions": "Stretch the neck, shoulders, and spine during desk work to prevent stiffness and improve circulation.",
+        "contraindications": "spinal injury"
+    },
+    {
+        "name": "midday_mindfulness",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "midday",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 2
+        },
+        "instructions": "Pause midday for brief mindfulness practice to reduce mental overload.",
+        "contraindications": "none"
+    },
+    {
+        "name": "evening_reflection",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 1,
+            "stress_load": -1
+        },
+        "instructions": "Reflect on the day’s experiences to improve self-awareness and emotional balance.",
+        "contraindications": "none"
+    },
+    {
+        "name": "daily_kindness_action",
+        "module": "sattvaliving",
+        "category": "behavioral_balance",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "ojas_recovery": 1,
+            "stress_load": -1
+        },
+        "instructions": "Perform small acts of kindness or generosity to cultivate positive emotional states.",
+        "contraindications": "none"
+    },
+    {
+        "name": "reduce_multitasking",
+        "module": "sattvaliving",
+        "category": "mental_clarity",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 2,
+            "stress_load": -1
+        },
+        "instructions": "Focus on one task at a time to improve attention and reduce cognitive fatigue.",
+        "contraindications": "none"
+    },
+    {
+        "name": "mindful_eating_pause",
+        "module": "nutriveda",
+        "category": "digestion_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion_comfort": 2
+        },
+        "instructions": "Pause briefly before eating to relax and prepare digestion.",
+        "contraindications": "none"
+    },
+    {
+        "name": "daily_routine_consistency",
+        "module": "dinaveda",
+        "category": "circadian_support",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "circadian_alignment": 3
+        },
+        "instructions": "Maintain consistent wake, meal, and sleep times to stabilize biological rhythms.",
+        "contraindications": "none"
+    },
+    {
+        "name": "morning_intention_setting",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Set a clear intention for the day to improve mental focus and emotional stability.",
+        "contraindications": "none"
+    },
+    {
+        "name": "evening_gratitude_reflection",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "night",
+        "duration": "5 minutes",
+        "variables": {
+            "ojas_recovery": 1,
+            "stress_load": -1
+        },
+        "instructions": "Reflect on positive events before sleep to cultivate a calm and satisfied mental state.",
+        "contraindications": "none"
+    },
+    {
+        "name": "spring_light_diet",
+        "module": "rutuvada",
+        "category": "seasonal_balance",
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "kapha_state": -3,
+            "ama_risk": -2
+        },
+        "instructions": "During spring favor lighter foods such as vegetables, legumes, and spices to counter Kapha accumulation that occurs naturally in this season.",
+        "contraindications": "none"
+    },
+    {
+        "name": "summer_cooling_foods",
+        "module": "rutuvada",
+        "category": "seasonal_balance",
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "pitta_state": -3,
+            "hydration_status": 1
+        },
+        "instructions": "Eat cooling foods like cucumber, coconut, and fresh fruits during summer to balance rising heat in the body.",
+        "contraindications": "avoid excessive cold foods if digestion is weak"
+    },
+    {
+        "name": "autumn_vata_protection",
+        "module": "rutuvada",
+        "category": "seasonal_balance",
+        "time_of_day": "daily",
+        "duration": "seasonal habit",
+        "variables": {
+            "vata_state": -3,
+            "ojas_recovery": 1
+        },
+        "instructions": "During windy autumn months emphasize warm meals, oil massage, and grounding routines to stabilize Vata.",
+        "contraindications": "none"
+    },
+    {
+        "name": "winter_nourishing_diet",
+        "module": "rutuvada",
+        "category": "seasonal_balance",
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "ojas_recovery": 2,
+            "agni_strength": 2
+        },
+        "instructions": "Eat nourishing foods such as soups, grains, and healthy fats during winter to support stronger digestive fire and maintain vitality.",
+        "contraindications": "avoid overeating heavy foods"
+    },
+    {
+        "name": "seasonal_spice_adjustment",
+        "module": "rutuvada",
+        "category": "seasonal_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni_strength": 1,
+            "ama_risk": -1
+        },
+        "instructions": "Adjust spice use according to climate: warming spices in cold weather and milder spices during hot seasons.",
+        "contraindications": "gastric irritation"
+    },
+    {
+        "name": "sunrise_movement",
+        "module": "ayufit",
+        "category": "circadian_activation",
+        "time_of_day": "morning",
+        "duration": "15 minutes",
+        "variables": {
+            "circadian_alignment": 2,
+            "movement_level": 2
+        },
+        "instructions": "Engage in light movement soon after sunrise to activate metabolism and reinforce circadian rhythms.",
+        "contraindications": "severe fatigue"
+    },
+    {
+        "name": "grounding_walk",
+        "module": "ayufit",
+        "category": "vata_stabilizer",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "vata_state": -2,
+            "stress_load": -1
+        },
+        "instructions": "Take a slow evening walk focusing on steady breathing and relaxed posture to stabilize nervous system activity.",
+        "contraindications": "extreme weather"
+    },
+    {
+        "name": "morning_breathing_sequence",
+        "module": "manasayur",
+        "category": "mental_activation",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "stress_load": -1
+        },
+        "instructions": "Perform a brief breathing sequence after waking to improve oxygenation and alertness.",
+        "contraindications": "none"
+    },
+    {
+        "name": "calm_music_evening",
+        "module": "manasayur",
+        "category": "mental_relaxation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -2,
+            "sleep_debt": -1
+        },
+        "instructions": "Listen to calm instrumental music to ease mental tension before sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "gratitude_evening_reflection",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "stress_load": -1,
+            "ojas_recovery": 1
+        },
+        "instructions": "Reflect on positive experiences of the day to cultivate emotional stability and reduce stress.",
+        "contraindications": "none"
+    },
+    {
+        "name": "mindful_conversation",
+        "module": "sattvaliving",
+        "category": "behavioral_balance",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "stress_load": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Engage in calm and mindful communication to maintain emotional balance and reduce mental agitation.",
+        "contraindications": "none"
+    },
+    {
+        "name": "nature_sitting",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 2
+        },
+        "instructions": "Sit quietly in a natural environment to calm sensory stimulation and restore mental clarity.",
+        "contraindications": "none"
+    },
+    {
+        "name": "deep_relaxation_pose",
+        "module": "ayufit",
+        "category": "restorative_practice",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "stress_load": -2,
+            "vata_state": -1
+        },
+        "instructions": "Practice deep relaxation posture such as savasana to release physical and mental tension.",
+        "contraindications": "none"
+    },
+    {
+        "name": "herbal_sleep_tea",
+        "module": "somasleep",
+        "category": "sleep_support",
+        "time_of_day": "night",
+        "duration": "drink",
+        "variables": {
+            "sleep_debt": -1,
+            "stress_load": -1
+        },
+        "instructions": "Drink mild herbal teas such as chamomile or tulsi before sleep to promote relaxation.",
+        "contraindications": "allergy to herbs"
+    },
+    {
+        "name": "bedtime_reading",
+        "module": "somasleep",
+        "category": "sleep_preparation",
+        "time_of_day": "night",
+        "duration": "10 minutes",
+        "variables": {
+            "sleep_debt": -1,
+            "stress_load": -1
+        },
+        "instructions": "Read calm non-stimulating material to transition the mind into rest mode.",
+        "contraindications": "avoid stimulating content"
+    },
+    {
+        "name": "sleep_environment_quiet",
+        "module": "somasleep",
+        "category": "sleep_environment",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "sleep_debt": -1,
+            "circadian_alignment": 1
+        },
+        "instructions": "Maintain a quiet sleeping environment to support uninterrupted sleep cycles.",
+        "contraindications": "none"
+    },
+    {
+        "name": "sleep_environment_dark",
+        "module": "somasleep",
+        "category": "sleep_environment",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "circadian_alignment": 1,
+            "sleep_debt": -1
+        },
+        "instructions": "Reduce light exposure in the bedroom to enhance natural melatonin production.",
+        "contraindications": "none"
+    },
+    {
+        "name": "daily_stretch_breaks",
+        "module": "ayufit",
+        "category": "movement_activation",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement_level": 2,
+            "vata_state": -1
+        },
+        "instructions": "Take short stretch breaks throughout the day to improve circulation and prevent stiffness.",
+        "contraindications": "injuries"
+    },
+    {
+        "name": "mindful_posture",
+        "module": "ayufit",
+        "category": "movement_activation",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "movement_level": 1,
+            "stress_load": -1
+        },
+        "instructions": "Maintain upright posture during sitting to support breathing and spinal alignment.",
+        "contraindications": "spinal injury"
+    },
+    {
+        "name": "evening_screen_shutdown",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "screen_exposure": -3,
+            "circadian_alignment": 2
+        },
+        "instructions": "Turn off electronic screens one hour before bedtime to protect natural sleep cycles.",
+        "contraindications": "none"
+    },
+    {
+        "name": "daily_reflection_pause",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 1,
+            "stress_load": -1
+        },
+        "instructions": "Pause briefly at the end of the day to reflect on actions and experiences, promoting self-awareness.",
+        "contraindications": "none"
+    },
+    {
+        "name": "simple_breath_counting",
+        "module": "manasayur",
+        "category": "mental_regulation",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "stress_load": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Count slow breaths to focus attention and calm mental activity.",
+        "contraindications": "none"
+    },
+    {
+        "name": "light_evening_conversation",
+        "module": "sattvaliving",
+        "category": "mental_balance",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "stress_load": -1
+        },
+        "instructions": "Engage in relaxed and positive conversations during evening hours to maintain emotional calm before sleep.",
+        "contraindications": "none"
+    },
+    {
+        "name": "daily_kindness_reflection",
+        "module": "sattvaliving",
+        "category": "behavioral_balance",
+        "time_of_day": "night",
+        "duration": "3 minutes",
+        "variables": {
+            "ojas_recovery": 1,
+            "stress_load": -1
+        },
+        "instructions": "Reflect on acts of kindness given or received during the day to cultivate positive emotional states.",
+        "contraindications": "none"
+    },
+    {
+        "name": "morning_body_awareness",
+        "module": "manasayur",
+        "category": "mental_balance",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "stress_load": -1
+        },
+        "instructions": "Briefly scan the body after waking to become aware of physical sensations and set a calm tone for the day.",
+        "contraindications": "none"
     }
 ]

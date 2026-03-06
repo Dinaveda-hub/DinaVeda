@@ -205,7 +205,7 @@ export default function Dashboard() {
               </h3>
               <div className="space-y-4">
                 {isLoaded && morningRecs.length > 0 ? morningRecs.map(rec => (
-                  <div key={rec.id} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
+                  <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2.5 shrink-0 opacity-80" />
                     <div>
                       <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.name}</h4>
@@ -225,7 +225,7 @@ export default function Dashboard() {
               </h3>
               <div className="space-y-4">
                 {isLoaded && middayRecs.length > 0 ? middayRecs.map(rec => (
-                  <div key={rec.id} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
+                  <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2.5 shrink-0 opacity-80" />
                     <div>
                       <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.name}</h4>
@@ -245,7 +245,7 @@ export default function Dashboard() {
               </h3>
               <div className="space-y-4">
                 {isLoaded && eveningRecs.length > 0 ? eveningRecs.map(rec => (
-                  <div key={rec.id} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
+                  <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2.5 shrink-0 opacity-80" />
                     <div>
                       <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.name}</h4>
