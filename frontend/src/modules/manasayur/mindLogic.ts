@@ -1,5 +1,5 @@
 import { VedaState } from '@/engine/stateModel';
-import { Protocol } from '@/engine/recommendationEngine';
+import { Protocol } from '@/engine/protocolSelectionEngine';
 
 export function filterManasayurProtocols(protocols: Protocol[]): Protocol[] {
     return protocols.filter(p => p.module.toLowerCase() === 'manasayur');
