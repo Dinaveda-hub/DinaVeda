@@ -21,46 +21,46 @@ interface Question {
 const quizFlow: Question[] = [
     {
         id: "frame",
-        domain: "Constitutional Baseline [Prakriti]",
-        text: "Your natural body frame and build is:",
+        domain: "Body Type",
+        text: "How would you describe your natural body build?",
         options: [
-            { label: "Light, lean, or thin — I lose weight easily (Vata [Air + Ether])", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Medium build, defined athletic muscles (Pitta [Fire + Water])", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Broader frame, solid, gains weight easily (Kapha [Earth + Water])", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "A mix depending on lifestyle", value: { vata: 1, pitta: 1, kapha: 0 } },
+            { label: "Lean or slender — I find it easy to stay light", value: { vata: 2, pitta: 0, kapha: 0 } },
+            { label: "Medium or athletic — I have a steady, defined build", value: { vata: 0, pitta: 2, kapha: 0 } },
+            { label: "Strong or broad — I have a solid, sturdy frame", value: { vata: 0, pitta: 0, kapha: 2 } },
+            { label: "A combination that changes with my lifestyle", value: { vata: 1, pitta: 1, kapha: 0 } },
         ]
     },
     {
         id: "energy",
-        domain: "Kinetic State [Prana]",
-        text: "Your natural, untamed energy pattern feels like:",
+        domain: "Energy Pattern",
+        text: "When it comes to your daily energy, you usually feel:",
         options: [
-            { label: "Quick intense bursts, then sudden drops", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Steady, intense, and heavily driven", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Slow to start, but extremely long-lasting", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Highly unpredictable from day to day", value: { vata: 1, pitta: 1, kapha: 0 } },
+            { label: "Quick bursts of energy followed by sudden tired spells", value: { vata: 2, pitta: 0, kapha: 0 } },
+            { label: "Strong, steady, and very goal-oriented", value: { vata: 0, pitta: 2, kapha: 0 } },
+            { label: "Consistent energy that takes a while to build up", value: { vata: 0, pitta: 0, kapha: 2 } },
+            { label: "Completely different from one day to the next", value: { vata: 1, pitta: 1, kapha: 0 } },
         ]
     },
     {
         id: "sleep_timing",
-        domain: "Circadian Rhythm [Nidra]",
-        text: "Your optimal sleep pattern is usually:",
+        domain: "Sleep Quality",
+        text: "How do you typically experience sleep?",
         options: [
-            { label: "Late sleeper, very light and easily disturbed", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Moderate sleep, but disrupted if I am stressed", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Very deep, heavy sleeper, hard to wake up", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Changes completely based on my schedule", value: { vata: 1, pitta: 1, kapha: 0 } },
+            { label: "I am a light sleeper and wake up easily", value: { vata: 2, pitta: 0, kapha: 0 } },
+            { label: "I sleep well but can be restless when busy", value: { vata: 0, pitta: 2, kapha: 0 } },
+            { label: "I am a very deep sleeper and love my rest", value: { vata: 0, pitta: 0, kapha: 2 } },
+            { label: "My sleep pattern is very irregular", value: { vata: 1, pitta: 1, kapha: 0 } },
         ]
     },
     {
         id: "stress_reaction",
-        domain: "Neural Overload [Manas]",
-        text: "Under extreme stress or pressure, you mostly become:",
+        domain: "Stress Response",
+        text: "When things get stressful, your first reaction is:",
         options: [
-            { label: "Restless, highly anxious, or scattered", value: { vata: 2, pitta: 0, kapha: 0 } },
-            { label: "Irritated, critical, or hyper-controlling", value: { vata: 0, pitta: 2, kapha: 0 } },
-            { label: "Withdrawn, silent, or unmotivated", value: { vata: 0, pitta: 0, kapha: 2 } },
-            { label: "Calm externally but extremely tense internally", value: { vata: 1, pitta: 1, kapha: 0 } },
+            { label: "I tend to feel worried or a bit scattered", value: { vata: 2, pitta: 0, kapha: 0 } },
+            { label: "I get focused, impatient, or determined", value: { vata: 0, pitta: 2, kapha: 0 } },
+            { label: "I stay calm but might feel unmotivated", value: { vata: 0, pitta: 0, kapha: 2 } },
+            { label: "I feel tense but try to keep it inside", value: { vata: 1, pitta: 1, kapha: 0 } },
         ]
     }
 ];
@@ -102,15 +102,15 @@ export default function WelcomeLandingPage() {
                 const seasonal = `During transitional months, emphasize ${primary === 'vata' ? 'grounding oils' : primary === 'pitta' ? 'cooling herbs' : 'light movement'}.`;
 
                 const finalResult = {
-                    title: "Core Profile (Prakriti [Constitution])",
+                    title: "Historical Health Identity",
                     type,
                     scores: newScores,
                     userInfo,
                     insights: [
-                        `Your intrinsic ${type} nature holds a deep affinity for ${primary === 'pitta' ? 'high-intensity analytical' : primary === 'vata' ? 'fluid and creative' : 'grounded, steady'} environments.`,
-                        `To maintain optimal health, your specific baseline requires careful balancing of internal ${secondary === 'pitta' ? 'heat' : secondary === 'vata' ? 'movement' : 'stability'}.`
+                        `Your personality naturally thrives in ${primary === 'pitta' ? 'high-energy and focused' : primary === 'vata' ? 'flexible and creative' : 'stable and steady'} settings.`,
+                        `To feel your best, your body needs to balance its natural tendency toward ${secondary === 'pitta' ? 'heat' : secondary === 'vata' ? 'restlessness' : 'heaviness'}.`
                     ],
-                    seasonal,
+                    seasonal: `This season, focus on ${primary === 'vata' ? 'warm, grounding foods' : primary === 'pitta' ? 'cooling activities' : 'refreshing movement'} to stay balanced.`,
                     timestamp: new Date().toISOString()
                 };
 
@@ -123,28 +123,29 @@ export default function WelcomeLandingPage() {
     };
 
     return (
-        <div className="bg-[#FAF9F6] text-slate-800 min-h-screen relative font-sans overflow-x-hidden selection:bg-forest/20 selection:text-forest">
-            {/* Lightweight Static Background to improve rendering speeds */}
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-forest/5 via-transparent to-transparent pointer-events-none -z-10" />
+        <div className="bg-background text-slate-800 min-h-screen relative font-sans overflow-x-hidden selection:bg-forest/20 selection:text-forest">
+            {/* Ambient background glows */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest/5 rounded-full -mr-40 -mt-40 blur-[120px]" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] -ml-40" />
 
             {/* Navbar */}
-            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/70 border-b border-forest/5">
-                <div className="flex flex-1 items-center gap-2">
-                    <div className="w-8 h-8 rounded-[0.8rem] bg-forest flex items-center justify-center text-white shadow-md">
+            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/60 border-b border-slate-100">
+                <div className="flex flex-1 items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-forest flex items-center justify-center text-white shadow-md">
                         <Leaf className="w-4 h-4" />
                     </div>
                     <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
                 </div>
-                <div className="hidden md:flex gap-6 items-center text-xs font-bold text-slate-500 uppercase tracking-widest pl-4 pr-12">
+                <div className="hidden md:flex gap-8 items-center text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] md:tracking-[0.3em] pl-4 pr-12">
                     <button onClick={() => {
-                        document.getElementById('ai-science')?.scrollIntoView({ behavior: 'smooth' });
-                    }} className="hover:text-forest transition-colors">Technology</button>
+                        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                    }} className="hover:text-forest transition-colors">How it works</button>
                     <button onClick={() => {
                         if (!isQuizActive) setIsQuizActive(true);
-                        document.getElementById('prakriti-auditor')?.scrollIntoView({ behavior: 'smooth' });
-                    }} className="hover:text-forest transition-colors">Free Assessment</button>
+                        document.getElementById('health-profile')?.scrollIntoView({ behavior: 'smooth' });
+                    }} className="hover:text-forest transition-colors">Free Profile</button>
                 </div>
-                <Link href="/login" className="px-6 py-2.5 rounded-[1.2rem] bg-forest text-white font-bold text-xs uppercase tracking-widest hover:bg-forest/90 transition-all shadow-lg shadow-forest/20 active:scale-95">
+                <Link href="/login" className="px-6 py-2.5 rounded-2xl bg-forest text-white font-black text-[10px] md:text-sm uppercase tracking-widest hover:bg-forest/90 transition-all shadow-lg shadow-forest/20 active:scale-95">
                     Sign In
                 </Link>
             </nav>
@@ -153,20 +154,20 @@ export default function WelcomeLandingPage() {
                 {/* Hero Section */}
                 <section className="pt-20 pb-12 lg:pt-32 lg:pb-24 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
                     <div className="flex-1 space-y-8 text-center lg:text-left z-10 w-full">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-forest/10 shadow-sm text-xs font-black uppercase tracking-[0.2em] text-forest/80">
-                            <Sparkles className="w-4 h-4 text-gold" /> Beyond Generic Wellness
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-[10px] md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-forest/60">
+                            <Sparkles className="w-4 h-4 text-gold/60" /> Your Health, Reimagined
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black text-forest tracking-tighter leading-[0.9] text-balance">
-                            Discover <br />
-                            Your True <br />
+                        <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-black text-forest tracking-tighter leading-[0.9] text-balance">
+                            Understand <br />
+                            Your Body's <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest via-emerald-600 to-gold">
-                                Elemental Nature.
+                                Unique Rhythm.
                             </span>
                         </h1>
 
-                        <p className="text-lg md:text-xl font-medium text-slate-500 max-w-lg leading-relaxed mx-auto lg:mx-0">
-                            Discover your innate <strong className="text-forest">Prakriti Core</strong> (Ayurvedic Constitution) in moments. Dinaveda maps your unique essence and delivers deeply personalized daily rhythms.
+                        <p className="text-base md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed mx-auto lg:mx-0 uppercase tracking-wide">
+                            Your body is unique. Your health should be too. Dinaveda helps you discover your natural balance and stay centered every day.
                         </p>
 
                         <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -174,15 +175,15 @@ export default function WelcomeLandingPage() {
                                 onClick={() => {
                                     setIsQuizActive(true);
                                     setTimeout(() => {
-                                        document.getElementById("prakriti-auditor")?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        document.getElementById("health-profile")?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                     }, 100);
                                 }}
-                                className="group relative px-8 py-5 w-full sm:w-auto justify-center rounded-[2rem] bg-forest text-white flex items-center gap-3 overflow-hidden shadow-xl shadow-forest/30 transition-all hover:-translate-y-1 hover:shadow-2xl"
+                                className="group relative px-8 py-5 w-full sm:w-auto justify-center rounded-3xl bg-forest text-white flex items-center gap-3 overflow-hidden shadow-xl shadow-forest/20 transition-all hover:-translate-y-1 hover:shadow-2xl active:scale-95"
                             >
-                                <span className="relative z-10 font-black text-sm uppercase tracking-widest">Take Free Assessment</span>
-                                <Play className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform fill-white" />
+                                <span className="relative z-10 font-black text-xs md:text-sm uppercase tracking-widest">Start Your Health Profile</span>
+                                <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
                             </button>
-                            <Link href="/login" className="px-8 py-5 rounded-[2rem] bg-white text-forest border-2 border-forest/10 font-black text-sm uppercase tracking-widest hover:bg-forest/5 transition-all text-center">
+                            <Link href="/login" className="px-8 py-5 rounded-3xl bg-white text-slate-400 border border-slate-100 font-black text-xs md:text-sm uppercase tracking-widest hover:bg-slate-50 transition-all text-center">
                                 Log In
                             </Link>
                         </div>
@@ -202,27 +203,27 @@ export default function WelcomeLandingPage() {
                     </div>
                 </section>
 
-                {/* Main Interactive Modul: Prakriti Auditor */}
-                <section id="prakriti-auditor" className="py-24 bg-white/50 px-6 relative">
+                {/* Main Interactive Modul: Health Profile Creation */}
+                <section id="health-profile" className="py-24 bg-white/40 px-6 relative">
                     <div className="max-w-4xl mx-auto">
 
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4">The Prakriti Auditor</h2>
-                            <p className="text-slate-500 max-w-xl mx-auto font-medium">Decode the elemental framework of your body.</p>
+                            <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4">Your Health Profile</h2>
+                            <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.3em]">Map your natural state of balance</p>
                         </div>
 
                         {!isQuizActive ? (
-                            <div className="bg-white border border-forest/10 rounded-[3rem] p-12 text-center shadow-premium relative overflow-hidden group w-full max-w-md mx-auto cursor-pointer hover:border-forest/30 transition-all hover:shadow-2xl" onClick={() => setIsQuizActive(true)}>
+                            <div className="bg-white border border-slate-100 rounded-[3rem] p-12 text-center shadow-premium relative overflow-hidden group w-full max-w-md mx-auto cursor-pointer hover:border-forest/20 transition-all hover:shadow-2xl" onClick={() => setIsQuizActive(true)}>
                                 <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <div className="w-20 h-20 mx-auto bg-forest/5 rounded-full flex items-center justify-center text-forest mb-6">
+                                <div className="w-20 h-20 mx-auto bg-forest/5 rounded-[2rem] flex items-center justify-center text-forest mb-8 shadow-sm">
                                     <BrainCircuit className="w-10 h-10" />
                                 </div>
-                                <h3 className="text-2xl font-black text-forest mb-4">Ready to Discover?</h3>
-                                <p className="text-sm text-slate-500 mb-8 font-medium px-4">
-                                    This elegant 4-step flow reveals the primary elemental forces guiding your life.
+                                <h3 className="text-2xl font-black text-forest mb-4">Start Your Profile</h3>
+                                <p className="text-sm text-slate-400 mb-10 font-bold px-4 leading-relaxed">
+                                    Answer 4 simple questions to unlock your personal health ritual.
                                 </p>
-                                <button className="mx-auto flex items-center gap-2 bg-forest text-white px-8 py-4 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 group-hover:scale-105 transition-transform">
-                                    Start Journey
+                                <button className="mx-auto flex items-center gap-3 bg-forest text-white px-10 py-5 rounded-2xl font-black text-[10px] md:text-sm uppercase tracking-[0.2em] shadow-lg shadow-forest/20 group-hover:scale-105 transition-transform">
+                                    Begin Now <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>
                         ) : (
@@ -257,8 +258,8 @@ export default function WelcomeLandingPage() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button disabled={!userInfo.name || !userInfo.age || !userInfo.gender} onClick={() => setIsIdentified(true)} className="w-full mt-6 bg-forest text-white py-5 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all flex items-center justify-center gap-2">
-                                            Begin Assessment <ArrowRight className="w-4 h-4" />
+                                        <button disabled={!userInfo.name || !userInfo.age || !userInfo.gender} onClick={() => setIsIdentified(true)} className="w-full mt-6 bg-forest text-white py-5 rounded-3xl font-black text-[10px] md:text-sm uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all flex items-center justify-center gap-2">
+                                            Start Assessment <ArrowRight className="w-4 h-4" />
                                         </button>
                                     </motion.div>
                                 ) : !isCompleted ? (
@@ -349,45 +350,45 @@ export default function WelcomeLandingPage() {
                     </div>
                 </section>
 
-                {/* AI & Features Section */}
-                <section id="ai-science" className="px-6 py-24 relative z-20">
+                {/* Features Section */}
+                <section id="features" className="px-6 py-24 relative z-20">
                     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Card 1 */}
-                        <div className="bg-white p-10 rounded-[3rem] shadow-premium border border-slate-100 flex flex-col justify-between">
+                        <div className="bg-white p-12 rounded-[3.5rem] shadow-premium border border-slate-100 flex flex-col justify-between group hover:border-forest/10 transition-colors">
                             <div>
-                                <div className="w-16 h-16 rounded-[1.5rem] bg-emerald-50 text-emerald-600 flex items-center justify-center mb-8 shadow-sm">
+                                <div className="w-16 h-16 rounded-3xl bg-emerald-50 text-forest flex items-center justify-center mb-10 shadow-sm group-hover:scale-110 transition-transform">
                                     <ShieldCheck className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-2xl font-black text-forest tracking-tight mb-4">Deep Elemental Analysis</h3>
-                                <p className="text-slate-500 font-medium leading-relaxed">
-                                    Our engine gracefully maps your innate constitution, identifying the precise balance of Vata, Pitta, and Kapha within you.
+                                <h3 className="text-2xl font-black text-forest tracking-tight mb-4">Personal Health Identity</h3>
+                                <p className="text-slate-500 font-bold text-sm leading-relaxed mb-8">
+                                    Discover how your body naturally operates and what it needs to stay in peak condition.
                                 </p>
                             </div>
                         </div>
 
                         {/* Card 2 */}
-                        <div className="bg-white p-10 rounded-[3rem] shadow-premium border border-slate-100 flex flex-col justify-between">
+                        <div className="bg-white p-12 rounded-[3.5rem] shadow-premium border border-slate-100 flex flex-col justify-between group hover:border-gold/10 transition-colors">
                             <div>
-                                <div className="w-16 h-16 rounded-[1.5rem] bg-amber-50 text-gold flex items-center justify-center mb-8 shadow-sm">
+                                <div className="w-16 h-16 rounded-3xl bg-amber-50 text-gold flex items-center justify-center mb-10 shadow-sm group-hover:scale-110 transition-transform">
                                     <Activity className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-2xl font-black text-forest tracking-tight mb-4">Pulse Architecture</h3>
-                                <p className="text-slate-500 font-medium leading-relaxed mb-6">
-                                    Track dynamic, daily imbalances (Vikriti). Log routine lifestyle habits to generate live, highly personalized Pathya remedy plans.
+                                <h3 className="text-2xl font-black text-forest tracking-tight mb-4">Daily Smart Rhythms</h3>
+                                <p className="text-slate-500 font-bold text-sm leading-relaxed mb-8">
+                                    Get a customized schedule of simple rituals and nutrition that keeps your energy steady all day.
                                 </p>
                             </div>
                         </div>
 
                         {/* Card 3 */}
-                        <div className="bg-forest p-10 rounded-[3rem] shadow-premium text-white flex flex-col justify-between relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400 blur-3xl opacity-20 -mr-10 -mt-10" />
+                        <div className="bg-forest p-12 rounded-[3.5rem] shadow-premium text-white flex flex-col justify-between relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-400 blur-3xl opacity-20 -mr-10 -mt-10 group-hover:scale-150 transition-transform" />
                             <div className="relative z-10">
-                                <div className="w-16 h-16 rounded-[1.5rem] bg-white/10 flex items-center justify-center mb-8 backdrop-blur-md">
+                                <div className="w-16 h-16 rounded-3xl bg-white/10 flex items-center justify-center mb-10 backdrop-blur-md">
                                     <BrainCircuit className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-2xl font-black text-white tracking-tight mb-4">Veda Neural Engine</h3>
-                                <p className="text-emerald-100/80 font-medium leading-relaxed mb-6">
-                                    Powered by Gemini 2.5 Flash, Dinaveda seamlessly integrates seasonal ritucharya logic and cross-references them against large biological models.
+                                <h3 className="text-2xl font-black text-white tracking-tight mb-4">Proactive Insights</h3>
+                                <p className="text-emerald-100/80 font-bold text-sm leading-relaxed mb-8">
+                                    Our smart engine analyzes your daily logs to predict health trends and prevent burnout before it happens.
                                 </p>
                             </div>
                         </div>
@@ -395,42 +396,45 @@ export default function WelcomeLandingPage() {
                 </section>
             </main>
 
-            <footer className="pt-20 pb-10 bg-forest text-white">
-                <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                    <div className="md:col-span-2 space-y-6">
-                        <div className="flex items-center gap-2 mb-4">
-                            <div className="w-8 h-8 rounded-[0.8rem] bg-white flex items-center justify-center text-forest">
-                                <Leaf className="w-4 h-4" />
+            <footer className="pt-24 pb-12 bg-white border-t border-slate-100">
+                <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+                    <div className="md:col-span-2 space-y-8">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 rounded-2xl bg-forest flex items-center justify-center text-white shadow-lg">
+                                <Leaf className="w-5 h-5" />
                             </div>
-                            <span className="font-black text-2xl tracking-tighter">Dinaveda</span>
+                            <span className="font-black text-3xl text-forest tracking-tighter">Dinaveda</span>
                         </div>
-                        <p className="text-emerald-100/70 max-w-sm font-medium leading-relaxed text-sm">
-                            Advanced wisdom meets modern technology. Discover your deep rhythm and balance.
+                        <p className="text-slate-400 max-w-sm font-bold leading-relaxed text-sm uppercase tracking-wide">
+                            Ancient wisdom meeting modern intelligence. Build your rhythm, find your balance.
                         </p>
                     </div>
 
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.2em] text-xs text-emerald-400 mb-6">Platform</h4>
-                        <ul className="space-y-4 text-sm font-medium text-emerald-100/80">
-                            <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                        <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-400 mb-8">Product</h4>
+                        <ul className="space-y-4 text-sm font-bold text-slate-600">
                             <li><button onClick={() => {
-                                document.getElementById('prakriti-auditor')?.scrollIntoView({ behavior: 'smooth' });
-                            }} className="hover:text-white transition-colors">Free Assessment</button></li>
-                            <li><Link href="/login" className="hover:text-white transition-colors">Sign In</Link></li>
+                                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+                            }} className="hover:text-forest transition-colors">How it works</button></li>
+                            <li><button onClick={() => {
+                                setIsQuizActive(true);
+                                document.getElementById('health-profile')?.scrollIntoView({ behavior: 'smooth' });
+                            }} className="hover:text-forest transition-colors">Start Assessment</button></li>
+                            <li><Link href="/login" className="hover:text-forest transition-colors">Sign In</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.2em] text-xs text-emerald-400 mb-6">Legal & Connect</h4>
-                        <ul className="space-y-4 text-sm font-medium text-emerald-100/80">
-                            <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                            <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
-                            <li><Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link></li>
+                        <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-400 mb-8">Company</h4>
+                        <ul className="space-y-4 text-sm font-bold text-slate-600">
+                            <li><Link href="/privacy" className="hover:text-forest transition-colors">Privacy Policy</Link></li>
+                            <li><Link href="/terms" className="hover:text-forest transition-colors">Terms of Service</Link></li>
+                            <li><Link href="/contact" className="hover:text-forest transition-colors">Contact Support</Link></li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="text-center text-emerald-100/40 text-xs font-black uppercase tracking-widest border-t border-white/10 pt-10 mx-6">
+                <div className="text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] pt-12 mx-6 border-t border-slate-50">
                     © {new Date().getFullYear()} Dinaveda Neural Systems. All rights reserved.
                 </div>
             </footer>
