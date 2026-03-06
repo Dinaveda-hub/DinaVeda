@@ -31,10 +31,17 @@ export default function PremiumPage() {
                 body: JSON.stringify({ userId, planType: billingCycle }),
             });
 
-            const subscription = await res.json();
+            let subscription;
+            try {
+                subscription = await res.json();
+            } catch (jsonErr) {
+                const text = await res.text();
+                console.error("Non-JSON response from billing API:", text);
+                throw new Error(`Server Error (${res.status}): The billing service returned an invalid response. Please check your NEXT_PUBLIC_API_URL.`);
+            }
 
             if (!res.ok || subscription.error) {
-                throw new Error(subscription.error || "Could not initialize subscription.");
+                throw new Error(subscription.error || `Server Error (${res.status}): Failed to initialize subscription.`);
             }
 
             const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
