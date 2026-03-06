@@ -31,8 +31,11 @@ export default function PremiumPage() {
                 body: JSON.stringify({ userId, planType: billingCycle }),
             });
 
-            if (!res.ok) throw new Error("Could not initialize subscription.");
             const subscription = await res.json();
+
+            if (!res.ok || subscription.error) {
+                throw new Error(subscription.error || "Could not initialize subscription.");
+            }
 
             const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
             if (!razorpayKey) throw new Error("Payment gateway configuration missing.");

@@ -9,8 +9,15 @@ export async function POST(req: Request) {
 
         // Use different Plan IDs based on the user's selection
         const planId = planType === 'yearly'
-            ? process.env.RAZORPAY_PLAN_ID_YEARLY!
-            : process.env.RAZORPAY_PLAN_ID_MONTHLY!;
+            ? process.env.RAZORPAY_PLAN_ID_YEARLY
+            : process.env.RAZORPAY_PLAN_ID_MONTHLY;
+
+        if (!planId) {
+            return NextResponse.json(
+                { error: `Missing Razorpay Plan ID for ${planType} plan. Please check your Vercel environment variables.` },
+                { status: 400 }
+            );
+        }
 
         const subscription = await razorpay.subscriptions.create({
             plan_id: planId,

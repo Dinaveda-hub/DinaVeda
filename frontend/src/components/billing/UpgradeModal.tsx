@@ -36,10 +36,10 @@ export default function UpgradeModal({ isOpen, onClose, userId, contextualMessag
                 }),
             });
 
-            if (!res.ok) throw new Error("Could not initialize subscription. Please try again.");
-
             const subscription = await res.json();
-            if (subscription.error) throw new Error(subscription.error);
+            if (!res.ok || subscription.error) {
+                throw new Error(subscription.error || "Could not initialize subscription. Please try again.");
+            }
 
             const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
             if (!razorpayKey) {
