@@ -189,7 +189,7 @@ export default function WelcomeLandingPage() {
                     </div>
 
                     <div className="flex-1 w-full relative z-10">
-                        {/* Premium Hero Image */}
+                        {/* Hero Image */}
                         <div className="relative w-full aspect-[4/5] md:aspect-square bg-gradient-to-br from-forest/10 to-transparent rounded-[3rem] overflow-hidden border-[8px] border-white shadow-2xl p-2 group">
                             <Image
                                 src="/images/hero.png"

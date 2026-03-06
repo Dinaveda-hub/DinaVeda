@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles, Lock } from "lucide-react";
+import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
 import { createBrowserClient } from "@supabase/ssr";
@@ -245,27 +245,27 @@ export default function AyuOneHub() {
     if (!mounted) return null;
 
     return (
-        <div className="flex flex-col h-[calc(100vh-80px)] md:h-screen bg-[#F8FAF9] relative overflow-hidden">
+        <div className="flex flex-col h-screen h-[100dvh] bg-[#F8FAF9] relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
-            {/* Header */}
-            <header className="p-6 md:px-10 md:pt-12 flex flex-col md:flex-row md:items-end justify-between gap-4 sticky top-0 bg-gradient-to-b from-[#F8FAF9] via-[#F8FAF9]/80 to-transparent z-20">
+            {/* Header - Removed sticky, using flex-col flow */}
+            <header className="px-6 py-4 md:px-10 md:pt-12 flex flex-col md:flex-row md:items-end justify-between gap-2 z-20 shrink-0">
                 <div className="relative">
-                    <div className="flex items-center gap-2 mb-2">
-                        <Sparkles className="w-4 h-4 text-forest" />
+                    <div className="flex items-center gap-2 mb-1">
+                        <Sparkles className="w-4 h-4 text-forest animate-pulse" />
                         <span className="text-[10px] font-black text-forest uppercase tracking-[0.3em]">AyuOne Engine</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-black text-forest tracking-tight">
+                    <h1 className="text-3xl md:text-5xl font-black text-forest tracking-tight">
                         {!isPrakritiSet ? "Constitution Mapping" : "Veda Interface"}
                     </h1>
                 </div>
             </header>
 
-            <main className="flex-1 overflow-y-auto px-6 pb-24 md:px-10 custom-scrollbar flex flex-col items-center">
+            <main className="flex-1 flex flex-col items-center overflow-hidden px-4 md:px-10 pb-20 md:pb-6">
                 {!isPrakritiSet ? (
-                    <div className="w-full max-w-xl space-y-8 pb-32 pt-8">
+                    <div className="w-full max-w-xl space-y-8 py-8 overflow-y-auto custom-scrollbar">
                         {!constitution && currentStep < quizFlow.length && (
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
@@ -371,7 +371,7 @@ export default function AyuOneHub() {
                         )}
                     </div>
                 ) : (
-                    <div className="w-full max-w-3xl flex flex-col h-full bg-white/50 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white flex-1 mb-8 overflow-hidden">
+                    <div className="w-full max-w-4xl flex flex-col bg-white/60 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-white/80 h-full max-h-[calc(100%-20px)] overflow-hidden">
 
                         {activeCheckinType ? (
                             <div className="flex-1 flex flex-col p-6 md:p-12 items-center justify-center overflow-y-auto w-full custom-scrollbar relative">
@@ -421,78 +421,86 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Action Chips */}
-                                <div className="p-4 border-b border-white/50 bg-white/30 flex gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
+                                <div className="p-4 border-b border-white/50 bg-white/40 flex gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
                                     <button
                                         onClick={() => setActiveCheckinType("morning")}
-                                        className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-forest/5 border border-slate-100 shadow-sm whitespace-nowrap transition-all"
+                                        className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-white border border-slate-100 shadow-sm whitespace-nowrap transition-all active:scale-95"
                                     >
                                         <CloudSun className="w-4 h-4 text-amber-500" />
                                         Morning Check-In
                                     </button>
                                     <button
                                         onClick={() => setActiveCheckinType("evening")}
-                                        className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-forest/5 border border-slate-100 shadow-sm whitespace-nowrap transition-all"
+                                        className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-white border border-slate-100 shadow-sm whitespace-nowrap transition-all active:scale-95"
                                     >
                                         <Zap className="w-4 h-4 text-indigo-500" />
                                         Evening Check-In
                                     </button>
                                 </div>
 
-                                {/* Chat Messages */}
-                                <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-6 custom-scrollbar">
+                                {/* Chat Messages Area */}
+                                <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar bg-slate-50/30">
                                     <AnimatePresence initial={false}>
                                         {messages.map((msg, idx) => (
                                             <motion.div
                                                 key={idx}
-                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                initial={{ opacity: 0, y: 15, scale: 0.95 }}
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                className={`flex gap-4 ${msg.role === "user" ? "justify-end flex-row-reverse" : "justify-start"}`}
+                                                className={`flex gap-3 md:gap-4 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                                             >
-                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm ${msg.role === "user" ? "bg-slate-100 text-slate-400" : "bg-forest/10"}`}>
-                                                    {msg.role === "ai" ? <Leaf className="w-5 h-5 text-forest" /> : <User className="w-5 h-5" />}
-                                                </div>
-                                                <div className={`max-w-[80%] p-5 text-sm md:text-base font-bold leading-relaxed break-words whitespace-pre-wrap shadow-sm ${msg.role === "user"
-                                                    ? "bg-slate-800 text-white rounded-[1.5rem] rounded-tr-sm"
-                                                    : "bg-white text-slate-700 rounded-[1.5rem] border border-slate-100 rounded-tl-sm"
+                                                {msg.role === "ai" && (
+                                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm border border-forest/5">
+                                                        <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
+                                                    </div>
+                                                )}
+                                                <div className={`max-w-[85%] md:max-w-[75%] p-4 md:p-5 text-sm md:text-base font-medium leading-relaxed shadow-sm border transition-all ${msg.role === "user"
+                                                    ? "bg-slate-800 text-white rounded-[1.5rem] rounded-tr-sm border-slate-700"
+                                                    : "bg-white/90 backdrop-blur-sm text-slate-700 rounded-[1.5rem] border-white/60 rounded-tl-sm"
                                                     }`}>
                                                     {msg.text}
                                                 </div>
+                                                {msg.role === "user" && (
+                                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 shadow-sm border border-slate-300">
+                                                        <User className="w-4 h-4 md:w-5 md:h-5 text-slate-500" />
+                                                    </div>
+                                                )}
                                             </motion.div>
                                         ))}
                                         {isTyping && (
-                                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-4 justify-start">
-                                                <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
-                                                    <Leaf className="w-5 h-5 text-forest" />
+                                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 md:gap-4 justify-start">
+                                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
+                                                    <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
                                                 </div>
-                                                <div className="bg-white p-5 rounded-[1.5rem] rounded-tl-sm border border-slate-100 shadow-sm flex items-center gap-1.5">
-                                                    <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                                                    <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                                                    <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce"></div>
+                                                <div className="bg-white/90 backdrop-blur-sm p-4 md:p-5 rounded-[1.5rem] rounded-tl-sm border border-white/60 shadow-sm flex items-center gap-1.5">
+                                                    <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                                    <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                                    <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce"></div>
                                                 </div>
                                             </motion.div>
                                         )}
-                                        <div ref={messagesEndRef} />
+                                        <div ref={messagesEndRef} className="h-4" />
                                     </AnimatePresence>
                                 </div>
-                                {/* Chat Input */}
-                                <div className="p-4 md:p-6 bg-white/80 border-t border-slate-100 flex gap-4 items-center">
-                                    <div className="flex-1 bg-white rounded-[2rem] border border-slate-200 shadow-inner flex items-center px-6 py-3 md:py-4 focus-within:border-forest/50 focus-within:ring-4 ring-forest/10 transition-all">
+
+                                {/* Chat Input Area */}
+                                <div className="p-4 md:p-8 bg-white/60 backdrop-blur-md border-t border-white/40 flex gap-3 md:gap-4 items-center shrink-0">
+                                    <div className="flex-1 bg-white/80 rounded-3xl border border-slate-200 shadow-sm flex items-center px-5 py-3 md:py-4 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
                                         <input
                                             type="text"
                                             value={input}
                                             onChange={(e) => setInput(e.target.value)}
                                             onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                             placeholder="Log your lifestyle signals..."
-                                            className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400"
+                                            className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400 text-sm md:text-base"
                                             disabled={isTyping}
                                         />
                                     </div>
                                     <button
                                         onClick={handleSend}
                                         disabled={!input.trim() || isTyping}
-                                        className="w-12 h-12 md:w-14 md:h-14 bg-forest text-white rounded-full flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all shadow-xl shadow-forest/20 shrink-0"
+                                        className="w-12 h-12 md:w-14 md:h-14 bg-forest text-white rounded-2xl flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-lg shadow-forest/20 shrink-0"
                                     >
-                                        <Send className="w-5 h-5 md:w-6 md:h-6 -ml-1" />
+                                        <Send className="w-5 h-5 md:w-6 md:h-6" />
                                     </button>
                                 </div>
                             </>
