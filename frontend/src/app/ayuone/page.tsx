@@ -254,7 +254,7 @@ export default function AyuOneHub() {
                 </div>
             </header>
 
-            <main className="flex-1 flex flex-col items-center overflow-hidden px-4 md:px-10 pb-20 md:pb-6">
+            <main className="flex-1 flex flex-col items-center overflow-hidden px-3 md:px-10 pb-4 md:pb-6">
                 {!isPrakritiSet ? (
                     <div className="w-full max-w-xl space-y-8 py-8 overflow-y-auto custom-scrollbar">
                         {!constitution && currentStep < quizFlow.length && (
@@ -470,8 +470,8 @@ export default function AyuOneHub() {
                                 </AnimatePresence>
 
                                 {/* Chat Messages Area */}
-                                <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 custom-scrollbar bg-slate-50/30">
-                                    <AnimatePresence initial={false}>
+                                <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 custom-scrollbar bg-slate-50/50">
+                                    <div className="flex flex-col gap-4">
                                         {messages.map((msg, idx) => (
                                             <motion.div
                                                 key={idx}
@@ -484,9 +484,9 @@ export default function AyuOneHub() {
                                                         <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
                                                     </div>
                                                 )}
-                                                <div className={`max-w-[88%] md:max-w-[75%] p-3 md:p-5 text-sm md:text-base font-medium leading-relaxed shadow-sm border transition-all ${msg.role === "user"
-                                                    ? "bg-slate-800 text-white rounded-[1.25rem] rounded-tr-sm border-slate-700"
-                                                    : "bg-white/90 backdrop-blur-sm text-slate-700 rounded-[1.25rem] border-white/60 rounded-tl-sm"
+                                                <div className={`max-w-[88%] md:max-w-[75%] p-4 md:p-5 text-sm md:text-base font-bold leading-relaxed shadow-sm border transition-all ${msg.role === "user"
+                                                    ? "bg-forest/10 text-forest rounded-[1.25rem] rounded-tr-sm border-forest/20"
+                                                    : "bg-white text-slate-800 rounded-[1.25rem] border-slate-200 rounded-tl-sm shadow-md"
                                                     }`}>
                                                     {msg.text}
                                                 </div>
@@ -509,8 +509,8 @@ export default function AyuOneHub() {
                                                 </div>
                                             </motion.div>
                                         )}
-                                        <div ref={messagesEndRef} className="h-4" />
-                                    </AnimatePresence>
+                                        <div ref={messagesEndRef} className="h-2" />
+                                    </div>
                                 </div>
 
                                 {/* Chat Input Area */}
