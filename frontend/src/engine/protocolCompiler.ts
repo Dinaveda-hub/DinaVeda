@@ -1,4 +1,4 @@
-import { Protocol } from './recommendationEngine';
+import { Protocol } from './protocolSelectionEngine';
 
 // ─────────────────────────────────────────────
 // Output Types

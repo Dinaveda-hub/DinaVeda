@@ -6,7 +6,6 @@ import { applyGoalBoost } from './goalEngine';
 
 
 import { Protocol } from './protocolSelectionEngine';
-export type { Protocol };
 
 export interface RecommendationRule {
     condition: string;

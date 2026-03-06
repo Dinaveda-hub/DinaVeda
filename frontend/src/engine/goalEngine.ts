@@ -1,5 +1,5 @@
 import healthGoalsData from '../data/health_goals.json';
-import { Protocol } from './recommendationEngine';
+import { Protocol } from './protocolSelectionEngine';
 
 export interface HealthGoal {
     id: string;
