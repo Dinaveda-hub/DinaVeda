@@ -48,7 +48,7 @@ export default function LoginPage() {
                     router.push('/');
                     router.refresh();
                 } else {
-                    setMessage({ type: 'success', text: 'Sanctuary created. Check your email to verify your essence.' });
+                    setMessage({ type: 'success', text: 'Account created. Check your email to verify your account.' });
                 }
             } else {
                 const { error } = await supabase.auth.signInWithPassword({
@@ -57,12 +57,11 @@ export default function LoginPage() {
                 });
                 if (error) throw error;
 
-                // Successful login, router push will trigger middleware re-evaluation
                 router.push('/');
                 router.refresh();
             }
         } catch (error: any) {
-            setMessage({ type: 'error', text: error.message || 'An unexpected disturbance occurred.' });
+            setMessage({ type: 'error', text: error.message || 'An unexpected error occurred.' });
         } finally {
             setLoading(false);
         }
@@ -70,9 +69,9 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen bg-background relative flex items-center justify-center p-6 font-sans overflow-hidden">
-            {/* Ambient Background Elements - Optimized */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/10 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40" />
+            {/* Ambient Background Elements */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest/5 rounded-full -mr-40 -mt-40 blur-[120px]" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] -ml-40" />
 
             {/* Main Auth Card */}
             <motion.div
@@ -89,11 +88,14 @@ export default function LoginPage() {
                             <Leaf className="w-10 h-10" />
                         </div>
 
-                        <h1 className="text-4xl font-black text-forest tracking-tighter mb-4 leading-none">
+                        <h1 className="text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.3em] mb-4">
                             Dinaveda
                         </h1>
-                        <p className="text-slate-500 font-bold mb-10 text-balance leading-relaxed">
-                            {mode === 'signin' ? "Welcome back. Synchronize your biological pulse." : "Forge your biological sanctuary and track your vital rhythms."}
+                        <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter mb-4 leading-none">
+                            {mode === 'signin' ? "Welcome Back" : "Create Account"}
+                        </h2>
+                        <p className="text-sm font-bold text-slate-400 mb-10 text-balance leading-relaxed uppercase tracking-wide">
+                            {mode === 'signin' ? "Sign in to your health dashboard" : "Join Dinaveda to track your rhythms"}
                         </p>
 
                         <form onSubmit={handleAuth} className="w-full relative z-10 space-y-4 mb-8">
@@ -111,8 +113,8 @@ export default function LoginPage() {
                                             required={mode === 'signup'}
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
-                                            placeholder="Your essence (Name)"
-                                            className="w-full bg-white/60 border border-slate-200 focus:border-forest/50 focus:ring-4 focus:ring-forest/10 rounded-2xl pl-12 pr-6 py-4 text-sm font-bold text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300"
+                                            placeholder="Full Name"
+                                            className="w-full bg-white/60 border border-slate-100 focus:border-forest/30 focus:ring-4 focus:ring-forest/5 rounded-2xl pl-12 pr-6 py-4 text-sm font-bold text-slate-700 placeholder:text-slate-300 outline-none transition-all duration-300 shadow-sm"
                                             disabled={loading}
                                         />
                                     </motion.div>
@@ -125,8 +127,8 @@ export default function LoginPage() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Seeker@email.com"
-                                    className="w-full bg-white/60 border border-slate-200 focus:border-forest/50 focus:ring-4 focus:ring-forest/10 rounded-2xl pl-12 pr-6 py-4 text-sm font-bold text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300"
+                                    placeholder="Email Address"
+                                    className="w-full bg-white/60 border border-slate-100 focus:border-forest/30 focus:ring-4 focus:ring-forest/5 rounded-2xl pl-12 pr-6 py-4 text-sm font-bold text-slate-700 placeholder:text-slate-300 outline-none transition-all duration-300 shadow-sm"
                                     disabled={loading}
                                 />
                             </div>
@@ -137,8 +139,8 @@ export default function LoginPage() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Your secure mantra"
-                                    className="w-full bg-white/60 border border-slate-200 focus:border-forest/50 focus:ring-4 focus:ring-forest/10 rounded-2xl pl-12 pr-6 py-4 text-sm font-bold text-slate-700 placeholder:text-slate-400 outline-none transition-all duration-300"
+                                    placeholder="Password"
+                                    className="w-full bg-white/60 border border-slate-100 focus:border-forest/30 focus:ring-4 focus:ring-forest/5 rounded-2xl pl-12 pr-6 py-4 text-sm font-bold text-slate-700 placeholder:text-slate-300 outline-none transition-all duration-300 shadow-sm"
                                     disabled={loading}
                                 />
                             </div>
@@ -149,7 +151,7 @@ export default function LoginPage() {
                                         {keepLogged && <span className="text-xs font-black">✓</span>}
                                     </div>
                                     <input type="checkbox" className="hidden" checked={keepLogged} onChange={(e) => setKeepLogged(e.target.checked)} />
-                                    <span className="text-xs font-bold text-slate-500">Keep me synchronized (stay logged in)</span>
+                                    <span className="text-xs font-bold text-slate-400">Keep me logged in</span>
                                 </label>
 
                                 {mode === 'signup' && (
@@ -158,7 +160,7 @@ export default function LoginPage() {
                                             {acceptTos && <span className="text-xs font-black">✓</span>}
                                         </div>
                                         <input type="checkbox" className="hidden" checked={acceptTos} onChange={(e) => setAcceptTos(e.target.checked)} />
-                                        <span className="text-xs font-bold text-slate-500 leading-tight">I agree to the <a href="#" className="text-forest underline underline-offset-2">Terms of Service</a> & <a href="#" className="text-forest underline underline-offset-2">Privacy Policy</a></span>
+                                        <span className="text-xs font-bold text-slate-400 leading-tight">I agree to the <a href="#" className="text-forest underline underline-offset-4">Terms</a> & <a href="#" className="text-forest underline underline-offset-4">Privacy</a></span>
                                     </label>
                                 )}
                             </div>
@@ -171,11 +173,11 @@ export default function LoginPage() {
                                 {loading ? (
                                     <>
                                         <Sparkles className="w-4 h-4 animate-spin" />
-                                        Manifesting...
+                                        Loading...
                                     </>
                                 ) : (
                                     <>
-                                        {mode === 'signin' ? 'Enter Sanctuary' : 'Initiate Awakening'}
+                                        {mode === 'signin' ? 'Sign In' : 'Create Account'}
                                         <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -206,7 +208,7 @@ export default function LoginPage() {
                             }}
                             className="text-xs font-black uppercase tracking-widest text-forest/70 hover:text-forest transition-colors"
                         >
-                            {mode === 'signin' ? "Need a sanctuary? Sign up" : "Already grounded? Sign In"}
+                            {mode === 'signin' ? "Don't have an account? Sign up" : "Already have an account? Sign In"}
                         </button>
                     </div>
                 </div>
