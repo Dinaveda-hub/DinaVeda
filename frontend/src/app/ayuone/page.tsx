@@ -65,6 +65,7 @@ export default function AyuOneHub() {
     const [checkinStep, setCheckinStep] = useState(0);
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
     const [completedLogs, setCompletedLogs] = useState<string[]>([]);
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const { state, updateState } = usePhysiologyState();
 
@@ -429,110 +430,192 @@ export default function AyuOneHub() {
                         ) : (
                             <>
                                 {/* Fixed App Area */}
-                                <div className="flex-1 w-full max-w-5xl flex flex-col bg-slate-50/30 overflow-hidden relative pb-8 md:pb-0 mb-[-5rem] md:mb-0">
-                                    {/* Action Chips - Now conditional and floating */}
-                                    <div className="absolute top-0 left-0 right-0 z-30 pointer-events-none">
-                                        <motion.div
-                                            initial={{ opacity: 0, y: -20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            className="p-5 flex gap-3 overflow-x-auto custom-scrollbar no-scrollbar items-center shrink-0 pointer-events-auto"
-                                        >
+                                <div className="flex-1 w-full max-w-5xl flex flex-col relative pb-20">
+                                    {/* Primary Content: Daily Ritual Cards */}
+                                    <div className="flex-1 overflow-y-auto px-6 py-8 md:px-12 custom-scrollbar">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                                             {[
-                                                { id: "morning", label: "Morning Ritual", icon: CloudSun, color: "bg-forest", hover: "hover:bg-emerald-900", accent: "text-amber-300" },
-                                                { id: "evening", label: "Evening Wind", icon: Zap, color: "bg-indigo-700", hover: "hover:bg-indigo-900", accent: "text-amber-300" },
-                                            ].filter(chip => !completedLogs.includes(chip.id)).map((chip, idx) => (
-                                                <motion.button
-                                                    key={chip.id}
-                                                    initial={{ opacity: 0, scale: 0.9 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    transition={{ delay: idx * 0.1 }}
-                                                    whileHover={{ scale: 1.05 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                    onClick={() => setActiveCheckinType(chip.id as any)}
-                                                    className={`flex items-center gap-3 ${chip.color} text-white px-5 py-3 rounded-full text-[10px] font-black uppercase tracking-widest ${chip.hover} border border-white/10 shadow-xl whitespace-nowrap transition-all`}
-                                                >
-                                                    <chip.icon className={`w-4 h-4 ${chip.accent}`} />
-                                                    {chip.label}
-                                                </motion.button>
-                                            ))}
-                                        </motion.div>
-                                    </div>
+                                                {
+                                                    id: "morning",
+                                                    label: "Morning Ritual",
+                                                    description: "Align your physiology with the rising sun. Sync Agni and clear metabolic toxins.",
+                                                    icon: CloudSun,
+                                                    color: "bg-forest",
+                                                    hover: "hover:bg-emerald-800",
+                                                    accent: "text-amber-300",
+                                                    gradient: "from-forest/10 to-emerald-50/50"
+                                                },
+                                                {
+                                                    id: "evening",
+                                                    label: "Evening Wind",
+                                                    description: "Decompress the nervous system and prepare for deep, restorative Nidra.",
+                                                    icon: Zap,
+                                                    color: "bg-indigo-700",
+                                                    hover: "hover:bg-indigo-800",
+                                                    accent: "text-amber-300",
+                                                    gradient: "from-indigo-50/10 to-blue-50/50"
+                                                },
+                                            ].map((ritual) => {
+                                                const isDone = completedLogs.includes(ritual.id);
+                                                return (
+                                                    <motion.button
+                                                        key={ritual.id}
+                                                        whileHover={{ y: -8, scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
+                                                        onClick={() => !isDone && setActiveCheckinType(ritual.id as any)}
+                                                        className={`relative group flex flex-col text-left overflow-hidden rounded-[2.5rem] border transition-all duration-500 shadow-sm hover:shadow-xl ${isDone ? "bg-slate-100/50 border-slate-200 opacity-60 grayscale-[0.5]" : `bg-white border-white ${ritual.hover}`
+                                                            }`}
+                                                    >
+                                                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${ritual.gradient} rounded-full -mr-16 -mt-16 blur-2xl opacity-50 group-hover:opacity-100 transition-opacity`} />
 
-                                    <AnimatePresence>
-                                        {/* Detailed log overlay removed per user request */}
-                                    </AnimatePresence>
+                                                        <div className="p-8 relative z-10 flex-1 flex flex-col">
+                                                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-12 shadow-sm ${isDone ? "bg-slate-200 text-slate-400" : `${ritual.color} text-white`
+                                                                }`}>
+                                                                <ritual.icon className="w-7 h-7" />
+                                                            </div>
 
-                                    {/* Chat Messages Area */}
-                                    <div className="flex-1 overflow-y-auto p-5 md:p-10 space-y-4 md:space-y-8 custom-scrollbar pt-20">
-                                        <div className="flex flex-col gap-5 md:gap-8">
-                                            {messages.map((msg, idx) => (
-                                                <motion.div
-                                                    key={idx}
-                                                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                    className={`flex gap-3 md:gap-4 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                                                >
-                                                    {msg.role === "ai" && (
-                                                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm border border-forest/5">
-                                                            <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
+                                                            <h3 className={`text-2xl font-black tracking-tighter mb-2 ${isDone ? "text-slate-500" : "text-slate-800"}`}>
+                                                                {ritual.label}
+                                                            </h3>
+                                                            <p className="text-sm font-bold text-slate-500 leading-relaxed mb-8">
+                                                                {ritual.description}
+                                                            </p>
+
+                                                            <div className="mt-auto flex items-center justify-between">
+                                                                {isDone ? (
+                                                                    <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                                                        <ShieldCheck className="w-4 h-4" />
+                                                                        Completed
+                                                                    </div>
+                                                                ) : (
+                                                                    <div className="inline-flex items-center gap-2 text-forest px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border border-forest/20 group-hover:bg-forest group-hover:text-white transition-all">
+                                                                        Begin Protocol
+                                                                    </div>
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                    )}
-                                                    <div className={`max-w-[90%] md:max-w-[80%] p-5 md:p-6 text-sm md:text-lg font-bold leading-relaxed shadow-sm border transition-all ${msg.role === "user"
-                                                        ? "bg-forest text-white rounded-[1.5rem] rounded-tr-sm border-forest/30 shadow-lg shadow-forest/10"
-                                                        : "bg-white text-slate-900 rounded-[1.5rem] border-slate-300 rounded-tl-sm shadow-md"
-                                                        }`}>
-                                                        {msg.text}
-                                                    </div>
-                                                    {msg.role === "user" && (
-                                                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 shadow-sm border border-slate-300">
-                                                            <User className="w-4 h-4 md:w-5 md:h-5 text-slate-500" />
-                                                        </div>
-                                                    )}
-                                                </motion.div>
-                                            ))}
-                                            {isTyping && (
-                                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 md:gap-4 justify-start">
-                                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
-                                                        <Leaf className="w-4 h-4 md:w-5 md:h-5 text-forest" />
-                                                    </div>
-                                                    <div className="bg-white/90 backdrop-blur-sm p-4 md:p-5 rounded-[1.5rem] rounded-tl-sm border border-white/60 shadow-sm flex items-center gap-1.5">
-                                                        <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                                                        <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                                                        <div className="w-1.5 h-1.5 bg-forest rounded-full animate-bounce"></div>
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                            <div ref={messagesEndRef} className="h-4" />
+                                                    </motion.button>
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className="glass rounded-[2.5rem] p-8 md:p-12 border border-white/60 shadow-inner bg-white/30 text-center">
+                                            <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-4">Neural Activity</p>
+                                            <p className="text-slate-500 font-bold leading-relaxed max-w-md mx-auto italic">
+                                                "Daily logging builds the metabolic archive. Only morning and evening signals are required to maintain a perfect biological sync."
+                                            </p>
                                         </div>
                                     </div>
 
-                                    {/* Chat Input Area - Pinned to bottom of the glass container */}
-                                    <div className="p-4 md:p-10 bg-white/80 backdrop-blur-md border-t border-forest/5 flex gap-3 md:gap-6 items-center shrink-0">
-                                        <div className="flex-1 bg-white rounded-2xl md:rounded-[2rem] border border-slate-200 shadow-sm flex items-center px-4 md:px-8 py-3 md:py-5 focus-within:border-forest/40 focus-within:ring-4 ring-forest/5 transition-all">
-                                            <input
-                                                type="text"
-                                                value={input}
-                                                onChange={(e) => setInput(e.target.value)}
-                                                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                                placeholder="Dialogue with Veda..."
-                                                className="w-full bg-transparent outline-none text-slate-800 font-bold placeholder:text-slate-400 text-sm md:text-lg"
-                                                disabled={isTyping}
-                                            />
-                                        </div>
-                                        <button
-                                            onClick={handleSend}
-                                            disabled={!input.trim() || isTyping}
-                                            className="w-12 h-12 md:w-20 md:h-20 bg-forest text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center hover:bg-emerald-900 hover:scale-105 active:scale-95 disabled:opacity-50 transition-all shadow-xl shadow-forest/20 shrink-0"
+                                    {/* Floating Chat Bubble Toggle */}
+                                    <div className="fixed bottom-32 right-6 z-[60] md:right-12">
+                                        <motion.button
+                                            whileHover={{ scale: 1.1, rotate: 5 }}
+                                            whileTap={{ scale: 0.9 }}
+                                            onClick={() => setIsChatOpen(true)}
+                                            className="w-16 h-16 md:w-20 md:h-20 bg-forest text-white rounded-full flex items-center justify-center shadow-2xl shadow-forest/40 border-4 border-white relative overflow-hidden group"
                                         >
-                                            <Send className="w-5 h-5 md:w-8 md:h-8" />
-                                        </button>
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-forest opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            <BrainCircuit className="w-8 h-8 relative z-10" />
+                                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-400 rounded-full border-2 border-white animate-pulse" />
+                                        </motion.button>
                                     </div>
-                                </div>
-                            </>
+
+                                    {/* Floating Chat Overlay */}
+                                    <AnimatePresence>
+                                        {isChatOpen && (
+                                            <>
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    onClick={() => setIsChatOpen(false)}
+                                                    className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[70] md:hidden"
+                                                />
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 100, scale: 0.9, x: "50%" }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+                                                    exit={{ opacity: 0, y: 100, scale: 0.9 }}
+                                                    className="fixed bottom-6 right-6 left-6 md:left-auto md:w-[450px] md:h-[650px] h-[80vh] glass rounded-[2.5rem] border border-white/60 shadow-2xl flex flex-col z-[80] overflow-hidden"
+                                                >
+                                                    {/* Chat Header */}
+                                                    <div className="p-6 border-b border-forest/5 flex items-center justify-between bg-white/80 backdrop-blur-md">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-10 h-10 rounded-xl bg-forest/10 flex items-center justify-center">
+                                                                <BrainCircuit className="w-5 h-5 text-forest" />
+                                                            </div>
+                                                            <div>
+                                                                <h4 className="text-sm font-black text-forest uppercase tracking-widest">AyuOne Veda</h4>
+                                                                <div className="flex items-center gap-1.5">
+                                                                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                                                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Neural Core Active</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => setIsChatOpen(false)}
+                                                            className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 transition-colors"
+                                                        >
+                                                            <Zap className="w-4 h-4 rotate-45" />
+                                                        </button>
+                                                    </div>
+
+                                                    {/* Chat Messages Area */}
+                                                    <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-slate-50/30">
+                                                        {messages.map((msg, idx) => (
+                                                            <motion.div
+                                                                key={idx}
+                                                                initial={{ opacity: 0, y: 10 }}
+                                                                animate={{ opacity: 1, y: 0 }}
+                                                                className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                                                            >
+                                                                <div className={`max-w-[85%] p-4 text-sm font-bold leading-relaxed shadow-sm border ${msg.role === "user"
+                                                                        ? "bg-forest text-white rounded-2xl rounded-tr-sm border-forest/20 shadow-lg shadow-forest/10"
+                                                                        : "bg-white text-slate-900 rounded-2xl border-slate-200 rounded-tl-sm shadow-md"
+                                                                    }`}>
+                                                                    {msg.text}
+                                                                </div>
+                                                            </motion.div>
+                                                        ))}
+                                                        {isTyping && (
+                                                            <div className="flex justify-start">
+                                                                <div className="bg-white/90 p-4 rounded-xl shadow-sm flex items-center gap-1">
+                                                                    <div className="w-1 h-1 bg-forest rounded-full animate-bounce [animation-delay:-0.3s]" />
+                                                                    <div className="w-1 h-1 bg-forest rounded-full animate-bounce [animation-delay:-0.15s]" />
+                                                                    <div className="w-1 h-1 bg-forest rounded-full animate-bounce" />
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                        <div ref={messagesEndRef} className="h-2" />
+                                                    </div>
+
+                                                    {/* Chat Input */}
+                                                    <div className="p-4 bg-white border-t border-slate-100 flex gap-3">
+                                                        <input
+                                                            type="text"
+                                                            value={input}
+                                                            onChange={(e) => setInput(e.target.value)}
+                                                            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                                                            placeholder="Type your wellness query..."
+                                                            className="flex-1 bg-slate-50 border border-slate-200 px-5 py-3 rounded-2xl text-sm font-bold text-slate-800 outline-none focus:border-forest/30 transition-all"
+                                                        />
+                                                        <button
+                                                            disabled={!input.trim() || isTyping}
+                                                            onClick={handleSend}
+                                                            className="w-11 h-11 bg-forest text-white rounded-2xl flex items-center justify-center shadow-lg shadow-forest/10 hover:bg-emerald-800 transition-all active:scale-90"
+                                                        >
+                                                            <Send className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                </motion.div>
+                                            </>
+                                        )}
+                                    </AnimatePresence>
+                                </>
                         )}
-                    </div>
+                            </div>
                 )}
-            </main>
+                    </main>
         </div>
     );
 }
