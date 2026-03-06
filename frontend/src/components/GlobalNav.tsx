@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import BottomNav from "./BottomNav";
 import Sidebar from "./Sidebar";
-import VedaChatFAB from "./VedaChatFAB";
 
 export default function GlobalNav() {
     const pathname = usePathname();
@@ -20,11 +19,6 @@ export default function GlobalNav() {
             {/* Mobile Bottom Navigation */}
             <div className="md:hidden">
                 <BottomNav />
-            </div>
-
-            {/* Mobile Floating Action Button */}
-            <div className="md:hidden">
-                <VedaChatFAB />
             </div>
         </>
     );

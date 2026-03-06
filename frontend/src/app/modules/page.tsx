@@ -27,23 +27,23 @@ export default function ModulesPage() {
                     <p className="text-slate-400 mt-4 font-bold uppercase tracking-[0.3em] text-[10px]">Harmonize with the Panchamahabhutas</p>
                 </header>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                    {modules.map((mod) => (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
+                    {modules.slice(0, 6).map((mod) => (
                         <Link
                             href={`/modules/${mod.id}`}
                             key={mod.id}
-                            className="glass p-12 rounded-[3.5rem] shadow-premium flex flex-col items-center justify-center text-center transition-all duration-700 hover:shadow-2xl hover:shadow-forest/5 hover:-translate-y-3 group relative overflow-hidden active:scale-95 border border-white/60"
+                            className="glass p-6 md:p-8 rounded-[2rem] shadow-premium flex flex-col items-center justify-center text-center transition-all duration-700 hover:shadow-xl hover:shadow-forest/10 hover:-translate-y-2 group relative overflow-hidden active:scale-95 border border-white/60"
                         >
                             <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${mod.color} bg-opacity-10`} />
 
-                            <div className="relative z-10 mb-8 flex flex-col items-center">
-                                <span className="text-[8px] font-black text-slate-300 uppercase tracking-[0.4em] mb-6 block group-hover:text-forest/40 transition-colors">{mod.element}</span>
-                                <div className={`w-24 h-24 rounded-[2.5rem] ${mod.color} flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-white/40`}>
-                                    <mod.icon className={`w-10 h-10 ${mod.text}`} />
+                            <div className="relative z-10 mb-4 flex flex-col items-center">
+                                <span className="text-[7px] md:text-[8px] font-black text-slate-300 uppercase tracking-[0.3em] mb-4 block group-hover:text-forest/40 transition-colors">{mod.element}</span>
+                                <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] ${mod.color} flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-white/40`}>
+                                    <mod.icon className={`w-8 h-8 md:w-10 md:h-10 ${mod.text}`} />
                                 </div>
                             </div>
 
-                            <h3 className="font-black text-forest text-2xl tracking-tighter relative z-10 leading-none">{mod.title}</h3>
+                            <h3 className="font-black text-forest text-xl md:text-2xl tracking-tighter relative z-10 leading-none">{mod.title}</h3>
                             <p className="text-[11px] text-slate-500 font-bold mt-4 tracking-tight relative z-10 max-w-[160px] leading-relaxed italic">{mod.subtitle}</p>
 
                             <div className="mt-10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 relative z-10">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Activity, LayoutGrid, MessageCircle, User } from "lucide-react";
+import { Activity, LayoutGrid, MessageCircle, Dna, User } from "lucide-react";
 
 export default function BottomNav() {
     const pathname = usePathname();
@@ -11,8 +11,9 @@ export default function BottomNav() {
     const navItems = [
         { name: "Home", href: "/", icon: Activity },
         { name: "Modules", href: "/modules", icon: LayoutGrid },
-        { name: "VedaAI", href: "/veda-ai", icon: MessageCircle },
-        { name: "Settings", href: "/settings", icon: User },
+        { name: "AyuOne", href: "/ayuone", icon: MessageCircle },
+        { name: "Prakriti", href: "/prakriti", icon: Dna },
+        { name: "Profile", href: "/profile", icon: User },
     ];
 
     return (

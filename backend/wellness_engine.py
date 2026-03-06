@@ -92,8 +92,34 @@ class VedaEngine:
             return json.loads(text_response)
         except Exception as e:
             print(f"[NLU Engine] AI failed: {e}")
-            # Graceful fallback if AI is down
+            
+            # --- DETERMINISTIC KEYWORD FALLBACK ---
+            # If the AI quota is exhausted, we use safe local matching to guarantee the UI updates.
+            msg_lower = message.lower()
+            extracted = []
+            
+            if any(k in msg_lower for k in ["sleep", "slept poorly", "insomnia", "tired", "rest"]):
+                extracted.append("poor_sleep")
+            if any(k in msg_lower for k in ["bloat", "gas", "stomach", "indigestion"]):
+                extracted.append("bloating")
+            if any(k in msg_lower for k in ["stress", "anxious", "overwhelmed", "panic"]):
+                extracted.append("high_stress")
+            if any(k in msg_lower for k in ["late", "dinner", "ate late"]):
+                extracted.append("late_dinner")
+            if any(k in msg_lower for k in ["fast", "skip", "missed meal"]):
+                extracted.append("skipped_meal")
+            if any(k in msg_lower for k in ["water", "hydrate", "drink"]):
+                extracted.append("good_hydration")
+            if any(k in msg_lower for k in ["heavy", "stuffed", "ate a lot"]):
+                extracted.append("heavy_meal")
+            if any(k in msg_lower for k in ["workout", "exercise", "run", "yoga"]):
+                extracted.append("morning_exercise")
+            if any(k in msg_lower for k in ["screen", "computer", "eye", "headache"]):
+                extracted.append("screen_fatigue")
+            if any(k in msg_lower for k in ["walk", "nature", "outside"]):
+                extracted.append("nature_walk")
+
             return {
-                "reply": "I'm currently resting my neural core to process the universe's rhythms. Please breathe deeply and share your thoughts with me in a few minutes.",
-                "signals": []
+                "reply": "I'm currently resting my neural core, but I have noted your symptoms and adjusted your biological pulse locally.",
+                "signals": extracted
             }

@@ -3,16 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Activity, LayoutGrid, MessageCircle, User, Settings as SettingsIcon, Heart } from "lucide-react";
+import { Activity, LayoutGrid, MessageCircle, User, Dna, Heart } from "lucide-react";
 
 export default function Sidebar() {
     const pathname = usePathname();
 
     const navItems = [
-        { name: "Dashboard", href: "/", icon: Activity },
+        { name: "Home", href: "/", icon: Activity },
         { name: "Modules", href: "/modules", icon: LayoutGrid },
-        { name: "Veda AI Hub", href: "/veda-ai", icon: MessageCircle },
-        { name: "Settings", href: "/settings", icon: SettingsIcon },
+        { name: "AyuOne", href: "/ayuone", icon: MessageCircle },
+        { name: "Prakriti", href: "/prakriti", icon: Dna },
+        { name: "Profile", href: "/profile", icon: User },
     ];
 
     return (

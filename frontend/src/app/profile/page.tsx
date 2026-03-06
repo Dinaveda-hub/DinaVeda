@@ -8,8 +8,6 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 export default function SettingsPage() {
-    const [constitution, setConstitution] = useState<any>(null);
-    const [vikriti, setVikriti] = useState<any>(null);
     const [activeModal, setActiveModal] = useState<{ title: string, content: any } | null>(null);
     const [userName, setUserName] = useState<string>("Seeker");
     const router = useRouter();
@@ -23,16 +21,6 @@ export default function SettingsPage() {
             }
         };
         initProfile();
-
-        const result = localStorage.getItem("prakriti_result");
-        if (result) {
-            setConstitution(JSON.parse(result));
-        }
-
-        const vikritiResult = localStorage.getItem("vikriti_result");
-        if (vikritiResult) {
-            setVikriti(JSON.parse(vikritiResult));
-        }
     }, []);
 
     const handleSignOut = async () => {
@@ -62,118 +50,32 @@ export default function SettingsPage() {
 
     const sections: Section[] = [
         {
-            title: "Core Profile",
+            title: "Account",
             items: [
                 {
-                    name: "Biological Identity",
+                    name: "Linked Identity",
                     icon: Binary,
-                    detail: constitution ? `Last Synced: ${new Date(constitution.timestamp).toLocaleDateString()}` : "Manage personal bio-data",
+                    detail: userName,
                     action: () => setActiveModal({
-                        title: "Biological Identity",
+                        title: "Account Details",
                         content: (
                             <div className="space-y-4">
                                 <p className="text-sm font-bold text-slate-600 leading-relaxed">
                                     Identity synchronized under the core essence of <strong className="text-forest tracking-tighter">{userName}</strong>.
                                 </p>
-                                {constitution && (
-                                    <div className="p-4 bg-forest/5 rounded-2xl border border-forest/10 mt-4">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-forest mb-1">Status</p>
-                                        <p className="text-sm font-bold text-slate-700">Synchronized with Veda AI</p>
-                                    </div>
-                                )}
                             </div>
                         )
                     })
                 },
                 {
-                    name: "Ayurvedic Constitution",
+                    name: "Subscription Tier",
                     icon: Heart,
-                    detail: constitution ? constitution.type : "Establish Baseline",
-                    link: constitution ? undefined : "/veda-ai",
-                    action: () => {
-                        if (constitution) {
-                            setActiveModal({
-                                title: "Ayurvedic Constitution",
-                                content: (
-                                    <div className="space-y-6">
-                                        <div className="flex items-center justify-center py-4">
-                                            <div className="text-center">
-                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 block mb-2">Dominant Type</span>
-                                                <h3 className="text-3xl font-black text-forest">{constitution.type}</h3>
-                                            </div>
-                                        </div>
-                                        <div className="grid grid-cols-3 gap-3 border-y border-slate-100 py-6">
-                                            <div className="text-center">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Vata</div>
-                                                <div className="text-xl font-black text-forest">{constitution.scores.vata}</div>
-                                            </div>
-                                            <div className="text-center border-x border-slate-100">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Pitta</div>
-                                                <div className="text-xl font-black text-forest">{constitution.scores.pitta}</div>
-                                            </div>
-                                            <div className="text-center">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kapha</div>
-                                                <div className="text-xl font-black text-forest">{constitution.scores.kapha}</div>
-                                            </div>
-                                        </div>
-                                        <div className="pt-2">
-                                            <Link href="/veda-ai?tab=quiz" onClick={() => setActiveModal(null)} className="flex items-center justify-center gap-2 w-full py-4 bg-forest text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-forest/20 hover:scale-[1.02] transition-transform">
-                                                <Zap className="w-4 h-4" /> Review Deep Insights
-                                            </Link>
-                                        </div>
-                                    </div>
-                                )
-                            });
-                        }
-                    }
-                },
-                {
-                    name: "Current Imbalance (Vikriti)",
-                    icon: Activity,
-                    detail: vikriti ? vikriti.type : "No recent assessment",
-                    link: vikriti ? undefined : "/veda-ai?tab=quiz",
-                    action: () => {
-                        if (vikriti) {
-                            setActiveModal({
-                                title: "Current Imbalance (Vikriti)",
-                                content: (
-                                    <div className="space-y-6">
-                                        <div className="flex items-center justify-center py-4">
-                                            <div className="text-center">
-                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 block mb-2">Current State</span>
-                                                <h3 className="text-3xl font-black text-forest">{vikriti.type}</h3>
-                                            </div>
-                                        </div>
-                                        <div className="grid grid-cols-3 gap-3 border-y border-slate-100 py-6">
-                                            <div className="text-center">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Vata</div>
-                                                <div className="text-xl font-black text-forest">{vikriti.scores.vata}</div>
-                                            </div>
-                                            <div className="text-center border-x border-slate-100">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Pitta</div>
-                                                <div className="text-xl font-black text-forest">{vikriti.scores.pitta}</div>
-                                            </div>
-                                            <div className="text-center">
-                                                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kapha</div>
-                                                <div className="text-xl font-black text-forest">{vikriti.scores.kapha}</div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-3 py-2">
-                                            {vikriti.insights.map((insight: string, i: number) => (
-                                                <p key={i} className="text-xs font-bold text-slate-600 leading-relaxed border-l-2 border-forest pl-3">{insight}</p>
-                                            ))}
-                                        </div>
-                                        <div className="pt-2">
-                                            <Link href="/veda-ai?tab=quiz" onClick={() => setActiveModal(null)} className="flex items-center justify-center gap-2 w-full py-4 bg-forest text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-forest/20 hover:scale-[1.02] transition-transform">
-                                                <Zap className="w-4 h-4" /> Re-Assess Vikriti
-                                            </Link>
-                                        </div>
-                                    </div>
-                                )
-                            });
-                        }
-                    }
-                },
+                    detail: "Seeker (Free)",
+                    action: () => setActiveModal({
+                        title: "Subscription",
+                        content: <p className="text-sm font-bold text-slate-600">You are currently on the Seeker tier. Premium Neural insights are coming soon.</p>
+                    })
+                }
             ]
         },
         {
