@@ -12,6 +12,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
 import { selectProtocols, filterProtocols } from "@/engine/protocolSelectionEngine";
+import { humanizeProtocolName } from "@/utils/stringUtils";
 import ModuleHistory from "@/components/ModuleHistory";
 
 // Domain Module Pages
@@ -114,12 +115,6 @@ const moduleData: Record<string, any> = {
 /**
  * Formats a snake_case slug into Title Case.
  */
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 /**
  * Renders the AI routine text with basic formatting:
@@ -278,7 +273,7 @@ export default function ModuleDetail({ params }: { params: any }) {
                         <div className="mt-8 space-y-4">
                             {moduleRecs.map((p, i) => (
                                 <div key={i} className="bg-white/60 p-6 rounded-2xl border border-slate-100 flex justify-between">
-                                    <span className="font-bold text-forest">{humanizeSlug(p.name)}</span>
+                                    <span className="font-bold text-forest">{humanizeProtocolName(p.name)}</span>
                                     <span className="text-xs text-slate-400 font-bold uppercase">{p.time_of_day}</span>
                                 </div>
                             ))}

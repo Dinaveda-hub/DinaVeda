@@ -10,10 +10,13 @@ const PROTOCOL_MAPPINGS: Record<string, string> = {
     "nasya": "Nasya",
     "early_wake": "Early wake",
     "morning_sunlight": "Morning sunlight",
-    "warm_water_morning": "Warm water",
+    "warm_water_morning": "Warm water morning",
     "oil_pulling": "Oil pulling",
     "brisk_walk": "Brisk walk",
-    "dry_brushing": "Dry brushing"
+    "dry_brushing": "Dry brushing",
+    "morning_hydration": "Morning hydration",
+    "meditation": "Meditation",
+    "pranayama": "Pranayama"
 };
 
 /**
@@ -23,13 +26,16 @@ const PROTOCOL_MAPPINGS: Record<string, string> = {
 export const humanizeProtocolName = (slug: string): string => {
     if (!slug) return "";
 
-    // Check for specific overrides first
-    const normalizedSlug = slug.toLowerCase();
-    if (PROTOCOL_MAPPINGS[normalizedSlug]) {
-        return PROTOCOL_MAPPINGS[normalizedSlug];
+    // Normalize: some slugs might have spaces instead of underscores depending on source
+    const key = slug.toLowerCase().replace(/\s+/g, '_');
+
+    // 1. Check for specific overrides first
+    if (PROTOCOL_MAPPINGS[key]) {
+        return PROTOCOL_MAPPINGS[key];
     }
 
-    // Default: Capitalize first letter, replace underscores with spaces
+    // 2. Default: Sentence Case (First letter upper, rest as is or forced lower)
+    // The user said "every protocols first letter be capital"
     const humanized = slug.replace(/_/g, ' ');
     return humanized.charAt(0).toUpperCase() + humanized.slice(1);
 };
