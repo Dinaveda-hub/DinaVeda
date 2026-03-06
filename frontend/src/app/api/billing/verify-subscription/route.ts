@@ -20,14 +20,28 @@ export async function POST(req: Request) {
 
         const isValid = expectedSignature === razorpay_signature;
 
-        if (isValid) {
-            // Logic to update user plan in Supabase should go here or be handled by webhook
-            return NextResponse.json({ success: true });
-        } else {
-            return NextResponse.json({ success: false, error: "Invalid signature" }, { status: 400 });
+        const response = isValid
+            ? NextResponse.json({ success: true })
+            : NextResponse.json({ success: false, error: "Invalid signature" }, { status: 400 });
+
+        // CORS Headers
+        const origin = req.headers.get("origin") || "";
+        const allowedOrigins = (process.env.CORS_ALLOWED_ORIGINS || "").split(",");
+        if (allowedOrigins.includes(origin) || process.env.NODE_ENV === 'development') {
+            response.headers.set("Access-Control-Allow-Origin", origin);
         }
+
+        return response;
     } catch (error: any) {
         console.error("Razorpay Verification Error:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
+}
+
+export async function OPTIONS() {
+    const response = new NextResponse(null, { status: 204 });
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    return response;
 }
