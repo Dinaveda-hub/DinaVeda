@@ -8,6 +8,7 @@ import {
     Crown, Compass, Anchor, Leaf
 } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
+import { useSubscription } from "@/hooks/useSubscription";
 
 export default function PremiumPage() {
     const { isPremium, userId } = useSubscription();
