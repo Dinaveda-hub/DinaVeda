@@ -7,8 +7,10 @@ export async function POST(req: Request) {
         const { userId, planType } = await req.json();
         const razorpay = getRazorpay();
 
-        // Use different Plan IDs based on the user's selection
-        // Hardcoded fallbacks ensure this works even if env vars take time to propagate
+        // DEBUG: Log which variables the server can actually see (names only)
+        const envKeys = Object.keys(process.env).filter(k => k.includes('RAZOR')).join(', ');
+        console.log(`[Environment Check] Available Razor-related keys: ${envKeys || 'NONE FOUND'}`);
+
         const planId = planType === 'yearly'
             ? (process.env.RAZORPAY_PLAN_ID_YEARLY || 'plan_SNzd3k1dHZi1hQ')
             : (process.env.RAZORPAY_PLAN_ID_MONTHLY || 'plan_SNzcno0nk58APl');
