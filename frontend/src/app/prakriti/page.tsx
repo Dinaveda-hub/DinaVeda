@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck, CloudSun, Leaf, Wind, Flame, Droplets, Target, Compass } from "lucide-react";
-import { useVedaState } from "@/engine/useVedaState";
+import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
 
 export default function PrakritiPage() {
     const [prakriti, setPrakriti] = useState<any>(null);
-    const { state, isLoaded } = useVedaState();
+    const { state, isLoaded } = usePhysiologyState();
     const vikritiEngine = new VikritiEngine();
     const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
 

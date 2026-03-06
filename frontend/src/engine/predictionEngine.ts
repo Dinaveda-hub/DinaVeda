@@ -1,6 +1,6 @@
 import { VedaState } from './stateModel';
 import { VikritiMetrics } from './vikritiEngine';
-import predictionRulesData from '../data/prediction_rules.json';
+import predictionRulesData from '../data/rules/prediction_rules.json';
 
 export interface HealthAdjustment {
     issue: string;
