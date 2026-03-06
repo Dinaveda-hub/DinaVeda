@@ -173,9 +173,9 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                 name="amaStatus"
                                 value={form.amaStatus}
                                 options={[
-                                    { label: "Clear", value: "none" },
-                                    { label: "Thin White", value: "minimal" },
-                                    { label: "Thick Yellow", value: "high_ama" }
+                                    { label: "Nirama (Clear)", value: "none" },
+                                    { label: "Sama (Thin White)", value: "minimal" },
+                                    { label: "Sama (Thick Yellow)", value: "high_ama" }
                                 ]}
                             />
                             <p className="text-xs text-slate-400 italic font-bold flex items-center gap-2">
