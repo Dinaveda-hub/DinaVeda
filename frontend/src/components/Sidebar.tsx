@@ -17,7 +17,7 @@ export default function Sidebar() {
     ];
 
     return (
-        <aside className="hidden md:flex flex-col w-80 bg-white border-r border-slate-50 h-screen sticky top-0 shadow-premium z-50">
+        <aside className="hidden md:flex flex-col w-80 bg-white/80 backdrop-blur-xl border-r border-slate-100 h-screen sticky top-0 shadow-premium z-50">
             <div className="p-10 flex flex-col h-full">
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -61,8 +61,8 @@ export default function Sidebar() {
                                             transition={{ type: "spring", bounce: 0.1, duration: 0.6 }}
                                         />
                                     )}
-                                    <Icon className={`w-5 h-5 z-10 transition-transform duration-500 group-hover:scale-110 ${isActive ? "text-white scale-110" : "group-hover:text-forest"}`} />
-                                    <span className={`font-black text-sm z-10 tracking-tight transition-colors ${isActive ? "text-white" : "group-hover:text-forest"}`}>
+                                    <Icon className={`w-5 h-5 z-10 transition-transform duration-500 group-hover:scale-110 ${isActive ? "text-white scale-110" : "text-forest"}`} />
+                                    <span className={`font-black text-sm z-10 tracking-tight transition-colors ${isActive ? "text-white" : "text-slate-600 group-hover:text-forest"}`}>
                                         {item.name}
                                     </span>
                                 </Link>

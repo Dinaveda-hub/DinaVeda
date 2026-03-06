@@ -27,11 +27,11 @@ export default function BottomNav() {
                         <Link
                             key={item.name}
                             href={item.href}
-                            className={`flex items-center justify-center rounded-full p-4 transition-all duration-500 relative group ${isActive ? "bg-forest shadow-lg shadow-forest/20 grow mx-1" : "hover:bg-forest/5 flex-1"
+                            className={`flex items-center justify-center rounded-full p-4 transition-all duration-500 relative group ${isActive ? "bg-forest shadow-2xl shadow-forest/40 grow mx-1" : "hover:bg-forest/5 flex-1"
                                 }`}
                         >
                             <div className="flex items-center gap-2">
-                                <Icon className={`w-5 h-5 transition-all duration-500 ${isActive ? "text-white scale-110" : "text-slate-400 group-hover:text-forest"}`} />
+                                <Icon className={`w-5 h-5 transition-all duration-500 ${isActive ? "text-white scale-110" : "text-slate-600 group-hover:text-forest"}`} />
                                 {isActive && (
                                     <motion.span
                                         initial={{ opacity: 0, width: 0 }}

@@ -28,9 +28,9 @@ export default function PrakritiPage() {
     };
 
     const getDoshaColorClass = (dosha: string) => {
-        if (dosha === "Vata") return "bg-air text-blue-500";
-        if (dosha === "Pitta") return "bg-fire text-orange-500";
-        return "bg-water text-emerald-500";
+        if (dosha === "Vata") return "bg-sky-500 text-white shadow-lg shadow-sky-200/50";
+        if (dosha === "Pitta") return "bg-orange-500 text-white shadow-lg shadow-orange-200/50";
+        return "bg-emerald-500 text-white shadow-lg shadow-emerald-200/50";
     };
 
     const getPrakritiBars = () => {
@@ -54,10 +54,10 @@ export default function PrakritiPage() {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#F8FAF9] relative overflow-hidden pb-40">
+        <div className="flex flex-col min-h-screen mesh-gradient relative overflow-hidden pb-40">
             {/* Background elements */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/20 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/20 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             {/* Header */}
             <header className="p-8 md:px-14 md:pt-20 pb-10">
@@ -65,7 +65,7 @@ export default function PrakritiPage() {
                     <ShieldCheck className="w-5 h-5 text-forest" />
                     <span className="text-[10px] md:text-xs font-black text-forest uppercase tracking-[0.3em]">Biological Blueprint</span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter">Prakriti Core</h1>
+                <h1 className="text-6xl md:text-8xl font-black text-forest tracking-tighter drop-shadow-sm">Prakriti Core</h1>
             </header>
 
             <main className="px-6 md:px-14 flex flex-col gap-10 max-w-6xl w-full mx-auto justify-center">
@@ -80,8 +80,8 @@ export default function PrakritiPage() {
 
                         {prakriti ? (
                             <>
-                                <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter mb-4">{prakriti.type}</h3>
-                                <p className="text-sm font-bold text-slate-500 max-w-sm leading-relaxed text-balance mb-10">
+                                <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter mb-4">{prakriti.type}</h3>
+                                <p className="text-base font-bold text-slate-700 max-w-sm leading-relaxed text-balance mb-10">
                                     This is your permanent biological baseline, determined at conception. It represents your optimal state of balance.
                                 </p>
 
@@ -97,7 +97,7 @@ export default function PrakritiPage() {
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${bar.pct}%` }}
                                                     transition={{ duration: 1, delay: 0.2 }}
-                                                    className={`h-full ${bar.color} opacity-80 rounded-full`}
+                                                    className={`h-full ${bar.color} rounded-full shadow-[inset_0_1px_4px_rgba(0,0,0,0.1)]`}
                                                 />
                                             </div>
                                         </div>
@@ -129,10 +129,10 @@ export default function PrakritiPage() {
                                     </div>
                                     <div>
                                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Dominant Force</span>
-                                        <h3 className="text-3xl md:text-4xl font-black text-slate-700 tracking-tighter">{vikriti.dominant_dosha} ↑</h3>
+                                        <h3 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">{vikriti.dominant_dosha} ↑</h3>
                                     </div>
                                 </div>
-                                <p className="text-sm font-bold text-slate-500 max-w-sm leading-relaxed text-balance mb-10">
+                                <p className="text-base font-bold text-slate-700 max-w-sm leading-relaxed text-balance mb-10">
                                     This represents your day-to-day fluctuations based on lifestyle, diet, and environment. We aim to move this back toward your Prakriti.
                                 </p>
 
@@ -165,13 +165,13 @@ export default function PrakritiPage() {
 
                 {/* Engine Insight - Trend Synthesis */}
                 <section className="bg-white/60 p-10 md:p-12 rounded-[3rem] shadow-premium border border-white/80 w-full mt-4">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-forest/5 flex items-center justify-center text-forest">
-                            <CloudSun className="w-6 h-6" />
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-14 h-14 rounded-[1.5rem] bg-forest text-white flex items-center justify-center shadow-xl shadow-forest/20">
+                            <CloudSun className="w-7 h-7" />
                         </div>
                         <div>
-                            <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Dosha Trend Analysis</h2>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Environmental Impact</p>
+                            <h2 className="text-lg font-black text-forest uppercase tracking-[0.2em] mb-1">Dosha Trend Analysis</h2>
+                            <p className="text-xs font-bold text-forest/40 uppercase tracking-widest leading-tight">Environmental Impact</p>
                         </div>
                     </div>
                     {isLoaded && prakriti ? (
@@ -188,8 +188,8 @@ export default function PrakritiPage() {
                             <div>
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Drift Severity</h4>
                                 <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-4xl font-black text-slate-700">{Math.round(vikriti?.drift_index || 0)}%</span>
-                                    <span className="text-sm font-bold text-slate-400">Deviation</span>
+                                    <span className="text-5xl font-black text-forest">{Math.round(vikriti?.drift_index || 0)}%</span>
+                                    <span className="text-base font-black text-slate-400">Deviation</span>
                                 </div>
                                 <p className="text-xs font-bold text-slate-500 leading-relaxed">
                                     {vikriti?.drift_index && vikriti.drift_index > 20

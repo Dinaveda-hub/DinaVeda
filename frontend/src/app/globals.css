@@ -1,32 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FDFEFE;
-  /* Pure, clean air */
-  --foreground: #2D3E40;
-  /* Soft charcoal-teal */
+  --background: #FFFFFF;
+  --foreground: #1A2E26; /* Darker Forest Charcoal */
 
-  /* Elemental Palette */
-  --color-space: #4A5568;
-  /* Deep void */
-  --color-air: #E3F2FD;
-  /* Soft sky blue */
-  --color-fire: #FFF3E0;
-  /* Warm sunrise orange */
-  --color-water: #E0F7FA;
-  /* Clear spring water */
-  --color-earth: #F1F8E9;
-  /* Fresh sprout green */
+  /* Elemental Palette - Saturated */
+  --color-space: #2D3748;
+  --color-air: #BAE6FD;   /* Vibrant sky */
+  --color-fire: #FED7AA;  /* Vibrant flame */
+  --color-water: #A5F3FC; /* Deep aqua */
+  --color-earth: #DCFCE7; /* Lush sprout */
 
-  /* Core Clinical/Wellness Colors */
-  --color-primary: #2D7A5C;
-  /* Mena Forest Green */
-  --color-accent: #52B788;
-  /* Supporting leaf green */
-  --color-gold: #D4AF37;
-  /* Sacred gold */
-  --color-petal: #FCE4EC;
-  /* Gentle pastel pink */
+  /* Core Clinical/Wellness Colors - Richer */
+  --color-primary: #1B5E43; /* Deeper, more "expensive" Forest */
+  --color-accent: #10B981;  /* High-visibility emerald */
+  --color-gold: #C5A028;    /* Burnished gold */
+  --color-petal: #FDF2F8;
 
   --color-glass-white: rgba(255, 255, 255, 0.6);
   --radius-app: 2rem;
@@ -60,8 +49,8 @@
 /* Force light mode for clinical consistency */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #F8FAF9;
-    --foreground: #121A16;
+    --background: #FFFFFF;
+    --foreground: #0F1713;
   }
 }
 
@@ -76,10 +65,19 @@ body {
 }
 
 .glass {
-  background: var(--color-glass-white);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.03);
+}
+
+.mesh-gradient {
+  background-color: #ffffff;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(158,64%,91%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(43,76%,94%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(199,84%,94%,1) 0, transparent 50%);
 }
 
 .shadow-premium {
