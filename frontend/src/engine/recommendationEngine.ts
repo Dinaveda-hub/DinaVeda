@@ -5,16 +5,7 @@ import rulesData from '../data/rules/recommendation_rules.json';
 import { applyGoalBoost } from './goalEngine';
 
 
-export interface Protocol {
-    name: string;
-    category: string;
-    module: string;
-    variables: Partial<Record<string, number>>;
-    time_of_day: string;
-    duration: string;
-    instructions: string;
-    contraindications: string;
-}
+import { Protocol } from './protocolSelectionEngine';
 
 export interface RecommendationRule {
     condition: string;

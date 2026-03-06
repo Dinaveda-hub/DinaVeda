@@ -9,7 +9,7 @@ export function useSignalLogger() {
     const { state, updateState } = usePhysiologyState();
 
     const logSignals = (signals: string[]) => {
-        // Deterministic engine logic would be called here via an API or local StateUpdater
+        // Deterministic engine logic would be called here via local stateUpdater.applySignal
         console.log("Logging signals:", signals);
         // updateState(newState); 
     };

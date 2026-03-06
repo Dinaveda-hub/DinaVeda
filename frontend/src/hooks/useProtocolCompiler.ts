@@ -3,7 +3,7 @@ import { Protocol, RecommendationEngine } from '@/engine/recommendationEngine';
 import { compileDailyProtocols } from '@/engine/protocolCompiler';
 import { PredictionEngine } from '@/engine/predictionEngine';
 import { usePhysiologyState } from './usePhysiologyState';
-import { VikritiEngine } from '@/engine/vikritiEngine';
+import { computeVikriti } from '@/engine/vikritiEngine';
 
 /**
  * Hook to compile the full daily dinacharya from recommendations and predictions.
@@ -14,8 +14,7 @@ export function useProtocolCompiler(healthGoal: string = "general_wellness") {
     const dailyPlan = useMemo(() => {
         if (!isLoaded) return { morning: [], midday: [], evening: [] };
 
-        const vikritiEngine = new VikritiEngine();
-        const vikriti = vikritiEngine.calculateMetrics(state);
+        const vikriti = computeVikriti(state);
         const recEngine = new RecommendationEngine();
         const predictionEngine = new PredictionEngine();
 

@@ -10,8 +10,8 @@ import {
 import { motion } from "framer-motion";
 import { createBrowserClient } from "@supabase/ssr";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import { VikritiEngine } from "@/engine/vikritiEngine";
-import { RecommendationEngine } from "@/engine/recommendationEngine";
+import { computeVikriti } from "@/engine/vikritiEngine";
+import { selectProtocols, filterProtocols } from "@/engine/protocolSelectionEngine";
 import { compileDailyProtocols } from "@/engine/protocolCompiler";
 import { generateModuleRoutine, ModuleSlug, PersonalizationResult } from "@/ai/modulePersonalizationEngine";
 
@@ -223,11 +223,8 @@ export default function ModuleDetail({ params }: { params: any }) {
     const Icon = mod.icon;
 
     // ── Deterministic engine computes recommendations ────
-    const vikritiEngine = new VikritiEngine();
-    const vikriti = vikritiEngine.calculateMetrics(state);
-    const recEngine = new RecommendationEngine();
-    const allRecs = recEngine.getRecommendations(state, vikriti, healthGoal);
-    const moduleRecs = recEngine.getModuleProtocols(slug, allRecs);
+    const vikriti = computeVikriti(state);
+    const moduleRecs = selectProtocols(state).filter(p => p.module.toLowerCase() === (slug as string).toLowerCase());
     const compiledPlan = compileDailyProtocols(moduleRecs);
     const allCompiled = [...compiledPlan.morning, ...compiledPlan.midday, ...compiledPlan.evening];
 

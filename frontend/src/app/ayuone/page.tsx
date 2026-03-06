@@ -2,12 +2,16 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles } from "lucide-react";
-import { useVedaState } from "@/engine/useVedaState";
-import { StateUpdater } from "@/engine/stateUpdater";
+import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles, Lock } from "lucide-react";
+import { usePhysiologyState } from "@/hooks/usePhysiologyState";
+import { useSubscription } from "@/hooks/useSubscription";
+import UpgradeModal from "@/components/billing/UpgradeModal";
+import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
+import { createBrowserClient } from "@supabase/ssr";
+import { registerUserWithOneSignal } from "@/services/notificationService";
 
 import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
-import prakritiQuizData from "@/data/prakriti_quiz.json";
+import prakritiQuizData from "@/data/prakriti_questions.json";
 import dailyCheckinData from "@/data/daily_checkin.json";
 
 interface CheckinOption {
@@ -63,11 +67,40 @@ export default function AyuOneHub() {
     const [checkinStep, setCheckinStep] = useState(0);
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
 
-    const { state, updateState } = useVedaState();
-    const updater = new StateUpdater();
+    const { state, updateState } = usePhysiologyState();
+    const { isPremium, userId, getSmartTrigger } = useSubscription();
+
+    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const [messageCount, setMessageCount] = useState(0);
+
+    useEffect(() => {
+        const count = parseInt(localStorage.getItem("ayuone_chat_count") || "0");
+        const lastChatDate = localStorage.getItem("ayuone_last_chat_date");
+        const today = new Date().toDateString();
+
+        if (lastChatDate === today) {
+            setMessageCount(count);
+        } else {
+            localStorage.setItem("ayuone_last_chat_date", today);
+            localStorage.setItem("ayuone_chat_count", "0");
+            setMessageCount(0);
+        }
+    }, []);
 
     useEffect(() => {
         setMounted(true);
+        async function loadSession() {
+            const supabase = createBrowserClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+            );
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                registerUserWithOneSignal(session.user.id);
+            }
+        }
+        loadSession();
+
         if (typeof window !== "undefined") {
             const storedPrakriti = localStorage.getItem("prakriti_result");
             if (storedPrakriti) {
@@ -176,7 +209,7 @@ export default function AyuOneHub() {
     const finishCheckin = (effectsList: Partial<Record<string, number>>[]) => {
         // Pass the aggregated effects directly into the State Updater pipelines
         // This ensures Seasonal Multipliers, Variable Sensitivity, and Cascades apply uniformly.
-        const nextState = updater.applyEffects(state, effectsList);
+        const nextState = applyEffects(state, effectsList, userId || undefined);
 
         updateState(nextState);
 
@@ -196,22 +229,35 @@ export default function AyuOneHub() {
     // --- CHAT LOGIC ---
     const handleSend = async () => {
         if (!input.trim()) return;
+
+        // Check limit for free users
+        if (!isPremium && messageCount >= 5) {
+            setIsUpgradeModalOpen(true);
+            return;
+        }
+
         const userMessage = input;
         setMessages(prev => [...prev, { role: "user", text: userMessage }]);
         setInput("");
         setIsTyping(true);
 
+        // Update count
+        const newCount = messageCount + 1;
+        setMessageCount(newCount);
+        localStorage.setItem("ayuone_chat_count", newCount.toString());
+
         const storedResult = localStorage.getItem("prakriti_result");
         const prakriti = storedResult ? JSON.parse(storedResult).type : "Unknown";
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001'}/chat`, {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001';
+            const res = await fetch(`${apiUrl}/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage, prakriti }),
             });
             if (!res.ok) {
-                throw new Error("Backend not fully reloaded yet.");
+                throw new Error("Backend connection issue.");
             }
             const data = await res.json();
 
@@ -220,7 +266,7 @@ export default function AyuOneHub() {
 
                 // Apply deterministic state updates
                 if (data.signals && Array.isArray(data.signals) && data.signals.length > 0) {
-                    const nextState = updater.applySignals(state, data.signals);
+                    const nextState = applySignals(data.signals, state, userId || undefined);
                     updateState(nextState);
                 }
             } else {
@@ -228,7 +274,7 @@ export default function AyuOneHub() {
             }
         } catch (error) {
             console.error("AyuOne Chat Error Details:", error);
-            setMessages(prev => [...prev, { role: "ai", text: "I'm currently unable to access the neural core. Please make sure your Python API is running on port 8001." }]);
+            setMessages(prev => [...prev, { role: "ai", text: "I'm currently unable to access the neural core. Please check your connection or try again later." }]);
         } finally {
             setIsTyping(false);
         }
@@ -492,6 +538,14 @@ export default function AyuOneHub() {
                     </div>
                 )}
             </main>
+            {userId && (
+                <UpgradeModal
+                    isOpen={isUpgradeModalOpen}
+                    onClose={() => setIsUpgradeModalOpen(false)}
+                    userId={userId}
+                    contextualMessage={getSmartTrigger(state)}
+                />
+            )}
         </div>
     );
 }

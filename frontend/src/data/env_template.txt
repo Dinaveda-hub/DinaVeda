@@ -1,0 +1,16 @@
+# Razorpay Keys (Dashboard > Settings > API Keys)
+NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_xxxxxxxxxxxxxx
+RAZORPAY_KEY_ID=rzp_live_xxxxxxxxxxxxxx
+RAZORPAY_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
+
+# Razorpay Subscription Plans (Dashboard > Subscriptions > Plans)
+RAZORPAY_PLAN_ID_MONTHLY=plan_xxxxxxxxxxxxxx
+RAZORPAY_PLAN_ID_YEARLY=plan_xxxxxxxxxxxxxx
+
+# Razorpay Webhook Secret (Set this yourself in Razorpay > Webhooks)
+RAZORPAY_WEBHOOK_SECRET=your_chosen_secret_string
+
+# Supabase Keys (Project Settings > API)
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxxxxxxxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+SUPABASE_SERVICE_ROLE_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

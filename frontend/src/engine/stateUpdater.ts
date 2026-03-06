@@ -1,145 +1,139 @@
+/**
+ * stateUpdater.ts
+ *
+ * The HEART of the Dinaveda Health OS.
+ * Every physiological change flows through this file.
+ *
+ * PIPELINE:
+ * Signal → Seasonal Adjustment → Variable Sensitivity → State Update → Clamp → Score Recalculation
+ *
+ * GOLDEN RULE:
+ * Only applySignal() should change physiology variables.
+ */
+
 import { VedaState } from './stateModel';
+import signals from '../data/signals.json';
+import { variableSensitivity } from './sensitivityEngine'; // This now reads from the new JSON internally
 import { getSeasonalMultipliers } from './seasonalAdjuster';
-import { getSensitivityConfig, variableSensitivity } from './sensitivityEngine';
-import { VARIABLE_MIN, VARIABLE_MAX } from '../config/variableRanges';
-import signalsData from '../data/signals.json';
+import { clamp } from '../utils/clamp';
+import { computeVikriti } from './vikritiEngine';
+import { computeHealthScore } from './healthScoreEngine';
+import { computeIPI } from './imbalancePressureEngine';
+import { detectNotificationEvents, NotificationEvent } from './notificationEventEngine';
+import { sendNotification } from '../services/notificationService';
+import notificationRulesRaw from '../data/notificationRules.json';
 
-type SignalConfig = {
-    signal: string;
-    effects: Partial<Record<keyof VedaState, number>>;
-};
+const notificationRules = notificationRulesRaw as Record<string, { time: string, message: string }>;
 
-export class StateUpdater {
-    private clamp(val: number): number {
-        return Math.max(VARIABLE_MIN, Math.min(VARIABLE_MAX, val));
+// Signals data is an array, mapping to Record for easy lookup
+const signalMap: Record<string, any> = (signals as any[]).reduce((acc, s) => {
+    acc[s.signal] = s;
+    return acc;
+}, {} as any);
+
+/**
+ * The singular entry point for physiological changes FROM A SIGNAL NAME.
+ */
+export function applySignal(signalName: string, state: VedaState, userId?: string): VedaState {
+    const signal = signalMap[signalName];
+    if (!signal) return state;
+
+    return applyEffects(state, [signal.effects], userId);
+}
+
+/**
+ * Plural version for multiple signal names.
+ */
+export function applySignals(signalsList: string[], state: VedaState, userId?: string): VedaState {
+    let nextState = { ...state };
+    for (const name of signalsList) {
+        nextState = applySignal(name, nextState, userId);
     }
+    return nextState;
+}
 
-    public applySignals(currentState: VedaState, incomingSignals: string[]): VedaState {
-        const signalMap = new Map((signalsData as SignalConfig[]).map(s => [s.signal, s.effects]));
-        const effectsList = incomingSignals
-            .map(signalName => signalMap.get(signalName))
-            .filter(effects => effects !== undefined) as Partial<Record<keyof VedaState, number>>[];
+/**
+ * Applies raw effects directly to the state, following the full pipeline.
+ * Use this for quiz completions or check-ins.
+ */
+export function applyEffects(
+    state: VedaState,
+    effectsList: Partial<Record<keyof VedaState, number>>[],
+    userId?: string
+): VedaState {
+    const seasonMultipliers = getSeasonalMultipliers(state.rutu_season || 'spring');
+    let nextState = { ...state };
 
-        return this.applyEffects(currentState, effectsList);
-    }
+    for (const effects of effectsList) {
+        for (const [variable, baseEffect] of Object.entries(effects)) {
+            if (variable in nextState && typeof baseEffect === 'number') {
 
-    public applyEffects(currentState: VedaState, effectsList: Partial<Record<keyof VedaState, number>>[]): VedaState {
-        let nextState = { ...currentState };
-        const seasonMultipliers = getSeasonalMultipliers(nextState.rutu_season);
-        const plasticity = getSensitivityConfig(
-            nextState.prakriti_vata,
-            nextState.prakriti_pitta,
-            nextState.prakriti_kapha
-        );
+                // 1. Seasonal Adjustment (applied to dosha states)
+                let adjustedEffect = baseEffect;
+                if (variable === 'vata_state') adjustedEffect *= seasonMultipliers.vata_multiplier;
+                if (variable === 'pitta_state') adjustedEffect *= seasonMultipliers.pitta_multiplier;
+                if (variable === 'kapha_state') adjustedEffect *= seasonMultipliers.kapha_multiplier;
 
-        for (const effects of effectsList) {
-            for (const [key, rawEffect] of Object.entries(effects)) {
-                if (key in nextState && rawEffect !== undefined) {
-                    let effectValue = rawEffect as number;
+                // 2. Variable Sensitivity Scaling
+                const sensitivity = (variableSensitivity as any)[variable] || 1.0;
+                const finalEffect = adjustedEffect * sensitivity;
 
-                    if (key === 'vata_state') {
-                        effectValue *= seasonMultipliers.vata_multiplier * (effectValue > 0 ? plasticity.vata_elasticity : 1);
-                    } else if (key === 'pitta_state') {
-                        effectValue *= seasonMultipliers.pitta_multiplier * (effectValue > 0 ? plasticity.pitta_elasticity : 1);
-                    } else if (key === 'kapha_state') {
-                        effectValue *= seasonMultipliers.kapha_multiplier * (effectValue > 0 ? plasticity.kapha_elasticity : 1);
-                    } else if (key === 'agni_strength') {
-                        effectValue *= (effectValue < 0 ? plasticity.agni_elasticity : 1);
-                    } else if (key === 'ojas_score') {
-                        effectValue *= (effectValue < 0 ? plasticity.ojas_elasticity : 1);
-                    }
+                // 3. State Update
+                (nextState as any)[variable] += finalEffect;
 
-                    const globalSens = (variableSensitivity as any)[key] !== undefined ? (variableSensitivity as any)[key] : 1.0;
-                    effectValue *= globalSens;
-
-                    (nextState as any)[key] += effectValue;
-                }
+                // 4. Clamp (0-100)
+                (nextState as any)[variable] = clamp((nextState as any)[variable], 0, 100);
             }
         }
+    }
 
-        nextState = this.applyCascades(nextState);
-
-        for (const key of Object.keys(nextState)) {
-            if (typeof (nextState as any)[key] === 'number') {
-                (nextState as any)[key] = this.clamp((nextState as any)[key]);
+    // 5. Notification Triggering (if userId available)
+    if (userId) {
+        const events = detectNotificationEvents(nextState);
+        for (const event of events) {
+            const rule = notificationRules[event];
+            if (rule) {
+                // Fire and forget notification
+                sendNotification(userId, rule.message).catch(err =>
+                    console.error("Failed to send notification:", err)
+                );
             }
         }
-
-        return nextState;
     }
 
-    private applyCascades(state: VedaState): VedaState {
-        let cascadeState = { ...state };
+    return nextState;
+}
 
-        if (cascadeState.circadian_alignment < 70) {
-            const penalty = (70 - cascadeState.circadian_alignment) * 0.2;
-            cascadeState.vata_state += penalty;
-            cascadeState.agni_strength -= penalty * 0.5;
-            cascadeState.ojas_score -= penalty * 0.5;
-        }
+/**
+ * Natural recovery toward prakriti baseline.
+ */
+export function applyNightlyRecovery(state: VedaState, prakriti: { vata: number, pitta: number, kapha: number }): VedaState {
+    const nextState = { ...state };
+    const recoveryRate = 0.1;
 
-        if (cascadeState.vata_state > 65) {
-            cascadeState.agni_stability -= (cascadeState.vata_state - 65) * 0.5;
-        }
-        if (cascadeState.pitta_state > 65) {
-            cascadeState.agni_strength += (cascadeState.pitta_state - 65) * 0.5;
-            cascadeState.agni_stability -= (cascadeState.pitta_state - 65) * 0.3;
-        }
-        if (cascadeState.kapha_state > 65) {
-            cascadeState.agni_strength -= (cascadeState.kapha_state - 65) * 0.5;
-        }
+    nextState.vata_state -= (nextState.vata_state - prakriti.vata) * recoveryRate;
+    nextState.pitta_state -= (nextState.pitta_state - prakriti.pitta) * recoveryRate;
+    nextState.kapha_state -= (nextState.kapha_state - prakriti.kapha) * recoveryRate;
 
-        if (cascadeState.agni_strength < 50) {
-            cascadeState.ama_risk += (50 - cascadeState.agni_strength) * 0.5;
-        }
+    // Standard clamping
+    nextState.vata_state = clamp(nextState.vata_state, 0, 100);
+    nextState.pitta_state = clamp(nextState.pitta_state, 0, 100);
+    nextState.kapha_state = clamp(nextState.kapha_state, 0, 100);
 
-        if (cascadeState.ama_risk > 40) {
-            cascadeState.ojas_score -= (cascadeState.ama_risk - 40) * 0.3;
-        }
-        if (cascadeState.stress_load > 60) {
-            cascadeState.ojas_score -= (cascadeState.stress_load - 60) * 0.4;
-        }
+    return nextState;
+}
 
-        if (cascadeState.stress_load > 60) {
-            cascadeState.vata_state += (cascadeState.stress_load - 60) * 0.3;
-        }
-        if (cascadeState.screen_exposure > 70) {
-            cascadeState.circadian_alignment -= (cascadeState.screen_exposure - 70) * 0.4;
-            cascadeState.sleep_debt += (cascadeState.screen_exposure - 70) * 0.2;
-        }
+/**
+ * Recalculates all scores.
+ */
+export function updateScores(state: VedaState, _prakriti?: any) {
+    const vikriti = computeVikriti(state);
+    const healthScore = computeHealthScore(state, vikriti.drift_index);
+    const ipi = computeIPI(state, vikriti.drift_index);
 
-        if (cascadeState.bloating_level > 50) {
-            cascadeState.agni_strength -= (cascadeState.bloating_level - 50) * 0.3;
-            cascadeState.ama_risk += (cascadeState.bloating_level - 50) * 0.2;
-        }
-        if (cascadeState.bowel_quality < 40) {
-            cascadeState.agni_strength -= (40 - cascadeState.bowel_quality) * 0.3;
-            cascadeState.ama_risk += (40 - cascadeState.bowel_quality) * 0.2;
-        }
-
-        return cascadeState;
-    }
-
-    public applyNightlyDecay(currentState: VedaState): VedaState {
-        let nextState = { ...currentState };
-
-        nextState.vata_state -= (nextState.vata_state - nextState.prakriti_vata) * 0.1;
-        nextState.vata_state = this.clamp(nextState.vata_state);
-
-        nextState.pitta_state -= (nextState.pitta_state - nextState.prakriti_pitta) * 0.1;
-        nextState.pitta_state = this.clamp(nextState.pitta_state);
-
-        nextState.kapha_state -= (nextState.kapha_state - nextState.prakriti_kapha) * 0.1;
-        nextState.kapha_state = this.clamp(nextState.kapha_state);
-
-        if (nextState.ojas_score < 100) {
-            const recoveryAmount = nextState.ojas_recovery * 0.1;
-            nextState.ojas_score = this.clamp(nextState.ojas_score + recoveryAmount);
-        }
-
-        nextState.sleep_debt = this.clamp(nextState.sleep_debt * 0.9);
-        nextState.stress_load = this.clamp(nextState.stress_load * 0.9);
-
-        return nextState;
-    }
+    return {
+        vikriti,
+        healthScore,
+        ipi
+    };
 }

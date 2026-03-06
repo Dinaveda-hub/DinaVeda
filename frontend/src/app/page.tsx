@@ -8,12 +8,12 @@ import {
   Sparkles, Leaf, Activity
 } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import { VikritiEngine } from "@/engine/vikritiEngine";
-import { RecommendationEngine } from "@/engine/recommendationEngine";
-import { HealthScoreEngine } from "@/engine/healthScoreEngine";
-import { ImbalancePressureEngine } from "@/engine/imbalancePressureEngine";
+import { computeVikriti } from "@/engine/vikritiEngine";
+import { selectProtocols, filterProtocols, Protocol } from "@/engine/protocolSelectionEngine";
+import { computeHealthScore } from "@/engine/healthScoreEngine";
+import { computeIPI } from "@/engine/imbalancePressureEngine";
 import { PredictionEngine } from "@/engine/predictionEngine";
-import { compileDailyProtocols, CompiledProtocolItem } from "@/engine/protocolCompiler";
+import { CompiledProtocolItem } from "@/engine/protocolCompiler";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -34,15 +34,11 @@ export default function Dashboard() {
   };
 
   const { state, isLoaded } = usePhysiologyState();
-  const vikritiEngine = new VikritiEngine();
-  const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
-  const recEngine = new RecommendationEngine();
-  const healthEngine = new HealthScoreEngine();
-  const pressureEngine = new ImbalancePressureEngine();
+  const vikriti = isLoaded ? computeVikriti(state) : null;
   const predictionEngine = new PredictionEngine();
 
-  const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
-  const pressureIndex = isLoaded && vikriti ? pressureEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
+  const ojasBalance = isLoaded && vikriti ? computeHealthScore(state, vikriti.drift_index) : null;
+  const pressureIndex = isLoaded && vikriti ? computeIPI(state, vikriti.drift_index) : null;
 
   // Health Goal state
   const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
@@ -65,13 +61,24 @@ export default function Dashboard() {
   const predictionProtocolNames = isLoaded ? predictionEngine.getPredictionProtocols(stateHistory) : [];
 
   // Compile all module outputs into a single structured daily plan
-  const dailyPlan = (isLoaded && vikriti)
-    ? compileDailyProtocols(recEngine.getRecommendations(state, vikriti, healthGoal), predictionProtocolNames)
+  const plan = isLoaded
+    ? filterProtocols(selectProtocols(state))
     : { morning: [], midday: [], evening: [] };
 
-  const morningRecs: CompiledProtocolItem[] = dailyPlan.morning;
-  const middayRecs: CompiledProtocolItem[] = dailyPlan.midday;
-  const eveningRecs: CompiledProtocolItem[] = dailyPlan.evening;
+  const mapToCompiled = (protos: Protocol[]): CompiledProtocolItem[] =>
+    protos.map(p => ({
+      name: p.name,
+      title: p.name.replace(/_/g, ' '),
+      description: p.instructions,
+      time_of_day: p.time_of_day,
+      duration: p.duration,
+      module: p.module,
+      category: p.category
+    }));
+
+  const morningRecs = mapToCompiled(plan.morning);
+  const middayRecs = mapToCompiled(plan.midday);
+  const eveningRecs = mapToCompiled(plan.evening);
 
   const adjustments = isLoaded && vikriti ? predictionEngine.getAdjustments(state, vikriti) : [];
 

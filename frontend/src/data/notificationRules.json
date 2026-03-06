@@ -1,0 +1,50 @@
+{
+    "circadian_drift": {
+        "time": "evening",
+        "message": "Your sleep rhythm is drifting. Reduce screen exposure tonight and sleep before 10:30."
+    },
+    "weak_agni": {
+        "time": "midday",
+        "message": "Digestive fire appears weak today. Eat slowly and avoid cold drinks."
+    },
+    "vata_imbalance": {
+        "time": "morning",
+        "message": "Vata is elevated. Warm meals and grounding routines can help stabilize today."
+    },
+    "kapha_accumulation": {
+        "time": "morning",
+        "message": "Kapha is rising. Start the day with movement and avoid heavy breakfast."
+    },
+    "stress_overload": {
+        "time": "afternoon",
+        "message": "Your stress load is high today. Take a short breathing pause to reset."
+    },
+    "morning_checkin": {
+        "time": "morning",
+        "message": "Good morning. Check in with your body to update your Dinaveda state for today."
+    },
+    "midday_agni_reminder": {
+        "time": "midday",
+        "message": "Your digestive fire may be weaker today. Eat your main meal calmly."
+    },
+    "evening_circadian_reminder": {
+        "time": "evening",
+        "message": "Your circadian rhythm needs support tonight. Reduce stimulation and prepare for sleep."
+    },
+    "kapha_rising_alert": {
+        "time": "morning",
+        "message": "Kapha imbalance risk detected. Choose lighter meals tonight and add movement tomorrow morning."
+    },
+    "sleep_debt_alert": {
+        "time": "evening",
+        "message": "Sleep debt is accumulating. Prioritize early sleep tonight to restore balance."
+    },
+    "pitta_imbalance": {
+        "time": "midday",
+        "message": "Internal heat appears elevated. Cooling foods and calming breathing practices may help today."
+    },
+    "mental_fatigue": {
+        "time": "evening",
+        "message": "Mental clarity appears reduced today. A short break or walk outdoors may help reset."
+    }
+}
