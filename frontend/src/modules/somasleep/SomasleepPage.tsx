@@ -3,6 +3,7 @@ import { Moon, Sunrise, CheckCircle2, Clock, Sparkles, Lock } from 'lucide-react
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 import { getSleepInsight } from './sleepLogic';
+import { humanizeProtocolName } from '@/utils/stringUtils';
 
 interface SomasleepPageProps {
     state: VedaState;
@@ -10,12 +11,6 @@ interface SomasleepPageProps {
     protocols: Protocol[];
 }
 
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function SomasleepPage({
     state,
@@ -73,7 +68,7 @@ export default function SomasleepPage({
                 <div className="space-y-4">
                     {protocols.map((p, i) => (
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 group hover:bg-white transition-colors">
-                            <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
+                            <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
                             <p className="text-xs font-bold text-slate-500 max-w-lg mb-2">{p.instructions}</p>
                             <div className="text-xs font-black uppercase text-slate-400 italic">{p.time_of_day} focus</div>
                         </div>

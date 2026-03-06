@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { createBrowserClient } from "@supabase/ssr";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
-import { selectProtocols } from "@/engine/protocolSelectionEngine";
+import { selectProtocols, filterProtocols } from "@/engine/protocolSelectionEngine";
 import ModuleHistory from "@/components/ModuleHistory";
 
 // Domain Module Pages
@@ -203,7 +203,9 @@ export default function ModuleDetail({ params }: { params: any }) {
 
     // ── Deterministic engine computes recommendations ────
     const vikriti = computeVikriti(state);
-    const moduleRecs = selectProtocols(state).filter(p => p.module.toLowerCase() === (slug as string).toLowerCase());
+    const allProtocols = selectProtocols(state);
+    const moduleRecs = allProtocols.filter(p => p.module.toLowerCase() === (slug as string).toLowerCase());
+    const dailyProtocols = filterProtocols(allProtocols);
 
     // ── Placeholder for domain-specific views ───────────
     return (
@@ -252,7 +254,7 @@ export default function ModuleDetail({ params }: { params: any }) {
                 )}
                 {slug === 'dinaveda' && (
                     <DinavedaPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                        state={state} vikriti={vikriti} protocols={moduleRecs} dailyProtocols={dailyProtocols}
                     />
                 )}
                 {slug === 'rutuveda' && (

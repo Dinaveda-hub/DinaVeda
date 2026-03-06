@@ -3,6 +3,7 @@ import { Leaf, Activity, CheckCircle2, BrainCircuit, Sparkles, Lock } from 'luci
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 import { getBehaviorInsight } from './behaviorLogic';
+import { humanizeProtocolName } from '@/utils/stringUtils';
 
 interface SattvalivingPageProps {
     state: VedaState;
@@ -10,12 +11,6 @@ interface SattvalivingPageProps {
     protocols: Protocol[];
 }
 
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function SattvalivingPage({
     state,
@@ -75,7 +70,7 @@ export default function SattvalivingPage({
                 <div className="space-y-4">
                     {protocols.map((p, i) => (
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 hover:bg-white transition-colors">
-                            <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
+                            <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
                             <p className="text-xs font-bold text-slate-500 max-w-lg">{p.instructions}</p>
                         </div>
                     ))}

@@ -2,6 +2,7 @@ import React from 'react';
 import { CloudSun, Wind, Snowflake, Sun, Droplets, Thermometer, ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
+import { humanizeProtocolName } from '@/utils/stringUtils';
 
 interface RutuvedaPageProps {
     state: VedaState;
@@ -9,12 +10,6 @@ interface RutuvedaPageProps {
     protocols: Protocol[];
 }
 
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function RutuvedaPage({
     state,
@@ -70,7 +65,7 @@ export default function RutuvedaPage({
                                     <CheckCircle2 className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
+                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
                                     <p className="text-sm font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>

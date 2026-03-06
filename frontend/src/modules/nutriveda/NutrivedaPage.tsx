@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 import { getAgniInsight } from './dietLogic';
+import { humanizeProtocolName } from '@/utils/stringUtils';
 
 interface NutrivedaPageProps {
     state: VedaState;
@@ -11,12 +12,6 @@ interface NutrivedaPageProps {
     protocols: Protocol[];
 }
 
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function NutrivedaPage({
     state,
@@ -86,7 +81,7 @@ export default function NutrivedaPage({
                                     <CheckCircle2 className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
+                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
                                     <p className="text-xs font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>

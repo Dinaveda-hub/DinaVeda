@@ -88,13 +88,25 @@ export function selectProtocols(state: VedaState): Protocol[] {
         }
     }
 
-    // Baseline protocols if list is too short
-    if (selectedProtocols.length < 3) {
-        const baselines = ["morning_hydration", "midday_main_meal", "evening_wind_down"];
+    // Baseline protocols to ensure 6-8 protocols are always present
+    if (selectedProtocols.length < 6) {
+        const baselines = [
+            "warm_water_morning",
+            "abhyanga",
+            "grounding_yoga",
+            "midday_main_meal",
+            "mindful_chewing",
+            "padabhyanga",
+            "evening_wind_down",
+            "early_wake"
+        ];
         for (const b of baselines) {
             if (!selectedNames.has(b)) {
                 const proto = protocols.find(p => p.name === b);
-                if (proto) selectedProtocols.push(proto);
+                if (proto) {
+                    selectedProtocols.push(proto);
+                    selectedNames.add(b);
+                }
             }
         }
     }

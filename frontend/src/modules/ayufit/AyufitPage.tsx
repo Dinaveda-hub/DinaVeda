@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 import { getMovementInsight } from './movementLogic';
+import { humanizeProtocolName } from '@/utils/stringUtils';
 
 interface AyufitPageProps {
     state: VedaState;
@@ -11,12 +12,6 @@ interface AyufitPageProps {
     protocols: Protocol[];
 }
 
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function AyufitPage({
     state,
@@ -79,7 +74,7 @@ export default function AyufitPage({
                             <div className="flex items-start gap-4">
                                 <CheckCircle2 className="w-5 h-5 text-forest mt-1 shrink-0" />
                                 <div>
-                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
+                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
                                     <p className="text-xs font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
                                 </div>
                             </div>

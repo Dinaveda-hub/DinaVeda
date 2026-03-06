@@ -1,30 +1,37 @@
 import React from 'react';
-import { Activity, ShieldCheck, Clock, CheckCircle2, Zap, BrainCircuit, Sparkles } from 'lucide-react';
+import { Activity, ShieldCheck, Clock, CheckCircle2, Zap, BrainCircuit, Sparkles, Sun, Moon, CloudSun } from 'lucide-react';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
+import { humanizeProtocolName } from '@/utils/stringUtils';
+import { motion } from 'framer-motion';
 
 interface DinavedaPageProps {
     state: VedaState;
     vikriti: any;
     protocols: Protocol[];
+    dailyProtocols?: {
+        morning: Protocol[];
+        midday: Protocol[];
+        evening: Protocol[];
+    };
 }
-
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function DinavedaPage({
     state,
     vikriti,
     protocols,
+    dailyProtocols
 }: DinavedaPageProps) {
     const ojasScore = state.ojas_score || 50;
 
+    const sections = [
+        { title: "Morning", icon: CloudSun, data: dailyProtocols?.morning || [], color: "text-amber-500", bg: "bg-amber-50" },
+        { title: "Midday", icon: Sun, data: dailyProtocols?.midday || [], color: "text-orange-500", bg: "bg-orange-50" },
+        { title: "Evening", icon: Moon, data: dailyProtocols?.evening || [], color: "text-indigo-600", bg: "bg-indigo-50" }
+    ];
+
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Principle Section */}
             <section className="glass rounded-[3rem] p-10 md:p-12 shadow-premium border border-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-forest/5 rounded-full blur-3xl -mr-32 -mt-32" />
@@ -54,36 +61,58 @@ export default function DinavedaPage({
                 </div>
             </section>
 
-            {/* Rituals Section */}
-            <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-                <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-[1.2rem] bg-amber-50 flex items-center justify-center text-amber-600">
-                        <Sparkles className="w-6 h-6" />
-                    </div>
-                    <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Sanctified Rituals</h2>
-                </div>
-                <div className="space-y-4">
-                    {protocols.map((p, i) => (
-                        <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-100 hover:bg-white transition-all hover:shadow-md group">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-forest/5 flex items-center justify-center text-forest shrink-0 mt-1 transition-transform group-hover:scale-110">
-                                    <CheckCircle2 className="w-5 h-5" />
+            {/* Rituals Plan Section */}
+            <div className="space-y-12">
+                <header className="px-4">
+                    <h3 className="text-forest font-black uppercase tracking-[0.4em] text-sm mb-2">Today's Protocol</h3>
+                    <div className="h-1 w-20 bg-forest/20 rounded-full" />
+                </header>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {sections.map((section) => (
+                        <section key={section.title} className="space-y-6">
+                            <div className="flex items-center gap-3 px-4">
+                                <div className={`w-10 h-10 rounded-xl ${section.bg} flex items-center justify-center ${section.color}`}>
+                                    <section.icon className="w-5 h-5" />
                                 </div>
-                                <div>
-                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
-                                    <p className="text-sm font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
-                                </div>
+                                <h4 className="text-sm font-black text-forest uppercase tracking-[0.2em]">{section.title}</h4>
                             </div>
-                            <div className="flex items-center gap-2 text-xs font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100/50">
-                                <Clock className="w-3 h-3 text-forest" /> {p.time_of_day}
+
+                            <div className="space-y-4">
+                                {section.data.length > 0 ? (
+                                    section.data.map((p, i) => (
+                                        <motion.div
+                                            key={i}
+                                            whileHover={{ y: -4 }}
+                                            className="bg-white/60 p-6 rounded-[2rem] border border-slate-100 hover:bg-white transition-all shadow-sm hover:shadow-md group"
+                                        >
+                                            <div className="flex items-start gap-4">
+                                                <div className="w-10 h-10 rounded-xl bg-forest/5 flex items-center justify-center text-forest shrink-0 mt-1">
+                                                    <CheckCircle2 className="w-4 h-4" />
+                                                </div>
+                                                <div>
+                                                    <h5 className="font-black text-lg text-forest tracking-tighter mb-1">
+                                                        {humanizeProtocolName(p.name)}
+                                                    </h5>
+                                                    <p className="text-xs font-bold text-slate-500 leading-relaxed">
+                                                        {p.instructions}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))
+                                ) : (
+                                    <div className="bg-slate-50/50 border-2 border-dashed border-slate-100 rounded-[2rem] p-8 text-center">
+                                        <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-relaxed">
+                                            No acute {section.title.toLowerCase()} protocols active. Maintain balanced activity and mindful meals.
+                                        </p>
+                                    </div>
+                                )}
                             </div>
-                        </div>
+                        </section>
                     ))}
-                    {protocols.length === 0 && (
-                        <p className="text-xs font-bold text-slate-400 text-center py-10 italic">No specific daily rituals triggered for your current state.</p>
-                    )}
                 </div>
-            </section>
+            </div>
         </div>
     );
 }

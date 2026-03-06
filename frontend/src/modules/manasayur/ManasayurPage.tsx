@@ -3,6 +3,7 @@ import { BrainCircuit, Wind, CheckCircle2, Clock, Sparkles, Lock } from 'lucide-
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 import { getMindInsight } from './mindLogic';
+import { humanizeProtocolName } from '@/utils/stringUtils';
 
 interface ManasayurPageProps {
     state: VedaState;
@@ -10,12 +11,6 @@ interface ManasayurPageProps {
     protocols: Protocol[];
 }
 
-const humanizeSlug = (slug: string) => {
-    return slug
-        .split('_')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
 
 export default function ManasayurPage({
     state,
@@ -74,7 +69,7 @@ export default function ManasayurPage({
                     {protocols.map((p, i) => (
                         <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] border border-slate-100 flex justify-between items-center group hover:bg-white transition-colors">
                             <div>
-                                <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeSlug(p.name)}</h4>
+                                <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
                                 <p className="text-xs font-bold text-slate-500 max-w-lg">{p.instructions}</p>
                             </div>
                             <Clock className="w-4 h-4 text-slate-300" />
