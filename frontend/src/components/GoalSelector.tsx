@@ -50,7 +50,7 @@ export default function GoalSelector() {
     };
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-3">
             {HEALTH_GOALS.map((goal: HealthGoal) => {
                 const Icon = ICON_MAP[goal.icon] || Leaf;
                 const isActive = selectedGoal === goal.id;
@@ -60,23 +60,23 @@ export default function GoalSelector() {
                 return (
                     <motion.button
                         key={goal.id}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
                         onClick={() => handleSelect(goal.id)}
-                        className={`relative flex flex-col items-start p-6 rounded-[2rem] border transition-all duration-300 text-left h-full ${isActive ? activeColor : "bg-white border-slate-100 hover:border-slate-200"
+                        className={`w-full flex items-center gap-4 p-4 rounded-2xl border transition-all duration-300 text-left ${isActive ? activeColor : "bg-white border-slate-100 hover:border-slate-200"
                             }`}
                     >
-                        <div className={`w-12 h-12 rounded-[1.2rem] flex items-center justify-center mb-4 transition-all duration-500 ${isActive ? "bg-white shadow-sm" : baseColor
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-500 ${isActive ? "bg-white shadow-sm" : baseColor
                             }`}>
-                            <Icon className="w-6 h-6" />
+                            <Icon className="w-5 h-5" />
                         </div>
 
-                        <div className="flex-1">
-                            <h4 className={`font-black text-lg tracking-tight mb-1 ${isActive ? "text-slate-900" : "text-forest"
+                        <div className="flex-1 min-w-0">
+                            <h4 className={`font-black text-sm tracking-tight leading-tight ${isActive ? "text-slate-900" : "text-forest"
                                 }`}>
                                 {goal.label}
                             </h4>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-snug">
+                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest truncate">
                                 {goal.description}
                             </p>
                         </div>
@@ -85,11 +85,11 @@ export default function GoalSelector() {
                             <motion.div
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
-                                className="absolute top-4 right-4"
+                                className="shrink-0"
                             >
-                                <div className={`w-6 h-6 rounded-full flex items-center justify-center ${goal.color === 'forest' ? 'bg-forest text-white' : `bg-${goal.color}-500 text-white`
+                                <div className={`w-5 h-5 rounded-full flex items-center justify-center ${goal.color === 'forest' ? 'bg-forest text-white' : `bg-${goal.color}-500 text-white`
                                     }`}>
-                                    <CheckCircle2 className="w-4 h-4" />
+                                    <CheckCircle2 className="w-3 h-3" />
                                 </div>
                             </motion.div>
                         )}

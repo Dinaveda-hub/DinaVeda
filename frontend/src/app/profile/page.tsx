@@ -7,14 +7,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import GoalSelector from "@/components/GoalSelector";
+import { useSubscription } from "@/hooks/useSubscription";
+import UpgradeModal from "@/components/billing/UpgradeModal";
+import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 
 
 export default function SettingsPage() {
     const [activeModal, setActiveModal] = useState<{ title: string, content: any } | null>(null);
     const [userName, setUserName] = useState<string>("Seeker");
+    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const [notifications, setNotifications] = useState({
+        pulseAudits: true,
+        circadianReminders: false,
+        routineUpdates: true
+    });
+
     const router = useRouter();
+    const { isPremium, userId, getSmartTrigger } = useSubscription();
+    const { state } = usePhysiologyState();
 
     useEffect(() => {
+        // Load notification settings
+        const saved = localStorage.getItem("veda_notifications");
+        if (saved) setNotifications(JSON.parse(saved));
+
         const initProfile = async () => {
             const supabase = createClient();
             const { data: { user } } = await supabase.auth.getUser();
@@ -24,6 +40,11 @@ export default function SettingsPage() {
         };
         initProfile();
     }, []);
+
+    const saveNotifications = (newSettings: any) => {
+        setNotifications(newSettings);
+        localStorage.setItem("veda_notifications", JSON.stringify(newSettings));
+    };
 
     const handleSignOut = async () => {
         const supabase = createClient();
@@ -72,18 +93,53 @@ export default function SettingsPage() {
                 {
                     name: "Subscription Tier",
                     icon: Heart,
-                    detail: "Seeker (Free)",
-                    action: () => setActiveModal({
-                        title: "Subscription",
-                        content: <p className="text-sm font-bold text-slate-600">You are currently on the Seeker tier. Premium Neural insights are coming soon.</p>
-                    })
+                    detail: isPremium ? "Adept (Premium)" : "Seeker (Free)",
+                    action: () => {
+                        if (!isPremium) {
+                            setIsUpgradeModalOpen(true);
+                        } else {
+                            setActiveModal({
+                                title: "Subscription",
+                                content: <p className="text-sm font-bold text-slate-600">You are an Adept. Your premium neural access is active.</p>
+                            });
+                        }
+                    }
                 }
             ]
         },
         {
             title: "System Parameters",
             items: [
-                { name: "Neural Notifications", icon: Bell, detail: "Pulse audit reminders", action: () => setActiveModal({ title: "Notifications", content: <p className="text-sm font-bold text-slate-600">This feature is coming in a future neural update.</p> }) },
+                {
+                    name: "Neural Notifications",
+                    icon: Bell,
+                    detail: notifications.pulseAudits ? "Pulse audit reminders active" : "Notifications disabled",
+                    action: () => setActiveModal({
+                        title: "Neural Notifications",
+                        content: (
+                            <div className="space-y-6">
+                                <NotificationToggle
+                                    label="Pulse Audit Reminders"
+                                    description="Receive alerts for daily biological synchronization."
+                                    enabled={notifications.pulseAudits}
+                                    onChange={(val) => saveNotifications({ ...notifications, pulseAudits: val })}
+                                />
+                                <NotificationToggle
+                                    label="Circadian Sync"
+                                    description="Alerts for optimal sleep and wake windows."
+                                    enabled={notifications.circadianReminders}
+                                    onChange={(val) => saveNotifications({ ...notifications, circadianReminders: val })}
+                                />
+                                <NotificationToggle
+                                    label="Routine Updates"
+                                    description="Notifications for AI-personalized routine recalibrations."
+                                    enabled={notifications.routineUpdates}
+                                    onChange={(val) => saveNotifications({ ...notifications, routineUpdates: val })}
+                                />
+                            </div>
+                        )
+                    })
+                },
             ]
         },
         {
@@ -150,8 +206,26 @@ export default function SettingsPage() {
             ]
         }
     ];
+    const NotificationToggle = ({ label, description, enabled, onChange }: { label: string, description: string, enabled: boolean, onChange: (val: boolean) => void }) => (
+        <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+                <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{description}</p>
+            </div>
+            <button
+                onClick={() => onChange(!enabled)}
+                className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${enabled ? 'bg-forest' : 'bg-slate-200'}`}
+            >
+                <motion.div
+                    animate={{ x: enabled ? 24 : 0 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    className="w-4 h-4 bg-white rounded-full shadow-sm"
+                />
+            </button>
+        </div>
+    );
 
-    const handleClick = (item: any) => {
+    const handleClick = (item: SettingItem) => {
         if (item.action) {
             item.action();
         }
@@ -248,6 +322,15 @@ export default function SettingsPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {userId && (
+                <UpgradeModal
+                    isOpen={isUpgradeModalOpen}
+                    onClose={() => setIsUpgradeModalOpen(false)}
+                    userId={userId}
+                    contextualMessage={getSmartTrigger(state)}
+                />
+            )}
         </div>
     );
 }
