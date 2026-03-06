@@ -6,6 +6,7 @@ import { applyGoalBoost } from './goalEngine';
 
 
 import { Protocol } from './protocolSelectionEngine';
+export type { Protocol };
 
 export interface RecommendationRule {
     condition: string;
@@ -19,7 +20,7 @@ export class RecommendationEngine {
     private allRules: RecommendationRule[];
 
     constructor() {
-        this.allProtocols = protocolsData as Protocol[];
+        this.allProtocols = protocolsData as unknown as Protocol[];
         this.allRules = rulesData as RecommendationRule[];
     }
 
