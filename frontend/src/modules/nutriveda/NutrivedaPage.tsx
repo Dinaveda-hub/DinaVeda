@@ -51,7 +51,7 @@ export default function NutrivedaPage({
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
                         <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Metabolic Pulse</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">
-                            {agniStrength > 75 ? "Teekshna" : agniStrength > 50 ? "Sama Agni" : "Manda"}
+                            {agniStrength > 75 ? "Teekshna" : agniStrength > 50 ? "Balanced" : "Manda"}
                         </p>
                     </div>
                 </div>
