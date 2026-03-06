@@ -10,7 +10,6 @@ import {
 import { useVedaState } from "@/engine/useVedaState";
 import { VikritiEngine } from "@/engine/vikritiEngine";
 import { RecommendationEngine, Protocol } from "@/engine/recommendationEngine";
-import { DriftEngine } from "@/engine/driftEngine";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -34,8 +33,6 @@ export default function Dashboard() {
   const vikritiEngine = new VikritiEngine();
   const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
   const recEngine = new RecommendationEngine();
-  const driftEngine = new DriftEngine();
-  const driftMetrics = isLoaded ? driftEngine.calculateDrift(state) : null;
 
   // Recommendations
   const allRecs = isLoaded && vikriti ? recEngine.getRecommendations(state, vikriti) : [];
@@ -132,7 +129,7 @@ export default function Dashboard() {
           <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors">Ojas Recovery</span>
             <span className="text-2xl font-black text-forest tracking-tighter">
-              {isLoaded ? (state.ojas_score > 75 ? 'High' : state.ojas_score > 50 ? 'Stable' : 'Low') : '--'}
+              {isLoaded ? Math.round(state.ojas_score) : '--'}
             </span>
           </div>
           <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
@@ -151,9 +148,9 @@ export default function Dashboard() {
             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors">Dosha Drift</span>
             <div className="flex items-end gap-2">
               <span className="text-2xl font-black text-forest tracking-tighter">
-                {isLoaded && driftMetrics ? `${Math.round(driftMetrics.total_drift_percentage)}%` : '--'}
+                {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
               </span>
-              {isLoaded && driftMetrics && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">({driftMetrics.primary_drifting_dosha})</span>}
+              {isLoaded && vikriti && <span className="text-[10px] font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
             </div>
           </div>
         </motion.section>

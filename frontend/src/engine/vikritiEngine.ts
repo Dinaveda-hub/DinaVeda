@@ -22,22 +22,25 @@ export class VikritiEngine {
         // Calculate overall imbalance magnitude
         const drift = (Math.abs(vikriti_vata) + Math.abs(vikriti_pitta) + Math.abs(vikriti_kapha)) / 3;
 
-        // Scale to a more readable 0-100% index range (approximate based on max deviations)
-        // If max dev is ~66 (e.g. prakriti 33, state 100), drift max is ~66. 66 * 1.5 = ~100.
-        // The user suggested drift_index = drift * 2, we will use that for higher sensitivity.
+        // Scale to a more readable 0-100% index range
         const drift_index = Math.min(100, drift * 2);
 
-        // Determine dominant out-of-balance dosha
+        // Determine dominant out-of-balance dosha based on absolute drift distance
         let dominant_dosha: 'Vata' | 'Pitta' | 'Kapha' | 'Tridoshic' = 'Tridoshic';
-        const maxDev = Math.max(vikriti_vata, vikriti_pitta, vikriti_kapha);
+
+        const absVata = Math.abs(vikriti_vata);
+        const absPitta = Math.abs(vikriti_pitta);
+        const absKapha = Math.abs(vikriti_kapha);
+
+        const maxDev = Math.max(absVata, absPitta, absKapha);
 
         if (maxDev < 5) {
             dominant_dosha = 'Tridoshic'; // Indicates relative balance
-        } else if (maxDev === vikriti_vata) {
+        } else if (maxDev === absVata) {
             dominant_dosha = 'Vata';
-        } else if (maxDev === vikriti_pitta) {
+        } else if (maxDev === absPitta) {
             dominant_dosha = 'Pitta';
-        } else if (maxDev === vikriti_kapha) {
+        } else if (maxDev === absKapha) {
             dominant_dosha = 'Kapha';
         }
 
