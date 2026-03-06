@@ -570,8 +570,8 @@ export default function AyuOneHub() {
                                                                 className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                                                             >
                                                                 <div className={`max-w-[85%] p-4 text-sm font-bold leading-relaxed shadow-sm border ${msg.role === "user"
-                                                                        ? "bg-forest text-white rounded-2xl rounded-tr-sm border-forest/20 shadow-lg shadow-forest/10"
-                                                                        : "bg-white text-slate-900 rounded-2xl border-slate-200 rounded-tl-sm shadow-md"
+                                                                    ? "bg-forest text-white rounded-2xl rounded-tr-sm border-forest/20 shadow-lg shadow-forest/10"
+                                                                    : "bg-white text-slate-900 rounded-2xl border-slate-200 rounded-tl-sm shadow-md"
                                                                     }`}>
                                                                     {msg.text}
                                                                 </div>
@@ -611,11 +611,12 @@ export default function AyuOneHub() {
                                             </>
                                         )}
                                     </AnimatePresence>
-                                </>
+                                </div>
+                            </>
                         )}
-                            </div>
+                    </div>
                 )}
-                    </main>
+            </main>
         </div>
     );
 }
