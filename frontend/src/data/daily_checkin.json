@@ -1,0 +1,540 @@
+{
+    "morning": [
+        {
+            "id": "sleep_quality",
+            "question": "How was your sleep last night?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Deep and refreshing",
+                    "signal": "restful_sleep",
+                    "effects": {
+                        "ojas_recovery": 3,
+                        "sleep_debt": -3,
+                        "circadian_alignment": 2
+                    }
+                },
+                {
+                    "answer": "Okay but slightly disturbed",
+                    "signal": "mild_sleep_disturbance",
+                    "effects": {
+                        "sleep_debt": 1,
+                        "vata_state": 2
+                    }
+                },
+                {
+                    "answer": "Frequent awakenings",
+                    "signal": "disturbed_sleep",
+                    "effects": {
+                        "vata_state": 5,
+                        "sleep_debt": 3,
+                        "ojas_recovery": -1
+                    }
+                },
+                {
+                    "answer": "Very poor sleep",
+                    "signal": "poor_sleep",
+                    "effects": {
+                        "vata_state": 7,
+                        "sleep_debt": 5,
+                        "ojas_recovery": -3,
+                        "circadian_alignment": -3
+                    }
+                }
+            ]
+        },
+        {
+            "id": "wake_time",
+            "question": "When did you wake up?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Before sunrise",
+                    "signal": "early_wake",
+                    "effects": {
+                        "circadian_alignment": 3,
+                        "kapha_state": -1
+                    }
+                },
+                {
+                    "answer": "Around sunrise",
+                    "signal": "aligned_wake",
+                    "effects": {
+                        "circadian_alignment": 2
+                    }
+                },
+                {
+                    "answer": "Late morning",
+                    "signal": "late_wake",
+                    "effects": {
+                        "kapha_state": 3,
+                        "circadian_alignment": -2
+                    }
+                },
+                {
+                    "answer": "Very late",
+                    "signal": "oversleep",
+                    "effects": {
+                        "kapha_state": 5,
+                        "circadian_alignment": -3,
+                        "agni_strength": -1
+                    }
+                }
+            ]
+        },
+        {
+            "id": "tongue_coating",
+            "question": "How does your tongue look?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Clean pink",
+                    "signal": "clean_tongue",
+                    "effects": {
+                        "ama_risk": -2,
+                        "agni_strength": 1
+                    }
+                },
+                {
+                    "answer": "Slight coating",
+                    "signal": "mild_coating",
+                    "effects": {
+                        "ama_risk": 2
+                    }
+                },
+                {
+                    "answer": "Thick white coating",
+                    "signal": "heavy_coating",
+                    "effects": {
+                        "ama_risk": 5,
+                        "agni_strength": -2
+                    }
+                },
+                {
+                    "answer": "Yellow coating",
+                    "signal": "pitta_coating",
+                    "effects": {
+                        "pitta_state": 3,
+                        "ama_risk": 3
+                    }
+                }
+            ]
+        },
+        {
+            "id": "bowel_movement",
+            "question": "How was your bowel movement?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Regular and comfortable",
+                    "signal": "healthy_bowel",
+                    "effects": {
+                        "bowel_quality": 3,
+                        "digestion_comfort": 2
+                    }
+                },
+                {
+                    "answer": "Hard or dry",
+                    "signal": "constipation",
+                    "effects": {
+                        "vata_state": 4,
+                        "bowel_quality": -3
+                    }
+                },
+                {
+                    "answer": "Loose stool",
+                    "signal": "loose_stool",
+                    "effects": {
+                        "pitta_state": 3,
+                        "bowel_quality": -2
+                    }
+                },
+                {
+                    "answer": "Skipped bowel movement",
+                    "signal": "no_bowel",
+                    "effects": {
+                        "ama_risk": 3,
+                        "bowel_quality": -3
+                    }
+                }
+            ]
+        },
+        {
+            "id": "appetite_level",
+            "question": "How is your appetite this morning?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Strong hunger",
+                    "signal": "strong_agni",
+                    "effects": {
+                        "agni_strength": 3,
+                        "appetite_quality": 3
+                    }
+                },
+                {
+                    "answer": "Normal hunger",
+                    "signal": "normal_appetite",
+                    "effects": {
+                        "agni_strength": 1
+                    }
+                },
+                {
+                    "answer": "Low appetite",
+                    "signal": "weak_agni",
+                    "effects": {
+                        "agni_strength": -3,
+                        "ama_risk": 2
+                    }
+                },
+                {
+                    "answer": "No appetite",
+                    "signal": "agni_depressed",
+                    "effects": {
+                        "agni_strength": -5,
+                        "ama_risk": 4
+                    }
+                }
+            ]
+        },
+        {
+            "id": "energy_level",
+            "question": "How is your energy level?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "High energy",
+                    "signal": "high_energy",
+                    "effects": {
+                        "ojas_recovery": 2,
+                        "mental_clarity": 2
+                    }
+                },
+                {
+                    "answer": "Moderate energy",
+                    "signal": "normal_energy",
+                    "effects": {}
+                },
+                {
+                    "answer": "Low energy",
+                    "signal": "fatigue",
+                    "effects": {
+                        "ojas_recovery": -2,
+                        "vata_state": 2
+                    }
+                },
+                {
+                    "answer": "Very tired",
+                    "signal": "exhaustion",
+                    "effects": {
+                        "ojas_recovery": -4,
+                        "stress_load": 2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "mental_state",
+            "question": "How is your mental state?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Calm and clear",
+                    "signal": "mental_clarity",
+                    "effects": {
+                        "stress_load": -2,
+                        "mental_clarity": 3
+                    }
+                },
+                {
+                    "answer": "Normal",
+                    "signal": "neutral_mood",
+                    "effects": {}
+                },
+                {
+                    "answer": "Irritable",
+                    "signal": "irritability",
+                    "effects": {
+                        "pitta_state": 3,
+                        "stress_load": 2
+                    }
+                },
+                {
+                    "answer": "Anxious",
+                    "signal": "anxiety",
+                    "effects": {
+                        "vata_state": 4,
+                        "stress_load": 3
+                    }
+                }
+            ]
+        }
+    ],
+    "evening": [
+        {
+            "id": "meal_timing",
+            "question": "How were your meals today?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Regular timing",
+                    "signal": "regular_meals",
+                    "effects": {
+                        "meal_timing": 2,
+                        "agni_stability": 2
+                    }
+                },
+                {
+                    "answer": "Slightly irregular",
+                    "signal": "irregular_meals",
+                    "effects": {
+                        "vata_state": 2
+                    }
+                },
+                {
+                    "answer": "Late dinner",
+                    "signal": "late_dinner",
+                    "effects": {
+                        "kapha_state": 3,
+                        "circadian_alignment": -2,
+                        "agni_stability": -2
+                    }
+                },
+                {
+                    "answer": "Skipped meals",
+                    "signal": "skipped_meals",
+                    "effects": {
+                        "vata_state": 3,
+                        "agni_strength": -2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "digestion",
+            "question": "How did you feel after meals?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Light and comfortable",
+                    "signal": "good_digestion",
+                    "effects": {
+                        "digestion_comfort": 2
+                    }
+                },
+                {
+                    "answer": "Mild heaviness",
+                    "signal": "mild_heaviness",
+                    "effects": {
+                        "kapha_state": 2,
+                        "digestion_comfort": -1
+                    }
+                },
+                {
+                    "answer": "Bloating",
+                    "signal": "bloating",
+                    "effects": {
+                        "bloating_level": 3,
+                        "agni_strength": -2
+                    }
+                },
+                {
+                    "answer": "Burning sensation",
+                    "signal": "acid_reflux",
+                    "effects": {
+                        "pitta_state": 3,
+                        "digestion_comfort": -2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "physical_activity",
+            "question": "How active were you today?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Active and exercised",
+                    "signal": "high_activity",
+                    "effects": {
+                        "movement_level": 4,
+                        "kapha_state": -2
+                    }
+                },
+                {
+                    "answer": "Moderately active",
+                    "signal": "moderate_activity",
+                    "effects": {
+                        "movement_level": 2
+                    }
+                },
+                {
+                    "answer": "Mostly sedentary",
+                    "signal": "sedentary_day",
+                    "effects": {
+                        "kapha_state": 3,
+                        "movement_level": -2
+                    }
+                },
+                {
+                    "answer": "No movement",
+                    "signal": "inactive_day",
+                    "effects": {
+                        "kapha_state": 4,
+                        "movement_level": -3
+                    }
+                }
+            ]
+        },
+        {
+            "id": "hydration",
+            "question": "How much water did you drink today?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Well hydrated",
+                    "signal": "good_hydration",
+                    "effects": {
+                        "hydration_status": 3
+                    }
+                },
+                {
+                    "answer": "Moderate",
+                    "signal": "moderate_hydration",
+                    "effects": {
+                        "hydration_status": 1
+                    }
+                },
+                {
+                    "answer": "Low hydration",
+                    "signal": "dehydration",
+                    "effects": {
+                        "vata_state": 2,
+                        "hydration_status": -2
+                    }
+                },
+                {
+                    "answer": "Very little water",
+                    "signal": "severe_dehydration",
+                    "effects": {
+                        "vata_state": 4,
+                        "hydration_status": -4
+                    }
+                }
+            ]
+        },
+        {
+            "id": "screen_exposure",
+            "question": "How much screen time in the evening?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Minimal",
+                    "signal": "low_screen",
+                    "effects": {
+                        "screen_exposure": -1
+                    }
+                },
+                {
+                    "answer": "Moderate",
+                    "signal": "moderate_screen",
+                    "effects": {
+                        "screen_exposure": 1
+                    }
+                },
+                {
+                    "answer": "High screen time",
+                    "signal": "high_screen",
+                    "effects": {
+                        "screen_exposure": 3,
+                        "sleep_debt": 1
+                    }
+                },
+                {
+                    "answer": "Late night screen use",
+                    "signal": "late_screen",
+                    "effects": {
+                        "screen_exposure": 4,
+                        "circadian_alignment": -3,
+                        "sleep_debt": 2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "stress",
+            "question": "How stressful was your day?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Very calm",
+                    "signal": "low_stress",
+                    "effects": {
+                        "stress_load": -2
+                    }
+                },
+                {
+                    "answer": "Normal day",
+                    "signal": "normal_stress",
+                    "effects": {}
+                },
+                {
+                    "answer": "Stressful",
+                    "signal": "high_stress",
+                    "effects": {
+                        "vata_state": 3,
+                        "stress_load": 3
+                    }
+                },
+                {
+                    "answer": "Very stressful",
+                    "signal": "extreme_stress",
+                    "effects": {
+                        "vata_state": 5,
+                        "stress_load": 5,
+                        "ojas_recovery": -2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "evening_wind_down",
+            "question": "How did you wind down before sleep?",
+            "time": "evening",
+            "options": [
+                {
+                    "answer": "Relaxing routine",
+                    "signal": "good_wind_down",
+                    "effects": {
+                        "circadian_alignment": 3,
+                        "stress_load": -2
+                    }
+                },
+                {
+                    "answer": "Some relaxation",
+                    "signal": "moderate_wind_down",
+                    "effects": {
+                        "circadian_alignment": 1
+                    }
+                },
+                {
+                    "answer": "No wind down",
+                    "signal": "no_wind_down",
+                    "effects": {
+                        "circadian_alignment": -2,
+                        "stress_load": 2
+                    }
+                },
+                {
+                    "answer": "Stimulating activities",
+                    "signal": "late_stimulation",
+                    "effects": {
+                        "vata_state": 3,
+                        "sleep_debt": 2,
+                        "circadian_alignment": -3
+                    }
+                }
+            ]
+        }
+    ]
+}

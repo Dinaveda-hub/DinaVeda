@@ -8,6 +8,20 @@ import { StateUpdater } from "@/engine/stateUpdater";
 
 import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
 import prakritiQuizData from "@/data/prakriti_quiz.json";
+import dailyCheckinData from "@/data/daily_checkin.json";
+
+interface CheckinOption {
+    answer: string;
+    signal: string;
+    effects: Partial<Record<string, number>>;
+}
+
+interface CheckinQuestion {
+    id: string;
+    question: string;
+    time: string;
+    options: CheckinOption[];
+}
 
 interface Option {
     label: string;
@@ -43,6 +57,12 @@ export default function AyuOneHub() {
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    // Daily Check-in State
+    const [activeCheckinType, setActiveCheckinType] = useState<"morning" | "evening" | null>(null);
+    const [checkinStep, setCheckinStep] = useState(0);
+    const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
+
     const { state, updateState } = useVedaState();
     const updater = new StateUpdater();
 
@@ -130,9 +150,74 @@ export default function AyuOneHub() {
     const completeOnboarding = () => {
         setIsPrakritiSet(true);
         setMessages([
-            { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${constitution.type}. How was your sleep last night? Or what was your dinner like?` }
+            { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${constitution?.type || "your nature"}. How was your sleep last night? Or what was your dinner like?` }
         ]);
     };
+
+    // --- DAILY CHECK-IN LOGIC ---
+    const activeQuestions = activeCheckinType ? dailyCheckinData[activeCheckinType] : [];
+
+    const handleCheckinOption = (option: CheckinOption) => {
+        setIsTransitioning(true);
+        const newEffectsList = [...accumulatedEffects, option.effects];
+        setAccumulatedEffects(newEffectsList);
+
+        setTimeout(() => {
+            const nextStep = checkinStep + 1;
+            if (nextStep < activeQuestions.length) {
+                setCheckinStep(nextStep);
+            } else {
+                finishCheckin(newEffectsList);
+            }
+            setIsTransitioning(false);
+        }, 400);
+    };
+
+    const finishCheckin = (effectsList: Partial<Record<string, number>>[]) => {
+        // Flatten and aggregate all 7 effects payloads deterministically
+        const aggregatedSignals: Record<string, number> = {};
+        for (const eff of effectsList) {
+            for (const [key, val] of Object.entries(eff)) {
+                if (val !== undefined) {
+                    aggregatedSignals[key] = (aggregatedSignals[key] || 0) + val;
+                }
+            }
+        }
+
+        // Apply via StateUpdater (which expects an array of simple effect records or known strings)
+        // Since updater.applySignals primarily was looking up strings in signals.json,
+        // and our Check-in strictly defines the `effects` object payloads, we can update state directly here
+        // or format them. We'll simulate applying these direct numeric adjustments before clamping.
+
+        let nextState = { ...state };
+        for (const [key, value] of Object.entries(aggregatedSignals)) {
+            if (typeof (nextState as any)[key] === 'number') {
+                (nextState as any)[key] += value;
+            }
+        }
+
+        // Pass through clamp cascade bounds using the engine
+        nextState = (updater as any).applyCascades(nextState); // Cast to any because applyCascades is private, but we need to run it after bulk linear injection. Or just apply bulk linearly and let the hook clamp.
+        for (const key of Object.keys(nextState)) {
+            if (typeof (nextState as any)[key] === 'number') {
+                (nextState as any)[key] = Math.max(0, Math.min(100, (nextState as any)[key]));
+            }
+        }
+
+        updateState(nextState);
+
+        // Reset check-in UI and post confirmation chat
+        const typeLabel = activeCheckinType === "morning" ? "Morning" : "Evening";
+        setActiveCheckinType(null);
+        setCheckinStep(0);
+        setAccumulatedEffects([]);
+        setMessages(prev => [
+            ...prev,
+            { role: "ai", text: `✅ ${typeLabel} Check-in Complete. I have dynamically synced these signals to your thermodynamic model. Ojas, Digestion, and Circadian reserves have been updated.` }
+        ]);
+        scrollToBottom();
+    };
+
 
     // --- CHAT LOGIC ---
     const handleSend = async () => {
@@ -305,63 +390,131 @@ export default function AyuOneHub() {
                     </div>
                 ) : (
                     <div className="w-full max-w-3xl flex flex-col h-full bg-white/50 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white flex-1 mb-8 overflow-hidden">
-                        {/* Chat Messages */}
-                        <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-6 custom-scrollbar">
-                            <AnimatePresence initial={false}>
-                                {messages.map((msg, idx) => (
+
+                        {activeCheckinType ? (
+                            <div className="flex-1 flex flex-col p-6 md:p-12 items-center justify-center overflow-y-auto w-full custom-scrollbar relative">
+                                {/* Close Button */}
+                                <button
+                                    onClick={() => { setActiveCheckinType(null); setCheckinStep(0); setAccumulatedEffects([]); }}
+                                    className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-all font-bold shadow-sm"
+                                >
+                                    ✕
+                                </button>
+
+                                <div className="absolute top-6 left-6 h-1.5 bg-forest/5 w-[calc(100%-80px)] rounded-full overflow-hidden">
                                     <motion.div
-                                        key={idx}
-                                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        className={`flex gap-4 ${msg.role === "user" ? "justify-end flex-row-reverse" : "justify-start"}`}
-                                    >
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm ${msg.role === "user" ? "bg-slate-100 text-slate-400" : "bg-forest/10"}`}>
-                                            {msg.role === "ai" ? <Leaf className="w-5 h-5 text-forest" /> : <User className="w-5 h-5" />}
-                                        </div>
-                                        <div className={`max-w-[80%] p-5 text-sm md:text-base font-bold leading-relaxed break-words whitespace-pre-wrap shadow-sm ${msg.role === "user"
-                                            ? "bg-slate-800 text-white rounded-[1.5rem] rounded-tr-sm"
-                                            : "bg-white text-slate-700 rounded-[1.5rem] border border-slate-100 rounded-tl-sm"
-                                            }`}>
-                                            {msg.text}
-                                        </div>
-                                    </motion.div>
-                                ))}
-                                {isTyping && (
-                                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-4 justify-start">
-                                        <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
-                                            <Leaf className="w-5 h-5 text-forest" />
-                                        </div>
-                                        <div className="bg-white p-5 rounded-[1.5rem] rounded-tl-sm border border-slate-100 shadow-sm flex items-center gap-1.5">
-                                            <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                                            <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                                            <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce"></div>
-                                        </div>
-                                    </motion.div>
-                                )}
-                                <div ref={messagesEndRef} />
-                            </AnimatePresence>
-                        </div>
-                        {/* Chat Input */}
-                        <div className="p-4 md:p-6 bg-white/80 border-t border-slate-100 flex gap-4 items-center">
-                            <div className="flex-1 bg-white rounded-[2rem] border border-slate-200 shadow-inner flex items-center px-6 py-3 md:py-4 focus-within:border-forest/50 focus-within:ring-4 ring-forest/10 transition-all">
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                    placeholder="Log your lifestyle signals..."
-                                    className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400"
-                                    disabled={isTyping}
-                                />
+                                        className="h-full bg-forest"
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${(checkinStep / activeQuestions.length) * 100}%` }}
+                                        transition={{ duration: 0.5 }}
+                                    />
+                                </div>
+                                <div className="mt-8 absolute top-8 left-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
+                                    Question {checkinStep + 1} of {activeQuestions.length}
+                                </div>
+
+                                <motion.div
+                                    key={checkinStep}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="w-full max-w-lg text-center mt-12"
+                                >
+                                    <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tighter text-balance mb-8">
+                                        {activeQuestions[checkinStep].question}
+                                    </h2>
+
+                                    <div className={`grid grid-cols-1 gap-3 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+                                        {activeQuestions[checkinStep].options.map((opt, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => handleCheckinOption(opt)}
+                                                className="w-full text-left p-6 rounded-[1.5rem] border-2 border-slate-100 bg-white hover:border-forest hover:bg-forest/5 transition-all text-slate-700 font-bold hover:text-forest group flex flex-col"
+                                            >
+                                                <span className="text-sm md:text-base leading-snug">{opt.answer}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </motion.div>
                             </div>
-                            <button
-                                onClick={handleSend}
-                                disabled={!input.trim() || isTyping}
-                                className="w-12 h-12 md:w-14 md:h-14 bg-forest text-white rounded-full flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all shadow-xl shadow-forest/20 shrink-0"
-                            >
-                                <Send className="w-5 h-5 md:w-6 md:h-6 -ml-1" />
-                            </button>
-                        </div>
+                        ) : (
+                            <>
+                                {/* Action Chips */}
+                                <div className="p-4 border-b border-white/50 bg-white/30 flex gap-3 overflow-x-auto custom-scrollbar items-center shrink-0">
+                                    <button
+                                        onClick={() => setActiveCheckinType("morning")}
+                                        className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-forest/5 border border-slate-100 shadow-sm whitespace-nowrap transition-all"
+                                    >
+                                        <CloudSun className="w-4 h-4 text-amber-500" />
+                                        Morning Check-In
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveCheckinType("evening")}
+                                        className="flex items-center gap-2 bg-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-forest/5 border border-slate-100 shadow-sm whitespace-nowrap transition-all"
+                                    >
+                                        <Zap className="w-4 h-4 text-indigo-500" />
+                                        Evening Check-In
+                                    </button>
+                                </div>
+
+                                {/* Chat Messages */}
+                                <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-6 custom-scrollbar">
+                                    <AnimatePresence initial={false}>
+                                        {messages.map((msg, idx) => (
+                                            <motion.div
+                                                key={idx}
+                                                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                className={`flex gap-4 ${msg.role === "user" ? "justify-end flex-row-reverse" : "justify-start"}`}
+                                            >
+                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm ${msg.role === "user" ? "bg-slate-100 text-slate-400" : "bg-forest/10"}`}>
+                                                    {msg.role === "ai" ? <Leaf className="w-5 h-5 text-forest" /> : <User className="w-5 h-5" />}
+                                                </div>
+                                                <div className={`max-w-[80%] p-5 text-sm md:text-base font-bold leading-relaxed break-words whitespace-pre-wrap shadow-sm ${msg.role === "user"
+                                                    ? "bg-slate-800 text-white rounded-[1.5rem] rounded-tr-sm"
+                                                    : "bg-white text-slate-700 rounded-[1.5rem] border border-slate-100 rounded-tl-sm"
+                                                    }`}>
+                                                    {msg.text}
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                        {isTyping && (
+                                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-4 justify-start">
+                                                <div className="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 shadow-sm">
+                                                    <Leaf className="w-5 h-5 text-forest" />
+                                                </div>
+                                                <div className="bg-white p-5 rounded-[1.5rem] rounded-tl-sm border border-slate-100 shadow-sm flex items-center gap-1.5">
+                                                    <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                                    <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                                    <div className="w-2 h-2 bg-forest/40 rounded-full animate-bounce"></div>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                        <div ref={messagesEndRef} />
+                                    </AnimatePresence>
+                                </div>
+                                {/* Chat Input */}
+                                <div className="p-4 md:p-6 bg-white/80 border-t border-slate-100 flex gap-4 items-center">
+                                    <div className="flex-1 bg-white rounded-[2rem] border border-slate-200 shadow-inner flex items-center px-6 py-3 md:py-4 focus-within:border-forest/50 focus-within:ring-4 ring-forest/10 transition-all">
+                                        <input
+                                            type="text"
+                                            value={input}
+                                            onChange={(e) => setInput(e.target.value)}
+                                            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                                            placeholder="Log your lifestyle signals..."
+                                            className="w-full bg-transparent outline-none text-slate-700 font-bold placeholder:text-slate-400"
+                                            disabled={isTyping}
+                                        />
+                                    </div>
+                                    <button
+                                        onClick={handleSend}
+                                        disabled={!input.trim() || isTyping}
+                                        className="w-12 h-12 md:w-14 md:h-14 bg-forest text-white rounded-full flex items-center justify-center hover:bg-emerald-800 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all shadow-xl shadow-forest/20 shrink-0"
+                                    >
+                                        <Send className="w-5 h-5 md:w-6 md:h-6 -ml-1" />
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
                 )}
             </main>
