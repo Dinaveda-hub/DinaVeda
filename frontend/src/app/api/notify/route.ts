@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const { userId, message } = await request.json();
-        const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || "16f1bbd1-94a9-4eec-842c-b2bf3004ae22";
+        const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
         const ONESIGNAL_REST_API_KEY = process.env.ONESIGNAL_REST_API_KEY;
 
         if (!ONESIGNAL_REST_API_KEY) {
