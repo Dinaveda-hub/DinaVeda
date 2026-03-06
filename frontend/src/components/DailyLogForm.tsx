@@ -96,7 +96,8 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     agni: form.agniStatus,
                     ama: form.amaStatus,
                     movement: form.movement,
-                    routines: form.routines
+                    routines: form.routines,
+                    detailed_analysis: data.ai_response || data.analysis // Save the AI's wisdom
                 });
                 if (dbError) console.error("Database Sync Error:", dbError);
             }

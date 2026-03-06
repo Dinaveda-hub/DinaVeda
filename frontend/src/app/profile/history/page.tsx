@@ -171,7 +171,7 @@ export default function HistoryPage() {
                                                         <div className="text-center">
                                                             <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-1">Agni</span>
                                                             <span className={`text-2xl font-black capitalize ${log.agni === 'high' ? 'text-amber-600' :
-                                                                    log.agni === 'low' ? 'text-blue-600' : 'text-emerald-600'
+                                                                log.agni === 'low' ? 'text-blue-600' : 'text-emerald-600'
                                                                 }`}>{log.agni}</span>
                                                         </div>
                                                     </div>
@@ -186,9 +186,18 @@ export default function HistoryPage() {
                                                 </div>
                                             </div>
 
-                                            {/* Details Expandable (simplified for now) */}
+                                            {/* Details Expandable */}
+                                            {log.detailed_analysis && (
+                                                <div className="mt-8 pt-8 border-t border-forest/5">
+                                                    <p className="text-[10px] font-black text-forest uppercase tracking-widest mb-4 opacity-50">Veda Insights</p>
+                                                    <p className="text-sm font-bold text-slate-600 leading-relaxed italic">
+                                                        "{log.detailed_analysis}"
+                                                    </p>
+                                                </div>
+                                            )}
+
                                             {log.routines && log.routines.length > 0 && (
-                                                <div className="mt-8 pt-8 border-t border-forest/5 flex flex-wrap gap-3">
+                                                <div className={`mt-8 pt-8 border-t border-forest/5 flex flex-wrap gap-3 ${log.detailed_analysis ? 'border-t-0 pt-4' : ''}`}>
                                                     {log.routines.map((r: string) => (
                                                         <span key={r} className="inline-flex items-center gap-2 px-4 py-2 bg-white/40 rounded-full text-[9px] font-black text-forest uppercase tracking-widest border border-white/60">
                                                             <CheckCircle2 className="w-3.5 h-3.5" />
