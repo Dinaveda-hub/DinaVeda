@@ -28,7 +28,7 @@ export default function ModulesPage() {
                 </header>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
-                    {modules.slice(0, 6).map((mod) => (
+                    {modules.map((mod) => (
                         <Link
                             href={`/modules/${mod.id}`}
                             key={mod.id}

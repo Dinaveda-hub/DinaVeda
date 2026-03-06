@@ -12,6 +12,7 @@ import { createBrowserClient } from "@supabase/ssr";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
 import { selectProtocols } from "@/engine/protocolSelectionEngine";
+import ModuleHistory from "@/components/ModuleHistory";
 
 // Domain Module Pages
 import NutrivedaPage from "@/modules/nutriveda/NutrivedaPage";
@@ -19,6 +20,8 @@ import AyufitPage from "@/modules/ayufit/AyufitPage";
 import ManasayurPage from "@/modules/manasayur/ManasayurPage";
 import SomasleepPage from "@/modules/somasleep/SomasleepPage";
 import SattvalivingPage from "@/modules/sattvaliving/SattvalivingPage";
+import DinavedaPage from "@/modules/dinaveda/DinavedaPage";
+import RutuvedaPage from "@/modules/rutuveda/RutuvedaPage";
 
 // ─────────────────────────────────────────────────────────
 // Module Data Registry
@@ -161,8 +164,30 @@ function RoutineText({ content }: { content: string }) {
 export default function ModuleDetail({ params }: { params: any }) {
     const [slug, setSlug] = useState<string>("");
 
-    // Engine State
+    // Engine & Data State
     const { state, isLoaded } = usePhysiologyState();
+    const [logs, setLogs] = useState<any[]>([]);
+
+    const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    async function fetchLogs() {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+            const { data } = await supabase
+                .from("pulse_logs")
+                .select("*")
+                .eq("user_id", session.user.id)
+                .order("created_at", { ascending: false });
+            if (data) setLogs(data);
+        }
+    }
+
+    useEffect(() => {
+        fetchLogs();
+    }, [isLoaded]);
 
     // ── Resolve slug from async params ──────────────────
     useEffect(() => {
@@ -225,14 +250,27 @@ export default function ModuleDetail({ params }: { params: any }) {
                         state={state} vikriti={vikriti} protocols={moduleRecs}
                     />
                 )}
+                {slug === 'dinaveda' && (
+                    <DinavedaPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                    />
+                )}
+                {slug === 'rutuveda' && (
+                    <RutuvedaPage
+                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                    />
+                )}
                 {slug === 'sattvaliving' && (
                     <SattvalivingPage
                         state={state} vikriti={vikriti} protocols={moduleRecs}
                     />
                 )}
 
+                {/* Module-Specific History */}
+                <ModuleHistory moduleSlug={slug} logs={logs} />
+
                 {/* Default/Fallback for non-personalized modules */}
-                {!['nutriveda', 'ayufit', 'manasayur', 'somasleep', 'sattvaliving'].includes(slug) && (
+                {!['nutriveda', 'ayufit', 'manasayur', 'somasleep', 'sattvaliving', 'dinaveda', 'rutuveda'].includes(slug) && (
                     <section className="glass rounded-[3rem] p-10 md:p-12 shadow-premium border border-white">
                         <p className="text-xl font-bold text-slate-700">Detailed insights for this module are coming soon.</p>
                         <div className="mt-8 space-y-4">
