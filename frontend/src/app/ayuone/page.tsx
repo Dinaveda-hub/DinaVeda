@@ -11,7 +11,6 @@ import { registerUserWithOneSignal } from "@/services/notificationService";
 import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
 import prakritiQuizData from "@/data/prakriti_questions.json";
 import dailyCheckinData from "@/data/daily_checkin.json";
-import DailyLogForm from "@/components/DailyLogForm";
 
 interface CheckinOption {
     answer: string;
@@ -65,7 +64,6 @@ export default function AyuOneHub() {
     const [activeCheckinType, setActiveCheckinType] = useState<"morning" | "evening" | null>(null);
     const [checkinStep, setCheckinStep] = useState(0);
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
-    const [showDetailedLog, setShowDetailedLog] = useState(false);
     const [completedLogs, setCompletedLogs] = useState<string[]>([]);
 
     const { state, updateState } = usePhysiologyState();
@@ -255,7 +253,7 @@ export default function AyuOneHub() {
     if (!mounted) return null;
 
     return (
-        <div className="flex-1 flex flex-col bg-background relative overflow-hidden">
+        <div className="h-[100dvh] max-h-[100dvh] w-full flex flex-col bg-background relative overflow-hidden fixed inset-0 z-50">
             {/* Ambient background glows */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest/10 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
@@ -457,52 +455,11 @@ export default function AyuOneHub() {
                                                     {chip.label}
                                                 </motion.button>
                                             ))}
-                                            <motion.button
-                                                initial={{ opacity: 0, scale: 0.9 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ delay: 0.2 }}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => setShowDetailedLog(true)}
-                                                className="flex items-center gap-3 bg-slate-900 text-white px-5 py-3 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-black border border-slate-700 shadow-xl whitespace-nowrap transition-all"
-                                            >
-                                                <BrainCircuit className="w-4 h-4 text-emerald-400" />
-                                                Deep Audit
-                                            </motion.button>
                                         </motion.div>
                                     </div>
 
                                     <AnimatePresence>
-                                        {showDetailedLog && (
-                                            <motion.div
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md p-4 md:p-10 flex items-center justify-center"
-                                            >
-                                                <motion.div
-                                                    initial={{ scale: 0.9, y: 20 }}
-                                                    animate={{ scale: 1, y: 0 }}
-                                                    exit={{ scale: 0.9, y: 20 }}
-                                                    className="bg-white rounded-[2rem] md:rounded-[3rem] w-full max-w-2xl h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl relative p-5 md:p-12"
-                                                >
-                                                    <button
-                                                        onClick={() => setShowDetailedLog(false)}
-                                                        className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors z-10"
-                                                    >
-                                                        <Zap className="w-4 h-4 rotate-45" />
-                                                    </button>
-                                                    <DailyLogForm
-                                                        onResult={(data) => {
-                                                            setShowDetailedLog(false);
-                                                            setMessages(prev => [...prev, { role: "ai", text: "✅ Detailed Audit Complete. Your physiological pulse has been updated with these deep signals." }]);
-                                                        }}
-                                                        isLoading={isTyping}
-                                                        setIsLoading={setIsTyping}
-                                                    />
-                                                </motion.div>
-                                            </motion.div>
-                                        )}
+                                        {/* Detailed log overlay removed per user request */}
                                     </AnimatePresence>
 
                                     {/* Chat Messages Area */}
