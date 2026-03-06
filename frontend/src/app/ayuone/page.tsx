@@ -242,19 +242,19 @@ export default function AyuOneHub() {
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
 
             {/* Header */}
-            <header className="px-6 py-6 md:px-12 md:pt-20 md:pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
+            <header className="px-6 pt-12 pb-6 md:px-12 md:pt-20 md:pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
                 <div className="relative">
                     <div className="flex items-center gap-3 mb-2">
                         <Sparkles className="w-5 h-5 text-forest animate-pulse" />
                         <span className="text-xs font-black text-forest uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
                     </div>
-                    <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter drop-shadow-sm">
+                    <h1 className="text-4xl md:text-8xl font-black text-forest tracking-tighter drop-shadow-sm">
                         {!isPrakritiSet ? "Protocol" : "Dialogue"}
                     </h1>
                 </div>
             </header>
 
-            <main className="flex-1 flex flex-col items-center overflow-hidden px-3 md:px-10 pb-4 md:pb-12 h-full">
+            <main className="flex-1 flex flex-col items-center overflow-hidden px-3 md:px-10 pb-4 md:pb-12 w-full">
                 {!isPrakritiSet ? (
                     <div className="w-full max-w-xl space-y-8 py-8 overflow-y-auto custom-scrollbar">
                         {!constitution && currentStep < quizFlow.length && (

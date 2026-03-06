@@ -44,7 +44,7 @@ export default function RootLayout({
         <NotificationMonitor />
         <div className="flex flex-col md:flex-row min-h-screen">
           <GlobalNav />
-          <main className="flex-1 pb-24 md:pb-0 overflow-x-hidden flex flex-col min-h-screen md:min-h-0">
+          <main className="flex-1 pb-24 md:pb-0 overflow-hidden flex flex-col min-h-screen md:h-screen">
             {children}
           </main>
         </div>
