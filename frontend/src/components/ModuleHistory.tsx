@@ -1,5 +1,7 @@
-import React from 'react';
-import { Clock, History, CheckCircle2, Calendar } from 'lucide-react';
+"use client";
+
+import React, { useState } from 'react';
+import { Clock, History, CheckCircle2, Calendar, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ModuleHistoryProps {
@@ -8,64 +10,117 @@ interface ModuleHistoryProps {
 }
 
 export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) {
-    // Filter logs that have routines belonging to this module
-    // Note: In the current schema, 'routines' is an array of strings like 'water_therapy'
-    // We need to match these against protocols to see if they belong to this module.
+    const [expandedLog, setExpandedLog] = useState<string | null>(null);
 
     const moduleLogs = logs.filter(log => {
         if (!log.routines) return false;
-        // This is a simplification; in a real scenario we'd check against the protocol registry module field
-        // For now, we'll show logs that have any activity if we are in a module
         return true;
-    }).slice(0, 5); // Show last 5 interactions
+    }).slice(0, 10); // Show last 10 interactions
 
     return (
-        <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
-            <div className="flex items-center justify-between mb-8">
+        <section className="glass rounded-[3rem] p-8 md:p-12 shadow-premium border border-white">
+            <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-[1.2rem] bg-slate-50 flex items-center justify-center text-slate-400">
+                    <div className="w-12 h-12 rounded-[1.2rem] bg-forest/5 flex items-center justify-center text-forest">
                         <History className="w-6 h-6" />
                     </div>
-                    <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Temporal Activity</h2>
+                    <div>
+                        <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Temporal Activity</h2>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Stewardship of Historical State</p>
+                    </div>
                 </div>
-                <span className="text-xs font-black text-slate-300 uppercase tracking-widest">Module History</span>
+                <span className="text-xs font-black text-slate-300 uppercase tracking-widest">Protocol Archive</span>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
                 {moduleLogs.length > 0 ? (
                     moduleLogs.map((log, i) => (
-                        <div key={log.id} className="bg-white/40 p-6 rounded-[2rem] border border-slate-50 flex items-center justify-between group hover:bg-white transition-all">
-                            <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-xl bg-forest/5 flex items-center justify-center text-forest">
-                                    <Calendar className="w-4 h-4" />
+                        <div key={log.id} className="relative">
+                            <motion.button
+                                onClick={() => setExpandedLog(expandedLog === log.id ? null : log.id)}
+                                className={`w-full text-left bg-white/40 p-6 rounded-[2rem] border transition-all flex items-center justify-between group ${expandedLog === log.id ? 'border-forest/30 bg-white ring-8 ring-forest/5 shadow-xl' : 'border-slate-50 hover:bg-white'
+                                    }`}
+                            >
+                                <div className="flex items-center gap-5">
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${expandedLog === log.id ? 'bg-forest text-white' : 'bg-forest/5 text-forest'
+                                        }`}>
+                                        <Calendar className="w-5 h-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-forest uppercase tracking-tight">
+                                            {new Date(log.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                        </p>
+                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
+                                            Synchronized at {new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs font-black text-forest uppercase tracking-tight">
-                                        {new Date(log.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                                    </p>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                        {new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                    </p>
-                                </div>
-                            </div>
 
-                            <div className="flex flex-col items-end">
-                                <span className={`text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full ${log.ojas_score > 70 ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'
-                                    }`}>
-                                    Ojas: {log.ojas_score}
-                                </span>
-                            </div>
+                                <div className="flex items-center gap-6">
+                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full hidden md:block ${log.ojas_score > 70 ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'
+                                        }`}>
+                                        Ojas: {log.ojas_score}
+                                    </span>
+                                    {expandedLog === log.id ? <ChevronUp className="w-5 h-5 text-forest" /> : <ChevronDown className="w-5 h-5 text-slate-300 group-hover:text-forest transition-colors" />}
+                                </div>
+                            </motion.button>
+
+                            <AnimatePresence>
+                                {expandedLog === log.id && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        className="overflow-hidden bg-white/60 border-x border-b border-forest/10 rounded-b-[2rem] -mt-6 pt-10 p-8 shadow-inner"
+                                    >
+                                        <div className="space-y-6">
+                                            <div className="flex items-center gap-3 text-forest border-b border-forest/5 pb-4">
+                                                <Sparkles className="w-4 h-4" />
+                                                <h4 className="text-[10px] font-black uppercase tracking-widest">Biological Protocols Provided</h4>
+                                            </div>
+
+                                            <div className="text-sm font-medium text-slate-700 leading-relaxed whitespace-pre-line bg-white/50 p-6 rounded-2xl border border-white">
+                                                {log.detailed_analysis || "No secondary protocol breakdown recorded for this interaction."}
+                                            </div>
+
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                <div className="bg-white/40 p-4 rounded-xl border border-white">
+                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Agni Status</p>
+                                                    <p className="text-[10px] font-black text-forest uppercase">{log.agni || 'Balanced'}</p>
+                                                </div>
+                                                <div className="bg-white/40 p-4 rounded-xl border border-white">
+                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Ama State</p>
+                                                    <p className="text-[10px] font-black text-forest uppercase">{log.ama || 'None'}</p>
+                                                </div>
+                                                <div className="bg-white/40 p-4 rounded-xl border border-white">
+                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Mood Archetype</p>
+                                                    <p className="text-[10px] font-black text-forest uppercase">{log.mood || 'Calm'}</p>
+                                                </div>
+                                                <div className="bg-white/40 p-4 rounded-xl border border-white">
+                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Sync Intensity</p>
+                                                    <p className="text-[10px] font-black text-forest uppercase">{log.ojas_score}% Ojas</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     ))
                 ) : (
-                    <div className="py-10 text-center">
-                        <p className="text-xs font-black text-slate-300 uppercase tracking-widest italic">No historical data recorded for this module archetype.</p>
+                    <div className="py-20 text-center glass rounded-[2rem] border border-slate-50">
+                        <History className="w-12 h-12 text-slate-200 mx-auto mb-6" />
+                        <p className="text-xs font-black text-slate-300 uppercase tracking-widest italic">No historical data recorded for this biological archetype.</p>
                     </div>
                 )}
             </div>
 
             {moduleLogs.length > 0 && (
-                <p className="mt-6 text-center text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Syncing with Biological Archive...</p>
+                <div className="mt-12 flex items-center justify-center gap-4">
+                    <div className="h-px bg-forest/5 flex-1" />
+                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">Syncretic Alignment Complete</p>
+                    <div className="h-px bg-forest/5 flex-1" />
+                </div>
             )}
         </section>
     );
