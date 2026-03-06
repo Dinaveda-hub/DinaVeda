@@ -72,16 +72,16 @@ export default function PrakritiPage() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     {/* Prakriti (Constitution) */}
-                    <section className="glass p-10 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-forest/20 transition-colors">
+                    <section className="glass p-8 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-forest/20 transition-colors">
                         <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-10 flex items-center gap-4">
-                            <Target className="w-5 h-5 text-forest/40" /> Biological Anchor
+                        <h2 className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
+                            <Target className="w-4 h-4 text-forest/40" /> Biological Anchor
                         </h2>
 
                         {prakriti ? (
                             <>
-                                <h3 className="text-5xl md:text-7xl font-black text-forest tracking-tighter mb-6">{prakriti.type}</h3>
-                                <p className="text-lg font-bold text-slate-700 max-w-md leading-relaxed mb-12">
+                                <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4">{prakriti.type}</h3>
+                                <p className="text-sm md:text-base font-bold text-slate-500 max-w-md leading-relaxed mb-10">
                                     Your primal constitution is the permanent physiological frame determined at conception. It represents your absolute state of balance.
                                 </p>
 
@@ -115,24 +115,24 @@ export default function PrakritiPage() {
                     </section>
 
                     {/* Vikriti (Current Imbalance) */}
-                    <section className="glass p-10 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-orange-500/20 transition-colors">
+                    <section className="glass p-8 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-orange-500/20 transition-colors">
                         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-10 flex items-center gap-4">
-                            <Compass className="w-5 h-5 text-orange-400/60" /> Dynamic Recalibration
+                        <h2 className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
+                            <Compass className="w-4 h-4 text-orange-400/60" /> Dynamic Recalibration
                         </h2>
 
                         {vikriti && isLoaded ? (
                             <>
-                                <div className="flex items-center gap-6 mb-8">
-                                    <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center ${getDoshaColorClass(vikriti.dominant_dosha)}`}>
+                                <div className="flex items-center gap-5 mb-6">
+                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${getDoshaColorClass(vikriti.dominant_dosha)} shadow-sm`}>
                                         {getDoshaIcon(vikriti.dominant_dosha)}
                                     </div>
                                     <div>
-                                        <span className="text-xs font-black uppercase tracking-widest text-slate-500 block mb-1.5">Dominant Flux</span>
-                                        <h3 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter">{vikriti.dominant_dosha}</h3>
+                                        <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400 block mb-1">Dominant Flux</span>
+                                        <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter">{vikriti.dominant_dosha}</h3>
                                     </div>
                                 </div>
-                                <p className="text-lg font-bold text-slate-700 max-w-md leading-relaxed mb-12">
+                                <p className="text-sm md:text-base font-bold text-slate-500 max-w-md leading-relaxed mb-10">
                                     Vikriti tracks your daily biological fluctuations. It reveals where the environment or lifestyle is pulling you away from center.
                                 </p>
 
