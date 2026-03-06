@@ -41,7 +41,11 @@ export default function Dashboard() {
   const ojasBalance = isLoaded && vikriti ? healthEngine.calculateOjasBalance(state, vikriti.drift_index) : null;
   const pressureIndex = isLoaded && vikriti ? healthEngine.calculateImbalancePressure(state, vikriti.drift_index) : null;
 
-  // Recommendations
+  // State history and prediction protocols
+  const stateHistory = isLoaded ? predictionEngine.loadStateHistory() : [];
+  const predictionProtocolNames = isLoaded ? predictionEngine.getPredictionProtocols(stateHistory) : [];
+
+  // Recommendations (base rules)
   const allRecs = isLoaded && vikriti ? recEngine.getRecommendations(state, vikriti) : [];
 
   // Filtering logic aligned with engine selection buckets
@@ -50,6 +54,14 @@ export default function Dashboard() {
   const eveningRecs = allRecs.filter(p => ['evening', 'night', 'after_meal', 'sunset'].includes(p.time_of_day.toLowerCase()));
 
   const adjustments = isLoaded && vikriti ? predictionEngine.getAdjustments(state, vikriti) : [];
+
+  // Save snapshot on load (once per session)
+  useEffect(() => {
+    if (isLoaded) {
+      predictionEngine.saveStateSnapshot(state);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
 
   return (
     <motion.div

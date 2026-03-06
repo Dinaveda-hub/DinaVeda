@@ -1,0 +1,100 @@
+[
+    {
+        "variable": "kapha_state",
+        "trend_days": 3,
+        "threshold_change": 5,
+        "direction": "rising",
+        "prediction": "kapha_rising",
+        "message": "Kapha has been steadily increasing. Prefer lighter meals and increase physical movement today.",
+        "protocol_adjustment": [
+            "light_dinner",
+            "brisk_walk",
+            "warming_spices",
+            "reduce_sugar_intake"
+        ]
+    },
+    {
+        "variable": "vata_state",
+        "trend_days": 3,
+        "threshold_change": 5,
+        "direction": "rising",
+        "prediction": "vata_rising",
+        "message": "Vata has been rising. Prioritize warm, nourishing foods and grounding practices today.",
+        "protocol_adjustment": [
+            "abhyanga",
+            "grounding_yoga",
+            "warm_breakfast",
+            "padabhyanga"
+        ]
+    },
+    {
+        "variable": "pitta_state",
+        "trend_days": 3,
+        "threshold_change": 5,
+        "direction": "rising",
+        "prediction": "pitta_rising",
+        "message": "Pitta is gradually increasing. Reduce heat exposure and favor cooling foods today.",
+        "protocol_adjustment": [
+            "cooling_pranayama",
+            "shade_walk",
+            "herbal_coriander_water",
+            "cooling_food_choice"
+        ]
+    },
+    {
+        "variable": "agni_strength",
+        "trend_days": 3,
+        "threshold_change": -5,
+        "direction": "declining",
+        "prediction": "agni_declining",
+        "message": "Digestive fire has been weakening. Activate Agni with warming practices before meals.",
+        "protocol_adjustment": [
+            "ginger_before_meal",
+            "warm_water_morning",
+            "digestive_walk",
+            "light_dinner"
+        ]
+    },
+    {
+        "variable": "ojas_score",
+        "trend_days": 3,
+        "threshold_change": -5,
+        "direction": "declining",
+        "prediction": "ojas_decline",
+        "message": "Your vitality reserve is declining. Prioritize deep rest and restorative practices tonight.",
+        "protocol_adjustment": [
+            "sleep_ritual",
+            "meditation",
+            "gratitude_journaling",
+            "consistent_bedtime"
+        ]
+    },
+    {
+        "variable": "circadian_alignment",
+        "trend_days": 3,
+        "threshold_change": -5,
+        "direction": "declining",
+        "prediction": "circadian_drift",
+        "message": "Your biological rhythm is drifting. Consistent timing of sleep and morning light exposure is essential.",
+        "protocol_adjustment": [
+            "morning_sunlight",
+            "digital_sunset",
+            "consistent_bedtime",
+            "evening_screen_shutdown"
+        ]
+    },
+    {
+        "variable": "stress_load",
+        "trend_days": 3,
+        "threshold_change": 5,
+        "direction": "rising",
+        "prediction": "stress_accumulating",
+        "message": "Stress is gradually building. Integrate short breathing and mindfulness breaks throughout the day.",
+        "protocol_adjustment": [
+            "breathing_practice",
+            "meditation",
+            "nature_exposure",
+            "screen_break_day"
+        ]
+    }
+]
