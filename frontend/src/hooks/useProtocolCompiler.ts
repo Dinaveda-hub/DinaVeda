@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Protocol, RecommendationEngine } from '@/engine/recommendationEngine';
+import { RecommendationEngine } from '@/engine/recommendationEngine';
+import { Protocol } from '@/engine/protocolSelectionEngine';
 import { compileDailyProtocols } from '@/engine/protocolCompiler';
 import { PredictionEngine } from '@/engine/predictionEngine';
 import { usePhysiologyState } from './usePhysiologyState';
