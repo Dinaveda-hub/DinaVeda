@@ -1,6 +1,7 @@
 import { VedaState } from './stateModel';
 import { VikritiMetrics } from './vikritiEngine';
 import protocolsData from '../data/protocols.json';
+import rulesData from '../data/recommendation_rules.json';
 
 export interface Protocol {
     name: string;
@@ -13,91 +14,98 @@ export interface Protocol {
     contraindications: string;
 }
 
+export interface RecommendationRule {
+    condition: string;
+    protocols: string[];
+    priority: number;
+    module: string;
+}
+
 export class RecommendationEngine {
     private allProtocols: Protocol[];
+    private allRules: RecommendationRule[];
 
     constructor() {
         this.allProtocols = protocolsData as Protocol[];
+        this.allRules = rulesData as RecommendationRule[];
     }
 
     /**
-     * Selects protocols deterministically based on physiological state bounding rules.
+     * Safely evaluates a threshold condition string against the current physiology state.
+     */
+    private evaluateCondition(conditionStr: string, state: VedaState, vikriti: VikritiMetrics): boolean {
+        // e.g. "vata_state > 60"
+        const parts = conditionStr.split(' ');
+        if (parts.length !== 3) return false;
+
+        const variable = parts[0];
+        const operator = parts[1];
+        const threshold = parseFloat(parts[2]);
+
+        // Support looking up values in either state or vikriti.
+        let actualValue = 0;
+        if (variable in state) {
+            actualValue = (state as any)[variable];
+        } else if (variable in vikriti) {
+            actualValue = (vikriti as any)[variable];
+        } else {
+            return false;
+        }
+
+        switch (operator) {
+            case '>': return actualValue > threshold;
+            case '<': return actualValue < threshold;
+            case '>=': return actualValue >= threshold;
+            case '<=': return actualValue <= threshold;
+            case '===':
+            case '==': return actualValue === threshold;
+            default: return false;
+        }
+    }
+
+    /**
+     * Selects protocols deterministically by evaluating configurable rule datasets.
      */
     public getRecommendations(state: VedaState, vikriti: VikritiMetrics): Protocol[] {
-        const recommendedNames = new Set<string>();
+        // Track unique protocol names and trace their highest priority (lower number = higher priority).
+        const protocolPriorities = new Map<string, number>();
 
-        const addCategory = (categoryName: string) => {
-            this.allProtocols
-                .filter(p => p.category === categoryName)
-                .forEach(p => recommendedNames.add(p.name));
-        };
-
-        // Rule 1: High Vata or Sleep Debt
-        if (vikriti.vikriti_vata > 10 || state.vata_state > 55 || state.sleep_debt > 20) {
-            addCategory("vata_stabilizer");
-            addCategory("vata_relief");
-            addCategory("sleep_support");
-            addCategory("circadian_support");
-            addCategory("sleep_preparation");
-            addCategory("relaxation");
+        // 1. Evaluate all rules
+        for (const rule of this.allRules) {
+            if (this.evaluateCondition(rule.condition, state, vikriti)) {
+                for (const protoName of rule.protocols) {
+                    const currentPriority = protocolPriorities.get(protoName) ?? Infinity;
+                    if (rule.priority < currentPriority) {
+                        protocolPriorities.set(protoName, rule.priority);
+                    }
+                }
+            }
         }
 
-        // Rule 2: Low Agni (Digestive Fire) or High Ama
-        if (state.agni_strength < 50 || state.ama_risk > 30) {
-            addCategory("agni_support");
-            addCategory("agni_regulator");
-            addCategory("digestive_activation");
-            addCategory("digestion_support");
-            addCategory("agni_protection");
-        }
+        // 2. Sort selected protocol names by priority
+        const sortedProtocolNames = Array.from(protocolPriorities.entries())
+            .sort((a, b) => a[1] - b[1]) // Sort ascending by priority numeric
+            .map(entry => entry[0]);
 
-        // Rule 3: High Kapha / Lethargy
-        if (vikriti.vikriti_kapha > 10 || state.kapha_state > 55 || state.movement_level < 40) {
-            addCategory("kapha_activator");
-            addCategory("kapha_activation");
-            addCategory("kapha_balance");
-            addCategory("movement_activation");
+        // 3. Map to full definitions, ignoring ones not found in the DB and removing nulls
+        const validProtocols = sortedProtocolNames
+            .map(name => this.allProtocols.find(p => p.name === name))
+            .filter((p): p is Protocol => p !== undefined);
+        // Always provide a safe baseline if no dynamic rules were triggered
+        if (validProtocols.length < 3) {
+            const baselines = ["morning_hydration", "midday_main_meal", "evening_wind_down"];
+            for (const b of baselines) {
+                const proto = this.allProtocols.find(p => p.name === b);
+                if (proto && !validProtocols.some(vp => vp.name === b)) {
+                    validProtocols.push(proto);
+                }
+            }
         }
-
-        // Rule 4: High Pitta / Stress / Screen Overload
-        if (vikriti.vikriti_pitta > 15 || state.stress_load > 60 || state.screen_exposure > 50) {
-            addCategory("pitta_balance");
-            addCategory("pitta_balancer");
-            addCategory("mental_regulation");
-            addCategory("mental_balance");
-            addCategory("stress_regulation");
-            addCategory("stress_relief");
-        }
-
-        // Rule 5: Low Circadian Alignment / Routine Building
-        if (state.circadian_alignment < 60) {
-            addCategory("circadian_stabilizer");
-            addCategory("circadian_support");
-            addCategory("circadian_activation");
-        }
-
-        // Rule 6: Low Ojas (Vitality)
-        if (state.ojas_score < 50 || state.ojas_recovery < 40) {
-            addCategory("restorative_practice");
-            addCategory("energy_balance");
-            addCategory("behavioral_balance");
-        }
-
-        // Ensure we always have a baseline routine
-        if (recommendedNames.size < 5) {
-            addCategory("circadian_stabilizer");
-            addCategory("digestion_support");
-            addCategory("mental_balance");
-            addCategory("hydration_support");
-        }
-
-        // Map Set of names back to full Protocol objects
-        let results = this.allProtocols.filter(p => recommendedNames.has(p.name));
 
         // Filter maximums per time_of_day deterministically to prevent UI overflow
         const timeGroups: Record<string, Protocol[]> = { morning: [], midday: [], afternoon: [], evening: [], night: [], daily: [], meal_time: [], before_meal: [], after_meal: [], any: [] };
 
-        results.forEach(p => {
+        validProtocols.forEach(p => {
             if (timeGroups[p.time_of_day]) {
                 if (timeGroups[p.time_of_day].length < 2) { // 2 items per distinct time bucket max
                     timeGroups[p.time_of_day].push(p);

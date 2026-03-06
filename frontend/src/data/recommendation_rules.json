@@ -1,0 +1,179 @@
+[
+    {
+        "condition": "vata_state > 60",
+        "protocols": [
+            "abhyanga",
+            "padabhyanga",
+            "warm_nourishing_meals",
+            "grounding_yoga",
+            "slow_breathing"
+        ],
+        "module": "dinaveda",
+        "priority": 1
+    },
+    {
+        "condition": "vata_state > 75",
+        "protocols": [
+            "abhyanga",
+            "padabhyanga",
+            "warm_bath_evening",
+            "slow_breathing",
+            "early_sleep"
+        ],
+        "module": "somasleep",
+        "priority": 1
+    },
+    {
+        "condition": "pitta_state > 60",
+        "protocols": [
+            "cooling_pranayama",
+            "coriander_infusion",
+            "shaded_walk",
+            "calming_meditation"
+        ],
+        "module": "manasayur",
+        "priority": 1
+    },
+    {
+        "condition": "kapha_state > 60",
+        "protocols": [
+            "brisk_walk",
+            "vigorous_exercise",
+            "dry_brushing",
+            "warming_spices"
+        ],
+        "module": "ayufit",
+        "priority": 1
+    },
+    {
+        "condition": "agni_strength < 40",
+        "protocols": [
+            "ginger_before_meal",
+            "warm_water",
+            "digestive_walk",
+            "warming_spices"
+        ],
+        "module": "nutriveda",
+        "priority": 1
+    },
+    {
+        "condition": "agni_stability < 40",
+        "protocols": [
+            "regular_meals",
+            "mindful_chewing",
+            "meal_spacing"
+        ],
+        "module": "nutriveda",
+        "priority": 2
+    },
+    {
+        "condition": "ama_risk > 50",
+        "protocols": [
+            "light_dinner",
+            "ginger_before_meal",
+            "digestive_walk"
+        ],
+        "module": "nutriveda",
+        "priority": 1
+    },
+    {
+        "condition": "circadian_alignment < 50",
+        "protocols": [
+            "early_wake",
+            "morning_sunlight",
+            "digital_detox",
+            "sleep_ritual"
+        ],
+        "module": "somasleep",
+        "priority": 1
+    },
+    {
+        "condition": "sleep_debt > 50",
+        "protocols": [
+            "padabhyanga",
+            "calming_music",
+            "sleep_ritual"
+        ],
+        "module": "somasleep",
+        "priority": 1
+    },
+    {
+        "condition": "bloating_level > 40",
+        "protocols": [
+            "digestive_walk",
+            "ginger_before_meal",
+            "warm_water_morning"
+        ],
+        "module": "nutriveda",
+        "priority": 1
+    },
+    {
+        "condition": "digestion_comfort < 40",
+        "protocols": [
+            "mindful_chewing",
+            "meal_spacing",
+            "cooked_vegetable_meal"
+        ],
+        "module": "nutriveda",
+        "priority": 2
+    },
+    {
+        "condition": "stress_load > 60",
+        "protocols": [
+            "meditation",
+            "breathing_practice",
+            "nature_exposure"
+        ],
+        "module": "manasayur",
+        "priority": 1
+    },
+    {
+        "condition": "mental_clarity < 40",
+        "protocols": [
+            "morning_sunlight",
+            "breathing_pause_break",
+            "mindful_walking"
+        ],
+        "module": "manasayur",
+        "priority": 2
+    },
+    {
+        "condition": "movement_level < 30",
+        "protocols": [
+            "brisk_walk",
+            "grounding_yoga",
+            "vigorous_exercise"
+        ],
+        "module": "ayufit",
+        "priority": 1
+    },
+    {
+        "condition": "hydration_status < 40",
+        "protocols": [
+            "afternoon_hydration",
+            "morning_hydration"
+        ],
+        "module": "nutriveda",
+        "priority": 2
+    },
+    {
+        "condition": "meal_timing < 40",
+        "protocols": [
+            "regular_meal_timing",
+            "midday_main_meal",
+            "light_dinner"
+        ],
+        "module": "nutriveda",
+        "priority": 1
+    },
+    {
+        "condition": "ojas_recovery < 40",
+        "protocols": [
+            "meditation",
+            "gratitude_journaling",
+            "sleep_ritual"
+        ],
+        "module": "sattvaliving",
+        "priority": 1
+    }
+]
