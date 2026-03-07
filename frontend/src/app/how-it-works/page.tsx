@@ -74,7 +74,7 @@ export default function HowItWorks() {
                                 <div className="w-16 h-16 bg-forest text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-forest/20">
                                     <Target className="w-8 h-8" />
                                 </div>
-                                <h2 className="text-xs font-black text-forest/40 uppercase tracking-[0.4em] mb-4">Phase 01</h2>
+                                <h2 className="text-xs font-black text-forest/70 uppercase tracking-[0.4em] mb-4">Phase 01</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-forest tracking-tighter mb-6">Prakriti Mapping</h3>
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     Your journey begins with a genetic audit. We map your "Prakriti"—your permanent biological baseline determined at conception. This serves as the "Gold Standard" for your unique state of perfect health.
@@ -105,7 +105,7 @@ export default function HowItWorks() {
                                 <div className="w-16 h-16 bg-[#D97706] text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-amber-900/10">
                                     <Activity className="w-8 h-8" />
                                 </div>
-                                <h2 className="text-xs font-black text-amber-800/40 uppercase tracking-[0.4em] mb-4">Phase 02</h2>
+                                <h2 className="text-xs font-black text-[#D97706]/80 uppercase tracking-[0.4em] mb-4">Phase 02</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">The Daily Pulse</h3>
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     Life creates "Vikriti"—daily deviations from your center. Through simple morning and evening signals, our engine tracks how stress, seasonal shifts, and nutrition are pulling you away from your baseline.
@@ -139,7 +139,7 @@ export default function HowItWorks() {
                                 <div className="w-16 h-16 bg-[#1E1B4B] text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-indigo-950/20">
                                     <BrainCircuit className="w-8 h-8" />
                                 </div>
-                                <h2 className="text-xs font-black text-slate-500/60 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
+                                <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">Neural Synthesis</h3>
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     This is where the magic happens. Dinaveda uses advanced AI to compare your daily signals against 5,000 years of Ayurvedic logic. It generates a "Pathya" (optimized plan) that is strictly calibrated for your unique biology.
