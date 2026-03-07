@@ -46,7 +46,7 @@ export default function RootLayout({
       >
         <Script
           src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <OneSignalInitializer />
         <GlobalRegistration />
