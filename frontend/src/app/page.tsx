@@ -339,7 +339,7 @@ export default function Dashboard() {
                   Start Assessment <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  href="/welcome"
+                  href="/how-it-works"
                   className="w-full bg-white text-slate-400 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                 >
                   Learn How it Works
