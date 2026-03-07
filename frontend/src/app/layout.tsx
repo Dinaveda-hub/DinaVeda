@@ -13,17 +13,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import OneSignalInitializer from "@/components/OneSignalInitializer";
+import NotificationMonitor from "@/components/NotificationMonitor";
+import GlobalRegistration from "@/components/GlobalRegistration";
+import Script from "next/script";
+
 export const metadata: Metadata = {
   title: "Dinaveda | Personalized Ayurvedic AI",
   description: "Your daily guide to holistic wellness, aligning ancient Ayurvedic wisdom with your unique constitution and real-world circadian rhythms.",
   icons: {
     icon: "/favicon.png",
   },
+  manifest: "/manifest.json",
+  themeColor: "#2D5A43",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
-
-import OneSignalInitializer from "@/components/OneSignalInitializer";
-import NotificationMonitor from "@/components/NotificationMonitor";
-import GlobalRegistration from "@/components/GlobalRegistration";
 
 export default function RootLayout({
   children,
@@ -32,16 +40,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#2D5A43" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}
         suppressHydrationWarning
       >
+        <Script
+          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+          strategy="afterInteractive"
+        />
         <OneSignalInitializer />
         <GlobalRegistration />
         <NotificationMonitor />
