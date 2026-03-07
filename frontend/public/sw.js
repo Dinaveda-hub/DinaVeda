@@ -36,14 +36,27 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    // Only handle GET requests
+    if (event.request.method !== 'GET') return;
+
     event.respondWith(
         caches.match(event.request).then((response) => {
-            return response || fetch(event.request).catch((err) => {
-                // If it's a navigation, try the offline fallback
+            if (response) return response;
+
+            return fetch(event.request).then((networkResponse) => {
+                // Check if we received a redirected response
+                if (networkResponse.redirected && event.request.redirect !== 'follow') {
+                    // We can't cache redirected responses directly if the request didn't allow it
+                    // Just return the network response and don't cache
+                    return networkResponse;
+                }
+
+                // If valid, clone and cache (optional, but keep it simple for now)
+                return networkResponse;
+            }).catch((err) => {
                 if (event.request.mode === 'navigate') {
                     return caches.match('/');
                 }
-                // For other requests (like images/API), return a basic response or let it fail naturally
                 return new Response('Network error occurred', { status: 408 });
             });
         })
