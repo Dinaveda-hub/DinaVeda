@@ -62,11 +62,11 @@ export default function RootLayout({
           src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
           strategy="lazyOnload"
         />
-        <OneSignalInitializer />
-        <GlobalRegistration />
-        <NotificationMonitor />
-        <PwaInstallBanner />
         <PhysiologyProvider>
+          <OneSignalInitializer />
+          <GlobalRegistration />
+          <NotificationMonitor />
+          <PwaInstallBanner />
           <div className="flex flex-col md:flex-row min-h-screen">
             <GlobalNav />
             <main className="flex-1 flex flex-col min-h-screen">
