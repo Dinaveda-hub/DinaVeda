@@ -1,72 +1,90 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Mail, Globe, Sparkles, ArrowLeft, Heart } from "lucide-react";
 import Link from "next/link";
-import { Leaf, ArrowLeft, Mail, MapPin, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export default function ContactPage() {
+    const itemVariants = {
+        hidden: { opacity: 0, y: 10 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 100, damping: 20 }
+        }
+    };
+
     return (
-        <div className="bg-[#FAF9F6] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest">
-            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center bg-[#FAF9F6]/80 backdrop-blur-md border-b border-forest/5">
-                <Link href="/welcome" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 rounded-[0.8rem] bg-forest flex items-center justify-center text-white shadow-md group-hover:bg-forest/90 transition-colors">
-                        <ArrowLeft className="w-4 h-4" />
+        <div className="min-h-screen bg-[#F8FAF9] selection:bg-forest/20 selection:text-forest overflow-x-hidden text-slate-800">
+            {/* Ambient Background */}
+            <div className="fixed bottom-0 right-0 w-[600px] h-[600px] bg-forest/5 rounded-full -mr-40 -mb-40 blur-[120px] pointer-events-none" />
+
+            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/60 border-b border-slate-100">
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative w-8 h-8 transition-transform duration-500 group-hover:scale-105">
+                        <Image src="/logo.png" alt="Logo" fill className="object-contain" sizes="32px" />
                     </div>
-                    <span className="font-black text-forest text-sm tracking-widest uppercase ml-2">Back</span>
+                    <span className="font-black text-forest text-xl tracking-tighter uppercase">Dinaveda</span>
                 </Link>
-                <div className="flex items-center gap-2">
-                    <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
-                    <Leaf className="w-5 h-5 text-forest" />
-                </div>
+                <Link href="/" className="flex items-center gap-2 text-[10px] font-black text-forest uppercase tracking-[0.3em] hover:opacity-70 transition-opacity">
+                    <ArrowLeft className="w-4 h-4" /> Back Home
+                </Link>
             </nav>
 
-            <main className="max-w-4xl mx-auto px-6 py-24 min-h-[70vh]">
-                <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter mb-8">Reach the Sanctuary</h1>
-                <p className="text-xl text-slate-500 font-medium mb-16 max-w-2xl leading-relaxed">
-                    Experiencing an algorithmic imbalance? Have questions about your Prakriti baseline? Our support team is here to assist you in finding your true north.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div className="bg-white p-10 rounded-[3rem] shadow-premium border border-forest/10 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-forest/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-forest/10 transition-colors" />
-                        <div className="w-16 h-16 bg-emerald-50 text-forest rounded-[1.5rem] flex items-center justify-center mb-8 relative z-10">
-                            <Mail className="w-8 h-8" />
-                        </div>
-                        <h3 className="text-2xl font-black text-forest tracking-tight mb-2">Email Support</h3>
-                        <p className="text-slate-500 font-medium mb-8">
-                            Response times are typically within 24-48 hours. Our team is fully distributed across global timezones.
+            <main className="max-w-4xl mx-auto px-6 pt-24 pb-32 relative z-10 text-center">
+                <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.05 } } }} className="space-y-12">
+                    <motion.div variants={itemVariants} className="space-y-4">
+                        <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter leading-none">Reach the Core</h1>
+                        <p className="text-lg md:text-xl font-bold text-slate-600 max-w-lg mx-auto leading-relaxed uppercase tracking-wide pt-4">
+                            Experiencing a neural drift? Our stewards are ready to help you find your rhythmic baseline.
                         </p>
-                        <a href="mailto:support@dinaveda.com" className="inline-flex items-center gap-3 text-forest font-black uppercase text-xs tracking-[0.2em] bg-emerald-50 px-6 py-4 rounded-full hover:bg-forest hover:text-white transition-colors cursor-pointer border border-forest/10">
-                            support@dinaveda.com
-                        </a>
-                    </div>
+                    </motion.div>
 
-                    <div className="bg-white p-10 rounded-[3rem] shadow-premium border border-forest/10 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-gold/10 transition-colors" />
-                        <div className="w-16 h-16 bg-amber-50 text-gold rounded-[1.5rem] flex items-center justify-center mb-8 relative z-10">
-                            <MapPin className="w-8 h-8" />
+                    <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left pt-10">
+                        <div className="glass p-10 rounded-[3rem] border border-white shadow-premium group hover:border-forest/30 transition-all duration-500">
+                            <div className="w-16 h-16 bg-forest/5 text-forest rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
+                                <Mail className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-black text-forest mb-4">Email Sanctuary</h3>
+                            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-10 leading-relaxed">
+                                Our stewards typically achieve synchronization with your inquiry within 24 to 48 dimensional hours.
+                            </p>
+                            <a href="mailto:support@dinaveda.com" className="inline-flex items-center gap-3 bg-forest text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all">
+                                support@dinaveda.com
+                            </a>
                         </div>
-                        <h3 className="text-2xl font-black text-forest tracking-tight mb-2">Global Operations</h3>
-                        <p className="text-slate-500 font-medium mb-8">
-                            We are a borderless entity, merging technologists from the West with ancient scholars from the East.
-                        </p>
-                        <div className="inline-flex items-center gap-3 text-slate-500 font-black uppercase text-xs tracking-[0.2em] bg-slate-50 px-6 py-4 rounded-full border border-slate-200">
-                            Remote First
-                        </div>
-                    </div>
-                </div>
 
-                <div className="mt-20 p-12 glass rounded-[3rem] shadow-sm border border-forest/10 text-center flex flex-col items-center">
-                    <Sparkles className="w-8 h-8 text-gold mb-6" />
-                    <h3 className="text-3xl font-black text-forest mb-4">Feedback & Research</h3>
-                    <p className="text-slate-500 font-medium max-w-lg mb-8">
-                        Are you an Ayurvedic practitioner or AI researcher? We'd love to hear your thoughts on improving the neural algorithms that drive Dinaveda.
-                    </p>
-                    <a href="mailto:support@dinaveda.com" className="px-10 py-5 rounded-[2rem] bg-forest text-white font-black text-xs uppercase tracking-widest hover:bg-forest/90 transition-all shadow-xl shadow-forest/30 active:scale-95">
-                        Collaborate With Us
-                    </a>
-                </div>
+                        <div className="glass p-10 rounded-[3rem] border border-white shadow-premium group hover:border-gold/30 transition-all duration-500">
+                            <div className="w-16 h-16 bg-gold/5 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
+                                <Globe className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-black text-forest mb-4">Remote Sync</h3>
+                            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-10 leading-relaxed">
+                                We operate as a borderless entity, merging ancient scholars from the East with modern technologists from the West.
+                            </p>
+                            <div className="inline-flex items-center gap-3 text-slate-400 font-black uppercase text-xs tracking-[0.3em] bg-slate-50 px-6 py-4 rounded-full border border-slate-200">
+                                Distributed Core
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <motion.section variants={itemVariants} className="pt-20">
+                        <div className="glass p-12 rounded-[4rem] border border-white max-w-2xl mx-auto space-y-8">
+                            <Sparkles className="w-8 h-8 text-gold/60 mx-auto" />
+                            <h3 className="text-3xl font-black text-forest tracking-tighter">Collaborations</h3>
+                            <p className="text-slate-500 font-bold text-sm uppercase tracking-widest leading-relaxed">
+                                Are you an Ayurvedic researcher or neural engine specialist? We are always looking to expand our rhythmic algorithms.
+                            </p>
+                            <a href="mailto:support@dinaveda.com" className="font-black text-forest hover:opacity-70 transition-opacity tracking-widest text-sm uppercase">stewardship@dinaveda.com</a>
+                        </div>
+                    </motion.section>
+                </motion.div>
             </main>
 
-            <footer className="py-8 text-center text-slate-400 text-xs font-bold uppercase tracking-widest border-t border-forest/10 mx-6">
-                © {new Date().getFullYear()} Dinaveda Neural Systems
+            <footer className="py-20 border-t border-slate-100 text-center">
+                <Heart className="w-6 h-6 text-rose-300 mx-auto mb-6" />
+                <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">© {new Date().getFullYear()} Dinaveda Neural Systems</p>
             </footer>
         </div>
     );

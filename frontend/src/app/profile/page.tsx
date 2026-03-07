@@ -182,18 +182,18 @@ export default function SettingsPage() {
                     action: () => setActiveModal({
                         title: "Data Security",
                         content: (
-                            <div className="space-y-4">
-                                <p className="text-sm font-bold text-slate-600 leading-relaxed">
-                                    As a wellness application handling highly sensitive biometric and personal data, Dinaveda employs strictly regulated security protocols.
+                            <div className="space-y-4 text-slate-800">
+                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
+                                    As a wellness application handling highly sensitive biometric and personal data, Dinaveda employs strictly regulated rhythmic security protocols.
                                 </p>
-                                <ul className="space-y-3 mt-4">
-                                    <li className="flex gap-3 items-start">
+                                <ul className="space-y-4 mt-6">
+                                    <li className="flex gap-4 items-start">
                                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" />
-                                        <p className="text-sm text-slate-600"><strong>HIPAA Alignment:</strong> All health records, sleep logs, and Prakriti analyses are encrypted at rest and in transit.</p>
+                                        <p className="text-sm text-slate-600 font-bold uppercase tracking-tight"><strong>HIPAA Alignment:</strong> All health records, sleep logs, and Prakriti analyses are encrypted at rest and in transit.</p>
                                     </li>
-                                    <li className="flex gap-3 items-start">
+                                    <li className="flex gap-4 items-start">
                                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" />
-                                        <p className="text-sm text-slate-600"><strong>GDPR Compliance:</strong> You maintain full sovereign ownership over your data, including the right to wipe your profile from the neural core permanently.</p>
+                                        <p className="text-sm text-slate-600 font-bold uppercase tracking-tight"><strong>Sovereign Ownership:</strong> You maintain full control over your biological identity, including permanent core erasure.</p>
                                     </li>
                                 </ul>
                             </div>
@@ -203,21 +203,32 @@ export default function SettingsPage() {
                 {
                     name: "Privacy Policy",
                     icon: Lock,
-                    detail: "How we protect your data",
-                    action: () => setActiveModal({
-                        title: "Privacy Policy",
-                        content: <p className="text-sm font-bold text-slate-600 leading-relaxed">Your data is strictly yours. We deliberately do not sell, share, or expose your biological identity, sleep patterns, or dietary logs to any third-party marketing agencies. All AI analysis is conducted dynamically within an isolated, anonymized sandbox environment.</p>
-                    })
+                    detail: "Data Sovereignty Guidelines",
+                    link: "/privacy"
                 },
                 {
                     name: "Terms of Service",
                     icon: FileText,
-                    detail: "Usage agreements and guidelines",
-                    action: () => setActiveModal({
-                        title: "Terms of Service",
-                        content: <p className="text-sm font-bold text-slate-600 leading-relaxed">Dinaveda is designed as an educational wellness and lifestyle tool. It is not a substitute for professional clinical medical advice, diagnosis, or treatment. Wait to consult with a qualified healthcare provider before making significant behavioral lifestyle adjustments.</p>
-                    })
+                    detail: "Usage & Disclaimers",
+                    link: "/terms"
                 },
+            ]
+        },
+        {
+            title: "Support & Mission",
+            items: [
+                {
+                    name: "About Us",
+                    icon: Heart,
+                    detail: "Bridging Science & Spirit",
+                    link: "/about"
+                },
+                {
+                    name: "Contact Support",
+                    icon: Bell,
+                    detail: "Reach the sanctuary stewards",
+                    link: "/contact"
+                }
             ]
         }
     ];

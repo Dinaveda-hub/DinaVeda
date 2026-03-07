@@ -427,9 +427,7 @@ export default function WelcomeLandingPage() {
                     <div>
                         <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-600 mb-8">Product</h4>
                         <ul className="space-y-4 text-sm font-bold text-slate-600">
-                            <li><button onClick={() => {
-                                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-                            }} className="hover:text-forest transition-colors">How it works</button></li>
+                            <li><Link href="/how-it-works" className="hover:text-forest transition-colors">How it works</Link></li>
                             <li><button onClick={() => {
                                 setIsQuizActive(true);
                                 document.getElementById('health-profile')?.scrollIntoView({ behavior: 'smooth' });
@@ -441,6 +439,7 @@ export default function WelcomeLandingPage() {
                     <div>
                         <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-600 mb-8">Company</h4>
                         <ul className="space-y-4 text-sm font-bold text-slate-600">
+                            <li><Link href="/about" className="hover:text-forest transition-colors">About Us</Link></li>
                             <li><Link href="/privacy" className="hover:text-forest transition-colors">Privacy Policy</Link></li>
                             <li><Link href="/terms" className="hover:text-forest transition-colors">Terms of Service</Link></li>
                             <li><Link href="/contact" className="hover:text-forest transition-colors">Contact Support</Link></li>

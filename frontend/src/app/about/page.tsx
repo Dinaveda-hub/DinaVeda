@@ -1,65 +1,126 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Leaf, BrainCircuit, Heart, Sparkles, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { Leaf, ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutPage() {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 80, damping: 20 }
+        }
+    };
+
     return (
-        <div className="bg-[#FAF9F6] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest">
-            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center bg-[#FAF9F6]/80 backdrop-blur-md border-b border-forest/5">
-                <Link href="/welcome" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 rounded-[0.8rem] bg-forest flex items-center justify-center text-white shadow-md group-hover:bg-forest/90 transition-colors">
-                        <ArrowLeft className="w-4 h-4" />
+        <div className="min-h-screen bg-[#F8FAF9] selection:bg-forest/20 selection:text-forest overflow-x-hidden">
+            {/* Ambient Background */}
+            <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-forest/5 rounded-full -mr-40 -mt-40 blur-[120px] pointer-events-none" />
+            <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] -ml-40 pointer-events-none" />
+
+            {/* Header / Nav */}
+            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/60 border-b border-slate-100">
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative w-8 h-8 transition-transform duration-500 group-hover:scale-105">
+                        <Image src="/logo.png" alt="Logo" fill className="object-contain" sizes="32px" />
                     </div>
-                    <span className="font-black text-forest text-sm tracking-widest uppercase ml-2">Back</span>
+                    <span className="font-black text-forest text-xl tracking-tighter uppercase">Dinaveda</span>
                 </Link>
-                <div className="flex items-center gap-2">
-                    <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
-                    <Leaf className="w-5 h-5 text-forest" />
-                </div>
+                <Link href="/" className="flex items-center gap-2 text-[10px] font-black text-forest uppercase tracking-[0.3em] hover:opacity-70 transition-opacity">
+                    <ArrowLeft className="w-4 h-4" /> Back Home
+                </Link>
             </nav>
 
-            <main className="max-w-4xl mx-auto px-6 py-24">
-                <h1 className="text-5xl md:text-6xl font-black text-forest tracking-tighter mb-10">About Dinaveda</h1>
-
-                <div className="prose prose-lg prose-slate max-w-none text-slate-600 space-y-8 font-medium leading-relaxed">
-                    <p className="text-xl text-forest font-bold">
-                        Dinaveda was born from a singular vision: to bridge the ancient, profound wisdom of Ayurveda with the breathtaking capabilities of modern artificial intelligence.
-                    </p>
-
-                    <h2 className="text-3xl font-black text-forest tracking-tight mt-16 mb-6">The Genesis</h2>
-                    <p>
-                        For thousands of years, Ayurveda has mapped the human biological experience using the language of elements—Ether, Air, Fire, Water, and Earth. It understood circadian rhythms, the gut microbiome (Agni), and the subtle energetic forces (Doshas) long before modern science gave them different names.
-                    </p>
-                    <p>
-                        However, accessing this wisdom historically required years of study or consultations with specialized practitioners. Dinaveda exists to democratize this knowledge. By treating the Ayurvedic framework as a highly logical algorithm, we realized it could be digitized.
-                    </p>
-
-                    <h2 className="text-3xl font-black text-forest tracking-tight mt-16 mb-6">The Technology</h2>
-                    <p>
-                        At the core of Dinaveda is the <strong>Neural Wellness Engine</strong>, powered by state-of-the-art LLMs like Gemini. It doesn't just regurgitate generic health advice. It synthesizes your unique 'Prakriti' (baseline constitution) with your 'Vikriti' (current imbalances) to generate real-time, actionable 'Pathya' (lifestyle protocols).
-                    </p>
-                    <p>
-                        Whether you are experiencing a spike in Vata anxiety during a dry autumn, or Pitta inflammation during a high-stress sprint, our engine calculates the exact dietary, behavioral, and routines required to bring you back to baseline.
-                    </p>
-
-                    <h2 className="text-3xl font-black text-forest tracking-tight mt-16 mb-6">Our Mission</h2>
-                    <p>
-                        We believe that chronic illness and burnout are largely symptoms of being profoundly disconnected from natural rhythms. Our mission is to provide you with the tools to "Rewire Your Biology." We want you to stop fighting your natural state and start harmonizing with it.
-                    </p>
-
-                    <div className="bg-forest/5 p-10 rounded-[2rem] border border-forest/10 mt-16 text-center">
-                        <h3 className="text-2xl font-black text-forest mb-4">Join the Sanctuary</h3>
-                        <p className="text-slate-600 mb-8 max-w-lg mx-auto">
-                            The journey back to your core begins with a single step. Discover your Prakriti today.
+            <main className="max-w-4xl mx-auto px-6 pt-20 pb-32 relative z-10 text-slate-800">
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={containerVariants}
+                    className="space-y-20"
+                >
+                    {/* Hero Section */}
+                    <motion.section variants={itemVariants} className="text-center space-y-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-[10px] font-black uppercase tracking-[0.3em] text-forest/80">
+                            <Sparkles className="w-4 h-4 text-gold/60" /> Our Mission
+                        </div>
+                        <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter leading-[0.85]">
+                            Ancient Secrets. <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest via-emerald-600 to-gold">Neural Intelligence.</span>
+                        </h1>
+                        <p className="text-lg md:text-xl font-bold text-slate-600 max-w-2xl mx-auto leading-relaxed uppercase tracking-wide">
+                            We are building the bridge between 5,000 years of Ayurvedic wisdom and the future of hyper-personalized neural health.
                         </p>
-                        <Link href="/welcome" className="inline-block px-8 py-4 rounded-[1.5rem] bg-forest text-white font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:-translate-y-1 transition-transform">
-                            Take The Assessment
+                    </motion.section>
+
+                    {/* Philosophy Section */}
+                    <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="glass p-10 rounded-[3rem] border border-white">
+                            <div className="w-14 h-14 rounded-2xl bg-forest/5 flex items-center justify-center text-forest mb-8">
+                                <Leaf className="w-7 h-7" />
+                            </div>
+                            <h3 className="text-2xl font-black text-forest mb-4">The Veda Tradition</h3>
+                            <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-wide">
+                                Ayurveda teaches us that health is not a destination, but a state of continuous alignment. Everything—the sun, the seasons, the food we eat—interacts with our unique biological blueprint.
+                            </p>
+                        </div>
+                        <div className="glass p-10 rounded-[3rem] border border-white">
+                            <div className="w-14 h-14 rounded-2xl bg-gold/5 flex items-center justify-center text-gold mb-8">
+                                <BrainCircuit className="w-7 h-7" />
+                            </div>
+                            <h3 className="text-2xl font-black text-forest mb-4">The Neural Engine</h3>
+                            <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-wide">
+                                Dinaveda's proprietary AI translates subjective ayurvedic qualitative signals into precise, quantitative physiological scores, ensuring your daily rituals are backed by temporal data.
+                            </p>
+                        </div>
+                    </motion.section>
+
+                    {/* Values */}
+                    <motion.section variants={itemVariants} className="bg-forest p-12 md:p-20 rounded-[4rem] text-white relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[100px] opacity-20 -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000" />
+                        <div className="relative z-10 space-y-12">
+                            <div className="max-w-lg">
+                                <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6">Built for Balance.</h2>
+                                <p className="text-emerald-100/70 font-bold text-sm uppercase tracking-[0.2em] leading-relaxed">
+                                    Dinaveda was born from the need to simplify profound health sciences for the modern world. We believe your health profile should be as unique as your DNA.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-8 pt-8">
+                                <div>
+                                    <div className="text-3xl font-black mb-2 tracking-tighter">100%</div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-200/50">Data Sovereignty</p>
+                                </div>
+                                <div>
+                                    <div className="text-3xl font-black mb-2 tracking-tighter">24/7</div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-200/50">Biological Tuning</p>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.section>
+
+                    {/* Final CTA */}
+                    <motion.section variants={itemVariants} className="text-center py-10">
+                        <Heart className="w-12 h-12 text-rose-400 mx-auto mb-8 animate-pulse" />
+                        <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Rhythm is Wellness</h4>
+                        <Link href="/welcome" className="inline-flex items-center gap-3 bg-forest text-white px-10 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all">
+                            Initialize Your Journey
                         </Link>
-                    </div>
-                </div>
+                    </motion.section>
+                </motion.div>
             </main>
 
-            <footer className="py-8 text-center text-slate-400 text-xs font-bold uppercase tracking-widest border-t border-forest/10 mx-6">
-                © {new Date().getFullYear()} Dinaveda Neural Systems
+            <footer className="py-20 border-t border-slate-100 text-center">
+                <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">© {new Date().getFullYear()} Dinaveda Neural Systems</p>
             </footer>
         </div>
     );

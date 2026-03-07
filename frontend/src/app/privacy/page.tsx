@@ -1,72 +1,96 @@
-import Link from "next/link";
-import { Leaf, ArrowLeft } from "lucide-react";
+"use client";
 
-export default function PrivacyPolicyPage() {
+import { motion } from "framer-motion";
+import { ShieldCheck, Lock, EyeOff, ArrowLeft, Heart } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+
+export default function PrivacyPage() {
+    const itemVariants = {
+        hidden: { opacity: 0, y: 10 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 100, damping: 20 }
+        }
+    };
+
     return (
-        <div className="bg-[#FAF9F6] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest">
-            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center bg-[#FAF9F6]/80 backdrop-blur-md border-b border-forest/5">
-                <Link href="/welcome" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 rounded-[0.8rem] bg-forest flex items-center justify-center text-white shadow-md group-hover:bg-forest/90 transition-colors">
-                        <ArrowLeft className="w-4 h-4" />
+        <div className="min-h-screen bg-[#F8FAF9] selection:bg-forest/20 selection:text-forest overflow-x-hidden text-slate-800">
+            {/* Ambient Background */}
+            <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-forest/5 rounded-full -mr-40 -mt-40 blur-[120px] pointer-events-none" />
+
+            <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/60 border-b border-slate-100">
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative w-8 h-8 transition-transform duration-500 group-hover:scale-105">
+                        <Image src="/logo.png" alt="Logo" fill className="object-contain" sizes="32px" />
                     </div>
-                    <span className="font-black text-forest text-sm tracking-widest uppercase ml-2">Back</span>
+                    <span className="font-black text-forest text-xl tracking-tighter uppercase">Dinaveda</span>
                 </Link>
-                <div className="flex items-center gap-2">
-                    <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
-                    <Leaf className="w-5 h-5 text-forest" />
-                </div>
+                <Link href="/" className="flex items-center gap-2 text-[10px] font-black text-forest uppercase tracking-[0.3em] hover:opacity-70 transition-opacity">
+                    <ArrowLeft className="w-4 h-4" /> Back Home
+                </Link>
             </nav>
 
-            <main className="max-w-4xl mx-auto px-6 py-24">
-                <h1 className="text-5xl font-black text-forest tracking-tighter mb-4">Privacy Policy</h1>
-                <p className="text-slate-500 font-bold mb-16 tracking-widest uppercase text-xs">Last Updated: {new Date().toLocaleDateString()}</p>
+            <main className="max-w-3xl mx-auto px-6 pt-24 pb-32 relative z-10">
+                <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.05 } } }} className="space-y-12">
+                    <motion.div variants={itemVariants} className="space-y-4">
+                        <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none">Privacy Sovereignty</h1>
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.4em]">Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+                    </motion.div>
 
-                <div className="prose prose-lg prose-slate max-w-none text-slate-600 space-y-8 font-medium leading-relaxed">
-                    <p>
-                        At Dinaveda, accessible from [Your URL], one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Dinaveda and how we use it.
-                    </p>
-                    <p>
-                        If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <strong>support@dinaveda.com</strong>.
-                    </p>
+                    <motion.div variants={itemVariants} className="p-8 glass rounded-[2.5rem] border border-white shadow-sm flex items-start gap-6">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-forest flex items-center justify-center shrink-0">
+                            <ShieldCheck className="w-6 h-6" />
+                        </div>
+                        <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-wide">
+                            Your biological data is sacred. We treat your physiology logs, sleep patterns, and assessments with the highest level of neural encryption and privacy sovereignty.
+                        </p>
+                    </motion.div>
 
-                    <h2 className="text-2xl font-black text-forest tracking-tight mt-12 mb-4">1. Information We Collect</h2>
-                    <p>
-                        <strong>Biological Profiles:</strong> When you complete the Prakriti or Vikriti assessments, we collect the responses you provide to generate your Ayurvedic profile.
-                    </p>
-                    <p>
-                        <strong>Account Data:</strong> If you create an account, we collect your name, email address, and authentication credentials through our secure Provider (Supabase).
-                    </p>
-                    <p>
-                        <strong>Usage Logs:</strong> Daily pulse logs, dietary habits, and lifestyle routines you voluntarily input are stored to provide personalized AI insights.
-                    </p>
+                    <div className="space-y-16 pt-10">
+                        <motion.section variants={itemVariants} className="space-y-6">
+                            <h2 className="text-2xl font-black text-forest tracking-tight flex items-center gap-3">
+                                <span className="w-2 h-8 bg-forest/20 rounded-full" /> 1. Data Collection
+                            </h2>
+                            <p className="font-bold text-slate-600 leading-relaxed uppercase tracking-tight text-sm">
+                                We gather qualitative biological signals through your daily logs and assessments. This data—spanning dietary habits to rhythmic energy levels—is used exclusively to synthesize your personalized wellness path.
+                            </p>
+                        </motion.section>
 
-                    <h2 className="text-2xl font-black text-forest tracking-tight mt-12 mb-4">2. How We Use Your Information</h2>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li>To provide, operate, and maintain our application.</li>
-                        <li>To generate highly personalized AI wellness remedies via the Google Gemini API.</li>
-                        <li>To improve, personalize, and expand our platform.</li>
-                        <li>To communicate with you regarding updates, security alerts, and support messages.</li>
-                    </ul>
+                        <motion.section variants={itemVariants} className="space-y-6">
+                            <h2 className="text-2xl font-black text-forest tracking-tight flex items-center gap-3">
+                                <span className="w-2 h-8 bg-forest/20 rounded-full" /> 2. Neural Processing
+                            </h2>
+                            <p className="font-bold text-slate-600 leading-relaxed uppercase tracking-tight text-sm">
+                                All AI synthesis is handled via encrypted prompts. We strip personally identifiable contact information before state-vector processing. We do not use your personal health data to train external third-party models.
+                            </p>
+                        </motion.section>
 
-                    <h2 className="text-2xl font-black text-forest tracking-tight mt-12 mb-4">3. AI Processing & Third Parties</h2>
-                    <p>
-                        Dinaveda utilizes advanced LLMs (Large Language Models) like Gemini to process your wellness logs. When sending data to the AI engine for synthesis, we ensure the prompts are stripped of personally identifiable contact information wherever possible. Your raw data is stored securely in our databases and is never sold to arbitrary third parties.
-                    </p>
+                        <motion.section variants={itemVariants} className="space-y-6">
+                            <h2 className="text-2xl font-black text-forest tracking-tight flex items-center gap-3">
+                                <span className="w-2 h-8 bg-forest/20 rounded-full" /> 3. Data Sovereignty
+                            </h2>
+                            <p className="font-bold text-slate-600 leading-relaxed uppercase tracking-tight text-sm">
+                                You maintain 100% ownership. At any time, you can wipe your biological logs from our neural core through your settings dashboard. We do not sell or trade your identity.
+                            </p>
+                        </motion.section>
+                    </div>
 
-                    <h2 className="text-2xl font-black text-forest tracking-tight mt-12 mb-4">4. Data Security</h2>
-                    <p>
-                        We implement localized caching (`localStorage`) for public assessments and utilize strong, encrypted databases for registered members. We follow industry best practices to protect your data from unauthorized access, alteration, disclosure, or destruction.
-                    </p>
-
-                    <h2 className="text-2xl font-black text-forest tracking-tight mt-12 mb-4">5. Your Rights</h2>
-                    <p>
-                        You maintain the right to request access to, correction of, or deletion of your personal data at any time. Simply navigate to your Core Settings within the Dinaveda dashboard to wipe your biological configurations, or email support@dinaveda.com to request full account deletion.
-                    </p>
-                </div>
+                    <motion.section variants={itemVariants} className="pt-20 border-t border-slate-100 flex flex-col items-center text-center">
+                        <div className="w-16 h-16 rounded-full bg-forest/5 flex items-center justify-center text-forest mb-6">
+                            <Lock className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-xl font-black text-forest mb-4">Questions regarding your data?</h3>
+                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-8">Reach our security stewards</p>
+                        <a href="mailto:support@dinaveda.com" className="font-black text-forest hover:opacity-70 transition-opacity tracking-widest text-sm uppercase">support@dinaveda.com</a>
+                    </motion.section>
+                </motion.div>
             </main>
 
-            <footer className="py-8 text-center text-slate-400 text-xs font-bold uppercase tracking-widest border-t border-forest/10 mx-6">
-                © {new Date().getFullYear()} Dinaveda Neural Systems
+            <footer className="py-20 border-t border-slate-100 text-center">
+                <Heart className="w-6 h-6 text-rose-300 mx-auto mb-6" />
+                <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">© {new Date().getFullYear()} Dinaveda Neural Systems</p>
             </footer>
         </div>
     );
