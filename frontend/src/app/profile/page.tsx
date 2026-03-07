@@ -134,6 +134,83 @@ export default function SettingsPage() {
             ]
         },
         {
+            title: "Veda Wellness Science",
+            items: [
+                {
+                    name: "Ojas & Vital Reserve",
+                    icon: Heart,
+                    detail: "Your biological energy buffer",
+                    action: () => setActiveModal({
+                        title: "Understanding Ojas",
+                        content: (
+                            <div className="space-y-4">
+                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
+                                    Ojas is the "superfine" essence of all bodily tissues. It represents your immune strength, resilience, and sensory clarity.
+                                </p>
+                                <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                                    <p className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-1">Status: Vital Reserve</p>
+                                    <p className="text-[10px] text-emerald-700 font-bold leading-tight">High Ojas allows you to handle stress without "breaking." When Ojas is depleted, you feel fragile and overwhelmed.</p>
+                                </div>
+                                <p className="text-xs text-slate-400 font-bold italic leading-relaxed">Imbalance Pressure: When your environment or habits push against your nature, Ojas absorbs the shock. Constant pressure eventually drains this reserve.</p>
+                            </div>
+                        )
+                    })
+                },
+                {
+                    name: "Agni & Metabolic Fire",
+                    icon: Zap,
+                    detail: "The engine of transformation",
+                    action: () => setActiveModal({
+                        title: "Understanding Agni",
+                        content: (
+                            <div className="space-y-4">
+                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
+                                    Agni is your digestive and metabolic "fire." It determines how well you extract nutrients from food and wisdom from experiences.
+                                </p>
+                                <div className="p-4 bg-orange-50 rounded-2xl border border-orange-100">
+                                    <p className="text-xs font-black text-orange-600 uppercase tracking-widest mb-1">Status: Transformation</p>
+                                    <p className="text-[10px] text-orange-700 font-bold leading-tight">Balanced Agni creates energy and clarity. A weak Agni leads to "Ama" (metabolic fog/toxins), leaving you heavy and stagnant.</p>
+                                </div>
+                            </div>
+                        )
+                    })
+                },
+                {
+                    name: "Circadian Sync & Drift",
+                    icon: Activity,
+                    detail: "Aligning with the cosmic pulse",
+                    action: () => setActiveModal({
+                        title: "Circadian Alignment",
+                        content: (
+                            <div className="space-y-4">
+                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
+                                    Your body follows a rhythmic dance with the sun. Circadian Sync measures how well your internal clocks match the natural day-night cycle.
+                                </p>
+                                <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
+                                    <p className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-1">Status: Rhythmic Drift</p>
+                                    <p className="text-[10px] text-indigo-700 font-bold leading-tight">Drift occurs when your habits (late meals, screens) shift your internal timing away from nature. Sustained drift causes deep biological fatigue.</p>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            ]
+        },
+        {
+            title: "Health & Vitality",
+            items: [
+                {
+                    name: "Primary Health Goal",
+                    icon: Zap,
+                    detail: "Personalize your daily guidance",
+                    action: () => setActiveModal({
+                        title: "Select Your Primary Goal",
+                        content: <GoalSelector />
+                    })
+                }
+            ]
+        },
+        {
             title: "System Parameters",
             items: [
                 {
@@ -182,16 +259,19 @@ export default function SettingsPage() {
             ]
         },
         {
-            title: "Health & Vitality",
+            title: "Support & Mission",
             items: [
                 {
-                    name: "Primary Health Goal",
-                    icon: Zap,
-                    detail: "Personalize your daily guidance",
-                    action: () => setActiveModal({
-                        title: "Select Your Primary Goal",
-                        content: <GoalSelector />
-                    })
+                    name: "About Us",
+                    icon: Heart,
+                    detail: "Bridging Science & Spirit",
+                    link: "/about"
+                },
+                {
+                    name: "Contact Support",
+                    icon: Bell,
+                    detail: "Reach the sanctuary stewards",
+                    link: "/contact"
                 }
             ]
         },
@@ -265,86 +345,6 @@ export default function SettingsPage() {
                     detail: "Usage & Disclaimers",
                     link: "/terms"
                 },
-            ]
-        },
-        {
-            title: "Support & Mission",
-            items: [
-                {
-                    name: "About Us",
-                    icon: Heart,
-                    detail: "Bridging Science & Spirit",
-                    link: "/about"
-                },
-                {
-                    name: "Contact Support",
-                    icon: Bell,
-                    detail: "Reach the sanctuary stewards",
-                    link: "/contact"
-                }
-            ]
-        },
-        {
-            title: "Veda Wellness Science",
-            items: [
-                {
-                    name: "Ojas & Vital Reserve",
-                    icon: Heart,
-                    detail: "Your biological energy buffer",
-                    action: () => setActiveModal({
-                        title: "Understanding Ojas",
-                        content: (
-                            <div className="space-y-4">
-                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
-                                    Ojas is the "superfine" essence of all bodily tissues. It represents your immune strength, resilience, and sensory clarity.
-                                </p>
-                                <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                                    <p className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-1">Status: Vital Reserve</p>
-                                    <p className="text-[10px] text-emerald-700 font-bold leading-tight">High Ojas allows you to handle stress without "breaking." When Ojas is depleted, you feel fragile and overwhelmed.</p>
-                                </div>
-                                <p className="text-xs text-slate-400 font-bold italic leading-relaxed">Imbalance Pressure: When your environment or habits push against your nature, Ojas absorbs the shock. Constant pressure eventually drains this reserve.</p>
-                            </div>
-                        )
-                    })
-                },
-                {
-                    name: "Agni & Metabolic Fire",
-                    icon: Zap,
-                    detail: "The engine of transformation",
-                    action: () => setActiveModal({
-                        title: "Understanding Agni",
-                        content: (
-                            <div className="space-y-4">
-                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
-                                    Agni is your digestive and metabolic "fire." It determines how well you extract nutrients from food and wisdom from experiences.
-                                </p>
-                                <div className="p-4 bg-orange-50 rounded-2xl border border-orange-100">
-                                    <p className="text-xs font-black text-orange-600 uppercase tracking-widest mb-1">Status: Transformation</p>
-                                    <p className="text-[10px] text-orange-700 font-bold leading-tight">Balanced Agni creates energy and clarity. A weak Agni leads to "Ama" (metabolic fog/toxins), leaving you heavy and stagnant.</p>
-                                </div>
-                            </div>
-                        )
-                    })
-                },
-                {
-                    name: "Circadian Sync & Drift",
-                    icon: Activity,
-                    detail: "Aligning with the cosmic pulse",
-                    action: () => setActiveModal({
-                        title: "Circadian Alignment",
-                        content: (
-                            <div className="space-y-4">
-                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
-                                    Your body follows a rhythmic dance with the sun. Circadian Sync measures how well your internal clocks match the natural day-night cycle.
-                                </p>
-                                <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
-                                    <p className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-1">Status: Rhythmic Drift</p>
-                                    <p className="text-[10px] text-indigo-700 font-bold leading-tight">Drift occurs when your habits (late meals, screens) shift your internal timing away from nature. Sustained drift causes deep biological fatigue.</p>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
             ]
         }
     ];
