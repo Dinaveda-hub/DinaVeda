@@ -1,12 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { FileText, AlertCircle, Scale, ArrowLeft, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function TermsPage() {
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { opacity: 0, y: 10 },
         visible: {
             opacity: 1,
