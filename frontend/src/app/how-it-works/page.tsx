@@ -26,10 +26,10 @@ export default function HowItWorks() {
     } as const;
 
     return (
-        <div className="bg-[#F8FAF9] min-h-screen text-slate-800 font-sans selection:bg-forest/20 selection:text-forest overflow-x-hidden">
-            {/* Background Radiance */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-forest/5 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
+        <div className="bg-[#FBFAF8] min-h-screen text-slate-700 font-sans selection:bg-forest/20 selection:text-forest overflow-x-hidden">
+            {/* Background Radiance (Softened) */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-forest/[0.03] rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gold/[0.03] rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none" />
 
             {/* Navigation */}
             <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/60 border-b border-forest/5">
@@ -105,26 +105,26 @@ export default function HowItWorks() {
                     <motion.section variants={itemVariants} className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center flex-row-reverse">
                             <div className="md:order-2">
-                                <div className="w-16 h-16 bg-orange-500 text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-orange-500/20">
+                                <div className="w-16 h-16 bg-[#D97706] text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-amber-900/10">
                                     <Activity className="w-8 h-8" />
                                 </div>
-                                <h2 className="text-xs font-black text-orange-400 uppercase tracking-[0.4em] mb-4">Phase 02</h2>
-                                <h3 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tighter mb-6">The Daily Pulse</h3>
+                                <h2 className="text-xs font-black text-amber-800/40 uppercase tracking-[0.4em] mb-4">Phase 02</h2>
+                                <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">The Daily Pulse</h3>
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     Life creates "Vikriti"—daily deviations from your center. Through simple morning and evening signals, our engine tracks how stress, seasonal shifts, and nutrition are pulling you away from your baseline.
                                 </p>
                                 <ul className="space-y-3">
                                     {['Circadian Alignment', 'Agni (Digestion) Strength', 'Nervous System Load'].map((item) => (
                                         <li key={item} className="flex items-center gap-3 text-xs font-black uppercase tracking-widest text-slate-400">
-                                            <Zap className="w-3.5 h-3.5 text-orange-400" /> {item}
+                                            <Zap className="w-3.5 h-3.5 text-amber-600" /> {item}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                             <div className="glass p-1 rounded-[3rem] shadow-premium overflow-hidden md:order-1">
                                 <div className="aspect-square bg-slate-900 rounded-[2.8rem] flex items-center justify-center p-12 relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-transparent" />
-                                    <Activity className="w-32 h-32 text-orange-500 animate-pulse" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-amber-600/10 to-transparent" />
+                                    <Activity className="w-32 h-32 text-amber-600 animate-pulse" />
                                 </div>
                             </div>
                         </div>
@@ -134,29 +134,29 @@ export default function HowItWorks() {
                     <motion.section variants={itemVariants} className="relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                             <div>
-                                <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-blue-600/20">
+                                <div className="w-16 h-16 bg-[#1E1B4B] text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-indigo-950/20">
                                     <BrainCircuit className="w-8 h-8" />
                                 </div>
-                                <h2 className="text-xs font-black text-blue-400 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
-                                <h3 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tighter mb-6">Neural Synthesis</h3>
+                                <h2 className="text-xs font-black text-indigo-400/60 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
+                                <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">Neural Synthesis</h3>
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     This is where the magic happens. Dinaveda uses advanced AI to compare your daily signals against 5,000 years of Ayurvedic logic. It generates a "Pathya" (optimized plan) that is strictly calibrated for your unique biology.
                                 </p>
-                                <div className="p-6 rounded-2xl bg-blue-50/50 border border-blue-100">
-                                    <p className="text-xs font-bold text-blue-800 italic leading-relaxed">
+                                <div className="p-6 rounded-2xl bg-indigo-50/50 border border-indigo-100">
+                                    <p className="text-xs font-bold text-indigo-900 italic leading-relaxed">
                                         "Our engine doesn't just guess; it computes the precise counter-signals needed to neutralize biological drift."
                                     </p>
                                 </div>
                             </div>
                             <div className="glass p-1 rounded-[3rem] shadow-premium overflow-hidden">
                                 <div className="aspect-square bg-white rounded-[2.8rem] flex items-center justify-center p-12">
-                                    <div className="w-full h-full bg-blue-50 rounded-2xl flex items-center justify-center relative shadow-inner">
-                                        <Sparkles className="w-20 h-20 text-blue-400" />
+                                    <div className="w-full h-full bg-indigo-50/30 rounded-2xl flex items-center justify-center relative shadow-inner">
+                                        <Sparkles className="w-20 h-20 text-indigo-300" />
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <motion.div
                                                 animate={{ scale: [1, 1.2, 1] }}
                                                 transition={{ repeat: Infinity, duration: 3 }}
-                                                className="w-40 h-40 rounded-full border border-blue-200"
+                                                className="w-40 h-40 rounded-full border border-indigo-100"
                                             />
                                         </div>
                                     </div>
@@ -167,7 +167,7 @@ export default function HowItWorks() {
 
                     {/* Final CTA */}
                     <motion.section variants={itemVariants} className="pb-40">
-                        <div className="glass p-8 md:p-20 rounded-[2.5rem] md:rounded-[4rem] border border-white/60 shadow-premium text-center relative overflow-hidden">
+                        <div className="glass p-8 md:p-20 rounded-[2.5rem] md:rounded-[4rem] border border-white/40 shadow-premium text-center relative overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-gold/5 pointer-events-none" />
                             <div className="relative z-10 space-y-10">
                                 <h2 className="text-3xl md:text-6xl font-black text-forest tracking-tighter leading-none">Ready to Harmonize?</h2>
