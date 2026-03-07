@@ -93,23 +93,17 @@ class PhysiologyRequest(BaseModel):
 
 
 class PersonalizeRequest(BaseModel):
-    """
-    POST /personalize
-    Body: {
-      "module": "nutriveda",
-      "state": { ...26 variables... },
-      "protocols": ["warm_meals", "light_dinner"],
-      "season": "spring",
-      "health_goal": "improve_digestion",
-      "is_premium": true
-    }
-    """
     module: str
     state: dict
     protocols: list[str]
     season: str = "spring"
     health_goal: str = "general_wellness"
     is_premium: bool = False
+
+
+class NotifyRequest(BaseModel):
+    userId: str
+    message: str
 
 
 # ─────────────────────────────────────────────
@@ -202,3 +196,40 @@ async def personalize_module(payload: PersonalizeRequest):
     except Exception as e:
         print(f"Personalization error: {e}")
         raise HTTPException(status_code=502, detail="AI personalization failed.")
+
+
+@app.post("/api/notify")
+async def send_notification_endpoint(payload: NotifyRequest):
+    """
+    Relay notification request to OneSignal.
+    """
+    import httpx
+    onesignal_app_id = os.environ.get("ONESIGNAL_APP_ID")
+    onesignal_key = os.environ.get("ONESIGNAL_REST_API_KEY")
+
+    if not onesignal_key or not onesignal_app_id:
+        print("Missing OneSignal credentials")
+        raise HTTPException(status_code=500, detail="OneSignal configuration missing")
+
+    url = "https://onesignal.com/api/v1/notifications"
+    headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": f"Basic {onesignal_key}"
+    }
+    body = {
+        "app_id": onesignal_app_id,
+        "include_external_user_ids": [payload.userId],
+        "contents": {"en": payload.message}
+    }
+
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(url, json=body, headers=headers)
+            response.raise_for_status()
+            return response.json()
+        except httpx.HTTPStatusError as e:
+            print(f"OneSignal error: {e.response.text}")
+            raise HTTPException(status_code=e.response.status_code, detail="Notification relay failed")
+        except Exception as e:
+            print(f"Notification relay error: {e}")
+            raise HTTPException(status_code=500, detail="Internal server error")
