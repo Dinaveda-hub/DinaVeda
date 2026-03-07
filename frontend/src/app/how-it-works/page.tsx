@@ -25,53 +25,99 @@ export default function HowItWorks() {
         }
     } as const;
 
-    // Abstract Biological Core SVG (Phase 01)
-    const BiologicalCore = () => (
-        <div className="relative w-48 h-48 flex items-center justify-center">
-            <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 border border-forest/5 rounded-full"
-            />
-            <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-4 border border-forest/10 border-dashed rounded-full"
-            />
-            <div className="w-12 h-12 bg-forest/10 rounded-full blur-xl absolute" />
-            <div className="relative w-24 h-24 rounded-full border-2 border-forest/20 flex items-center justify-center p-4">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-forest/20 to-emerald-800/20 animate-pulse" />
-                <div className="absolute w-2 h-2 bg-forest rounded-full -top-1 left-1/2" />
-                <div className="absolute w-1.5 h-1.5 bg-forest/40 rounded-full top-1/2 -right-1" />
+    // Animated DNA Helix (Phase 01)
+    const DNAHelix = () => (
+        <div className="relative w-48 h-64 flex items-center justify-center scale-90 md:scale-100">
+            <div className="flex gap-8">
+                {[...Array(8)].map((_, i) => (
+                    <div key={i} className="flex flex-col items-center justify-between h-48 py-2">
+                        <motion.div
+                            animate={{
+                                y: [0, 160, 0],
+                                scale: [1, 0.8, 1],
+                                opacity: [0.4, 0.8, 0.4]
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 0.4
+                            }}
+                            className={`w-3 h-3 rounded-full ${i % 3 === 0 ? 'bg-[#64748B]' : i % 3 === 1 ? 'bg-[#9A3412]' : 'bg-[#3F6212]'}`}
+                        />
+                        <div className="w-[1px] h-full bg-slate-200/30" />
+                        <motion.div
+                            animate={{
+                                y: [160, 0, 160],
+                                scale: [0.8, 1, 0.8],
+                                opacity: [0.8, 0.4, 0.8]
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 0.4
+                            }}
+                            className={`w-3 h-3 rounded-full ${i % 3 === 0 ? 'bg-[#3F6212]' : i % 3 === 1 ? 'bg-[#64748B]' : 'bg-[#9A3412]'}`}
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     );
 
-    // Neural Lattice SVG (Phase 03)
-    const NeuralMesh = () => (
+    // Neural Cortex Mesh (Phase 03)
+    const NeuralCortex = () => (
         <div className="relative w-48 h-48 flex items-center justify-center">
-            <div className="grid grid-cols-3 gap-8 relative">
-                {[...Array(9)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.3, 0.6, 0.3]
-                        }}
-                        transition={{
-                            duration: 3 + i,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.2
-                        }}
-                        className="w-2 h-2 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"
-                    />
+            {/* Brain/Cortex Shape Outline (Abstract) */}
+            <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 border border-indigo-500/5 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] rotate-45"
+            />
+
+            <div className="relative z-10 grid grid-cols-4 gap-4">
+                {[...Array(16)].map((_, i) => (
+                    <div key={i} className="relative">
+                        <motion.div
+                            animate={{
+                                opacity: [0.1, 0.5, 0.1],
+                                scale: [1, 1.2, 1]
+                            }}
+                            transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: (i % 4) * 0.5
+                            }}
+                            className="w-1.5 h-1.5 bg-indigo-400 rounded-full"
+                        />
+                        {/* Connecting Line Effect */}
+                        {i < 12 && (
+                            <div className="absolute top-1/2 left-full w-4 h-px bg-indigo-500/10" />
+                        )}
+                    </div>
                 ))}
-                {/* Connection Lines (Simplified Abstract) */}
-                <div className="absolute inset-0 border border-indigo-500/10 rounded-2xl -m-4" />
-                <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/10 to-transparent" />
-                <div className="absolute left-1/2 top-0 h-full w-px bg-gradient-to-b from-transparent via-indigo-500/10 to-transparent" />
             </div>
+
+            {/* Floating Intelligence "Packets" */}
+            {[...Array(3)].map((_, i) => (
+                <motion.div
+                    key={`p-${i}`}
+                    animate={{
+                        x: [-60, 60],
+                        y: [i * 20 - 20, i * -20 + 20],
+                        opacity: [0, 0.8, 0]
+                    }}
+                    transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "linear",
+                        delay: i * 1.5
+                    }}
+                    className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_8px_#6366f1]"
+                />
+            ))}
         </div>
     );
 
@@ -136,7 +182,7 @@ export default function HowItWorks() {
                             </div>
                             <div className="p-1 rounded-[3rem] border border-forest/5 bg-white/40 backdrop-blur-sm shadow-sm overflow-hidden">
                                 <div className="aspect-square bg-[#FBFAF8] rounded-[2.8rem] flex items-center justify-center p-12">
-                                    <BiologicalCore />
+                                    <DNAHelix />
                                 </div>
                             </div>
                         </div>
@@ -165,7 +211,12 @@ export default function HowItWorks() {
                             <div className="p-1 rounded-[3rem] border border-amber-900/5 bg-white/40 backdrop-blur-sm shadow-sm overflow-hidden md:order-1">
                                 <div className="aspect-square bg-slate-900 rounded-[2.8rem] flex items-center justify-center p-12 relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-tr from-[#D97706]/10 to-transparent" />
-                                    <Activity className="w-32 h-32 text-[#D97706]/40" />
+                                    <motion.div
+                                        animate={{ opacity: [0.2, 0.5, 0.2] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                    >
+                                        <Activity className="w-32 h-32 text-[#D97706]/40" />
+                                    </motion.div>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +242,7 @@ export default function HowItWorks() {
                             </div>
                             <div className="p-1 rounded-[3rem] border border-indigo-900/5 bg-white/40 backdrop-blur-sm shadow-sm overflow-hidden">
                                 <div className="aspect-square bg-[#FBFAF8] rounded-[2.8rem] flex items-center justify-center p-12">
-                                    <NeuralMesh />
+                                    <NeuralCortex />
                                 </div>
                             </div>
                         </div>
