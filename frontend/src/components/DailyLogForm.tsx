@@ -99,7 +99,15 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     ama: form.amaStatus,
                     movement: form.movement,
                     routines: form.routines,
-                    detailed_analysis: data.ai_response || data.analysis // Save the AI's wisdom
+                    detailed_analysis: data.ai_response || data.analysis,
+                    mala: form.bowelStatus,
+                    mutra: form.micturitionStatus,
+                    hydration: form.hydration,
+                    custom_note: form.customNote,
+                    wake_time: form.wakeTime,
+                    lunch_time: form.lunchTime,
+                    dinner_time: form.dinnerTime,
+                    food_quality: form.foodQuality
                 });
                 if (dbError) console.error("Database Sync Error:", dbError);
             }
