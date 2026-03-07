@@ -54,7 +54,7 @@ export default function AyuOneHub() {
     const [constitution, setConstitution] = useState<any>(null);
 
     // Chat State
-    const [messages, setMessages] = useState([
+    const [messages, setMessages] = useState<{ role: string; text: string }[]>([
         { role: "ai", text: "Namaste! How can I guide your wellness today? Tell me about your sleep, meals, or any discomfort." }
     ]);
     const [input, setInput] = useState("");
@@ -71,30 +71,79 @@ export default function AyuOneHub() {
 
     const { state, updateState } = usePhysiologyState();
 
+    // Load initialization
     useEffect(() => {
         setMounted(true);
 
-        if (typeof window !== "undefined") {
-            const storedPrakriti = localStorage.getItem("prakriti_result");
-            const today = new Date().toISOString().split('T')[0];
-            const storedLogs = JSON.parse(localStorage.getItem("completed_logs") || "{}");
+        const loadInitialData = async () => {
+            if (typeof window === "undefined") return;
 
-            // Filter logs completed today
-            const dailyLogs = Object.entries(storedLogs)
-                .filter(([key, val]) => val === today)
-                .map(([key]) => key);
-            setCompletedLogs(dailyLogs);
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
 
-            if (storedPrakriti) {
-                setIsPrakritiSet(true);
-                const data = JSON.parse(storedPrakriti);
-                setMessages([
-                    { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${data.type}. How was your sleep last night? Or what was your dinner like?` }
-                ]);
+            if (user) {
+                // Load Prakriti from Profiles
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('prakriti_result')
+                    .eq('id', user.id)
+                    .single();
+
+                if (profile?.prakriti_result) {
+                    setIsPrakritiSet(true);
+                    const data = profile.prakriti_result as any;
+                    setConstitution(data);
+                    setMessages([
+                        { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${data.type}. How was your sleep last night? Or what was your dinner like?` }
+                    ]);
+                } else {
+                    setIsPrakritiSet(false);
+                }
+
+                // Check pulse_logs for today's check-ins
+                const todayStart = new Date();
+                todayStart.setHours(0, 0, 0, 0);
+
+                const { data: todayLogs } = await supabase
+                    .from('pulse_logs')
+                    .select('detailed_analysis, created_at')
+                    .eq('user_id', user.id)
+                    .gte('created_at', todayStart.toISOString());
+
+                if (todayLogs) {
+                    const completed: string[] = [];
+                    todayLogs.forEach((log: any) => {
+                        const analysis = (log.detailed_analysis || "").toLowerCase();
+                        if (analysis.includes("morning check-in")) completed.push("morning");
+                        if (analysis.includes("evening check-in")) completed.push("evening");
+                    });
+                    setCompletedLogs(completed);
+                }
             } else {
-                setIsPrakritiSet(false);
+                // Fallback to localStorage for guest users
+                const storedPrakriti = localStorage.getItem("prakriti_result");
+                const today = new Date().toISOString().split('T')[0];
+                const storedLogs = JSON.parse(localStorage.getItem("completed_logs") || "{}");
+
+                if (storedPrakriti) {
+                    setIsPrakritiSet(true);
+                    const data = JSON.parse(storedPrakriti);
+                    setConstitution(data);
+                    setMessages([
+                        { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${data.type}. How was your sleep last night? Or what was your dinner like?` }
+                    ]);
+                } else {
+                    setIsPrakritiSet(false);
+                }
+
+                const completed = Object.entries(storedLogs)
+                    .filter(([_, val]) => val === today)
+                    .map(([key]) => key);
+                setCompletedLogs(completed);
             }
-        }
+        };
+
+        loadInitialData();
     }, []);
 
     const scrollToBottom = () => {
@@ -127,6 +176,21 @@ export default function AyuOneHub() {
 
         localStorage.setItem("prakriti_result", JSON.stringify(finalResult));
         setConstitution(finalResult);
+
+        // Sync to Supabase Profiles
+        const syncPrakriti = async () => {
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                await supabase.from('profiles').upsert({
+                    id: user.id,
+                    prakriti_result: finalResult,
+                    is_onboarded: true,
+                    updated_at: new Date().toISOString()
+                });
+            }
+        };
+        syncPrakriti();
 
         updateState({
             ...state,
@@ -178,7 +242,7 @@ export default function AyuOneHub() {
 
         // Record answer
         const questionId = activeQuestions[checkinStep].id;
-        setCheckinAnswers(prev => ({ ...prev, [questionId]: option.answer }));
+        setCheckinAnswers((prev: Record<string, string>) => ({ ...prev, [questionId]: option.answer }));
 
         setTimeout(() => {
             const nextStep = checkinStep + 1;
@@ -231,14 +295,14 @@ export default function AyuOneHub() {
             const storedLogs = JSON.parse(localStorage.getItem("completed_logs") || "{}");
             storedLogs[activeCheckinType] = today;
             localStorage.setItem("completed_logs", JSON.stringify(storedLogs));
-            setCompletedLogs(prev => [...prev, activeCheckinType!]);
+            setCompletedLogs((prev: string[]) => [...prev, activeCheckinType!]);
         }
 
         setActiveCheckinType(null);
         setCheckinStep(0);
         setAccumulatedEffects([]);
         setCheckinAnswers({});
-        setMessages(prev => [
+        setMessages((prev: any[]) => [
             ...prev,
             { role: "ai", text: `✅ ${typeLabel} Check-in Complete. I have dynamically synced these signals to your biological pulse. Ojas, Digestion, and Circadian reserves have been updated.` }
         ]);

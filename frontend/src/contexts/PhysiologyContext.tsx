@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { defaultState, VedaState } from '../engine/stateModel';
+import { createClient } from '../utils/supabase/client';
 
 const STORAGE_KEY = 'veda_health_state';
 
@@ -18,22 +19,58 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        const prakritiStored = localStorage.getItem('prakriti_result');
-        const onboarded = !!prakritiStored;
+        const loadState = async () => {
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
 
-        if (stored) {
-            try {
-                const parsed = JSON.parse(stored);
-                setState({ ...parsed, is_onboarded: onboarded });
-            } catch (e) {
-                console.error("Failed to parse Veda state", e);
-                setState(prev => ({ ...prev, is_onboarded: onboarded }));
+            let remoteState: Partial<VedaState> | null = null;
+            let remoteOnboarded = false;
+
+            if (user) {
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('veda_health_state, is_onboarded')
+                    .eq('id', user.id)
+                    .single();
+
+                if (profile) {
+                    remoteState = profile.veda_health_state as any;
+                    remoteOnboarded = profile.is_onboarded;
+                }
             }
-        } else {
-            setState(prev => ({ ...prev, is_onboarded: onboarded }));
-        }
-        setIsLoaded(true);
+
+            const localStored = localStorage.getItem(STORAGE_KEY);
+            const localPrakritiStored = localStorage.getItem('prakriti_result');
+            const localOnboarded = !!localPrakritiStored;
+
+            if (remoteState) {
+                // DB wins, but we can merge if needed. For now, DB is source of truth.
+                setState({ ...defaultState, ...remoteState, is_onboarded: remoteOnboarded });
+            } else if (localStored) {
+                try {
+                    const parsed = JSON.parse(localStored);
+                    setState({ ...parsed, is_onboarded: localOnboarded });
+
+                    // Trigger an initial sync to DB if user is logged in
+                    if (user) {
+                        await supabase.from('profiles').upsert({
+                            id: user.id,
+                            veda_health_state: parsed,
+                            is_onboarded: localOnboarded,
+                            updated_at: new Date().toISOString()
+                        });
+                    }
+                } catch (e) {
+                    console.error("Failed to parse local Veda state", e);
+                    setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded }));
+                }
+            } else {
+                setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded || remoteOnboarded }));
+            }
+            setIsLoaded(true);
+        };
+
+        loadState();
     }, []);
 
     // Listen for storage changes from other tabs/windows
@@ -48,7 +85,7 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
                 }
             }
             if (e.key === 'prakriti_result') {
-                setState(prev => ({ ...prev, is_onboarded: !!e.newValue }));
+                setState((prev: VedaState) => ({ ...prev, is_onboarded: !!e.newValue }));
             }
         };
 
@@ -56,14 +93,19 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
         return () => window.removeEventListener('storage', handleStorageChange);
     }, []);
 
-    const updateState = (newState: VedaState) => {
+    const updateState = async (newState: VedaState) => {
         setState(newState);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
 
-        // Also ensure prakriti_result syncs if it's part of the update
-        if (newState.is_onboarded) {
-            // We don't necessarily overwrite the actual quiz result here, 
-            // but we ensure the flag is consistent.
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            await supabase.from('profiles').upsert({
+                id: user.id,
+                veda_health_state: newState,
+                is_onboarded: newState.is_onboarded,
+                updated_at: new Date().toISOString()
+            });
         }
     };
 
