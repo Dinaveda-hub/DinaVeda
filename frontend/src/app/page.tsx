@@ -181,26 +181,30 @@ export default function Dashboard() {
           </div>
 
           {/* Sub Grid: Component Indicators */}
-          <div className="grid grid-cols-3 gap-4">
-            <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
-              <span className="text-xl md:text-2xl font-black text-orange-600 tracking-tighter">
+          <div className="grid grid-cols-3 gap-3 md:gap-4">
+            <div className="bg-white/60 p-4 md:p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
+              <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1 md:gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
+              <span className="text-lg md:text-2xl font-black text-orange-600 tracking-tighter">
                 {isLoaded ? (state.agni_strength > 65 ? 'Strong' : state.agni_strength > 40 ? 'Balanced' : 'Weak') : '--'}
               </span>
             </div>
-            <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
-              <span className="text-xl md:text-2xl font-black text-blue-600 tracking-tighter">
+            <div className="bg-white/60 p-4 md:p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
+              <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1 md:gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
+              <span className="text-lg md:text-2xl font-black text-blue-600 tracking-tighter">
                 {isLoaded ? `${Math.round(state.circadian_alignment)}%` : '--'}
               </span>
             </div>
-            <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
-              <div className="flex items-end gap-1.5">
-                <span className="text-xl md:text-2xl font-black text-forest tracking-tighter">
+            <div className="bg-white/60 p-4 md:p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
+              <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1 md:gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
+              <div className="flex flex-col md:flex-row md:items-end gap-0 md:gap-1.5">
+                <span className="text-lg md:text-2xl font-black text-forest tracking-tighter leading-none">
                   {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
                 </span>
-                {isLoaded && vikriti && <span className="text-xs font-bold text-slate-500 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
+                {isLoaded && vikriti && (
+                  <span className="text-[9px] md:text-xs font-bold text-slate-500 uppercase leading-none md:mb-1 truncate">
+                    ({vikriti.dominant_dosha})
+                  </span>
+                )}
               </div>
             </div>
           </div>
