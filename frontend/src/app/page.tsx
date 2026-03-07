@@ -119,8 +119,8 @@ export default function Dashboard() {
           <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5">
             Today's guidance
           </h1>
-          <p className="text-[10px] md:text-sm font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
-            Aligned with your Prakriti • <span className="text-forest/60 underline decoration-forest/20 underline-offset-4">{healthGoal.replace(/_/g, ' ').toUpperCase()}</span>
+          <p className="text-[10px] md:text-sm font-bold text-slate-600 uppercase tracking-widest leading-relaxed">
+            Aligned with your Prakriti • <span className="text-forest underline decoration-forest/40 underline-offset-4">{healthGoal.replace(/_/g, ' ').toUpperCase()}</span>
           </p>
         </motion.header>
 
@@ -132,12 +132,12 @@ export default function Dashboard() {
                 <CloudSun className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Seasonal Rhythm</h2>
+                <h2 className="text-xs font-black text-slate-600 uppercase tracking-widest mb-1">Seasonal Rhythm</h2>
                 <h3 className="text-2xl font-black text-forest tracking-tighter leading-none">Vasanta (Spring)</h3>
               </div>
             </div>
             <div className="md:text-right flex-1">
-              <p className="text-xs font-bold text-slate-500 w-full md:max-w-xs md:ml-auto leading-relaxed">
+              <p className="text-xs font-bold text-slate-600 w-full md:max-w-xs md:ml-auto leading-relaxed">
                 Favor light, easily digestible foods and maintain active movement to clear winter accumulation.
               </p>
             </div>
@@ -151,7 +151,7 @@ export default function Dashboard() {
             <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col justify-between relative overflow-hidden group hover:bg-white transition-colors h-48">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
               <div>
-                <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-gold" /> Daily Health Score
                 </h2>
                 <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter leading-none">
@@ -159,7 +159,7 @@ export default function Dashboard() {
                 </h3>
               </div>
               <div>
-                <span className="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-1">Ojas Balance</span>
+                <span className="text-sm font-bold text-slate-600 uppercase tracking-widest block mb-1">Ojas Balance</span>
               </div>
             </div>
 
@@ -167,7 +167,7 @@ export default function Dashboard() {
             <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col justify-between relative overflow-hidden group hover:bg-white transition-colors h-48">
               <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
               <div>
-                <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-orange-500" /> Physiological Strain
                 </h2>
                 <h3 className="text-5xl md:text-6xl font-black text-orange-600 tracking-tighter leading-none">
@@ -175,7 +175,7 @@ export default function Dashboard() {
                 </h3>
               </div>
               <div>
-                <span className="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-1">Imbalance Pressure</span>
+                <span className="text-sm font-bold text-slate-600 uppercase tracking-widest block mb-1">Imbalance Pressure</span>
               </div>
             </div>
           </div>
@@ -183,19 +183,19 @@ export default function Dashboard() {
           {/* Sub Grid: Component Indicators */}
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
+              <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
               <span className="text-xl md:text-2xl font-black text-orange-600 tracking-tighter">
                 {isLoaded ? (state.agni_strength > 65 ? 'Strong' : state.agni_strength > 40 ? 'Balanced' : 'Weak') : '--'}
               </span>
             </div>
             <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
+              <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
               <span className="text-xl md:text-2xl font-black text-blue-600 tracking-tighter">
                 {isLoaded ? `${Math.round(state.circadian_alignment)}%` : '--'}
               </span>
             </div>
             <div className="bg-white/60 p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-xs font-black text-slate-400 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
+              <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
               <div className="flex items-end gap-1.5">
                 <span className="text-xl md:text-2xl font-black text-forest tracking-tighter">
                   {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
@@ -208,7 +208,7 @@ export default function Dashboard() {
 
         {/* 4. Today's Protocol & 5. Time-Based Guidance */}
         <motion.section variants={itemVariants} className="mt-4">
-          <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+          <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
             <ShieldCheck className="w-4 h-4 text-forest/40" /> Today's Protocol
           </h2>
 
@@ -278,7 +278,7 @@ export default function Dashboard() {
         {/* 6. Dynamic Adjustments */}
         {isLoaded && adjustments.length > 0 && (
           <motion.section variants={itemVariants} className="mt-4">
-            <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
+            <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
               <AlertCircle className="w-4 h-4 text-orange-400" /> Dynamic Adjustments
             </h2>
             <div className="space-y-4">
@@ -304,8 +304,8 @@ export default function Dashboard() {
             <div className="w-10 h-10 rounded-[1.2rem] bg-forest/5 flex items-center justify-center mx-auto mb-5 text-forest">
               <Leaf className="w-5 h-5" />
             </div>
-            <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-3">Dinaveda Observation</h4>
-            <p className="text-xs md:text-sm font-bold text-slate-500 leading-relaxed italic text-balance px-4">
+            <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600 mb-3">Dinaveda Observation</h4>
+            <p className="text-xs md:text-sm font-bold text-slate-700 leading-relaxed italic text-balance px-4">
               "{isLoaded ? (state.is_onboarded ? predictionEngine.getSystemReflection(state) : "Awaiting biological initialization...") : "Calibrating systemic balance..."}"
             </p>
           </div>
@@ -338,7 +338,7 @@ export default function Dashboard() {
               </div>
 
               <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter leading-none mb-6">Initialize Your Neural Hub</h2>
-              <p className="text-sm md:text-base font-bold text-slate-500 leading-relaxed mb-10 max-w-xs mx-auto text-balance">
+              <p className="text-sm md:text-base font-bold text-slate-600 leading-relaxed mb-10 max-w-xs mx-auto text-balance">
                 To generate your personalized health scores and daily protocols, we first need to map your biological constitution.
               </p>
 
@@ -351,9 +351,9 @@ export default function Dashboard() {
                 </Link>
                 <Link
                   href="/how-it-works"
-                  className="w-full bg-white text-slate-400 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-white text-slate-600 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                 >
-                  Learn How it Works
+                  asylum                  Learn How it Works
                 </Link>
               </div>
             </div>
