@@ -403,7 +403,7 @@ export default function WelcomeLandingPage() {
                 </section>
             </main>
 
-            <footer className="pt-12 pb-12 bg-white border-t border-slate-100">
+            <footer className="relative z-10 pt-12 pb-12 bg-white border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-12">
                     <div className="md:col-span-2 space-y-8">
                         <Link href="/" className="flex items-center gap-3 mb-4 group">
