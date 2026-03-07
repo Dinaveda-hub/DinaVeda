@@ -176,7 +176,7 @@ export default function SettingsPage() {
                     })
                 },
                 {
-                    name: "Circadian Sync & Drift",
+                    name: "Circadian Sync",
                     icon: Activity,
                     detail: "Aligning with the cosmic pulse",
                     action: () => setActiveModal({
@@ -187,8 +187,7 @@ export default function SettingsPage() {
                                     Your body follows a rhythmic dance with the sun. Circadian Sync measures how well your internal clocks match the natural day-night cycle.
                                 </p>
                                 <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
-                                    <p className="text-xs font-black text-indigo-600 uppercase tracking-widest mb-1">Status: Rhythmic Drift</p>
-                                    <p className="text-[10px] text-indigo-700 font-bold leading-tight">Drift occurs when your habits (late meals, screens) shift your internal timing away from nature. Sustained drift causes deep biological fatigue.</p>
+                                    <p className="text-[10px] text-indigo-700 font-bold leading-tight">Syncing your sleep and meals with nature's rhythm is the core pillar of biological vitality.</p>
                                 </div>
                             </div>
                         )
