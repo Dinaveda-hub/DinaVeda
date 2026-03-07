@@ -61,7 +61,7 @@ export default function HistoryPage() {
     }, {});
 
     return (
-        <div className="min-h-screen bg-[#F8FAF9] p-6 md:p-12 pb-32">
+        <div className="min-h-screen bg-[#F8FAF9] p-6 md:p-12 pb-32 relative overflow-x-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-60 -mt-60" />
 

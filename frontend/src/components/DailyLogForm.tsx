@@ -109,10 +109,13 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     dinner_time: form.dinnerTime,
                     food_quality: form.foodQuality
                 });
-                if (dbError) console.error("Database Sync Error:", dbError);
+                if (dbError) {
+                    console.error("Database Sync Error:", dbError);
+                    alert("Sync Error: " + dbError.message);
+                } else {
+                    onResult(data);
+                }
             }
-
-            onResult(data);
         } catch (err) {
             console.error(err);
         } finally {
