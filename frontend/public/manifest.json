@@ -5,6 +5,8 @@
   "id": "/",
   "start_url": "/",
   "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F8FAF9",
@@ -81,5 +83,7 @@
       "form_factor": "wide",
       "label": "Dinaveda Desktop Hub"
     }
-  ]
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

@@ -36,12 +36,13 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/manifest.json",
-  themeColor: "#2D5A43",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
+};
+
+export const viewport = {
+  themeColor: "#1B5E43",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

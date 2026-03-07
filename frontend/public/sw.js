@@ -9,5 +9,11 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     // Basic fetch handler required for PWA installability
-    // Can be expanded later for offline support
+    // It MUST call respondWith to be considered active by some browsers
+    event.respondWith(
+        fetch(event.request).catch(() => {
+            // Fallback for offline if needed
+            return new Response("Offline");
+        })
+    );
 });
