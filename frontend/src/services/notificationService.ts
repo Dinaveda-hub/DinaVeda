@@ -43,11 +43,12 @@ export async function sendNotification(userId: string, message: string) {
 
 /**
  * Sets external user ID in OneSignal (Client-side helper).
+ * Note: OneSignal V16 uses 'login' instead of 'setExternalUserId'
  */
 export function registerUserWithOneSignal(userId: string) {
     if (typeof window !== "undefined" && (window as any).OneSignal) {
         (window as any).OneSignal.push(() => {
-            (window as any).OneSignal.setExternalUserId(userId);
+            (window as any).OneSignal.login(userId);
         });
     }
 }
