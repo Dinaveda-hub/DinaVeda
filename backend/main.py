@@ -116,9 +116,10 @@ class PersonalizeRequest(BaseModel):
 # Endpoints
 # ─────────────────────────────────────────────
 
+@app.get("/")
 @app.get("/api")
 def read_root():
-    return {"message": "Welcome to Veda AI API"}
+    return {"message": "Welcome to Veda AI API", "status": "online"}
 
 
 @app.post("/api/analyze")
