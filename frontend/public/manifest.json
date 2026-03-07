@@ -1,11 +1,20 @@
 {
   "name": "Dinaveda",
   "short_name": "Dinaveda",
-  "description": "Your intelligent Swasthavritta companion.",
+  "description": "Biological Health OS: Harmonizing 5,000 years of Ayurvedic wisdom with modern Neural Intelligence.",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#2D5A43",
+  "orientation": "portrait",
+  "background_color": "#F8FAF9",
+  "theme_color": "#1B5E43",
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle",
+    "medical"
+  ],
   "icons": [
     {
       "src": "/favicon.png",
@@ -30,6 +39,47 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Daily Pulse",
+      "short_name": "Pulse",
+      "description": "Log your daily biological signals",
+      "url": "/ayuone",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "About Dinaveda",
+      "short_name": "About",
+      "url": "/about",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Dinaveda Mobile Dashboard"
+    },
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dinaveda Desktop Hub"
     }
   ]
 }
