@@ -75,7 +75,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
         };
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001'}/api/analyze`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://dinaveda.com'}/api/analyze`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

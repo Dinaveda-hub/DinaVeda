@@ -222,7 +222,7 @@ export default function AyuOneHub() {
         const prakriti = storedResult ? JSON.parse(storedResult).type : "Unknown";
 
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001';
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://dinaveda.com'; // Fallback for production sync
             const res = await fetch(`${apiUrl}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

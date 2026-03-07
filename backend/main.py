@@ -1,12 +1,18 @@
 import os
+import sys
+from pathlib import Path
 from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from wellness_engine import VedaEngine
-from ai.supervisor_agent import SupervisorAgent
 from supabase import create_client, Client
 from dotenv import load_dotenv
+
+# Ensure the backend directory is in the path for Vercel
+sys.path.append(str(Path(__file__).parent))
+
+from wellness_engine import VedaEngine
+from ai.supervisor_agent import SupervisorAgent
 
 load_dotenv()
 
