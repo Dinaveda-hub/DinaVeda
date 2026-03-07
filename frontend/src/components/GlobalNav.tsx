@@ -10,7 +10,7 @@ export default function GlobalNav() {
     const { state, isLoaded } = usePhysiologyState();
 
     // Hide navigation on auth, onboarding, and informational pages
-    const hiddenRoutes = ['/login', '/auth', '/welcome', '/about', '/privacy', '/terms', '/contact', '/ayuone', '/how-it-works'];
+    const hiddenRoutes = ['/login', '/auth', '/welcome', '/about', '/privacy', '/terms', '/contact', '/how-it-works'];
 
     // Always hide if on a hidden route
     if (hiddenRoutes.some(route => pathname.startsWith(route))) {
