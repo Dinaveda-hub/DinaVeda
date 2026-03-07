@@ -50,18 +50,18 @@ export default function HowItWorks() {
                     initial="hidden"
                     animate="visible"
                     variants={containerVariants}
-                    className="space-y-32"
+                    className="space-y-16 md:space-y-32"
                 >
                     {/* Header */}
                     <motion.header variants={itemVariants} className="text-center md:text-left">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-forest/5 text-forest/60 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-8">
                             <Sparkles className="w-4 h-4" /> Technical Blueprint
                         </div>
-                        <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter leading-[0.85] mb-8">
+                        <h1 className="text-4xl md:text-8xl font-black text-forest tracking-tighter leading-none mb-8">
                             Harmonizing <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-600">Biology & AI.</span>
                         </h1>
-                        <p className="text-sm md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed uppercase tracking-wide">
+                        <p className="text-base md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed uppercase tracking-wide">
                             Understand the neural architecture that powers your journey toward perfect biological alignment.
                         </p>
                     </motion.header>
@@ -74,8 +74,8 @@ export default function HowItWorks() {
                                     <Target className="w-8 h-8" />
                                 </div>
                                 <h2 className="text-xs font-black text-forest/40 uppercase tracking-[0.4em] mb-4">Phase 01</h2>
-                                <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-6">Prakriti Mapping</h3>
-                                <p className="text-sm md:text-base font-bold text-slate-500 leading-relaxed mb-8">
+                                <h3 className="text-2xl md:text-5xl font-black text-forest tracking-tighter mb-6">Prakriti Mapping</h3>
+                                <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     Your journey begins with a genetic audit. We map your "Prakriti"—your permanent biological baseline determined at conception. This serves as the "Gold Standard" for your unique state of perfect health.
                                 </p>
                                 <div className="flex gap-4">
@@ -109,8 +109,8 @@ export default function HowItWorks() {
                                     <Activity className="w-8 h-8" />
                                 </div>
                                 <h2 className="text-xs font-black text-orange-400 uppercase tracking-[0.4em] mb-4">Phase 02</h2>
-                                <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-6">The Daily Pulse</h3>
-                                <p className="text-sm md:text-base font-bold text-slate-500 leading-relaxed mb-8">
+                                <h3 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tighter mb-6">The Daily Pulse</h3>
+                                <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     Life creates "Vikriti"—daily deviations from your center. Through simple morning and evening signals, our engine tracks how stress, seasonal shifts, and nutrition are pulling you away from your baseline.
                                 </p>
                                 <ul className="space-y-3">
@@ -138,8 +138,8 @@ export default function HowItWorks() {
                                     <BrainCircuit className="w-8 h-8" />
                                 </div>
                                 <h2 className="text-xs font-black text-blue-400 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
-                                <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter mb-6">Neural Synthesis</h3>
-                                <p className="text-sm md:text-base font-bold text-slate-500 leading-relaxed mb-8">
+                                <h3 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tighter mb-6">Neural Synthesis</h3>
+                                <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     This is where the magic happens. Dinaveda uses advanced AI to compare your daily signals against 5,000 years of Ayurvedic logic. It generates a "Pathya" (optimized plan) that is strictly calibrated for your unique biology.
                                 </p>
                                 <div className="p-6 rounded-2xl bg-blue-50/50 border border-blue-100">
@@ -167,11 +167,11 @@ export default function HowItWorks() {
 
                     {/* Final CTA */}
                     <motion.section variants={itemVariants} className="pb-40">
-                        <div className="glass p-12 md:p-20 rounded-[4rem] border border-white/60 shadow-premium text-center relative overflow-hidden">
+                        <div className="glass p-8 md:p-20 rounded-[2.5rem] md:rounded-[4rem] border border-white/60 shadow-premium text-center relative overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-gold/5 pointer-events-none" />
                             <div className="relative z-10 space-y-10">
-                                <h2 className="text-4xl md:text-6xl font-black text-forest tracking-tighter leading-none">Ready to Harmonize?</h2>
-                                <p className="text-sm md:text-base font-bold text-slate-500 max-w-md mx-auto leading-relaxed">
+                                <h2 className="text-3xl md:text-6xl font-black text-forest tracking-tighter leading-none">Ready to Harmonize?</h2>
+                                <p className="text-base md:text-lg font-bold text-slate-500 max-w-md mx-auto leading-relaxed">
                                     Now that you understand the system, take the first step toward biological sovereignty. Initialize your neural hub to begin.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
