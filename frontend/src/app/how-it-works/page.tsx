@@ -25,6 +25,56 @@ export default function HowItWorks() {
         }
     } as const;
 
+    // Abstract Biological Core SVG (Phase 01)
+    const BiologicalCore = () => (
+        <div className="relative w-48 h-48 flex items-center justify-center">
+            <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 border border-forest/5 rounded-full"
+            />
+            <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-4 border border-forest/10 border-dashed rounded-full"
+            />
+            <div className="w-12 h-12 bg-forest/10 rounded-full blur-xl absolute" />
+            <div className="relative w-24 h-24 rounded-full border-2 border-forest/20 flex items-center justify-center p-4">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-forest/20 to-emerald-800/20 animate-pulse" />
+                <div className="absolute w-2 h-2 bg-forest rounded-full -top-1 left-1/2" />
+                <div className="absolute w-1.5 h-1.5 bg-forest/40 rounded-full top-1/2 -right-1" />
+            </div>
+        </div>
+    );
+
+    // Neural Lattice SVG (Phase 03)
+    const NeuralMesh = () => (
+        <div className="relative w-48 h-48 flex items-center justify-center">
+            <div className="grid grid-cols-3 gap-8 relative">
+                {[...Array(9)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.3, 0.6, 0.3]
+                        }}
+                        transition={{
+                            duration: 3 + i,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: i * 0.2
+                        }}
+                        className="w-2 h-2 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+                    />
+                ))}
+                {/* Connection Lines (Simplified Abstract) */}
+                <div className="absolute inset-0 border border-indigo-500/10 rounded-2xl -m-4" />
+                <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/10 to-transparent" />
+                <div className="absolute left-1/2 top-0 h-full w-px bg-gradient-to-b from-transparent via-indigo-500/10 to-transparent" />
+            </div>
+        </div>
+    );
+
     return (
         <div className="bg-[#FBFAF8] min-h-screen text-slate-700 font-sans selection:bg-forest/20 selection:text-forest overflow-x-hidden">
             {/* Background Radiance (Softened) */}
@@ -78,24 +128,15 @@ export default function HowItWorks() {
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     Your journey begins with a genetic audit. We map your "Prakriti"—your permanent biological baseline determined at conception. This serves as the "Gold Standard" for your unique state of perfect health.
                                 </p>
-                                <div className="flex gap-4">
-                                    <div className="px-4 py-2 rounded-xl bg-white border border-slate-100 text-[10px] font-black uppercase tracking-widest text-forest">Vata (Air)</div>
-                                    <div className="px-4 py-2 rounded-xl bg-white border border-slate-100 text-[10px] font-black uppercase tracking-widest text-fire">Pitta (Fire)</div>
-                                    <div className="px-4 py-2 rounded-xl bg-white border border-slate-100 text-[10px] font-black uppercase tracking-widest text-water">Kapha (Earth)</div>
+                                <div className="flex flex-wrap gap-4">
+                                    <div className="px-5 py-2.5 rounded-2xl bg-white border border-[#64748B]/10 text-[10px] font-black uppercase tracking-widest text-[#64748B] shadow-sm">Vata (Air)</div>
+                                    <div className="px-5 py-2.5 rounded-2xl bg-white border border-[#9A3412]/10 text-[10px] font-black uppercase tracking-widest text-[#9A3412] shadow-sm">Pitta (Fire)</div>
+                                    <div className="px-5 py-2.5 rounded-2xl bg-white border border-[#3F6212]/10 text-[10px] font-black uppercase tracking-widest text-[#3F6212] shadow-sm">Kapha (Earth)</div>
                                 </div>
                             </div>
-                            <div className="glass p-1 rounded-[3rem] shadow-premium overflow-hidden">
-                                <div className="aspect-square bg-white rounded-[2.8rem] flex items-center justify-center p-12">
-                                    <div className="relative w-full h-full">
-                                        <motion.div
-                                            animate={{ rotate: 360 }}
-                                            transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-                                            className="absolute inset-0 border-2 border-dashed border-forest/10 rounded-full"
-                                        />
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <ShieldCheck className="w-20 h-20 text-forest opacity-20" />
-                                        </div>
-                                    </div>
+                            <div className="p-1 rounded-[3rem] border border-forest/5 bg-white/40 backdrop-blur-sm shadow-sm overflow-hidden">
+                                <div className="aspect-square bg-[#FBFAF8] rounded-[2.8rem] flex items-center justify-center p-12">
+                                    <BiologicalCore />
                                 </div>
                             </div>
                         </div>
@@ -121,10 +162,10 @@ export default function HowItWorks() {
                                     ))}
                                 </ul>
                             </div>
-                            <div className="glass p-1 rounded-[3rem] shadow-premium overflow-hidden md:order-1">
+                            <div className="p-1 rounded-[3rem] border border-amber-900/5 bg-white/40 backdrop-blur-sm shadow-sm overflow-hidden md:order-1">
                                 <div className="aspect-square bg-slate-900 rounded-[2.8rem] flex items-center justify-center p-12 relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-amber-600/10 to-transparent" />
-                                    <Activity className="w-32 h-32 text-amber-600 animate-pulse" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-[#D97706]/10 to-transparent" />
+                                    <Activity className="w-32 h-32 text-[#D97706]/40" />
                                 </div>
                             </div>
                         </div>
@@ -148,18 +189,9 @@ export default function HowItWorks() {
                                     </p>
                                 </div>
                             </div>
-                            <div className="glass p-1 rounded-[3rem] shadow-premium overflow-hidden">
-                                <div className="aspect-square bg-white rounded-[2.8rem] flex items-center justify-center p-12">
-                                    <div className="w-full h-full bg-indigo-50/30 rounded-2xl flex items-center justify-center relative shadow-inner">
-                                        <Sparkles className="w-20 h-20 text-indigo-300" />
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <motion.div
-                                                animate={{ scale: [1, 1.2, 1] }}
-                                                transition={{ repeat: Infinity, duration: 3 }}
-                                                className="w-40 h-40 rounded-full border border-indigo-100"
-                                            />
-                                        </div>
-                                    </div>
+                            <div className="p-1 rounded-[3rem] border border-indigo-900/5 bg-white/40 backdrop-blur-sm shadow-sm overflow-hidden">
+                                <div className="aspect-square bg-[#FBFAF8] rounded-[2.8rem] flex items-center justify-center p-12">
+                                    <NeuralMesh />
                                 </div>
                             </div>
                         </div>
