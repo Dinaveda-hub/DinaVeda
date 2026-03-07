@@ -130,12 +130,17 @@ export default function WelcomeLandingPage() {
 
             {/* Navbar */}
             <nav className="p-6 sticky top-0 z-50 flex justify-between items-center backdrop-blur-md bg-white/60 border-b border-slate-100">
-                <div className="flex flex-1 items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-forest flex items-center justify-center text-white shadow-md">
-                        <Leaf className="w-4 h-4" />
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative w-10 h-10 transition-transform duration-500 group-hover:scale-105">
+                        <Image
+                            src="/logo.png"
+                            alt="Dinaveda Logo"
+                            fill
+                            className="object-contain"
+                        />
                     </div>
                     <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
-                </div>
+                </Link>
                 <div className="hidden md:flex gap-8 items-center text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] md:tracking-[0.3em] pl-4 pr-12">
                     <button onClick={() => {
                         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
@@ -399,12 +404,17 @@ export default function WelcomeLandingPage() {
             <footer className="pt-24 pb-12 bg-white border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
                     <div className="md:col-span-2 space-y-8">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-2xl bg-forest flex items-center justify-center text-white shadow-lg">
-                                <Leaf className="w-5 h-5" />
+                        <Link href="/" className="flex items-center gap-3 mb-4 group">
+                            <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
+                                <Image
+                                    src="/logo.png"
+                                    alt="Dinaveda Logo"
+                                    fill
+                                    className="object-contain"
+                                />
                             </div>
                             <span className="font-black text-3xl text-forest tracking-tighter">Dinaveda</span>
-                        </div>
+                        </Link>
                         <p className="text-slate-400 max-w-sm font-bold leading-relaxed text-sm uppercase tracking-wide">
                             Ancient wisdom meeting modern intelligence. Build your rhythm, find your balance.
                         </p>
@@ -435,7 +445,7 @@ export default function WelcomeLandingPage() {
                 </div>
 
                 <div className="text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] pt-12 mx-6 border-t border-slate-50">
-                    © {new Date().getFullYear()} Dinaveda Neural Systems. All rights reserved.
+                    © {new Date().getFullYear()} Dinaveda. All rights reserved.
                 </div>
             </footer>
         </div>

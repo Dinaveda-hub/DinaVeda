@@ -8,6 +8,7 @@ import {
   Sunrise, Sun, Sunset, AlertCircle, CheckCircle2,
   Sparkles, Leaf, Activity, User, ArrowRight, BrainCircuit
 } from "lucide-react";
+import Image from "next/image";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
 import { selectProtocols, filterProtocols, Protocol } from "@/engine/protocolSelectionEngine";
@@ -107,9 +108,14 @@ export default function Dashboard() {
 
         {/* 1. Header */}
         <motion.header variants={itemVariants} className="text-left mb-6">
-          <p className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] mb-3 flex items-center gap-2">
-            Dinaveda <Sparkles className="w-3.5 h-3.5 text-gold/60" />
-          </p>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="relative w-6 h-6">
+              <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+            </div>
+            <p className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] flex items-center gap-2">
+              Dinaveda <Sparkles className="w-3.5 h-3.5 text-gold/60" />
+            </p>
+          </div>
           <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5">
             Today's guidance
           </h1>
@@ -322,8 +328,13 @@ export default function Dashboard() {
             <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent pointer-events-none" />
 
             <div className="relative z-10">
-              <div className="w-20 h-20 bg-forest/5 rounded-[2rem] flex items-center justify-center text-forest mx-auto mb-10 shadow-sm">
-                <BrainCircuit className="w-10 h-10" />
+              <div className="relative w-20 h-20 mx-auto mb-10 transition-transform duration-500 hover:scale-105">
+                <Image
+                  src="/logo.png"
+                  alt="Dinaveda Logo"
+                  fill
+                  className="object-contain"
+                />
               </div>
 
               <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter leading-none mb-6">Initialize Your Neural Hub</h2>
