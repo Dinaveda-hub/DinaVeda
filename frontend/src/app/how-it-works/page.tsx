@@ -201,7 +201,7 @@ export default function HowItWorks() {
             </main>
 
             {/* Footer */}
-            <footer className="py-12 border-t border-forest/5 text-center mt-auto bg-white/40">
+            <footer className="py-8 border-t border-forest/5 text-center mt-auto bg-white/40">
                 <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.5em]">
                     © {new Date().getFullYear()} Dinaveda • Optimized for Balance
                 </p>

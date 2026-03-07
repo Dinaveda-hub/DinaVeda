@@ -401,8 +401,8 @@ export default function WelcomeLandingPage() {
                 </section>
             </main>
 
-            <footer className="pt-24 pb-12 bg-white border-t border-slate-100">
-                <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+            <footer className="pt-12 pb-12 bg-white border-t border-slate-100">
+                <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-12">
                     <div className="md:col-span-2 space-y-8">
                         <Link href="/" className="flex items-center gap-3 mb-4 group">
                             <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
@@ -444,7 +444,7 @@ export default function WelcomeLandingPage() {
                     </div>
                 </div>
 
-                <div className="text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] pt-12 mx-6 border-t border-slate-50">
+                <div className="text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] pt-8 mx-6 border-t border-slate-50">
                     © {new Date().getFullYear()} Dinaveda. All rights reserved.
                 </div>
             </footer>
