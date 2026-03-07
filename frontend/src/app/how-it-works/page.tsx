@@ -47,6 +47,7 @@ export default function HowItWorks() {
                             alt="Dinaveda Logo"
                             fill
                             className="object-contain"
+                            sizes="40px"
                         />
                     </div>
                     <span className="font-black text-forest text-2xl tracking-tighter">Dinaveda</span>

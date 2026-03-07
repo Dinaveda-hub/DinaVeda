@@ -138,6 +138,7 @@ export default function WelcomeLandingPage() {
                             fill
                             className="object-contain"
                             priority
+                            sizes="48px"
                         />
                     </div>
                     <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
@@ -412,6 +413,7 @@ export default function WelcomeLandingPage() {
                                     alt="Dinaveda Logo"
                                     fill
                                     priority
+                                    sizes="48px"
                                     className="object-contain"
                                 />
                             </div>

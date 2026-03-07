@@ -266,7 +266,7 @@ export default function AyuOneHub() {
                 <div className="relative">
                     <div className="flex items-center gap-3 mb-3 md:mb-4">
                         <div className="relative w-6 h-6">
-                            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                            <Image src="/logo.png" alt="Logo" fill className="object-contain" sizes="24px" />
                         </div>
                         <span className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
                     </div>

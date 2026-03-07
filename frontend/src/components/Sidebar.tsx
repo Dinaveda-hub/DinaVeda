@@ -33,6 +33,7 @@ export default function Sidebar() {
                                 fill
                                 className="object-contain"
                                 priority
+                                sizes="56px"
                             />
                         </div>
                         <div className="flex flex-col">

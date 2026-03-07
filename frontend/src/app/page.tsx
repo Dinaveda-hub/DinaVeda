@@ -110,7 +110,7 @@ export default function Dashboard() {
         <motion.header variants={itemVariants} className="text-left mb-6">
           <div className="flex items-center gap-2 mb-3">
             <div className="relative w-6 h-6">
-              <Image src="/logo.png" alt="Logo" fill className="object-contain" priority />
+              <Image src="/logo.png" alt="Logo" fill className="object-contain" priority sizes="24px" />
             </div>
             <p className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] flex items-center gap-2">
               Dinaveda <Sparkles className="w-3.5 h-3.5 text-gold/60" />
@@ -334,6 +334,7 @@ export default function Dashboard() {
                   alt="Dinaveda Logo"
                   fill
                   priority
+                  sizes="64px"
                   className="object-contain"
                 />
               </div>
