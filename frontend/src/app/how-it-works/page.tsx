@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 export default function HowItWorks() {
-    const containerVariants = {
+    const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -23,7 +23,7 @@ export default function HowItWorks() {
             y: 0,
             transition: { type: "spring", stiffness: 80, damping: 20 }
         }
-    };
+    } as const;
 
     return (
         <div className="bg-[#F8FAF9] min-h-screen text-slate-800 font-sans selection:bg-forest/20 selection:text-forest overflow-x-hidden">
