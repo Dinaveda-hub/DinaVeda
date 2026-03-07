@@ -7,7 +7,7 @@ import Image from "next/image";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
 import { createBrowserClient } from "@supabase/ssr";
-import { registerUserWithOneSignal } from "@/services/notificationService";
+import { registerUserWithOneSignal, syncNotificationTags, getApiUrl } from "@/services/notificationService";
 
 import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
 import prakritiQuizData from "@/data/prakriti_questions.json";
@@ -168,7 +168,7 @@ export default function AyuOneHub() {
     };
 
     // --- DAILY CHECK-IN LOGIC ---
-    const activeQuestions = activeCheckinType ? dailyCheckinData[activeCheckinType] : [];
+    const activeQuestions = (activeCheckinType && dailyCheckinData[activeCheckinType as keyof typeof dailyCheckinData]) ? dailyCheckinData[activeCheckinType as keyof typeof dailyCheckinData] : [];
 
     const handleCheckinOption = (option: CheckinOption) => {
         setIsTransitioning(true);
@@ -224,7 +224,7 @@ export default function AyuOneHub() {
         const prakriti = storedResult ? JSON.parse(storedResult).type : "Unknown";
 
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://dinaveda.com'; // Fallback for production sync
+            const apiUrl = getApiUrl();
             const res = await fetch(`${apiUrl}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -419,7 +419,7 @@ export default function AyuOneHub() {
                                     </h2>
 
                                     <div className={`grid grid-cols-1 gap-3 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-                                        {activeQuestions[checkinStep].options.map((opt, idx) => (
+                                        {activeQuestions[checkinStep].options.map((opt: any, idx: number) => (
                                             <button
                                                 key={idx}
                                                 onClick={() => handleCheckinOption(opt)}
@@ -566,7 +566,7 @@ export default function AyuOneHub() {
 
                                                     {/* Chat Messages Area */}
                                                     <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-slate-50/30">
-                                                        {messages.map((msg, idx) => (
+                                                        {messages.map((msg: any, idx: number) => (
                                                             <motion.div
                                                                 key={idx}
                                                                 initial={{ opacity: 0, y: 10 }}

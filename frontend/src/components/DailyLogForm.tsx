@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Moon, Utensils, Zap, Sun, BrainCircuit, Droplets, Sparkles, AlertCircle, Info, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
+import { getApiUrl } from "@/utils/api";
 
 interface DailyLogFormProps {
     onResult: (data: any) => void;
@@ -75,7 +76,8 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
         };
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://dinaveda.com'}/api/analyze`, {
+            const apiUrl = getApiUrl();
+            const res = await fetch(`${apiUrl}/api/analyze`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

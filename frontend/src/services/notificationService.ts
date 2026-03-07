@@ -4,6 +4,10 @@
  * Interface for OneSignal REST API.
  */
 
+import { getApiUrl } from "@/utils/api";
+
+export { getApiUrl };
+
 const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env.ONESIGNAL_APP_ID || "";
 
 /**
@@ -12,7 +16,7 @@ const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env
  */
 export async function sendNotification(userId: string, message: string) {
     try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://dinaveda.com";
+        const apiUrl = getApiUrl();
         const response = await fetch(`${apiUrl}/api/notify`, {
             method: "POST",
             headers: {
