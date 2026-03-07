@@ -223,7 +223,7 @@ export default function AyuOneHub() {
 
         try {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001';
-            const res = await fetch(`${apiUrl}/chat`, {
+            const res = await fetch(`${apiUrl}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage, prakriti }),

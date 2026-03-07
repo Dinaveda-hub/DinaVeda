@@ -1,11 +1,26 @@
+import os
 from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from wellness_engine import VedaEngine
 from ai.supervisor_agent import SupervisorAgent
+from supabase import create_client, Client
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="Veda AI API")
+
+# Initialize Supabase client
+supabase_url = os.environ.get("SUPABASE_URL")
+supabase_key = os.environ.get("SUPABASE_KEY")
+
+if supabase_url and supabase_key:
+    supabase: Client = create_client(supabase_url, supabase_key)
+else:
+    supabase = None
+    print("Warning: Supabase environment variables are missing!")
 
 # Setup CORS for the Next.js frontend
 app.add_middleware(
@@ -92,12 +107,12 @@ class PersonalizeRequest(BaseModel):
 # Endpoints
 # ─────────────────────────────────────────────
 
-@app.get("/")
+@app.get("/api")
 def read_root():
     return {"message": "Welcome to Veda AI API"}
 
 
-@app.post("/analyze")
+@app.post("/api/analyze")
 def analyze_log(payload: DailyLogPayload):
     # This endpoint is kept alive so the frontend doesn't throw 404s.
     # The frontend calculates Ojas locally via its own rule engine.
@@ -107,7 +122,7 @@ def analyze_log(payload: DailyLogPayload):
     }
 
 
-@app.post("/chat")
+@app.post("/api/chat")
 def chat_with_veda(payload: ChatPayload):
     try:
         result = engine.process_chat_nlu(payload.message)
@@ -120,7 +135,7 @@ def chat_with_veda(payload: ChatPayload):
         }
 
 
-@app.get("/state")
+@app.get("/api/state")
 def get_default_state():
     """
     Returns the default physiology state (no signals applied).
@@ -134,7 +149,7 @@ def get_default_state():
     }
 
 
-@app.post("/protocols")
+@app.post("/api/protocols")
 def get_protocols(payload: PhysiologyRequest):
     """
     Deterministic pipeline: signals → physiology state → selected protocols.
@@ -152,7 +167,7 @@ def get_protocols(payload: PhysiologyRequest):
     }
 
 
-@app.post("/personalize")
+@app.post("/api/personalize")
 async def personalize_module(payload: PersonalizeRequest):
     """
     AI Personalization — Orchestrated by SupervisorAgent.
