@@ -8,7 +8,7 @@ import {
     ListChecks, Clock, Wind, Flame, Sparkles, Lock
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@/utils/supabase/client";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
 import { selectProtocols, filterProtocols } from "@/engine/protocolSelectionEngine";
@@ -163,10 +163,7 @@ export default function ModuleDetail({ params }: { params: any }) {
     const { state, isLoaded } = usePhysiologyState();
     const [logs, setLogs] = useState<any[]>([]);
 
-    const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabase = createClient();
 
     async function fetchLogs() {
         const { data: { session } } = await supabase.auth.getSession();

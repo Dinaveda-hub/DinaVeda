@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@/utils/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, Activity, ArrowLeft, Trash2, CheckCircle2, Moon, Utensils, Zap, BrainCircuit } from "lucide-react";
 import Link from "next/link";
@@ -11,10 +11,7 @@ export default function HistoryPage() {
     const [loading, setLoading] = useState(true);
     const [deletingId, setDeletingId] = useState<string | null>(null);
 
-    const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabase = createClient();
 
     async function fetchLogs() {
         const { data: { session } } = await supabase.auth.getSession();
