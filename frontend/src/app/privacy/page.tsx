@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { ShieldCheck, Lock, EyeOff, ArrowLeft, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "@/components/Footer";
 
 export default function PrivacyPage() {
     const itemVariants: Variants = {
@@ -88,10 +89,7 @@ export default function PrivacyPage() {
                 </motion.div>
             </main>
 
-            <footer className="py-20 border-t border-slate-100 text-center">
-                <Heart className="w-6 h-6 text-rose-300 mx-auto mb-6" />
-                <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">© {new Date().getFullYear()} Dinaveda Neural Systems</p>
-            </footer>
+            <Footer />
         </div>
     );
 }

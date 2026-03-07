@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { Leaf, BrainCircuit, Heart, Sparkles, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "@/components/Footer";
 
 export default function AboutPage() {
     const containerVariants: Variants = {
@@ -119,9 +120,7 @@ export default function AboutPage() {
                 </motion.div>
             </main>
 
-            <footer className="py-20 border-t border-slate-100 text-center">
-                <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">© {new Date().getFullYear()} Dinaveda Neural Systems</p>
-            </footer>
+            <Footer />
         </div>
     );
 }

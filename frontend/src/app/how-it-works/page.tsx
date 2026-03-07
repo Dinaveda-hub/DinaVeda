@@ -7,6 +7,7 @@ import {
     ArrowLeft, BrainCircuit, Target, Activity,
     Sparkles, ShieldCheck, Zap, Leaf
 } from "lucide-react";
+import Footer from "@/components/Footer";
 
 export default function HowItWorks() {
     const containerVariants: Variants = {
@@ -202,11 +203,7 @@ export default function HowItWorks() {
             </main>
 
             {/* Footer */}
-            <footer className="py-8 border-t border-forest/5 text-center mt-auto bg-white/40">
-                <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.5em]">
-                    © {new Date().getFullYear()} Dinaveda • Optimized for Balance
-                </p>
-            </footer>
+            <Footer />
         </div>
     );
 }
