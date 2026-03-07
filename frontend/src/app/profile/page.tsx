@@ -192,6 +192,26 @@ export default function SettingsPage() {
                             </div>
                         )
                     })
+                },
+                {
+                    name: "Dosha Drift",
+                    icon: Binary,
+                    detail: "Understanding identity shifts",
+                    action: () => setActiveModal({
+                        title: "Understanding Dosha Drift",
+                        content: (
+                            <div className="space-y-4">
+                                <p className="text-sm font-bold text-slate-600 leading-relaxed uppercase tracking-tight">
+                                    Dosha Drift represents the deviation between your original constitution (Prakriti) and your current state (Vikriti).
+                                </p>
+                                <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                                    <p className="text-xs font-black text-blue-600 uppercase tracking-widest mb-1">Status: Neural Deviation</p>
+                                    <p className="text-[10px] text-blue-700 font-bold leading-tight">When lifestyle, stress, or environment pull you away from your nature, you experience 'Drift.' High drift is often a precursor to fatigue and imbalance.</p>
+                                </div>
+                                <p className="text-xs text-slate-400 font-bold italic leading-relaxed">The goal of Veda protocols is to minimize drift and return you to your core biological baseline.</p>
+                            </div>
+                        )
+                    })
                 }
             ]
         },
