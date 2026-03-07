@@ -72,6 +72,7 @@ export async function updateSession(request: NextRequest) {
         !request.nextUrl.pathname.startsWith('/privacy') &&
         !request.nextUrl.pathname.startsWith('/terms') &&
         !request.nextUrl.pathname.startsWith('/contact') &&
+        !request.nextUrl.pathname.startsWith('/how-it-works') &&
         !request.nextUrl.pathname.startsWith('/api') &&
         !request.nextUrl.pathname.startsWith('/robots.txt') &&
         !request.nextUrl.pathname.startsWith('/sitemap.xml')
