@@ -29,9 +29,12 @@ else:
     print("Warning: Supabase environment variables are missing!")
 
 # Setup CORS for the Next.js frontend
+origins_str = os.getenv("CORS_ALLOWED_ORIGINS", "")
+origins = [o.strip() for o in origins_str.split(",")] if origins_str else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
