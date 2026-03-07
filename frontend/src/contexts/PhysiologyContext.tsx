@@ -19,59 +19,72 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const loadState = async () => {
-            const supabase = createClient();
-            const { data: { user } } = await supabase.auth.getUser();
+        const supabase = createClient();
 
-            let remoteState: Partial<VedaState> | null = null;
-            let remoteOnboarded = false;
-
-            if (user) {
-                const { data: profile } = await supabase
-                    .from('profiles')
-                    .select('veda_health_state, is_onboarded')
-                    .eq('id', user.id)
-                    .single();
-
-                if (profile) {
-                    remoteState = profile.veda_health_state as any;
-                    remoteOnboarded = profile.is_onboarded;
-                }
+        const loadProfile = async (userId: string | null) => {
+            setIsLoaded(false); // Reset loading state during transition
+            if (!userId) {
+                setState(defaultState);
+                setIsLoaded(true);
+                return;
             }
 
-            const localStored = localStorage.getItem(STORAGE_KEY);
-            const localPrakritiStored = localStorage.getItem('prakriti_result');
-            const localOnboarded = !!localPrakritiStored;
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('veda_health_state, is_onboarded')
+                .eq('id', userId)
+                .single();
 
-            if (remoteState) {
-                // DB wins, but we can merge if needed. For now, DB is source of truth.
-                setState({ ...defaultState, ...remoteState, is_onboarded: remoteOnboarded });
-            } else if (localStored) {
-                try {
-                    const parsed = JSON.parse(localStored);
-                    setState({ ...parsed, is_onboarded: localOnboarded });
-
-                    // Trigger an initial sync to DB if user is logged in
-                    if (user) {
-                        await supabase.from('profiles').upsert({
-                            id: user.id,
-                            veda_health_state: parsed,
-                            is_onboarded: localOnboarded,
-                            updated_at: new Date().toISOString()
-                        });
-                    }
-                } catch (e) {
-                    console.error("Failed to parse local Veda state", e);
-                    setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded }));
-                }
+            if (profile?.veda_health_state) {
+                setState({
+                    ...defaultState,
+                    ...(profile.veda_health_state as any),
+                    is_onboarded: profile.is_onboarded
+                });
             } else {
-                setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded || remoteOnboarded }));
+                // Fallback to local if no DB profile yet (e.g. first sync)
+                const localStored = localStorage.getItem(STORAGE_KEY);
+                const localPrakritiStored = localStorage.getItem('prakriti_result');
+                const localOnboarded = !!localPrakritiStored;
+
+                if (localStored) {
+                    try {
+                        const parsed = JSON.parse(localStored);
+                        setState({ ...parsed, is_onboarded: localOnboarded });
+                    } catch (e) {
+                        setState(prev => ({ ...prev, is_onboarded: localOnboarded }));
+                    }
+                } else {
+                    setState(prev => ({ ...prev, is_onboarded: localOnboarded }));
+                }
             }
             setIsLoaded(true);
         };
 
-        loadState();
+        // Handle initial session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            loadProfile(session?.user?.id || null);
+        });
+
+        // Listen for auth changes
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION' || event === 'USER_UPDATED') {
+                loadProfile(session?.user?.id || null);
+            } else if (event === 'SIGNED_OUT') {
+                loadProfile(null);
+                // Clear local keys to prevent cross-user leak
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem('prakriti_result');
+                localStorage.removeItem('completed_logs');
+            }
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
     }, []);
+
+    // Remove the old mount useEffect (lines 21-74 in original)
 
     // Listen for storage changes from other tabs/windows
     useEffect(() => {
