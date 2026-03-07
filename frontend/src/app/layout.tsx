@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dinaveda | Personalized Ayurvedic AI",
   description: "Your daily guide to holistic wellness, aligning ancient Ayurvedic wisdom with your unique constitution and real-world circadian rhythms.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 import OneSignalInitializer from "@/components/OneSignalInitializer";

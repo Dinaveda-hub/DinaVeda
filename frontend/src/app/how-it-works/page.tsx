@@ -40,10 +40,17 @@ export default function HowItWorks() {
                     </div>
                     <span className="font-extrabold text-[10px] md:text-xs uppercase tracking-[0.3em] text-forest/60">The Portal</span>
                 </Link>
-                <div className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2 group">
+                    <div className="relative w-10 h-10">
+                        <Image
+                            src="/logo.png"
+                            alt="Dinaveda Logo"
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
                     <span className="font-black text-forest text-2xl tracking-tighter">Dinaveda</span>
-                    <Leaf className="w-6 h-6 text-forest" />
-                </div>
+                </Link>
             </nav>
 
             <main className="max-w-4xl mx-auto px-6 py-20 md:py-32 relative z-10">

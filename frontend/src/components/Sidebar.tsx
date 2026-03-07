@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Activity, LayoutGrid, MessageCircle, User, Dna, Heart } from "lucide-react";
 
 export default function Sidebar() {
@@ -24,15 +25,21 @@ export default function Sidebar() {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex flex-col gap-1 mb-16"
                 >
-                    <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-forest rounded-[1.25rem] flex items-center justify-center shadow-xl shadow-forest/10">
-                            <Activity className="w-6 h-6 text-white" />
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="relative w-14 h-14 transition-transform duration-500 group-hover:scale-105">
+                            <Image
+                                src="/logo.png"
+                                alt="Dinaveda Logo"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
                         </div>
-                        <div>
+                        <div className="flex flex-col">
                             <h1 className="text-3xl font-black text-forest tracking-tighter leading-none">Dinaveda</h1>
-                            <span className="text-xs font-black text-white/40 uppercase tracking-[0.3em] pl-1">Veda Engine</span>
+                            <span className="text-[10px] font-black text-forest/40 uppercase tracking-[0.3em] pl-0.5">Veda Engine</span>
                         </div>
-                    </div>
+                    </Link>
                 </motion.div>
 
                 <nav className="space-y-4">
