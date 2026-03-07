@@ -133,7 +133,8 @@ export default function AyuOneHub() {
             prakriti_kapha: metrics.prakriti_kapha,
             vata_state: metrics.prakriti_vata,
             pitta_state: metrics.prakriti_pitta,
-            kapha_state: metrics.prakriti_kapha
+            kapha_state: metrics.prakriti_kapha,
+            is_onboarded: true
         });
     };
 

@@ -5,7 +5,7 @@ import { motion, Variants } from "framer-motion";
 import {
   CloudSun, ShieldCheck, Flame, Compass, Moon,
   Sunrise, Sun, Sunset, AlertCircle, CheckCircle2,
-  Sparkles, Leaf, Activity
+  Sparkles, Leaf, Activity, User, ArrowRight, BrainCircuit
 } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
@@ -299,12 +299,55 @@ export default function Dashboard() {
             </div>
             <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-3">Dinaveda Observation</h4>
             <p className="text-xs md:text-sm font-bold text-slate-500 leading-relaxed italic text-balance px-4">
-              "{isLoaded ? predictionEngine.getSystemReflection(state) : "Calibrating systemic balance..."}"
+              "{isLoaded ? (state.is_onboarded ? predictionEngine.getSystemReflection(state) : "Awaiting biological initialization...") : "Calibrating systemic balance..."}"
             </p>
           </div>
         </motion.section>
 
       </main>
+
+      {/* Onboarding Overlay / Gate */}
+      {!state.is_onboarded && isLoaded && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-[100] bg-white/60 backdrop-blur-xl flex items-center justify-center px-6"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="glass max-w-lg w-full p-10 md:p-16 rounded-[3rem] border border-white shadow-premium text-center relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent pointer-events-none" />
+
+            <div className="relative z-10">
+              <div className="w-20 h-20 bg-forest/5 rounded-[2rem] flex items-center justify-center text-forest mx-auto mb-10 shadow-sm">
+                <BrainCircuit className="w-10 h-10" />
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter leading-none mb-6">Initialize Your Neural Hub</h2>
+              <p className="text-sm md:text-base font-bold text-slate-500 leading-relaxed mb-10 max-w-xs mx-auto text-balance">
+                To generate your personalized health scores and daily protocols, we first need to map your biological constitution.
+              </p>
+
+              <div className="space-y-4">
+                <button
+                  onClick={() => window.location.href = '/ayuone'}
+                  className="w-full bg-forest text-white py-6 rounded-[1.8rem] font-black text-xs md:text-sm uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
+                >
+                  Start Assessment <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => window.location.href = '/welcome'}
+                  className="w-full bg-white text-slate-400 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                >
+                  Learn How it Works
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </motion.div>
   );
 }

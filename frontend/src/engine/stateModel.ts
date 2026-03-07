@@ -42,6 +42,9 @@ export interface VedaState {
     // Environmental context
     rutu_season: string; // e.g. 'Grishma' (Summer)
     climate_quality: number;
+
+    // Onboarding status
+    is_onboarded: boolean;
 }
 
 export const defaultState: VedaState = {
@@ -79,6 +82,7 @@ export const defaultState: VedaState = {
 
     rutu_season: "Vasanta",
     climate_quality: 50,
+    is_onboarded: false,
 };
 
 // Global hook/state manager will be implemented in a separate hook if needed.

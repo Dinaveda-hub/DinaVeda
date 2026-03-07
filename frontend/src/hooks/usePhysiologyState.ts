@@ -14,12 +14,19 @@ export function usePhysiologyState() {
 
     useEffect(() => {
         const stored = localStorage.getItem(STORAGE_KEY);
+        const prakritiStored = localStorage.getItem('prakriti_result');
+        const onboarded = !!prakritiStored;
+
         if (stored) {
             try {
-                setState(JSON.parse(stored));
+                const parsed = JSON.parse(stored);
+                setState({ ...parsed, is_onboarded: onboarded });
             } catch (e) {
                 console.error("Failed to parse Veda state", e);
+                setState(prev => ({ ...prev, is_onboarded: onboarded }));
             }
+        } else {
+            setState(prev => ({ ...prev, is_onboarded: onboarded }));
         }
         setIsLoaded(true);
     }, []);
