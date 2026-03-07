@@ -1,6 +1,9 @@
 const CACHE_NAME = 'dinaveda-v1';
 const ASSETS_TO_CACHE = [
-    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sw.js|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/',
+    '/manifest.json',
+    '/favicon.png',
+    '/logo.png',
     '/icon-192.png',
     '/icon-512.png'
 ];
