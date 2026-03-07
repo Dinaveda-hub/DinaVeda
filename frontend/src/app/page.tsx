@@ -349,14 +349,17 @@ export default function Dashboard() {
                 >
                   Start Assessment <ArrowRight className="w-4 h-4" />
                 </Link>
-                Learn How it Works
-              </Link>
+                <Link
+                  href="/how-it-works"
+                  className="w-full bg-white text-slate-600 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                >
+                  Learn How it Works
+                </Link>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
-        </motion.div>
-  )
-}
-    </motion.div >
+      )}
+    </motion.div>
   );
 }
