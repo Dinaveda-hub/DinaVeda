@@ -58,11 +58,11 @@ export default function HowItWorks() {
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-forest/5 text-forest/60 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-8">
                             <Sparkles className="w-4 h-4" /> Technical Blueprint
                         </div>
-                        <h1 className="text-4xl md:text-8xl font-black text-forest tracking-tighter leading-none mb-8">
+                        <h1 className="text-[2.75rem] md:text-8xl font-black text-forest tracking-tighter leading-none mb-8">
                             Harmonizing <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-600">Biology & AI.</span>
                         </h1>
-                        <p className="text-base md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed uppercase tracking-wide">
+                        <p className="text-sm md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed uppercase tracking-tight md:tracking-wide">
                             Understand the neural architecture that powers your journey toward perfect biological alignment.
                         </p>
                     </motion.header>
@@ -139,13 +139,13 @@ export default function HowItWorks() {
                                 <div className="w-16 h-16 bg-[#1E1B4B] text-white rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-indigo-950/20">
                                     <BrainCircuit className="w-8 h-8" />
                                 </div>
-                                <h2 className="text-xs font-black text-indigo-400/60 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
+                                <h2 className="text-xs font-black text-slate-500/60 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">Neural Synthesis</h3>
                                 <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
                                     This is where the magic happens. Dinaveda uses advanced AI to compare your daily signals against 5,000 years of Ayurvedic logic. It generates a "Pathya" (optimized plan) that is strictly calibrated for your unique biology.
                                 </p>
-                                <div className="p-6 rounded-2xl bg-indigo-50/50 border border-indigo-100">
-                                    <p className="text-xs font-bold text-indigo-900 italic leading-relaxed">
+                                <div className="p-6 rounded-2xl bg-slate-900/[0.03] border border-slate-900/5">
+                                    <p className="text-xs font-bold text-slate-600 italic leading-relaxed">
                                         "Our engine doesn't just guess; it computes the precise counter-signals needed to neutralize biological drift."
                                     </p>
                                 </div>
@@ -196,7 +196,7 @@ export default function HowItWorks() {
             {/* Footer */}
             <footer className="py-12 border-t border-forest/5 text-center mt-auto bg-white/40">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">
-                    © {new Date().getFullYear()} Dinaveda Neural Systems • Optimized for Balance
+                    © {new Date().getFullYear()} Dinaveda • Optimized for Balance
                 </p>
             </footer>
         </div>
