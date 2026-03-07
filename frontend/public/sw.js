@@ -1,9 +1,6 @@
 const CACHE_NAME = 'dinaveda-v1';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/manifest.json',
-    '/favicon.png',
-    '/logo.png',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sw.js|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     '/icon-192.png',
     '/icon-512.png'
 ];
@@ -38,10 +35,13 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
-            return response || fetch(event.request).catch(() => {
+            return response || fetch(event.request).catch((err) => {
+                // If it's a navigation, try the offline fallback
                 if (event.request.mode === 'navigate') {
                     return caches.match('/');
                 }
+                // For other requests (like images/API), return a basic response or let it fail naturally
+                return new Response('Network error occurred', { status: 408 });
             });
         })
     );
