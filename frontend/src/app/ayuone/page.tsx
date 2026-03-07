@@ -6,7 +6,7 @@ import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles } 
 import Image from "next/image";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@/utils/supabase/client";
 import { registerUserWithOneSignal, syncNotificationTags, getApiUrl } from "@/services/notificationService";
 
 import { PrakritiEngine, PrakritiMetrics } from "@/engine/prakritiEngine";
@@ -64,6 +64,7 @@ export default function AyuOneHub() {
     // Daily Check-in State
     const [activeCheckinType, setActiveCheckinType] = useState<"morning" | "evening" | null>(null);
     const [checkinStep, setCheckinStep] = useState(0);
+    const [checkinAnswers, setCheckinAnswers] = useState<Record<string, string>>({});
     const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
     const [completedLogs, setCompletedLogs] = useState<string[]>([]);
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -175,6 +176,10 @@ export default function AyuOneHub() {
         const newEffectsList = [...accumulatedEffects, option.effects];
         setAccumulatedEffects(newEffectsList);
 
+        // Record answer
+        const questionId = activeQuestions[checkinStep].id;
+        setCheckinAnswers(prev => ({ ...prev, [questionId]: option.answer }));
+
         setTimeout(() => {
             const nextStep = checkinStep + 1;
             if (nextStep < activeQuestions.length) {
@@ -186,11 +191,39 @@ export default function AyuOneHub() {
         }, 400);
     };
 
-    const finishCheckin = (effectsList: Partial<Record<string, number>>[]) => {
+    const finishCheckin = async (effectsList: Partial<Record<string, number>>[]) => {
         const nextState = applyEffects(state, effectsList);
         updateState(nextState);
 
         const typeLabel = activeCheckinType === "morning" ? "Morning" : "Evening";
+
+        // Sync with Supabase
+        try {
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (user) {
+                const logData: any = {
+                    user_id: user.id,
+                    ojas_score: nextState.ojas_score || 70,
+                    sleep_quality: checkinAnswers.sleep_quality,
+                    wake_time: checkinAnswers.wake_time,
+                    ama: checkinAnswers.tongue_coating,
+                    mala: checkinAnswers.bowel_movement,
+                    agni: checkinAnswers.appetite_level || checkinAnswers.digestion,
+                    mood: checkinAnswers.mental_state || checkinAnswers.stress,
+                    movement: checkinAnswers.physical_activity,
+                    routines: checkinAnswers.meal_timing || checkinAnswers.evening_wind_down,
+                    hydration: checkinAnswers.hydration ? (checkinAnswers.hydration.includes("Well") ? 3 : 2) : 2,
+                    detailed_analysis: `AyuOne ${typeLabel} Check-in completed. Energy: ${checkinAnswers.energy_level || 'N/A'}.`
+                };
+
+                const { error: dbError } = await supabase.from('pulse_logs').insert(logData);
+                if (dbError) console.error("AyuOne Sync Error:", dbError);
+            }
+        } catch (err) {
+            console.error("AyuOne Persistence Error:", err);
+        }
 
         // Persist completion
         if (activeCheckinType) {
@@ -204,6 +237,7 @@ export default function AyuOneHub() {
         setActiveCheckinType(null);
         setCheckinStep(0);
         setAccumulatedEffects([]);
+        setCheckinAnswers({});
         setMessages(prev => [
             ...prev,
             { role: "ai", text: `✅ ${typeLabel} Check-in Complete. I have dynamically synced these signals to your biological pulse. Ojas, Digestion, and Circadian reserves have been updated.` }
