@@ -71,13 +71,19 @@ export default function RootLayout({
         <Script id="register-sw" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {
-              window.addEventListener('load', function() {
+              const register = () => {
                 navigator.serviceWorker.register('/sw.js').then(function(registration) {
                   console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 }, function(err) {
                   console.log('ServiceWorker registration failed: ', err);
                 });
-              });
+              };
+              
+              if (document.readyState === 'complete') {
+                register();
+              } else {
+                window.addEventListener('load', register);
+              }
             }
           `}
         </Script>
