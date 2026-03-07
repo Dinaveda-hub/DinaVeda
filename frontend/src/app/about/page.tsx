@@ -86,6 +86,33 @@ export default function AboutPage() {
                         </div>
                     </motion.section>
 
+                    {/* Expert Guidance Section */}
+                    <motion.section variants={itemVariants} className="space-y-12">
+                        <div className="text-center">
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">Expert Guidance</h2>
+                            <h3 className="text-4xl font-black text-forest tracking-tighter">The Visionary Behind Dinaveda</h3>
+                        </div>
+                        <div className="glass p-1 split-glass flex flex-col md:flex-row items-center gap-10 rounded-[4rem] border border-white max-w-3xl mx-auto">
+                            <div className="w-full md:w-1/3 aspect-square relative rounded-[3rem] overflow-hidden bg-forest/5">
+                                <Image
+                                    src="/logo.png"
+                                    alt="Dr Rahul K R"
+                                    fill
+                                    className="object-contain p-8 opacity-40 grayscale group-hover:grayscale-0 transition-all"
+                                />
+                            </div>
+                            <div className="flex-1 p-8 md:pr-12 md:pl-0 space-y-4">
+                                <div className="space-y-1">
+                                    <h4 className="text-3xl font-black text-forest tracking-tight leading-none">Dr Rahul K R</h4>
+                                    <p className="text-gold font-bold text-sm uppercase tracking-widest">Ayurvedic Doctor & Founder</p>
+                                </div>
+                                <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-wide">
+                                    With deep roots in traditional Ayurvedic practice and a vision for digital health, Dr Rahul K R directs the scientific core of Dinaveda, ensuring every neural protocol is anchored in authentic medical wisdom.
+                                </p>
+                            </div>
+                        </div>
+                    </motion.section>
+
                     {/* Values */}
                     <motion.section variants={itemVariants} className="bg-forest p-12 md:p-20 rounded-[4rem] text-white relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[100px] opacity-20 -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000" />
