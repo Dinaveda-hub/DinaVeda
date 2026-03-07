@@ -39,14 +39,21 @@ self.addEventListener('fetch', (event) => {
     // Only handle GET requests
     if (event.request.method !== 'GET') return;
 
+    // CRITICAL: If this is a navigation to the root, DON'T intercept it.
+    // This allows the browser to handle the middleware redirect to /welcome natively,
+    // avoiding the "redirected response was used for a request whose redirect mode is not follow" error.
+    if (event.request.mode === 'navigate') {
+        const url = new URL(event.request.url);
+        if (url.pathname === '/') {
+            return; // Do NOT call event.respondWith()
+        }
+    }
+
     event.respondWith(
         caches.match(event.request).then((response) => {
             if (response) return response;
 
             return fetch(event.request).then((networkResponse) => {
-                // If the response is redirected and we can't follow it, just return it
-                // and hope the browser handles it. 
-                // Alternatively, we can return a synthetic response or just not intercept navigations.
                 return networkResponse;
             }).catch((err) => {
                 // Fallback for failed navigations

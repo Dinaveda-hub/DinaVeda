@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       { rel: "apple-touch-icon-precomposed", url: "/apple-icon.png" },
     ],
   },
-  manifest: "/manifest.json?v=3",
+  manifest: "/manifest.json?v=4",
 };
 
 export const viewport = {
