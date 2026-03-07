@@ -17,6 +17,7 @@ import OneSignalInitializer from "@/components/OneSignalInitializer";
 import NotificationMonitor from "@/components/NotificationMonitor";
 import GlobalRegistration from "@/components/GlobalRegistration";
 import PwaInstallBanner from "@/components/PwaInstallBanner";
+import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -65,12 +66,14 @@ export default function RootLayout({
         <GlobalRegistration />
         <NotificationMonitor />
         <PwaInstallBanner />
-        <div className="flex flex-col md:flex-row min-h-screen">
-          <GlobalNav />
-          <main className="flex-1 flex flex-col min-h-screen">
-            {children}
-          </main>
-        </div>
+        <PhysiologyProvider>
+          <div className="flex flex-col md:flex-row min-h-screen">
+            <GlobalNav />
+            <main className="flex-1 flex flex-col min-h-screen">
+              {children}
+            </main>
+          </div>
+        </PhysiologyProvider>
         <Script id="register-sw" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {
