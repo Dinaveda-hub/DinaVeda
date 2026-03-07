@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import {
   CloudSun, ShieldCheck, Flame, Compass, Moon,
@@ -331,18 +332,18 @@ export default function Dashboard() {
               </p>
 
               <div className="space-y-4">
-                <button
-                  onClick={() => window.location.href = '/ayuone'}
+                <Link
+                  href="/ayuone"
                   className="w-full bg-forest text-white py-6 rounded-[1.8rem] font-black text-xs md:text-sm uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
                   Start Assessment <ArrowRight className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => window.location.href = '/welcome'}
+                </Link>
+                <Link
+                  href="/welcome"
                   className="w-full bg-white text-slate-400 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                 >
                   Learn How it Works
-                </button>
+                </Link>
               </div>
             </div>
           </motion.div>
