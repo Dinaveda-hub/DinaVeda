@@ -1,6 +1,6 @@
 const CACHE_NAME = 'dinaveda-v1';
 const ASSETS_TO_CACHE = [
-    '/',
+    '/welcome',
     '/manifest.json',
     '/favicon.png',
     '/logo.png',
@@ -44,18 +44,14 @@ self.addEventListener('fetch', (event) => {
             if (response) return response;
 
             return fetch(event.request).then((networkResponse) => {
-                // Check if we received a redirected response
-                if (networkResponse.redirected && event.request.redirect !== 'follow') {
-                    // We can't cache redirected responses directly if the request didn't allow it
-                    // Just return the network response and don't cache
-                    return networkResponse;
-                }
-
-                // If valid, clone and cache (optional, but keep it simple for now)
+                // If the response is redirected and we can't follow it, just return it
+                // and hope the browser handles it. 
+                // Alternatively, we can return a synthetic response or just not intercept navigations.
                 return networkResponse;
             }).catch((err) => {
+                // Fallback for failed navigations
                 if (event.request.mode === 'navigate') {
-                    return caches.match('/');
+                    return caches.match('/welcome') || caches.match('/');
                 }
                 return new Response('Network error occurred', { status: 408 });
             });
