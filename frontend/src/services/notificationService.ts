@@ -46,10 +46,21 @@ export async function sendNotification(userId: string, message: string) {
  * Note: OneSignal V16 uses 'login' instead of 'setExternalUserId'
  */
 export function registerUserWithOneSignal(userId: string) {
-    if (typeof window !== "undefined" && (window as any).OneSignal) {
-        (window as any).OneSignal.push(() => {
-            (window as any).OneSignal.login(userId);
-        });
+    if (typeof window !== "undefined") {
+        const OneSignal = (window as any).OneSignal;
+        if (OneSignal) {
+            OneSignal.push(async () => {
+                try {
+                    console.log("OneSignal: Attempting login for user:", userId);
+                    // In V16, login should only be called after init
+                    // We wrap it in push to ensure it runs in order
+                    await OneSignal.login(userId);
+                    console.log("OneSignal: Login successful");
+                } catch (err) {
+                    console.error("OneSignal: Login failed:", err);
+                }
+            });
+        }
     }
 }
 
