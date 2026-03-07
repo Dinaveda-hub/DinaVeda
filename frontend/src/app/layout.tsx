@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 import OneSignalInitializer from "@/components/OneSignalInitializer";
 import NotificationMonitor from "@/components/NotificationMonitor";
 import GlobalRegistration from "@/components/GlobalRegistration";
+import PwaInstallBanner from "@/components/PwaInstallBanner";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -63,6 +64,7 @@ export default function RootLayout({
         <OneSignalInitializer />
         <GlobalRegistration />
         <NotificationMonitor />
+        <PwaInstallBanner />
         <div className="flex flex-col md:flex-row min-h-screen">
           <GlobalNav />
           <main className="flex-1 flex flex-col min-h-screen">
