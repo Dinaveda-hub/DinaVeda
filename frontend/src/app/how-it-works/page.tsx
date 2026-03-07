@@ -62,7 +62,7 @@ export default function HowItWorks() {
                             Harmonizing <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-600">Biology & AI.</span>
                         </h1>
-                        <p className="text-sm md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed uppercase tracking-tight md:tracking-wide">
+                        <p className="text-sm md:text-lg font-bold text-slate-600 max-w-lg leading-relaxed uppercase tracking-tight md:tracking-wide">
                             Understand the neural architecture that powers your journey toward perfect biological alignment.
                         </p>
                     </motion.header>
@@ -76,7 +76,7 @@ export default function HowItWorks() {
                                 </div>
                                 <h2 className="text-xs font-black text-forest/70 uppercase tracking-[0.4em] mb-4">Phase 01</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-forest tracking-tighter mb-6">Prakriti Mapping</h3>
-                                <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
+                                <p className="text-base md:text-lg font-bold text-slate-700 leading-relaxed mb-8">
                                     Your journey begins with a genetic audit. We map your "Prakriti"—your permanent biological baseline determined at conception. This serves as the "Gold Standard" for your unique state of perfect health.
                                 </p>
                                 <div className="flex flex-wrap gap-4">
@@ -107,12 +107,12 @@ export default function HowItWorks() {
                                 </div>
                                 <h2 className="text-xs font-black text-[#D97706]/80 uppercase tracking-[0.4em] mb-4">Phase 02</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">The Daily Pulse</h3>
-                                <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
+                                <p className="text-base md:text-lg font-bold text-slate-700 leading-relaxed mb-8">
                                     Life creates "Vikriti"—daily deviations from your center. Through simple morning and evening signals, our engine tracks how stress, seasonal shifts, and nutrition are pulling you away from your baseline.
                                 </p>
                                 <ul className="space-y-3">
                                     {['Circadian Alignment', 'Agni (Digestion) Strength', 'Nervous System Load'].map((item) => (
-                                        <li key={item} className="flex items-center gap-3 text-xs font-black uppercase tracking-widest text-slate-400">
+                                        <li key={item} className="flex items-center gap-3 text-xs font-black uppercase tracking-widest text-slate-500">
                                             <Zap className="w-3.5 h-3.5 text-amber-600" /> {item}
                                         </li>
                                     ))}
@@ -141,7 +141,7 @@ export default function HowItWorks() {
                                 </div>
                                 <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.4em] mb-4">Phase 03</h2>
                                 <h3 className="text-2xl md:text-5xl font-black text-slate-800 tracking-tighter mb-6">Neural Synthesis</h3>
-                                <p className="text-base md:text-lg font-bold text-slate-500 leading-relaxed mb-8">
+                                <p className="text-base md:text-lg font-bold text-slate-700 leading-relaxed mb-8">
                                     This is where the magic happens. Dinaveda uses advanced AI to compare your daily signals against 5,000 years of Ayurvedic logic. It generates a "Pathya" (optimized plan) that is strictly calibrated for your unique biology.
                                 </p>
                                 <div className="p-6 rounded-2xl bg-slate-900/[0.03] border border-slate-900/5">
@@ -169,7 +169,7 @@ export default function HowItWorks() {
                             <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-gold/5 pointer-events-none" />
                             <div className="relative z-10 space-y-10">
                                 <h2 className="text-3xl md:text-6xl font-black text-forest tracking-tighter leading-none">Ready to Harmonize?</h2>
-                                <p className="text-base md:text-lg font-bold text-slate-500 max-w-md mx-auto leading-relaxed">
+                                <p className="text-base md:text-lg font-bold text-slate-600 max-w-md mx-auto leading-relaxed">
                                     Now that you understand the system, take the first step toward biological sovereignty. Initialize your neural hub to begin.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -195,7 +195,7 @@ export default function HowItWorks() {
 
             {/* Footer */}
             <footer className="py-12 border-t border-forest/5 text-center mt-auto bg-white/40">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em]">
+                <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.5em]">
                     © {new Date().getFullYear()} Dinaveda • Optimized for Balance
                 </p>
             </footer>
