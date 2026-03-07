@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles } from "lucide-react";
+import Image from "next/image";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
 import { createBrowserClient } from "@supabase/ssr";
@@ -264,7 +265,9 @@ export default function AyuOneHub() {
             <header className="px-6 pt-12 pb-6 md:px-12 md:pt-24 md:pb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 z-20 shrink-0">
                 <div className="relative">
                     <div className="flex items-center gap-3 mb-3 md:mb-4">
-                        <Sparkles className="w-4 h-4 text-forest/40 animate-pulse" />
+                        <div className="relative w-6 h-6">
+                            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                        </div>
                         <span className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
                     </div>
                     <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm leading-none">
