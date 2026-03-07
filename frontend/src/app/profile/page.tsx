@@ -11,6 +11,37 @@ import GoalSelector from "@/components/GoalSelector";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { syncNotificationTags } from "@/services/notificationService";
 
+interface SettingItem {
+    name: string;
+    icon: any;
+    detail: string;
+    link?: string;
+    action?: () => void;
+}
+
+interface Section {
+    title: string;
+    items: SettingItem[];
+}
+
+const NotificationToggle = ({ label, description, enabled, onChange }: { label: string, description: string, enabled: boolean, onChange: (val: boolean) => void }) => (
+    <div className="flex items-center justify-between gap-4">
+        <div className="flex-1">
+            <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{description}</p>
+        </div>
+        <button
+            onClick={() => onChange(!enabled)}
+            className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${enabled ? 'bg-forest' : 'bg-slate-200'}`}
+        >
+            <motion.div
+                animate={{ x: enabled ? 24 : 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className="w-4 h-4 bg-white rounded-full shadow-sm"
+            />
+        </button>
+    </div>
+);
 
 export default function SettingsPage() {
     const [activeModal, setActiveModal] = useState<{ title: string, content: any } | null>(null);
@@ -57,37 +88,26 @@ export default function SettingsPage() {
         router.refresh();
     };
 
-    interface SettingItem {
-        name: string;
-        icon: any;
-        detail: string;
-        link?: string;
-        action?: () => void;
-    }
+    const handleWipeData = async () => {
+        // Clear all veda-ai related data
+        const keysToRemove = [
+            "veda_health_state",
+            "prakriti_result",
+            "vikriti_result",
+            "veda_health_goal",
+            "veda_notifications",
+            "veda_state_history"
+        ];
 
-    interface Section {
-        title: string;
-        items: SettingItem[];
-    }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
 
-    const NotificationToggle = ({ label, description, enabled, onChange }: { label: string, description: string, enabled: boolean, onChange: (val: boolean) => void }) => (
-        <div className="flex items-center justify-between gap-4">
-            <div className="flex-1">
-                <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{description}</p>
-            </div>
-            <button
-                onClick={() => onChange(!enabled)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${enabled ? 'bg-forest' : 'bg-slate-200'}`}
-            >
-                <motion.div
-                    animate={{ x: enabled ? 24 : 0 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    className="w-4 h-4 bg-white rounded-full shadow-sm"
-                />
-            </button>
-        </div>
-    );
+        // Sign out to ensure a completely fresh state
+        const supabase = createClient();
+        await supabase.auth.signOut();
+
+        router.push("/welcome");
+        router.refresh();
+    };
 
     const sections: Section[] = [
         {
@@ -196,6 +216,36 @@ export default function SettingsPage() {
                                         <p className="text-sm text-slate-600 font-bold uppercase tracking-tight"><strong>Sovereign Ownership:</strong> You maintain full control over your biological identity, including permanent core erasure.</p>
                                     </li>
                                 </ul>
+                            </div>
+                        )
+                    })
+                },
+                {
+                    name: "Wipe Neural Core",
+                    icon: X,
+                    detail: "Permanently erase biological logs",
+                    action: () => setActiveModal({
+                        title: "Neural Core Erasure",
+                        content: (
+                            <div className="space-y-6">
+                                <div className="p-5 bg-rose-50 rounded-[2rem] border border-rose-100">
+                                    <h4 className="font-black text-rose-600 text-lg tracking-tighter mb-2">Irreversible Action</h4>
+                                    <p className="text-sm font-bold text-rose-700 leading-relaxed">
+                                        This will permanently wipe your Prakriti assessment, daily logs, and customized neural rhythm from this device. This cannot be undone.
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={handleWipeData}
+                                    className="w-full py-5 rounded-2xl bg-rose-600 text-white font-black uppercase tracking-widest shadow-lg shadow-rose-200 hover:bg-rose-700 transition-all active:scale-95"
+                                >
+                                    Confirm Permanent Wipe
+                                </button>
+                                <button
+                                    onClick={() => setActiveModal(null)}
+                                    className="w-full py-5 rounded-2xl bg-slate-50 text-slate-400 font-black uppercase tracking-widest hover:bg-slate-100 transition-all"
+                                >
+                                    Cancel
+                                </button>
                             </div>
                         )
                     })
