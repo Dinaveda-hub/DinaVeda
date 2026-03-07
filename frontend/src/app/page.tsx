@@ -200,7 +200,7 @@ export default function Dashboard() {
                 <span className="text-xl md:text-2xl font-black text-forest tracking-tighter">
                   {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
                 </span>
-                {isLoaded && vikriti && <span className="text-xs font-bold text-slate-400 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
+                {isLoaded && vikriti && <span className="text-xs font-bold text-slate-500 mb-1.5 uppercase">({vikriti.dominant_dosha})</span>}
               </div>
             </div>
           </div>
@@ -224,11 +224,11 @@ export default function Dashboard() {
                     <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2.5 shrink-0 opacity-80" />
                     <div>
                       <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
-                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.description}</p>
+                      <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
                     </div>
                   </div>
                 )) : (
-                  <p className="text-xs font-bold text-slate-400 italic">No acute morning protocols active. Continue standard Dinacharya.</p>
+                  <p className="text-xs font-bold text-slate-600 italic">No acute morning protocols active. Continue standard Dinacharya.</p>
                 )}
               </div>
             </div>
@@ -244,11 +244,11 @@ export default function Dashboard() {
                     <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2.5 shrink-0 opacity-80" />
                     <div>
                       <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
-                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.description}</p>
+                      <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
                     </div>
                   </div>
                 )) : (
-                  <p className="text-xs font-bold text-slate-400 italic">No acute midday protocols active. Maintain balanced activity and mindful meals.</p>
+                  <p className="text-xs font-bold text-slate-600 italic">No acute midday protocols active. Maintain balanced activity and mindful meals.</p>
                 )}
               </div>
             </div>
@@ -264,11 +264,11 @@ export default function Dashboard() {
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2.5 shrink-0 opacity-80" />
                     <div>
                       <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
-                      <p className="text-xs font-bold text-slate-500 leading-relaxed text-balance">{rec.description}</p>
+                      <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
                     </div>
                   </div>
                 )) : (
-                  <p className="text-xs font-bold text-slate-400 italic">Wind down naturally aligned with the sunset.</p>
+                  <p className="text-xs font-bold text-slate-600 italic">Wind down naturally aligned with the sunset.</p>
                 )}
               </div>
             </div>
@@ -349,17 +349,14 @@ export default function Dashboard() {
                 >
                   Start Assessment <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  href="/how-it-works"
-                  className="w-full bg-white text-slate-600 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
-                >
-                  asylum                  Learn How it Works
-                </Link>
-              </div>
+                Learn How it Works
+              </Link>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
-      )}
-    </motion.div>
+        </motion.div>
+  )
+}
+    </motion.div >
   );
 }
