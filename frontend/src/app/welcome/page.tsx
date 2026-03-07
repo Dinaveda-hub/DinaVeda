@@ -159,7 +159,7 @@ export default function WelcomeLandingPage() {
                 {/* Hero Section */}
                 <section className="pt-20 pb-12 lg:pt-32 lg:pb-24 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
                     <div className="flex-1 space-y-8 text-center lg:text-left z-10 w-full">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-[10px] md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-forest/60">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-[10px] md:text-sm font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-forest/80">
                             <Sparkles className="w-4 h-4 text-gold/60" /> Your Health, Reimagined
                         </div>
 
@@ -171,7 +171,7 @@ export default function WelcomeLandingPage() {
                             </span>
                         </h1>
 
-                        <p className="text-base md:text-lg font-bold text-slate-400 max-w-lg leading-relaxed mx-auto lg:mx-0 uppercase tracking-wide">
+                        <p className="text-base md:text-lg font-bold text-slate-600 max-w-lg leading-relaxed mx-auto lg:mx-0 uppercase tracking-wide">
                             Your body is unique. Your health should be too. Dinaveda helps you discover your natural balance and stay centered every day.
                         </p>
 
@@ -188,7 +188,7 @@ export default function WelcomeLandingPage() {
                                 <span className="relative z-10 font-black text-xs md:text-sm uppercase tracking-widest">Start Your Health Profile</span>
                                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
                             </button>
-                            <Link href="/login" className="px-8 py-5 rounded-3xl bg-white text-slate-400 border border-slate-100 font-black text-xs md:text-sm uppercase tracking-widest hover:bg-slate-50 transition-all text-center">
+                            <Link href="/login" className="px-8 py-5 rounded-3xl bg-white text-slate-600 border border-slate-100 font-black text-xs md:text-sm uppercase tracking-widest hover:bg-slate-50 transition-all text-center">
                                 Log In
                             </Link>
                         </div>
@@ -214,7 +214,7 @@ export default function WelcomeLandingPage() {
 
                         <div className="text-center mb-16">
                             <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4">Your Health Profile</h2>
-                            <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.3em]">Map your natural state of balance</p>
+                            <p className="text-[10px] md:text-sm text-slate-600 font-bold uppercase tracking-[0.3em]">Map your natural state of balance</p>
                         </div>
 
                         {!isQuizActive ? (
@@ -224,7 +224,7 @@ export default function WelcomeLandingPage() {
                                     <BrainCircuit className="w-10 h-10" />
                                 </div>
                                 <h3 className="text-2xl font-black text-forest mb-4">Start Your Profile</h3>
-                                <p className="text-sm text-slate-400 mb-10 font-bold px-4 leading-relaxed">
+                                <p className="text-sm text-slate-600 mb-10 font-bold px-4 leading-relaxed">
                                     Answer 4 simple questions to unlock your personal health ritual.
                                 </p>
                                 <button className="mx-auto flex items-center gap-3 bg-forest text-white px-10 py-5 rounded-2xl font-black text-[10px] md:text-sm uppercase tracking-[0.2em] shadow-lg shadow-forest/20 group-hover:scale-105 transition-transform">
@@ -415,13 +415,13 @@ export default function WelcomeLandingPage() {
                             </div>
                             <span className="font-black text-3xl text-forest tracking-tighter">Dinaveda</span>
                         </Link>
-                        <p className="text-slate-400 max-w-sm font-bold leading-relaxed text-sm uppercase tracking-wide">
+                        <p className="text-slate-600 max-w-sm font-bold leading-relaxed text-sm uppercase tracking-wide">
                             Ancient wisdom meeting modern intelligence. Build your rhythm, find your balance.
                         </p>
                     </div>
 
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-400 mb-8">Product</h4>
+                        <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-600 mb-8">Product</h4>
                         <ul className="space-y-4 text-sm font-bold text-slate-600">
                             <li><button onClick={() => {
                                 document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
@@ -435,7 +435,7 @@ export default function WelcomeLandingPage() {
                     </div>
 
                     <div>
-                        <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-400 mb-8">Company</h4>
+                        <h4 className="font-black uppercase tracking-[0.3em] text-[10px] text-slate-600 mb-8">Company</h4>
                         <ul className="space-y-4 text-sm font-bold text-slate-600">
                             <li><Link href="/privacy" className="hover:text-forest transition-colors">Privacy Policy</Link></li>
                             <li><Link href="/terms" className="hover:text-forest transition-colors">Terms of Service</Link></li>
