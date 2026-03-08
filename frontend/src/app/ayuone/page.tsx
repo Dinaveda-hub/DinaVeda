@@ -214,17 +214,6 @@ export default function AyuOneHub() {
 
     const handleOptionSelect = (option: Option) => {
         setSelectedAnswers((prev: Record<number, Option>) => ({ ...prev, [currentStep]: option }));
-
-        // Auto-advance with a slight delay
-        setTimeout(() => {
-            if (currentStep < quizFlow.length - 1) {
-                setIsTransitioning(true);
-                setTimeout(() => {
-                    setCurrentStep((prev: number) => prev + 1);
-                    setIsTransitioning(false);
-                }, 300);
-            }
-        }, 200);
     };
 
     const handleBack = () => {
@@ -264,17 +253,6 @@ export default function AyuOneHub() {
     const handleCheckinOption = (option: CheckinOption) => {
         const questionId = activeQuestions[checkinStep].id;
         setCheckinAnswers((prev: Record<string, CheckinOption>) => ({ ...prev, [questionId]: option }));
-
-        // Auto-advance with a slight delay
-        setTimeout(() => {
-            if (checkinStep < activeQuestions.length - 1) {
-                setIsTransitioning(true);
-                setTimeout(() => {
-                    setCheckinStep((prev: number) => prev + 1);
-                    setIsTransitioning(false);
-                }, 300);
-            }
-        }, 200);
     };
 
     const handleCheckinBack = () => {
