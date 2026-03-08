@@ -52,7 +52,7 @@ export default function AyuOneHub() {
     const [userInfo, setUserInfo] = useState({ name: '', age: '', gender: '' });
     const [currentStep, setCurrentStep] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const [scores, setScores] = useState({ vata: 0, pitta: 0, kapha: 0 });
+    const [selectedAnswers, setSelectedAnswers] = useState<Record<number, Option>>({});
     const [constitution, setConstitution] = useState<any>(null);
 
     // Chat State
@@ -144,7 +144,15 @@ export default function AyuOneHub() {
     }, [messages, isTyping, isPrakritiSet]);
 
     // --- PRAKRITI LOGIC ---
-    const calculateResult = (finalScores: { vata: number; pitta: number; kapha: number }) => {
+    const calculateResult = () => {
+        const answersArray = Object.values(selectedAnswers) as Option[];
+        const finalScores = answersArray.reduce((acc: { vata: number; pitta: number; kapha: number }, opt: Option) => {
+            acc.vata += opt.dosha_effect.vata;
+            acc.pitta += opt.dosha_effect.pitta;
+            acc.kapha += opt.dosha_effect.kapha;
+            return acc;
+        }, { vata: 0, pitta: 0, kapha: 0 });
+
         const engine = new PrakritiEngine();
         const metrics = engine.calculateConstitution([finalScores]);
 
@@ -192,24 +200,42 @@ export default function AyuOneHub() {
     };
 
     const handleOptionSelect = (option: Option) => {
-        setIsTransitioning(true);
-        const newScores = {
-            vata: scores.vata + option.dosha_effect.vata,
-            pitta: scores.pitta + option.dosha_effect.pitta,
-            kapha: scores.kapha + option.dosha_effect.kapha
-        };
-        setScores(newScores);
+        setSelectedAnswers((prev: Record<number, Option>) => ({ ...prev, [currentStep]: option }));
 
+        // Auto-advance with a slight delay
         setTimeout(() => {
-            const nextStep = currentStep + 1;
-            if (nextStep < quizFlow.length) {
-                setCurrentStep(nextStep);
-            } else {
-                calculateResult(newScores);
-                setCurrentStep(nextStep);
+            if (currentStep < quizFlow.length - 1) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setCurrentStep((prev: number) => prev + 1);
+                    setIsTransitioning(false);
+                }, 300);
             }
-            setIsTransitioning(false);
-        }, 400);
+        }, 200);
+    };
+
+    const handleBack = () => {
+        if (currentStep > 0) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCurrentStep((prev: number) => prev - 1);
+                setIsTransitioning(false);
+            }, 300);
+        }
+    };
+
+    const handleNext = () => {
+        const isLastStep = currentStep === quizFlow.length - 1;
+        if (isLastStep) {
+            calculateResult();
+            setCurrentStep((prev: number) => prev + 1);
+        } else if (selectedAnswers[currentStep]) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCurrentStep((prev: number) => prev + 1);
+                setIsTransitioning(false);
+            }, 300);
+        }
     };
 
     const completeOnboarding = () => {
@@ -424,15 +450,39 @@ export default function AyuOneHub() {
                                         </div>
 
                                         <div className={`grid grid-cols-1 gap-3 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-                                            {quizFlow[currentStep].options.map((opt, idx) => (
-                                                <button
-                                                    key={idx}
-                                                    onClick={() => handleOptionSelect(opt)}
-                                                    className="w-full bg-white hover:bg-forest text-slate-600 hover:text-white font-bold py-4 px-6 rounded-2xl border border-slate-100 transition-all duration-300 shadow-sm text-center active:scale-[0.98] group"
-                                                >
-                                                    <span className="text-sm leading-snug">{opt.label}</span>
-                                                </button>
-                                            ))}
+                                            {quizFlow[currentStep].options.map((opt, idx) => {
+                                                const isSelected = selectedAnswers[currentStep]?.label === opt.label;
+                                                return (
+                                                    <button
+                                                        key={idx}
+                                                        onClick={() => handleOptionSelect(opt)}
+                                                        className={`w-full font-bold py-4 px-6 rounded-2xl border transition-all duration-300 shadow-sm text-center active:scale-[0.98] group flex items-center justify-center gap-3 ${isSelected
+                                                            ? 'bg-forest text-white border-forest'
+                                                            : 'bg-white hover:bg-forest/5 text-slate-600 border-slate-100'}`}
+                                                    >
+                                                        <span className="text-sm leading-snug">{opt.label}</span>
+                                                        {isSelected && <ShieldCheck className="w-4 h-4" />}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+
+                                        {/* Navigation Buttons */}
+                                        <div className="flex items-center justify-between mt-8 gap-4">
+                                            <button
+                                                onClick={handleBack}
+                                                disabled={currentStep === 0}
+                                                className="flex-1 bg-slate-50 text-slate-400 py-4 rounded-2xl font-black text-xs uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed transition-all border border-slate-100"
+                                            >
+                                                Back
+                                            </button>
+                                            <button
+                                                onClick={handleNext}
+                                                disabled={!selectedAnswers[currentStep]}
+                                                className="flex-1 bg-forest text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest disabled:opacity-50 transition-all shadow-lg shadow-forest/10"
+                                            >
+                                                {currentStep === quizFlow.length - 1 ? 'Complete' : 'Next'}
+                                            </button>
                                         </div>
                                     </>
                                 )}
