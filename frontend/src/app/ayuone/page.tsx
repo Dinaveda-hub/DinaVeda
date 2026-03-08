@@ -66,8 +66,7 @@ export default function AyuOneHub() {
     // Daily Check-in State
     const [activeCheckinType, setActiveCheckinType] = useState<"morning" | "evening" | null>(null);
     const [checkinStep, setCheckinStep] = useState(0);
-    const [checkinAnswers, setCheckinAnswers] = useState<Record<string, string>>({});
-    const [accumulatedEffects, setAccumulatedEffects] = useState<Partial<Record<string, number>>[]>([]);
+    const [checkinAnswers, setCheckinAnswers] = useState<Record<string, CheckinOption>>({});
     const [completedLogs, setCompletedLogs] = useState<string[]>([]);
     const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -131,6 +130,17 @@ export default function AyuOneHub() {
         };
 
         loadLogs();
+
+        // Midnight Reset Interval
+        const resetInterval = setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0) {
+                setCompletedLogs([]);
+                localStorage.removeItem("completed_logs");
+            }
+        }, 60000); // Check every minute
+
+        return () => clearInterval(resetInterval);
     }, []);
 
     const scrollToBottom = () => {
@@ -249,26 +259,50 @@ export default function AyuOneHub() {
     const activeQuestions = (activeCheckinType && dailyCheckinData[activeCheckinType as keyof typeof dailyCheckinData]) ? dailyCheckinData[activeCheckinType as keyof typeof dailyCheckinData] : [];
 
     const handleCheckinOption = (option: CheckinOption) => {
-        setIsTransitioning(true);
-        const newEffectsList = [...accumulatedEffects, option.effects];
-        setAccumulatedEffects(newEffectsList);
-
-        // Record answer
         const questionId = activeQuestions[checkinStep].id;
-        setCheckinAnswers((prev: Record<string, string>) => ({ ...prev, [questionId]: option.answer }));
+        setCheckinAnswers((prev: Record<string, CheckinOption>) => ({ ...prev, [questionId]: option }));
 
+        // Auto-advance with a slight delay
         setTimeout(() => {
-            const nextStep = checkinStep + 1;
-            if (nextStep < activeQuestions.length) {
-                setCheckinStep(nextStep);
-            } else {
-                finishCheckin(newEffectsList);
+            if (checkinStep < activeQuestions.length - 1) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setCheckinStep((prev: number) => prev + 1);
+                    setIsTransitioning(false);
+                }, 300);
             }
-            setIsTransitioning(false);
-        }, 400);
+        }, 200);
     };
 
-    const finishCheckin = async (effectsList: Partial<Record<string, number>>[]) => {
+    const handleCheckinBack = () => {
+        if (checkinStep > 0) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCheckinStep((prev: number) => prev - 1);
+                setIsTransitioning(false);
+            }, 300);
+        }
+    };
+
+    const handleCheckinNext = () => {
+        const isLastStep = checkinStep === activeQuestions.length - 1;
+        const currentQuestionId = activeQuestions[checkinStep].id;
+
+        if (isLastStep) {
+            finishCheckin();
+        } else if (checkinAnswers[currentQuestionId]) {
+            setIsTransitioning(true);
+            setTimeout(() => {
+                setCheckinStep((prev: number) => prev + 1);
+                setIsTransitioning(false);
+            }, 300);
+        }
+    };
+
+    const finishCheckin = async () => {
+        // Calculate total effects from all answers
+        const answersArray = Object.values(checkinAnswers) as CheckinOption[];
+        const effectsList = answersArray.map(opt => opt.effects);
         const nextState = applyEffects(state, effectsList);
         updateState(nextState);
 
@@ -283,16 +317,16 @@ export default function AyuOneHub() {
                 const logData: any = {
                     user_id: user.id,
                     ojas_score: nextState.ojas_score || 70,
-                    sleep_quality: checkinAnswers.sleep_quality,
-                    wake_time: checkinAnswers.wake_time,
-                    ama: checkinAnswers.tongue_coating,
-                    mala: checkinAnswers.bowel_movement,
-                    agni: checkinAnswers.appetite_level || checkinAnswers.digestion,
-                    mood: checkinAnswers.mental_state || checkinAnswers.stress,
-                    movement: checkinAnswers.physical_activity,
-                    routines: checkinAnswers.meal_timing || checkinAnswers.evening_wind_down,
-                    hydration: checkinAnswers.hydration ? (checkinAnswers.hydration.includes("Well") ? 3 : 2) : 2,
-                    detailed_analysis: `AyuOne ${typeLabel} Check-in completed. Energy: ${checkinAnswers.energy_level || 'N/A'}.`
+                    sleep_quality: checkinAnswers.sleep_quality?.answer,
+                    wake_time: checkinAnswers.wake_time?.answer,
+                    ama: checkinAnswers.tongue_coating?.answer,
+                    mala: checkinAnswers.bowel_movement?.answer,
+                    agni: checkinAnswers.appetite_level?.answer || checkinAnswers.digestion?.answer,
+                    mood: checkinAnswers.mental_state?.answer || checkinAnswers.stress?.answer,
+                    movement: checkinAnswers.physical_activity?.answer,
+                    routines: checkinAnswers.meal_timing?.answer || checkinAnswers.evening_wind_down?.answer,
+                    hydration: checkinAnswers.hydration?.answer ? (checkinAnswers.hydration.answer.includes("Well") ? 3 : 2) : 2,
+                    detailed_analysis: `AyuOne ${typeLabel} Check-in completed. Energy: ${checkinAnswers.energy_level?.answer || 'N/A'}.`
                 };
 
                 const { error: dbError } = await supabase.from('pulse_logs').insert(logData);
@@ -531,7 +565,7 @@ export default function AyuOneHub() {
                             <div className="flex-1 flex flex-col p-4 md:p-12 items-center justify-center overflow-y-auto w-full custom-scrollbar relative">
                                 {/* Close Button */}
                                 <button
-                                    onClick={() => { setActiveCheckinType(null); setCheckinStep(0); setAccumulatedEffects([]); }}
+                                    onClick={() => { setActiveCheckinType(null); setCheckinStep(0); setCheckinAnswers({}); }}
                                     className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-all font-bold shadow-sm"
                                 >
                                     ✕
@@ -560,15 +594,54 @@ export default function AyuOneHub() {
                                     </h2>
 
                                     <div className={`grid grid-cols-1 gap-3 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-                                        {activeQuestions[checkinStep].options.map((opt: any, idx: number) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => handleCheckinOption(opt)}
-                                                className="w-full text-left p-6 rounded-[1.5rem] border-2 border-slate-100 bg-white hover:border-forest hover:bg-forest/5 transition-all text-slate-700 font-bold hover:text-forest group flex flex-col"
-                                            >
-                                                <span className="text-sm md:text-base leading-snug">{opt.answer}</span>
-                                            </button>
-                                        ))}
+                                        {activeQuestions[checkinStep].options.map((opt: any, idx: number) => {
+                                            const isSelected = checkinAnswers[activeQuestions[checkinStep].id]?.answer === opt.answer;
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => handleCheckinOption(opt)}
+                                                    className={`w-full text-left p-6 rounded-[1.5rem] border-2 transition-all group flex flex-col relative ${isSelected
+                                                        ? "border-forest bg-forest/5 text-forest shadow-md"
+                                                        : "border-slate-100 bg-white text-slate-700 hover:border-forest hover:bg-forest/5 hover:text-forest"
+                                                        }`}
+                                                >
+                                                    <span className="text-sm md:text-base leading-snug">{opt.answer}</span>
+                                                    {isSelected && (
+                                                        <motion.div
+                                                            initial={{ scale: 0 }}
+                                                            animate={{ scale: 1 }}
+                                                            className="absolute top-4 right-4 text-forest"
+                                                        >
+                                                            <ShieldCheck className="w-5 h-5 fill-forest/10" />
+                                                        </motion.div>
+                                                    )}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+
+                                    {/* Navigation Buttons for Check-in */}
+                                    <div className="flex items-center gap-4 mt-10">
+                                        <button
+                                            onClick={handleCheckinBack}
+                                            disabled={checkinStep === 0}
+                                            className={`flex-1 flex items-center justify-center gap-2 py-5 rounded-[1.5rem] font-black uppercase tracking-[0.1em] text-[10px] transition-all border-2 ${checkinStep === 0
+                                                ? "border-slate-100 text-slate-300 cursor-not-allowed"
+                                                : "border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                                                }`}
+                                        >
+                                            Back
+                                        </button>
+                                        <button
+                                            onClick={handleCheckinNext}
+                                            disabled={!checkinAnswers[activeQuestions[checkinStep].id]}
+                                            className={`flex-1 flex items-center justify-center gap-2 py-5 rounded-[1.5rem] font-black uppercase tracking-[0.1em] text-[10px] transition-all shadow-lg ${!checkinAnswers[activeQuestions[checkinStep].id]
+                                                ? "bg-slate-100 text-slate-400 cursor-not-allowed shadow-none"
+                                                : "bg-forest text-white shadow-forest/20 hover:bg-emerald-800"
+                                                }`}
+                                        >
+                                            {checkinStep === activeQuestions.length - 1 ? "Complete" : "Next"}
+                                        </button>
                                     </div>
                                 </motion.div>
                             </div>
