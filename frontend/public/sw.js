@@ -39,14 +39,11 @@ self.addEventListener('fetch', (event) => {
     // Only handle GET requests
     if (event.request.method !== 'GET') return;
 
-    // CRITICAL: If this is a navigation to the root, DON'T intercept it.
-    // This allows the browser to handle the middleware redirect to /welcome natively,
-    // avoiding the "redirected response was used for a request whose redirect mode is not follow" error.
+    // CRITICAL: If this is a navigation request, DON'T intercept it.
+    // This allows the browser to handle the middleware redirects natively,
+    // avoiding the "ERR_FAILED" or "redirected response was used" errors in PWAs.
     if (event.request.mode === 'navigate') {
-        const url = new URL(event.request.url);
-        if (url.pathname === '/') {
-            return; // Do NOT call event.respondWith()
-        }
+        return; // Do NOT call event.respondWith()
     }
 
     event.respondWith(
