@@ -35,14 +35,16 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
                 .eq('id', userId)
                 .single();
 
-            if (profile?.veda_health_state) {
+            if (profile) {
+                // Prioritize DB state if it exists
+                const dbState = (profile.veda_health_state as any) || {};
                 setState({
                     ...defaultState,
-                    ...(profile.veda_health_state as any),
-                    is_onboarded: profile.is_onboarded
+                    ...dbState,
+                    is_onboarded: profile.is_onboarded ?? dbState.is_onboarded ?? false
                 });
             } else {
-                // Fallback to local if no DB profile yet (e.g. first sync)
+                // Fallback to local if no DB profile at all (first login)
                 const localStored = localStorage.getItem(STORAGE_KEY);
                 const localPrakritiStored = localStorage.getItem('prakriti_result');
                 const localOnboarded = !!localPrakritiStored;
@@ -52,10 +54,10 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
                         const parsed = JSON.parse(localStored);
                         setState({ ...parsed, is_onboarded: localOnboarded });
                     } catch (e) {
-                        setState(prev => ({ ...prev, is_onboarded: localOnboarded }));
+                        setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded }));
                     }
                 } else {
-                    setState(prev => ({ ...prev, is_onboarded: localOnboarded }));
+                    setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded }));
                 }
             }
             setIsLoaded(true);
@@ -67,7 +69,7 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
         });
 
         // Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event: string, session: any) => {
             if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION' || event === 'USER_UPDATED') {
                 loadProfile(session?.user?.id || null);
             } else if (event === 'SIGNED_OUT') {

@@ -41,8 +41,10 @@ interface Question {
 const quizFlow = prakritiQuizData as Question[];
 
 export default function AyuOneHub() {
+    const { state, updateState, isLoaded } = usePhysiologyState();
+
     // Shared State
-    const [isPrakritiSet, setIsPrakritiSet] = useState<boolean>(true);
+    const [isPrakritiSet, setIsPrakritiSet] = useState<boolean>(false);
     const [mounted, setMounted] = useState(false);
 
     // Quiz State
@@ -69,37 +71,35 @@ export default function AyuOneHub() {
     const [completedLogs, setCompletedLogs] = useState<string[]>([]);
     const [isChatOpen, setIsChatOpen] = useState(false);
 
-    const { state, updateState } = usePhysiologyState();
+    // Sync with global state
+    useEffect(() => {
+        if (isLoaded) {
+            setIsPrakritiSet(state.is_onboarded);
 
-    // Load initialization
+            // If already onboarded, we can try to load the local constitution if available
+            // though the chat will also use state.
+            const storedPrakriti = localStorage.getItem("prakriti_result");
+            if (storedPrakriti) {
+                const data = JSON.parse(storedPrakriti);
+                setConstitution(data);
+                setMessages([
+                    { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${data.type}. How was your sleep last night? Or what was your dinner like?` }
+                ]);
+            }
+        }
+    }, [isLoaded, state.is_onboarded]);
+
+    // Load initialization for logs only
     useEffect(() => {
         setMounted(true);
 
-        const loadInitialData = async () => {
+        const loadLogs = async () => {
             if (typeof window === "undefined") return;
 
             const supabase = createClient();
             const { data: { user } } = await supabase.auth.getUser();
 
             if (user) {
-                // Load Prakriti from Profiles
-                const { data: profile } = await supabase
-                    .from('profiles')
-                    .select('prakriti_result')
-                    .eq('id', user.id)
-                    .single();
-
-                if (profile?.prakriti_result) {
-                    setIsPrakritiSet(true);
-                    const data = profile.prakriti_result as any;
-                    setConstitution(data);
-                    setMessages([
-                        { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${data.type}. How was your sleep last night? Or what was your dinner like?` }
-                    ]);
-                } else {
-                    setIsPrakritiSet(false);
-                }
-
                 // Check pulse_logs for today's check-ins
                 const todayStart = new Date();
                 todayStart.setHours(0, 0, 0, 0);
@@ -121,21 +121,8 @@ export default function AyuOneHub() {
                 }
             } else {
                 // Fallback to localStorage for guest users
-                const storedPrakriti = localStorage.getItem("prakriti_result");
                 const today = new Date().toISOString().split('T')[0];
                 const storedLogs = JSON.parse(localStorage.getItem("completed_logs") || "{}");
-
-                if (storedPrakriti) {
-                    setIsPrakritiSet(true);
-                    const data = JSON.parse(storedPrakriti);
-                    setConstitution(data);
-                    setMessages([
-                        { role: "ai", text: `Namaste! I see your biological rhythm aligns with ${data.type}. How was your sleep last night? Or what was your dinner like?` }
-                    ]);
-                } else {
-                    setIsPrakritiSet(false);
-                }
-
                 const completed = Object.entries(storedLogs)
                     .filter(([_, val]) => val === today)
                     .map(([key]) => key);
@@ -143,7 +130,7 @@ export default function AyuOneHub() {
             }
         };
 
-        loadInitialData();
+        loadLogs();
     }, []);
 
     const scrollToBottom = () => {
@@ -302,7 +289,7 @@ export default function AyuOneHub() {
         setCheckinStep(0);
         setAccumulatedEffects([]);
         setCheckinAnswers({});
-        setMessages((prev: any[]) => [
+        setMessages((prev: { role: string; text: string }[]) => [
             ...prev,
             { role: "ai", text: `✅ ${typeLabel} Check-in Complete. I have dynamically synced these signals to your biological pulse. Ojas, Digestion, and Circadian reserves have been updated.` }
         ]);
@@ -314,7 +301,7 @@ export default function AyuOneHub() {
         if (!input.trim()) return;
 
         const userMessage = input;
-        setMessages(prev => [...prev, { role: "user", text: userMessage }]);
+        setMessages((prev: { role: string; text: string }[]) => [...prev, { role: "user", text: userMessage }]);
         setInput("");
         setIsTyping(true);
 
@@ -334,7 +321,7 @@ export default function AyuOneHub() {
             const data = await res.json();
 
             if (data.reply) {
-                setMessages(prev => [...prev, { role: "ai", text: data.reply }]);
+                setMessages((prev: { role: string; text: string }[]) => [...prev, { role: "ai", text: data.reply }]);
 
                 if (data.signals && Array.isArray(data.signals) && data.signals.length > 0) {
                     const nextState = applySignals(data.signals, state);
@@ -351,7 +338,13 @@ export default function AyuOneHub() {
         }
     };
 
-    if (!mounted) return null;
+    if (!mounted || !isLoaded) {
+        return (
+            <div className="flex-1 flex items-center justify-center bg-background text-forest/40">
+                <BrainCircuit className="w-8 h-8 animate-pulse" />
+            </div>
+        );
+    }
 
     return (
         <div className="flex-1 w-full flex flex-col bg-background relative overflow-hidden">
