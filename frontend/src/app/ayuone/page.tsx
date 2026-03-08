@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { User, BrainCircuit, ShieldCheck, Zap, CloudSun, Leaf, Send, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
+import { useChatLimits } from "@/hooks/useChatLimits";
 import { applySignals, applyEffects, updateScores } from "@/engine/stateUpdater";
 import { createClient } from "@/utils/supabase/client";
 import { registerUserWithOneSignal, syncNotificationTags, getApiUrl } from "@/services/notificationService";
@@ -42,6 +43,8 @@ const quizFlow = prakritiQuizData as Question[];
 
 export default function AyuOneHub() {
     const { state, updateState, isLoaded } = usePhysiologyState();
+    const { checkLimit, incrementCount, isAtDailyCap, timeUntilDailyReset } = useChatLimits();
+    const [limitError, setLimitError] = useState<string | null>(null);
 
     // Shared State
     const [isPrakritiSet, setIsPrakritiSet] = useState<boolean>(false);
@@ -359,10 +362,23 @@ export default function AyuOneHub() {
     const handleSend = async () => {
         if (!input.trim()) return;
 
+        const limitStatus = checkLimit();
+        if (limitStatus === 'daily_cap') {
+            setLimitError(`Daily limit reached. Resets in ${timeUntilDailyReset()}.`);
+            setTimeout(() => setLimitError(null), 5000);
+            return;
+        }
+        if (limitStatus === 'rate_limit') {
+            setLimitError('Slow down, you’re chatting too fast!');
+            setTimeout(() => setLimitError(null), 3000);
+            return;
+        }
+
         const userMessage = input;
         setMessages((prev: { role: string; text: string }[]) => [...prev, { role: "user", text: userMessage }]);
         setInput("");
         setIsTyping(true);
+        incrementCount();
 
         const storedResult = localStorage.getItem("prakriti_result");
         const prakriti = storedResult ? JSON.parse(storedResult).type : "Unknown";
@@ -807,22 +823,34 @@ export default function AyuOneHub() {
                                                     </div>
 
                                                     {/* Chat Input */}
-                                                    <div className="p-4 bg-white border-t border-slate-100 flex gap-3">
-                                                        <input
-                                                            type="text"
-                                                            value={input}
-                                                            onChange={(e: any) => setInput(e.target.value)}
-                                                            onKeyDown={(e: any) => e.key === "Enter" && handleSend()}
-                                                            placeholder="Type your wellness query..."
-                                                            className="flex-1 bg-slate-50 border border-slate-200 px-5 py-3 rounded-2xl text-sm font-bold text-slate-800 outline-none focus:border-forest/30 transition-all"
-                                                        />
-                                                        <button
-                                                            disabled={!input.trim() || isTyping}
-                                                            onClick={handleSend}
-                                                            className="w-11 h-11 bg-forest text-white rounded-2xl flex items-center justify-center shadow-lg shadow-forest/10 hover:bg-emerald-800 transition-all active:scale-90"
-                                                        >
-                                                            <Send className="w-4 h-4" />
-                                                        </button>
+                                                    <div className="p-4 bg-white border-t border-slate-100 flex flex-col gap-2">
+                                                        {limitError && (
+                                                            <motion.div
+                                                                initial={{ opacity: 0, y: 5 }}
+                                                                animate={{ opacity: 1, y: 0 }}
+                                                                className="text-[10px] font-black text-orange-500 uppercase tracking-widest text-center px-4"
+                                                            >
+                                                                {limitError}
+                                                            </motion.div>
+                                                        )}
+                                                        <div className="flex gap-3">
+                                                            <input
+                                                                type="text"
+                                                                value={input}
+                                                                onChange={(e: any) => setInput(e.target.value)}
+                                                                onKeyDown={(e: any) => e.key === "Enter" && handleSend()}
+                                                                placeholder={isAtDailyCap ? "Daily limit reached" : "Type your wellness query..."}
+                                                                disabled={isTyping || isAtDailyCap}
+                                                                className="flex-1 bg-slate-50 border border-slate-200 px-5 py-3 rounded-2xl text-sm font-bold text-slate-800 outline-none focus:border-forest/30 transition-all disabled:opacity-50"
+                                                            />
+                                                            <button
+                                                                disabled={!input.trim() || isTyping || isAtDailyCap}
+                                                                onClick={handleSend}
+                                                                className="w-11 h-11 bg-forest text-white rounded-2xl flex items-center justify-center shadow-lg shadow-forest/10 hover:bg-emerald-800 transition-all active:scale-90 disabled:opacity-50"
+                                                            >
+                                                                <Send className="w-4 h-4" />
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </motion.div>
                                             </>
