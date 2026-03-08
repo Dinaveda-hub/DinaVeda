@@ -347,7 +347,6 @@ export default function AyuOneHub() {
 
         setActiveCheckinType(null);
         setCheckinStep(0);
-        setAccumulatedEffects([]);
         setCheckinAnswers({});
         setMessages((prev: { role: string; text: string }[]) => [
             ...prev,
@@ -392,7 +391,7 @@ export default function AyuOneHub() {
             }
         } catch (error) {
             console.error("AyuOne Chat Error Details:", error);
-            setMessages(prev => [...prev, { role: "ai", text: "I'm currently unable to access the neural core. Please check your connection or try again later." }]);
+            setMessages((prev: { role: string; text: string }[]) => [...prev, { role: "ai", text: "I'm currently unable to access the neural core. Please check your connection or try again later." }]);
         } finally {
             setIsTyping(false);
         }
@@ -812,8 +811,8 @@ export default function AyuOneHub() {
                                                         <input
                                                             type="text"
                                                             value={input}
-                                                            onChange={(e) => setInput(e.target.value)}
-                                                            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                                                            onChange={(e: any) => setInput(e.target.value)}
+                                                            onKeyDown={(e: any) => e.key === "Enter" && handleSend()}
                                                             placeholder="Type your wellness query..."
                                                             className="flex-1 bg-slate-50 border border-slate-200 px-5 py-3 rounded-2xl text-sm font-bold text-slate-800 outline-none focus:border-forest/30 transition-all"
                                                         />
