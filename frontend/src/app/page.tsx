@@ -6,7 +6,8 @@ import { motion, Variants } from "framer-motion";
 import {
   CloudSun, ShieldCheck, Flame, Compass, Moon,
   Sunrise, Sun, Sunset, AlertCircle, CheckCircle2,
-  Sparkles, Leaf, Activity, User, ArrowRight, BrainCircuit
+  Sparkles, Leaf, Activity, User, ArrowRight, BrainCircuit,
+  CheckCircle, Square
 } from "lucide-react";
 import Image from "next/image";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
@@ -17,6 +18,8 @@ import { computeIPI } from "@/engine/imbalancePressureEngine";
 import { PredictionEngine } from "@/engine/predictionEngine";
 import { CompiledProtocolItem } from "@/engine/protocolCompiler";
 import { humanizeProtocolName } from "@/utils/stringUtils";
+import { applyEffects } from "@/engine/stateUpdater";
+import protocolsRaw from "@/data/protocols.json";
 
 export default function Dashboard() {
   const containerVariants: Variants = {
@@ -36,7 +39,7 @@ export default function Dashboard() {
     }
   };
 
-  const { state, isLoaded } = usePhysiologyState();
+  const { state, updateState, isLoaded } = usePhysiologyState();
   const vikriti = isLoaded ? computeVikriti(state) : null;
   const predictionEngine = new PredictionEngine();
 
@@ -45,6 +48,10 @@ export default function Dashboard() {
 
   // Health Goal state
   const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
+
+  // Interaction State for Protocols
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [completedSections, setCompletedSections] = useState<string[]>([]);
 
   useEffect(() => {
     const saved = localStorage.getItem("veda_health_goal");
@@ -90,8 +97,69 @@ export default function Dashboard() {
     if (isLoaded) {
       predictionEngine.saveStateSnapshot(state);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
+
+  // Load Interaction Progress and check for Midnight Reset
+  useEffect(() => {
+    const checkReset = () => {
+      const lastResetDate = localStorage.getItem("veda_protocol_reset_date");
+      const today = new Date().toDateString();
+
+      if (lastResetDate !== today) {
+        localStorage.removeItem("veda_checked_items");
+        localStorage.removeItem("veda_completed_sections");
+        localStorage.setItem("veda_protocol_reset_date", today);
+        setCheckedItems([]);
+        setCompletedSections([]);
+      } else {
+        const savedChecked = localStorage.getItem("veda_checked_items");
+        const savedCompleted = localStorage.getItem("veda_completed_sections");
+        if (savedChecked) setCheckedItems(JSON.parse(savedChecked));
+        if (savedCompleted) setCompletedSections(JSON.parse(savedCompleted));
+      }
+    };
+
+    checkReset();
+    const interval = setInterval(checkReset, 60000); // Check every minute
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleToggleProtocol = (name: string) => {
+    if (checkedItems.includes(name)) {
+      const updated = checkedItems.filter(i => i !== name);
+      setCheckedItems(updated);
+      localStorage.setItem("veda_checked_items", JSON.stringify(updated));
+    } else {
+      const updated = [...checkedItems, name];
+      setCheckedItems(updated);
+      localStorage.setItem("veda_checked_items", JSON.stringify(updated));
+    }
+  };
+
+  const handleCompleteSection = async (section: string, items: CompiledProtocolItem[]) => {
+    if (completedSections.includes(section)) return;
+
+    // Filter to only items that were checked
+    const checkedInSection = items.filter(i => checkedItems.includes(i.name));
+
+    // Aggregate effects
+    const effectsList: any[] = [];
+    checkedInSection.forEach(item => {
+      const original = (protocolsRaw as any[]).find(p => p.name === item.name);
+      if (original?.variables) {
+        effectsList.push(original.variables);
+      }
+    });
+
+    if (effectsList.length > 0) {
+      const newState = applyEffects(state, effectsList);
+      await updateState(newState);
+    }
+
+    const updated = [...completedSections, section];
+    setCompletedSections(updated);
+    localStorage.setItem("veda_completed_sections", JSON.stringify(updated));
+  };
 
   return (
     <motion.div
@@ -218,60 +286,147 @@ export default function Dashboard() {
 
           <div className="space-y-6">
             {/* Morning Block */}
-            <div className="glass p-8 rounded-[2.5rem] border border-white/60 shadow-premium">
-              <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3 mb-6">
-                <Sunrise className="w-5 h-5 text-orange-400" /> Morning
-              </h3>
-              <div className="space-y-4">
-                {isLoaded && morningRecs.length > 0 ? morningRecs.map(rec => (
-                  <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
-                    <div className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2.5 shrink-0 opacity-80" />
-                    <div>
-                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
-                      <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
-                    </div>
+            <div className={`glass p-8 rounded-[2.5rem] border transition-all duration-500 ${completedSections.includes('morning') ? 'border-emerald-200 bg-emerald-50/20 opacity-90' : 'border-white/60 shadow-premium'}`}>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3">
+                  <Sunrise className="w-5 h-5 text-orange-400" /> Morning
+                </h3>
+                {completedSections.includes('morning') ? (
+                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-100/50 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    <CheckCircle className="w-3.5 h-3.5" /> Completed
                   </div>
-                )) : (
+                ) : (
+                  <button
+                    onClick={() => handleCompleteSection('morning', morningRecs)}
+                    disabled={morningRecs.length === 0}
+                    className="text-[10px] font-black uppercase tracking-widest bg-forest text-white px-5 py-2 rounded-full shadow-lg shadow-forest/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:hover:scale-100"
+                  >
+                    Mark as Complete
+                  </button>
+                )}
+              </div>
+              <div className="space-y-4">
+                {isLoaded && morningRecs.length > 0 ? morningRecs.map(rec => {
+                  const isChecked = checkedItems.includes(rec.name);
+                  const isSectionDone = completedSections.includes('morning');
+                  return (
+                    <div
+                      key={rec.name}
+                      onClick={() => !isSectionDone && handleToggleProtocol(rec.name)}
+                      className={`flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0 group cursor-pointer ${isSectionDone ? 'pointer-events-none' : ''}`}
+                    >
+                      <div className="mt-1 shrink-0 transition-colors">
+                        {isChecked ? (
+                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        ) : (
+                          <Square className="w-5 h-5 text-slate-300 group-hover:text-forest/40" />
+                        )}
+                      </div>
+                      <div className={isChecked || isSectionDone ? "opacity-60" : ""}>
+                        <h4 className={`font-black tracking-tight text-lg mb-1 transition-all ${isChecked ? 'text-slate-400 line-through' : 'text-forest'}`}>{rec.title}</h4>
+                        <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
+                      </div>
+                    </div>
+                  );
+                }) : (
                   <p className="text-xs font-bold text-slate-600 italic">No acute morning protocols active. Continue standard Dinacharya.</p>
                 )}
               </div>
             </div>
 
             {/* Midday Block */}
-            <div className="glass p-8 rounded-[2.5rem] border border-white/60 shadow-premium">
-              <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3 mb-6">
-                <Sun className="w-5 h-5 text-gold" /> Midday
-              </h3>
-              <div className="space-y-4">
-                {isLoaded && middayRecs.length > 0 ? middayRecs.map(rec => (
-                  <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2.5 shrink-0 opacity-80" />
-                    <div>
-                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
-                      <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
-                    </div>
+            <div className={`glass p-8 rounded-[2.5rem] border transition-all duration-500 ${completedSections.includes('midday') ? 'border-emerald-200 bg-emerald-50/20 opacity-90' : 'border-white/60 shadow-premium'}`}>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3">
+                  <Sun className="w-5 h-5 text-gold" /> Midday
+                </h3>
+                {completedSections.includes('midday') ? (
+                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-100/50 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    <CheckCircle className="w-3.5 h-3.5" /> Completed
                   </div>
-                )) : (
+                ) : (
+                  <button
+                    onClick={() => handleCompleteSection('midday', middayRecs)}
+                    disabled={middayRecs.length === 0}
+                    className="text-[10px] font-black uppercase tracking-widest bg-forest text-white px-5 py-2 rounded-full shadow-lg shadow-forest/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:hover:scale-100"
+                  >
+                    Mark as Complete
+                  </button>
+                )}
+              </div>
+              <div className="space-y-4">
+                {isLoaded && middayRecs.length > 0 ? middayRecs.map(rec => {
+                  const isChecked = checkedItems.includes(rec.name);
+                  const isSectionDone = completedSections.includes('midday');
+                  return (
+                    <div
+                      key={rec.name}
+                      onClick={() => !isSectionDone && handleToggleProtocol(rec.name)}
+                      className={`flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0 group cursor-pointer ${isSectionDone ? 'pointer-events-none' : ''}`}
+                    >
+                      <div className="mt-1 shrink-0 transition-colors">
+                        {isChecked ? (
+                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        ) : (
+                          <Square className="w-5 h-5 text-slate-300 group-hover:text-forest/40" />
+                        )}
+                      </div>
+                      <div className={isChecked || isSectionDone ? "opacity-60" : ""}>
+                        <h4 className={`font-black tracking-tight text-lg mb-1 transition-all ${isChecked ? 'text-slate-400 line-through' : 'text-forest'}`}>{rec.title}</h4>
+                        <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
+                      </div>
+                    </div>
+                  );
+                }) : (
                   <p className="text-xs font-bold text-slate-600 italic">No acute midday protocols active. Maintain balanced activity and mindful meals.</p>
                 )}
               </div>
             </div>
 
             {/* Evening Block */}
-            <div className="glass p-8 rounded-[2.5rem] border border-white/60 shadow-premium">
-              <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3 mb-6">
-                <Sunset className="w-5 h-5 text-indigo-400" /> Evening
-              </h3>
-              <div className="space-y-4">
-                {isLoaded && eveningRecs.length > 0 ? eveningRecs.map(rec => (
-                  <div key={rec.name} className="flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2.5 shrink-0 opacity-80" />
-                    <div>
-                      <h4 className="font-black text-forest tracking-tight text-lg mb-1">{rec.title}</h4>
-                      <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
-                    </div>
+            <div className={`glass p-8 rounded-[2.5rem] border transition-all duration-500 ${completedSections.includes('evening') ? 'border-emerald-200 bg-emerald-50/20 opacity-90' : 'border-white/60 shadow-premium'}`}>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3">
+                  <Sunset className="w-5 h-5 text-indigo-400" /> Evening
+                </h3>
+                {completedSections.includes('evening') ? (
+                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-100/50 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    <CheckCircle className="w-3.5 h-3.5" /> Completed
                   </div>
-                )) : (
+                ) : (
+                  <button
+                    onClick={() => handleCompleteSection('evening', eveningRecs)}
+                    disabled={eveningRecs.length === 0}
+                    className="text-[10px] font-black uppercase tracking-widest bg-forest text-white px-5 py-2 rounded-full shadow-lg shadow-forest/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:hover:scale-100"
+                  >
+                    Mark as Complete
+                  </button>
+                )}
+              </div>
+              <div className="space-y-4">
+                {isLoaded && eveningRecs.length > 0 ? eveningRecs.map(rec => {
+                  const isChecked = checkedItems.includes(rec.name);
+                  const isSectionDone = completedSections.includes('evening');
+                  return (
+                    <div
+                      key={rec.name}
+                      onClick={() => !isSectionDone && handleToggleProtocol(rec.name)}
+                      className={`flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0 group cursor-pointer ${isSectionDone ? 'pointer-events-none' : ''}`}
+                    >
+                      <div className="mt-1 shrink-0 transition-colors">
+                        {isChecked ? (
+                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        ) : (
+                          <Square className="w-5 h-5 text-slate-300 group-hover:text-forest/40" />
+                        )}
+                      </div>
+                      <div className={isChecked || isSectionDone ? "opacity-60" : ""}>
+                        <h4 className={`font-black tracking-tight text-lg mb-1 transition-all ${isChecked ? 'text-slate-400 line-through' : 'text-forest'}`}>{rec.title}</h4>
+                        <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
+                      </div>
+                    </div>
+                  );
+                }) : (
                   <p className="text-xs font-bold text-slate-600 italic">Wind down naturally aligned with the sunset.</p>
                 )}
               </div>

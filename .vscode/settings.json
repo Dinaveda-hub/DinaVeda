@@ -1,0 +1,31 @@
+{
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/.next": true,
+        "**/.vercel": true,
+        "**/__pycache__": true,
+        "**/venv": true,
+        "**/.venv": true
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": false
+    },
+    "files.watcherExclude": {
+        "**/node_modules/*/**": true,
+        "**/.next/*/**": true,
+        "**/venv/*/**": true,
+        "**/.venv/*/**": true,
+        "**/.git/*/**": true
+    },
+    "typescript.tsserver.maxTsServerMemory": 4096,
+    "python.analysis.exclude": [
+        "**/node_modules",
+        "**/venv",
+        "**/.venv",
+        "**/__pycache__"
+    ]
+}
