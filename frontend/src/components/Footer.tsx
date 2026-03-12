@@ -35,6 +35,9 @@ export default function Footer() {
                         <ul className="space-y-4 text-sm font-semibold text-slate-600">
                             <li><Link href="/#how-it-works" className="hover:text-forest transition-colors">How it works</Link></li>
                             <li><Link href="/#features" className="hover:text-forest transition-colors">Features</Link></li>
+                            <li><Link href="/protocol" className="hover:text-forest transition-colors">Protocols</Link></li>
+                            <li><Link href="/routine" className="hover:text-forest transition-colors">Daily Routines</Link></li>
+                            <li><Link href="/tools" className="hover:text-forest transition-colors font-bold text-forest">Assessment Tools</Link></li>
                             <li><Link href="/pricing" className="hover:text-forest transition-colors">Pricing</Link></li>
                             <li><Link href="/login" className="hover:text-forest transition-colors">Sign In</Link></li>
                         </ul>
@@ -45,7 +48,7 @@ export default function Footer() {
                         <ul className="space-y-4 text-sm font-semibold text-slate-600">
                             <li><Link href="/faq" className="hover:text-forest transition-colors">FAQ</Link></li>
                             <li><Link href="/about" className="hover:text-forest transition-colors">About Us</Link></li>
-                            <li><Link href="/contact" className="hover:text-forest transition-colors">Contact</Link></li>
+                            <li><Link href="/health" className="hover:text-forest transition-colors font-bold text-emerald-600">Symptom Hub</Link></li>
                             <li><Link href="/guide" className="hover:text-forest transition-colors">Ayurveda Guide</Link></li>
                         </ul>
                     </div>
