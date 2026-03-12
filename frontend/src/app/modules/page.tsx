@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Leaf } from "lucide-react";
 import { MODULES } from "@/data/moduleRegistry";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import UpgradeModal from "@/components/billing/UpgradeModal";
 
 const COLOR_MAP = {
     air: { bg: "bg-blue-50", icon: "text-blue-800", hover: "group-hover:bg-blue-100" },
@@ -18,15 +16,12 @@ const COLOR_MAP = {
 
 export default function ModulesPage() {
     const router = useRouter();
-    const { subscriptionStatus, userId } = usePhysiologyState();
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const { subscriptionStatus } = usePhysiologyState();
 
     const handleModuleClick = (moduleId: string) => {
-        if (subscriptionStatus === 'active') {
-            router.push(`/modules/${moduleId}`);
-        } else {
-            setIsUpgradeModalOpen(true);
-        }
+        // Allow free users to see the module principals/metrics
+        // Specific protocols will be locked inside the module page
+        router.push(`/modules/${moduleId}`);
     };
 
     return (
