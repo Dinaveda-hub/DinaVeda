@@ -1,10 +1,6 @@
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 
-export function filterAyufitProtocols(protocols: Protocol[]): Protocol[] {
-    return protocols.filter(p => p.module.toLowerCase() === 'ayufit');
-}
-
 export function getMovementInsight(state: VedaState): string {
     if (state.vata > 60) return "High Vata load. Favor slow, grounding Hatha yoga and avoid high-impact cardio.";
     if (state.kapha > 60) return "High Kapha load. Increase intensity with vigorous Surya Namaskar and warming pranayama.";
