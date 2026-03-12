@@ -14,8 +14,8 @@ export const DRIFT_SEVERITY = {
  * Thresholds for triggering protocol recommendations.
  */
 export const PROTOCOL_THRESHOLDS = {
-  BASE: 60,
-  LOW_OJAS: 50, // Trigger earlier if vitality is low
+  BASE: 45,
+  LOW_OJAS: 35, // Trigger earlier if vitality is low
 } as const;
 
 export const CRITICAL_OJAS = 40;

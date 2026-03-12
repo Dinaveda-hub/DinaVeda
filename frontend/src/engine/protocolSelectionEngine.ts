@@ -1,6 +1,6 @@
 import { RAW_PROTOCOLS as protocolsRaw } from "@/data";
 import rulesRaw from "../data/rules/recommendation_rules.json";
-import { VedaState, defaultState, getBaseline } from "./stateModel";
+import { VedaState, getBaseline } from "./stateModel";
 import { VikritiMetrics, computeVikriti } from "./vikritiEngine";
 import { PredictionEngine } from "./predictionEngine";
 import { ProtocolWeights } from "@/utils/userWeightsService";
@@ -8,7 +8,7 @@ import { PhysiologyPattern, PATTERN_PROTOCOL_MAP } from "@/services/patternServi
 import { applyGoalBoost } from "./goalEngine";
 import { ENGINE_CONFIG } from "./config";
 
-const { thresholds, ranges } = ENGINE_CONFIG;
+const { thresholds } = ENGINE_CONFIG;
 
 export interface Protocol {
     name: string;
@@ -340,12 +340,27 @@ export function selectProtocols(
         }
     }
 
-    // Ensure baseline protocols if list is empty (Extreme safety)
-    if (finalProtocols.length === 0) {
-        const baselines = ["warm_water_morning", "midday_main_meal", "evening_wind_down"];
+    // Ensure baseline protocols if list is sparse (Improved Density Fallback)
+    if (finalProtocols.length < 5) {
+        const currentNames = new Set(finalProtocols.map(p => p.name));
+        const baselines = [
+            "warm_water_morning", 
+            "midday_main_meal", 
+            "evening_wind_down",
+            "tongue_scraping",
+            "gentle_walking_after_meal",
+            "nose_oil_nasya"
+        ];
+        
         for (const bName of baselines) {
-            const proto = protocolMap.get(bName);
-            if (proto) finalProtocols.push(proto);
+            if (finalProtocols.length >= 8) break; // Don't overfill with fallbacks
+            if (!currentNames.has(bName)) {
+                const proto = protocolMap.get(bName);
+                if (proto && isProtocolSafe(proto, state)) {
+                    finalProtocols.push(proto);
+                    currentNames.add(bName);
+                }
+            }
         }
     }
 
