@@ -1,0 +1,180 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowRight, BookOpen, Activity, HeartPulse } from "lucide-react";
+import { TOPIC_GROUPS } from "@/data/navigation";
+
+export default function MobileMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Prevent scrolling when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const menuVariants = {
+    closed: {
+      x: "100%",
+      transition: {
+        type: "spring" as const,
+        stiffness: 300,
+        damping: 30
+      }
+    },
+    opened: {
+      x: 0,
+      transition: {
+        type: "spring" as const,
+        stiffness: 300,
+        damping: 30
+      }
+    }
+  };
+
+  const containerVariants = {
+    opened: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, x: 20 },
+    opened: { opacity: 1, x: 0 }
+  };
+
+  return (
+    <div className="md:hidden">
+      {/* Trigger */}
+      <button 
+        onClick={toggleMenu}
+        className="p-2 text-forest hover:bg-forest/5 rounded-xl transition-colors"
+        aria-label="Open menu"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={toggleMenu}
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100]"
+            />
+
+            {/* Menu Panel */}
+            <motion.div 
+              variants={menuVariants}
+              initial="closed"
+              animate="opened"
+              exit="closed"
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-[101] shadow-2xl flex flex-col"
+            >
+              {/* Header */}
+              <div className="p-6 flex justify-between items-center border-b border-slate-50">
+                <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
+                <button 
+                  onClick={toggleMenu}
+                  className="p-2 text-slate-400 hover:text-forest transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-10">
+                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-10">
+                  
+                  {/* Education */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                       <BookOpen className="w-3.5 h-3.5" /> Education
+                    </h3>
+                    <div className="grid grid-cols-1 gap-2">
+                      {TOPIC_GROUPS.education.map((item) => (
+                        <Link 
+                          key={item.slug} 
+                          href={item.slug === "index" ? "/guide" : `/guide/${item.slug}`}
+                          onClick={toggleMenu}
+                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Tools */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                       <Activity className="w-3.5 h-3.5" /> Diagnostic Tools
+                    </h3>
+                    <div className="grid grid-cols-1 gap-2">
+                      {TOPIC_GROUPS.tools.map((item) => (
+                        <Link 
+                          key={item.slug} 
+                          href={`/tools/${item.slug}`}
+                          onClick={toggleMenu}
+                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Symptoms */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                       <HeartPulse className="w-3.5 h-3.5" /> Health Hub
+                    </h3>
+                    <div className="grid grid-cols-1 gap-2">
+                      {TOPIC_GROUPS.symptoms.map((item) => (
+                        <Link 
+                          key={item.slug} 
+                          href={`/health/${item.slug}`}
+                          onClick={toggleMenu}
+                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                </motion.div>
+              </div>
+
+              {/* Footer / CTA */}
+              <div className="p-6 border-t border-slate-50 space-y-4">
+                <Link 
+                  href="/login" 
+                  onClick={toggleMenu}
+                  className="flex items-center justify-center gap-3 bg-forest text-white w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-forest/20"
+                >
+                  Start Assessment <ArrowRight className="w-4 h-4" />
+                </Link>
+                <p className="text-[10px] text-center font-bold text-slate-400 uppercase tracking-widest">
+                   © 2026 Dinaveda AI
+                </p>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

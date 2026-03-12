@@ -6,7 +6,9 @@ import PhysiologyPreview from "@/components/PhysiologyPreview";
 import DailyInsightTimeline from "@/components/DailyInsightTimeline";
 import SampleInsightCard from "@/components/SampleInsightCard";
 import Footer from "@/components/layout/Footer";
+import MobileMenu from "@/components/layout/MobileMenu";
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 
 const FAQS = [
@@ -22,12 +24,32 @@ export default function LandingPage() {
     return (
         <LazyMotion features={domAnimation}>
             <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest overflow-hidden" style={{ transform: "translateZ(0)" }}>
+                
+                {/* Fixed Header */}
+                <header className="fixed top-0 left-0 right-0 z-[80] bg-white/80 backdrop-blur-md border-b border-slate-50">
+                    <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                        <Link href="/" className="flex items-center gap-2 group">
+                            <div className="relative w-8 h-8 transition-transform group-hover:scale-110">
+                                <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                            </div>
+                            <span className="font-black text-xl text-forest tracking-tighter">Dinaveda</span>
+                        </Link>
+
+                        <div className="flex items-center gap-4">
+                            <Link href="/login" className="hidden sm:block text-xs font-black uppercase tracking-widest text-forest hover:opacity-70 transition-opacity">
+                                Sign In
+                            </Link>
+                            <MobileMenu />
+                        </div>
+                    </nav>
+                </header>
+
                 {/* Ambient background glows */}
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-40 -mt-40 blur-2xl" style={{ willChange: "transform" }} />
                 <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40 blur-2xl" style={{ willChange: "transform" }} />
                 
                 {/* 1. Redesigned Hero Section */}
-                <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 max-w-7xl mx-auto flex flex-col items-center text-center lg:text-left lg:flex-row gap-12 relative z-10">
+                <section className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 max-w-7xl mx-auto flex flex-col items-center text-center lg:text-left lg:flex-row gap-12 relative z-10">
                   <div className="absolute -z-10 w-[300px] h-[300px] bg-emerald-300/20 blur-[60px] rounded-full hidden md:block right-10" style={{ willChange: "transform" }} />
 
               {/* LEFT SIDE */}
