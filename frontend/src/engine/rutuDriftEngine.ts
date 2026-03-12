@@ -1,5 +1,7 @@
 import { VedaState } from './stateModel';
-import { clamp } from '../utils/clamp';
+import { ENGINE_CONFIG } from './config';
+
+const { clamp } = ENGINE_CONFIG.ranges;
 
 /**
  * rutuDriftEngine.ts
@@ -39,40 +41,40 @@ export type Season =
  */
 const RUTU_DRIFT: Record<Season, Partial<Record<keyof VedaState, number>>> = {
     hemanta: {
-        vata: -1,
-        pitta: 1,
-        kapha: 1,
-        agni: 2
+        vata_axis: -1,
+        pitta_axis: 1,
+        kapha_axis: 1,
+        agni_axis: 2
     },
     shishira: {
-        vata: 1,
-        pitta: 0,
-        kapha: 2,
-        agni: 1
+        vata_axis: 1,
+        pitta_axis: 0,
+        kapha_axis: 2,
+        agni_axis: 1
     },
     vasanta: {
-        vata: 0,
-        pitta: 0,
-        kapha: 3,
-        agni: -1
+        vata_axis: 0,
+        pitta_axis: 0,
+        kapha_axis: 3,
+        agni_axis: -1
     },
     grishma: {
-        vata: 2,
-        pitta: 2,
-        kapha: -2,
-        agni: -2
+        vata_axis: 2,
+        pitta_axis: 2,
+        kapha_axis: -2,
+        agni_axis: -2
     },
     varsha: {
-        vata: 3,
-        pitta: 1,
-        kapha: 0,
-        agni: -3
+        vata_axis: 3,
+        pitta_axis: 1,
+        kapha_axis: 0,
+        agni_axis: -3
     },
     sharad: {
-        vata: -1,
-        pitta: 3,
-        kapha: -1,
-        agni: 1
+        vata_axis: -1,
+        pitta_axis: 3,
+        kapha_axis: -1,
+        agni_axis: 1
     }
 };
 
@@ -113,6 +115,22 @@ export function getCurrentSeason(): Season {
     if (month === 4  || month === 5)  return 'grishma';  // May, Jun
     if (month === 6  || month === 7)  return 'varsha';   // Jul, Aug
     return 'sharad';                                      // Sep, Oct
+}
+
+/**
+ * Calculates a 0-100 index representing the progress through the annual seasonal cycle.
+ * 0 = Jan 1st, 100 = Dec 31st.
+ * Used for smooth multiplier mapping.
+ */
+export function getRutuIndex(): number {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = (now.getTime() - start.getTime()) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    
+    // Normalize to 0-100 (365 days approx)
+    return clamp((dayOfYear / 365) * 100);
 }
 
 /**
@@ -159,7 +177,7 @@ export function applySeasonalDrift(
         const currentValue = (state[rawKey] as number) ?? 50;
         const delta = driftValue * DRIFT_STRENGTH * intensity;
 
-        (next as any)[rawKey] = clamp(currentValue + delta, 0, 100);
+        (next as any)[rawKey] = clamp(currentValue + delta);
     }
 
     return next;

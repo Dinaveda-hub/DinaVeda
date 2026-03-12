@@ -1,17 +1,36 @@
-"use client";
 import { usePhysiologyState } from "./usePhysiologyState";
+import { applySignals } from "../engine/stateUpdater";
 
 /**
  * Hook to handle signal logging persistence.
- * Future implementation: sync with Supabase daily_log table.
+ * Functionalized to integrate with the deterministic physiology orchestrator.
  */
 export function useSignalLogger() {
-    const { state, updateState } = usePhysiologyState();
+    const { state, updateState, userId, healthGoal, userWeights } = usePhysiologyState();
 
-    const logSignals = (signals: string[]) => {
-        // Deterministic engine logic would be called here via local stateUpdater.applySignal
-        console.log("Logging signals:", signals);
-        // updateState(newState); 
+    const logSignals = async (signals: string[], performedAt?: string) => {
+        if (!signals || signals.length === 0) return;
+
+        console.log("Processing signals:", signals);
+        
+        // 1. applySignals handles: Conflicts, Cooldowns, TOD scaling, 
+        // and triggers the full runPhysiologyCycle via updateState integration.
+        const { state: newState, events } = await applySignals(
+            signals, 
+            state, 
+            userId || 'guest', 
+            performedAt,
+            userWeights,
+            healthGoal
+        );
+        
+        // 2. Commit the new state to global context
+        updateState(newState);
+
+        // 3. Handle Events
+        if (events && events.length > 0) {
+            console.log("Signals triggered events:", events);
+        }
     };
 
     return { logSignals };

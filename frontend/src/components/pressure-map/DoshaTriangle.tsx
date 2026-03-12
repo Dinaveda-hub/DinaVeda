@@ -26,20 +26,20 @@ export default function DoshaTriangle({ vata, pitta, kapha }: Props) {
     const kR = scale(kapha);
 
     // Triangle vertices: Vata=top, Pitta=bottom-right, Kapha=bottom-left
-    // Angles: Vata=-90°, Pitta=30°, Kapha=210°
+    // Angles: Vata=-90°, Pitta=30°, Kapha=150° (Wait, user said Kapha = 150, Pitta = 30)
     const toRad = (deg: number) => (deg * Math.PI) / 180;
 
     const vx = cx + vR * Math.cos(toRad(-90));
     const vy = cy + vR * Math.sin(toRad(-90));
     const px = cx + pR * Math.cos(toRad(30));
     const py = cy + pR * Math.sin(toRad(30));
-    const kx = cx + kR * Math.cos(toRad(210));
-    const ky = cy + kR * Math.sin(toRad(210));
+    const kx = cx + kR * Math.cos(toRad(150));
+    const ky = cy + kR * Math.sin(toRad(150));
 
     // Outer reference triangle (max)
     const oV = { x: cx + maxR * Math.cos(toRad(-90)), y: cy + maxR * Math.sin(toRad(-90)) };
     const oP = { x: cx + maxR * Math.cos(toRad(30)), y: cy + maxR * Math.sin(toRad(30)) };
-    const oK = { x: cx + maxR * Math.cos(toRad(210)), y: cy + maxR * Math.sin(toRad(210)) };
+    const oK = { x: cx + maxR * Math.cos(toRad(150)), y: cy + maxR * Math.sin(toRad(150)) };
 
     const doshaStatus = (val: number) => {
         if (val > 65) return { label: "Aggravated", color: "text-red-500" };
@@ -49,13 +49,16 @@ export default function DoshaTriangle({ vata, pitta, kapha }: Props) {
 
     return (
         <div className="flex flex-col items-center">
-            <svg width="220" height="210" viewBox="0 0 220 210" className="overflow-visible">
+            <svg 
+                viewBox="0 0 220 210" 
+                className="w-full max-w-[220px] h-auto overflow-visible"
+            >
                 {/* Grid rings (25%, 50%, 75%) */}
                 {[0.25, 0.5, 0.75].map((frac) => {
                     const r = maxR * frac;
                     const tv = { x: cx + r * Math.cos(toRad(-90)), y: cy + r * Math.sin(toRad(-90)) };
                     const tp = { x: cx + r * Math.cos(toRad(30)), y: cy + r * Math.sin(toRad(30)) };
-                    const tk = { x: cx + r * Math.cos(toRad(210)), y: cy + r * Math.sin(toRad(210)) };
+                    const tk = { x: cx + r * Math.cos(toRad(150)), y: cy + r * Math.sin(toRad(150)) };
                     return (
                         <polygon
                             key={frac}
@@ -107,7 +110,7 @@ export default function DoshaTriangle({ vata, pitta, kapha }: Props) {
             </svg>
 
             {/* Value chips below triangle */}
-            <div className="flex items-center gap-6 mt-4">
+            <div className="flex flex-wrap justify-center gap-4 mt-6">
                 {[
                     { label: "Vata", value: vata, dot: "bg-slate-400" },
                     { label: "Pitta", value: pitta, dot: "bg-orange-500" },

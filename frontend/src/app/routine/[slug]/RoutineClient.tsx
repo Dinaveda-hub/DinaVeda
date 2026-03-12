@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ShieldCheck, Clock, AlertTriangle, Bookmark, Heart, Info, Sparkles, Activity, Repeat, Zap, Utensils, Wind as WindIcon } from "lucide-react";
 import { motion } from "framer-motion";
-import { ROUTINES, RAW_PROTOCOLS } from "@/data/health-content";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
+import { ROUTINES, RAW_PROTOCOLS } from "@/data";
 
 interface RoutineClientProps {
   slug: string;
@@ -163,9 +161,6 @@ export default function RoutineClient({ slug }: RoutineClientProps) {
           </div>
         </section>
       </main>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

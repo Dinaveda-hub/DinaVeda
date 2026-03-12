@@ -10,11 +10,8 @@
       "broken sleep"
     ],
     "effects": {
-      "vata": 6,
-      "ojas": -8,
-      "circadian": -8,
-      "sleep": -15,
-      "mental_clarity": -10
+      "vata_axis": 23.5,
+      "ojas_axis": -23.5
     }
   },
   "late_sleep": {
@@ -27,11 +24,9 @@
       "late night"
     ],
     "effects": {
-      "vata": 4,
-      "pitta": 4,
-      "circadian": -10,
-      "ojas": -5,
-      "sleep": -10
+      "vata_axis": 14,
+      "pitta_axis": 4,
+      "ojas_axis": -15
     }
   },
   "late_dinner": {
@@ -43,11 +38,10 @@
       "heavy dinner late"
     ],
     "effects": {
-      "kapha": 5,
-      "agni": -6,
-      "circadian": -3,
-      "digestion": -8,
-      "ama": 6
+      "kapha_axis": 6.8,
+      "agni_axis": -18.2,
+      "vata_axis": 1.5,
+      "ojas_axis": -1.5
     }
   },
   "bloating_after_meal": {
@@ -61,11 +55,9 @@
       "gastric"
     ],
     "effects": {
-      "vata": 8,
-      "agni": -8,
-      "digestion": -12,
-      "ama": 6,
-      "bloating": 15
+      "vata_axis": 17,
+      "agni_axis": -30.2,
+      "kapha_axis": 1.8
     }
   },
   "high_stress": {
@@ -79,11 +71,9 @@
       "feeling pressured"
     ],
     "effects": {
-      "vata": 12,
-      "pitta": 8,
-      "stress": 15,
-      "mental_clarity": -15,
-      "ojas": -5
+      "vata_axis": 31.5,
+      "pitta_axis": 12.5,
+      "ojas_axis": -11
     }
   },
   "skipped_meal": {
@@ -96,11 +86,9 @@
       "skipped lunch"
     ],
     "effects": {
-      "vata": 8,
-      "agni": -10,
-      "appetite": -5,
-      "ojas": -2,
-      "circadian": -8
+      "vata_axis": 12,
+      "agni_axis": -15,
+      "ojas_axis": -6
     }
   },
   "good_hydration": {
@@ -112,10 +100,10 @@
       "plenty of fluids"
     ],
     "effects": {
-      "pitta": -5,
-      "vata": -2,
-      "hydration": 15,
-      "ama": -3
+      "pitta_axis": -5,
+      "vata_axis": -9.5,
+      "kapha_axis": 6.6,
+      "agni_axis": 2.1
     }
   },
   "heavy_meal": {
@@ -128,11 +116,9 @@
       "overate"
     ],
     "effects": {
-      "kapha": 10,
-      "agni": -8,
-      "ama": 10,
-      "digestion": -10,
-      "bloating": 8
+      "kapha_axis": 13,
+      "agni_axis": -28.2,
+      "vata_axis": 4.8
     }
   },
   "morning_exercise": {
@@ -145,11 +131,10 @@
       "morning gym"
     ],
     "effects": {
-      "kapha": -8,
-      "agni": 6,
-      "movement": 15,
-      "circadian": 8,
-      "ojas": 5
+      "kapha_axis": -15.5,
+      "agni_axis": 6,
+      "vata_axis": -11.5,
+      "ojas_axis": 9
     }
   },
   "screen_fatigue": {
@@ -162,10 +147,9 @@
       "digital fatigue"
     ],
     "effects": {
-      "vata": 6,
-      "pitta": 6,
-      "mental_clarity": -23,
-      "stress": 8
+      "vata_axis": 25.4,
+      "pitta_axis": 8.4,
+      "ojas_axis": -9.2
     }
   },
   "nature_walk": {
@@ -178,12 +162,10 @@
       "park visit"
     ],
     "effects": {
-      "vata": -10,
-      "pitta": -5,
-      "stress": -12,
-      "movement": 10,
-      "ojas": 8,
-      "mental_clarity": 12
+      "vata_axis": -30.6,
+      "pitta_axis": -8.6,
+      "kapha_axis": -5,
+      "ojas_axis": 12.8
     }
   },
   "caffeine_crash": {
@@ -196,11 +178,9 @@
       "caffeine withdrawal"
     ],
     "effects": {
-      "vata": 15,
-      "pitta": 5,
-      "stress": 12,
-      "ojas": -6,
-      "mental_clarity": -8
+      "vata_axis": 28.2,
+      "pitta_axis": 8.6,
+      "ojas_axis": -9.2
     }
   },
   "deep_sleep": {
@@ -212,12 +192,10 @@
       "deep rest"
     ],
     "effects": {
-      "vata": -10,
-      "pitta": -5,
-      "kapha": 2,
-      "ojas": 15,
-      "sleep": 15,
-      "circadian": 10
+      "vata_axis": -22.5,
+      "pitta_axis": -5,
+      "kapha_axis": 2,
+      "ojas_axis": 27.5
     }
   },
   "constipation": {
@@ -229,11 +207,9 @@
       "irregular elimination"
     ],
     "effects": {
-      "vata": 15,
-      "ama": 12,
-      "elimination": -15,
-      "agni": -10,
-      "digestion": -10
+      "vata_axis": 22.5,
+      "agni_axis": -35.9,
+      "kapha_axis": 3.6
     }
   },
   "heartburn": {
@@ -246,10 +222,9 @@
       "burning throat"
     ],
     "effects": {
-      "pitta": 15,
-      "ama": 8,
-      "digestion": -15,
-      "agni": -12
+      "pitta_axis": 15,
+      "agni_axis": -32.6,
+      "kapha_axis": 2.4
     }
   },
   "positive_mood": {
@@ -262,8 +237,9 @@
       "positive state"
     ],
     "effects": {
-      "mood": 5,
-      "ojas": 3
+      "ojas_axis": 5,
+      "pitta_axis": -1.5,
+      "vata_axis": -1.5
     }
   },
   "stable_mood": {
@@ -275,7 +251,9 @@
       "balanced emotion"
     ],
     "effects": {
-      "mood": 2
+      "ojas_axis": 0.8,
+      "pitta_axis": -0.6,
+      "vata_axis": -0.6
     }
   },
   "low_mood": {
@@ -289,10 +267,10 @@
       "unhappy"
     ],
     "effects": {
-      "mood": -10,
-      "vata": 5,
-      "kapha": 5,
-      "ojas": -5
+      "ojas_axis": -9,
+      "pitta_axis": 3,
+      "vata_axis": 8,
+      "kapha_axis": 5
     }
   },
   "high_irritability": {
@@ -306,9 +284,9 @@
       "annoyed"
     ],
     "effects": {
-      "pitta": 12,
-      "stress": 8,
-      "mood": -5
+      "pitta_axis": 15.9,
+      "vata_axis": 7.1,
+      "ojas_axis": -2
     }
   }
 }

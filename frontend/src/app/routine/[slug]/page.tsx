@@ -1,4 +1,4 @@
-import { ROUTINES, RAW_PROTOCOLS } from "@/data/health-content";
+import { ROUTINES } from "@/data";
 import { notFound } from "next/navigation";
 import RoutineClient from "./RoutineClient";
 

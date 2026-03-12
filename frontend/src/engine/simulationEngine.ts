@@ -1,5 +1,6 @@
 import { VedaState } from './stateModel';
 import { applySignals } from './stateUpdater';
+import { applyIntrinsicEvolution } from './intrinsicEvolution';
 
 /**
  * Simulates a forward trajectory of a user's physiological state given constant daily habits.
@@ -26,8 +27,12 @@ export async function simulateTrajectory(
         // Apply the daily habits to the state
         // We pass 'guest' as userId to prevent creating real cooldown records in the DB
         const result = await applySignals(dailySignals, currentState, 'guest', performedAt);
-        currentState = result.state;
+        let nextState = result.state;
+
+        // 6. Apply Intrinsic Evolution (Passive recovery / coupled decay)
+        nextState = applyIntrinsicEvolution(nextState);
         
+        currentState = nextState;
         trajectory.push({ ...currentState });
     }
 

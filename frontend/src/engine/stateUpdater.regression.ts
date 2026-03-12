@@ -1,18 +1,26 @@
 import { VedaState } from './stateModel';
 import signals from '../data/signals.json';
 import protocols from '../data/protocols.json';
-import { variableSensitivity } from './sensitivityEngine';
+import { getSensitivityMultiplier } from './sensitivityEngine';
 import { getSeasonalMultipliers } from './seasonalAdjuster';
-import { clamp } from '../utils/clamp';
+import { ENGINE_CONFIG } from './config';
+
+const { clamp } = ENGINE_CONFIG.ranges;
 import { computeVikriti } from './vikritiEngine';
 import { computeHealthScore } from './healthScoreEngine';
 import { computeIPI } from './imbalancePressureEngine';
 import { detectNotificationEvents } from './notificationEventEngine';
+import { applyMomentum } from './physiologyMomentum';
+import { applyBaselineStabilizer } from './baselineStabilizer';
 
 import signalConflicts from '../data/rules/signal_conflicts.json';
+import { getRutuIndex } from './rutuDriftEngine';
 
 const MAX_DAILY_DELTA = 15;
 const MAX_DAILY_CIRCADIAN_PENALTY = 10;
+
+// O(1) Protocol Lookup Cache
+const protocolMap = new Map((protocols as any[]).map(p => [p.name, p]));
 
 const signalLibrary = signals as Record<string, {
     type?: 'negative' | 'positive',
@@ -57,21 +65,13 @@ function getTODFactor(actualTime: string | null, recommendedTod: string): { fact
     else if (delta <= 2) factor = 0.85;
     else if (delta <= 4) factor = 0.7;
     else factor = 0.5;
-    const drag = clamp(delta * 0.5, 0, 6);
+    const drag = clamp(delta * 0.5);
     return { factor, drag };
 }
 
 type NumericKeys = { [K in keyof VedaState]: VedaState[K] extends number ? K : never }[keyof VedaState];
 
-const MOMENTUM_FACTORS: Partial<Record<NumericKeys, number>> = {
-    vata: 0.8, pitta: 0.8, kapha: 0.8,
-    ojas: 0.7, agni: 0.7,
-    circadian: 0.7, sleep: 0.8,
-    stiffness: 0.6, inflammation: 0.6, skin_health: 0.6, hair_health: 0.6,
-    digestion: 0.8, elimination: 0.8, appetite: 0.8, energy: 0.8,
-    stress: 0.9, mood: 0.9, mental_clarity: 0.9, irritability: 0.9,
-    bloating: 0.9, hydration: 0.9
-};
+// (MOMENTUM_FACTORS removed here to be handled by applyMomentum)
 
 export function applyEffects(
     state: VedaState,
@@ -79,7 +79,8 @@ export function applyEffects(
     performedAt?: string,
     signalNames: string[] = []
 ): UpdateResult {
-    const multipliers = getSeasonalMultipliers(state.rutu_index);
+    const rutuIndex = getRutuIndex();
+    const multipliers = getSeasonalMultipliers(rutuIndex);
     let nextState = { ...state };
     let dailyCircadianDrag = 0;
     const batchDeltas: Partial<Record<NumericKeys, number>> = {};
@@ -87,7 +88,7 @@ export function applyEffects(
     for (let i = 0; i < effectsList.length; i++) {
         const effects = effectsList[i];
         const signalName = signalNames[i];
-        const protocol = (protocols as any[]).find(p => p.name === signalName);
+        const protocol = protocolMap.get(signalName);
         let todFactor = 1.0;
         if (protocol && performedAt) {
             const { factor, drag } = getTODFactor(performedAt, protocol.time_of_day);
@@ -125,16 +126,28 @@ export function applyEffects(
         if (variable === 'vata') effect *= multipliers.vata;
         else if (variable === 'pitta') effect *= multipliers.pitta;
         else if (variable === 'kapha') effect *= multipliers.kapha;
-        const sensitivityMap = variableSensitivity as Record<NumericKeys, number>;
-        const sensitivity = sensitivityMap[variable] ?? 1.0;
+        // VI. Sensitivity Multiplier (Base Sensitivity * Constitution Elasticity)
+        const sensitivity = getSensitivityMultiplier(variable, nextState);
         effect *= sensitivity;
-        const clampedEffect = clamp(effect, -MAX_DAILY_DELTA, MAX_DAILY_DELTA);
-        const momentum = MOMENTUM_FACTORS[variable] ?? 1.0;
-        const finalEffect = clampedEffect * momentum;
-        if (Math.abs(finalEffect) < 0.5) continue;
+        
+        // Apply capped delta manually since it's not a 0-100 clamp
+        let clampedEffect = effect;
+        if (clampedEffect > MAX_DAILY_DELTA) clampedEffect = MAX_DAILY_DELTA;
+        if (clampedEffect < -MAX_DAILY_DELTA) clampedEffect = -MAX_DAILY_DELTA;
+        
+        // V. State Update & VI. Clamp (0-100)
         const currentValue = nextState[variable];
-        nextState[variable] = clamp(currentValue + finalEffect, 0, 100);
+        nextState[variable] = clamp(currentValue + clampedEffect);
     }
+
+    // 3. Apply Biological Momentum Smoothing (Centralized)
+    nextState = applyMomentum(state, nextState);
+
+    // 4. Adaptive Baseline Stabilization (Constitutional Attractor)
+    // Runs after momentum to ensure baseline anchoring is the final stabilization layer.
+    const currentVikriti = computeVikriti(nextState);
+    nextState = applyBaselineStabilizer(nextState, currentVikriti.drift_index);
+
     const events = detectNotificationEvents(nextState);
     return { state: nextState, events };
 }
@@ -148,12 +161,23 @@ export function applySignalsRegression(signalsList: string[], state: VedaState, 
         if (uniqueSignals.includes(s1) && uniqueSignals.includes(s2)) {
             const sev1 = severityScore[signalLibrary[s1]?.severity || 'minor'];
             const sev2 = severityScore[signalLibrary[s2]?.severity || 'minor'];
-            if (sev1 > sev2) signalsToRemove.add(s2);
-            else signalsToRemove.add(s1);
+
+            // If severity is equal or sev2 is higher, prefer s2 (the later entry in theoretical timeline)
+            if (sev1 > sev2) {
+                signalsToRemove.add(s2);
+            } else {
+                signalsToRemove.add(s1);
+            }
         }
     }
     uniqueSignals = uniqueSignals.filter(s => !signalsToRemove.has(s));
-    const signalsToApply = uniqueSignals.filter(name => !!signalLibrary[name]);
+    const signalsToApply = uniqueSignals.filter(name => {
+        if (!signalLibrary[name]) {
+            console.warn(`Engine Warning: Unknown signal detected: ${name}`);
+            return false;
+        }
+        return true;
+    });
     const effects = signalsToApply
         .map(name => signalLibrary[name]?.effects)
         .filter((e): e is Partial<Record<keyof VedaState, number>> => !!e);

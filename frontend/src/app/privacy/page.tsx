@@ -4,7 +4,6 @@ import { motion, Variants } from "framer-motion";
 import { ShieldCheck, Lock, ArrowLeft, Info, Server, Globe, UserCheck, Clock, ShieldAlert, RefreshCcw, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 
 // Metadata cannot be in client components, but included here for move to layout/meta file.
 /*
@@ -151,8 +150,6 @@ export default function PrivacyPage() {
                     </motion.section>
                 </motion.div>
             </main>
-
-            <Footer />
         </div>
     );
 }

@@ -1,34 +1,42 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, RefreshCw, Sparkles, ShieldCheck, Info, CheckCircle2, Layout, Zap, Flame, Wind } from "lucide-react";
-import { CALCULATORS } from "@/data/calculators";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
+import { CALCULATORS, CalculatorId } from "@/data/calculators";
 import RhythmClock from "@/components/RhythmClock";
+import { computeCalculatorResult } from "@/engine/calculatorEngine";
+import { bridgeCalculatorToState } from "@/engine/calculatorBridge";
+import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 
 interface ToolClientProps {
   slug: string;
 }
 
+const COLOR_MAP = {
+  air: "bg-blue-600",
+  fire: "bg-orange-600",
+  water: "bg-teal-600",
+  earth: "bg-emerald-600",
+  space: "bg-indigo-600"
+};
+
 export default function ToolClient({ slug }: ToolClientProps) {
-  const config = CALCULATORS[slug];
+  const config = CALCULATORS[slug as CalculatorId];
+  const { state, updateState, isLoaded } = usePhysiologyState();
   
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<number[]>([]);
   const [isFinishing, setIsFinishing] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
   const totalSteps = config.questions.length;
   const progress = ((currentStep) / totalSteps) * 100;
 
-  const handleOptionSelect = (questionId: string, weights: any) => {
-    setAnswers(prev => ({
-      ...prev,
-      [questionId]: weights,
-    }));
+  const handleOptionSelect = (optionIndex: number) => {
+    const newAnswers = [...answers, optionIndex];
+    setAnswers(newAnswers);
 
     if (currentStep < totalSteps - 1) {
       setCurrentStep(prev => prev + 1);
@@ -41,33 +49,20 @@ export default function ToolClient({ slug }: ToolClientProps) {
     }
   };
 
-  const scores = useMemo(() => {
-    if (!showResult) return null;
-    
-    const totals = { circadian: 0, sleep: 0, digestion: 0, energy: 0 };
-    const counts = { circadian: 0, sleep: 0, digestion: 0, energy: 0 };
+  const { score, result, dominantDosha } = useMemo(() => {
+    if (!showResult || answers.length < totalSteps) return { score: null, result: null, dominantDosha: null };
+    return computeCalculatorResult(config, answers);
+  }, [showResult, answers, config, totalSteps]);
 
-    Object.values(answers).forEach((weight: any) => {
-      Object.entries(weight).forEach(([key, val]: [string, any]) => {
-        if (key in totals) {
-          totals[key as keyof typeof totals] += (val as number);
-          counts[key as keyof typeof counts] += 10;
-        }
-      });
-    });
-
-    return {
-      total: Math.round((totals.circadian / (counts.circadian || 1)) * 100),
-      sleep: Math.round((totals.sleep / (counts.sleep || 1)) * 100),
-      digestion: Math.round((totals.digestion / (counts.digestion || 1)) * 100),
-      energy: Math.round((totals.energy / (counts.energy || 1)) * 100),
-    };
-  }, [showResult, answers]);
-
-  const result = useMemo(() => {
-    if (!showResult || !scores) return null;
-    return scores.total > 70 ? config.results[0] : config.results[1];
-  }, [showResult, config, scores]);
+  // Sync with Physiology Engine
+  useEffect(() => {
+    if (showResult && score && isLoaded) {
+      const updates = bridgeCalculatorToState(state, config.id, { score, result: result!, dominantDosha: dominantDosha! });
+      if (Object.keys(updates).length > 0) {
+        updateState({ ...state, ...updates });
+      }
+    }
+  }, [showResult, score, isLoaded, config.id]);
 
   const JSON_LD = {
     "@context": "https://schema.org",
@@ -84,8 +79,10 @@ export default function ToolClient({ slug }: ToolClientProps) {
     }))
   };
 
-  if (showResult && result && scores) {
+  if (showResult && result && score) {
     const isRhythm = slug === 'daily-rhythm-analyzer';
+    const isDosha = slug === 'dosha-quiz';
+    const themeColor = COLOR_MAP[config.color];
     
     return (
       <div className="bg-[#FAFBFB] text-slate-800 min-h-screen relative font-sans">
@@ -105,14 +102,14 @@ export default function ToolClient({ slug }: ToolClientProps) {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white rounded-[4rem] border border-slate-100 shadow-premium overflow-hidden"
           >
-            <div className={`p-12 md:p-20 ${config.color} text-white`}>
+            <div className={`p-12 md:p-20 ${themeColor} text-white`}>
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="flex-1 space-y-6">
                   <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-widest">
-                    Your Score: {scores.total}/100
+                    Analysis Result
                   </span>
                   <h1 className="text-4xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
-                    {result.title}
+                    {isDosha ? `${dominantDosha} Type` : result.title}
                   </h1>
                   <p className="text-xl text-white/80 font-medium max-w-xl">
                     {result.explanation}
@@ -121,9 +118,10 @@ export default function ToolClient({ slug }: ToolClientProps) {
                 {isRhythm && (
                   <div className="w-64 md:w-80 shrink-0">
                     {(() => {
-                      const sleepIdx = config.questions.find(q => q.id === 'sleep_time')?.options.findIndex(o => Object.keys(answers).some(k => answers[k] === o.weights)) ?? 1;
-                      const wakeIdx = config.questions.find(q => q.id === 'wake_time')?.options.findIndex(o => Object.keys(answers).some(k => answers[k] === o.weights)) ?? 1;
-                      const mealIdx = config.questions.find(q => q.id === 'main_meal')?.options.findIndex(o => Object.keys(answers).some(k => answers[k] === o.weights)) ?? 0;
+                      // Map array indices to the hours used for the clock
+                      const sleepIdx = answers[0] ?? 1;
+                      const wakeIdx = answers[1] ?? 1;
+                      const mealIdx = answers[3] ?? 0;
 
                       const sleepH = [21.5, 22.5, 23.5][sleepIdx];
                       const wakeH = [5, 7, 9][wakeIdx];
@@ -140,16 +138,16 @@ export default function ToolClient({ slug }: ToolClientProps) {
                {isRhythm && (
                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
-                      { name: "Sleep Rhythm", score: scores.sleep, icon: Wind },
-                      { name: "Digestive Rhythm", score: scores.digestion, icon: Flame },
-                      { name: "Energy Rhythm", score: scores.energy, icon: Zap }
+                      { name: "Sleep Rhythm", score: score.sleep, icon: Wind },
+                      { name: "Digestive Rhythm", score: score.digestion, icon: Flame },
+                      { name: "Energy Rhythm", score: score.energy, icon: Zap }
                     ].map((sys) => (
                       <div key={sys.name} className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center">
                          <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 shadow-sm">
                             <sys.icon className="w-6 h-6 text-forest" />
                          </div>
                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{sys.name}</span>
-                         <span className="text-4xl font-black text-forest">{sys.score}</span>
+                         <span className="text-4xl font-black text-forest">{Math.round(sys.score || 0)}</span>
                       </div>
                     ))}
                  </div>
@@ -177,6 +175,15 @@ export default function ToolClient({ slug }: ToolClientProps) {
                           {rec}
                         </li>
                       ))}
+                      {result.recommendedProtocol && (
+                        <li className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 mt-6 group">
+                          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-2">Recommended System Protocol</p>
+                          <Link href={`/protocol/${result.recommendedProtocol}`} className="flex items-center justify-between group-hover:underline">
+                            <span className="text-sm font-black text-forest">{result.recommendedProtocol.replace(/-/g, ' ').toUpperCase()}</span>
+                            <ArrowRight className="w-4 h-4 text-emerald-600 transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                   </div>
                </div>
@@ -201,7 +208,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                  onClick={() => {
                    setCurrentStep(0);
                    setShowResult(false);
-                   setAnswers({});
+                   setAnswers([]);
                  }}
                  className="w-full py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:text-forest transition-all"
                >
@@ -210,9 +217,6 @@ export default function ToolClient({ slug }: ToolClientProps) {
             </div>
           </motion.div>
         </main>
-        
-        <TopicHubFooter />
-        <Footer />
       </div>
     );
   }
@@ -279,7 +283,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                 {currentQuestion.options.map((option, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleOptionSelect(currentQuestion.id, option.weights)}
+                    onClick={() => handleOptionSelect(idx)}
                     className="p-8 rounded-[2.5rem] bg-white border-2 border-slate-50 text-left hover:border-forest hover:bg-forest hover:text-white transition-all duration-300 group shadow-sm hover:shadow-xl"
                   >
                     <div className="flex justify-between items-center ring-0">
@@ -307,7 +311,6 @@ export default function ToolClient({ slug }: ToolClientProps) {
          </div>
       </div>
 
-      <Footer />
-    </div>
+      </div>
   );
 }

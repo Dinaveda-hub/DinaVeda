@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles, Scale, AlertCircle, Flame, Droplets, Zap, Shield, Activity } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -114,9 +112,6 @@ export default function WeightGainPage() {
           </div>
         </section>
       </article>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

@@ -1,9 +1,5 @@
 import { Protocol } from "./protocolSelectionEngine";
 
-export interface ProtocolWithStatus extends Protocol {
-    is_premium?: boolean;
-}
-
 export type ModuleName =
   | "dinaveda"
   | "nutriveda"
@@ -26,10 +22,14 @@ export function getProtocolsForModule(
   protocols: Protocol[],
   module: ModuleName
 ): Protocol[] {
-  const filtered = protocols.filter(protocol => protocol.module === module);
+  // Case-insensitive filtering for robust JSON mapping
+  const targetModule = module.toLowerCase();
+  const filtered = protocols.filter(protocol => 
+    protocol.module?.toLowerCase() === targetModule
+  );
   
   // Seasonal Isolation for Rutuveda
-  if (module === "rutuveda") {
+  if (targetModule === "rutuveda") {
       const currentSeason = getIndianSeason();
       return filtered.filter(p => !p.season || p.season.includes(currentSeason));
   }
@@ -54,9 +54,9 @@ export function groupProtocolsByModule(
   };
 
   for (const protocol of protocols) {
-    const module = protocol.module as ModuleName;
-    if (modules[module]) {
-      modules[module].push(protocol);
+    const rawModule = protocol.module?.toLowerCase() as ModuleName;
+    if (modules[rawModule]) {
+      modules[rawModule].push(protocol);
     }
   }
 

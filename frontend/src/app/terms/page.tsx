@@ -4,7 +4,6 @@ import { motion, Variants } from "framer-motion";
 import { AlertCircle, Scale, ArrowLeft, ShieldCheck, CreditCard, BrainCircuit, Users, BookOpen, AlertTriangle, XCircle, Gavel, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 
 // Metadata cannot be in client components, but included here for move to layout/meta file.
 /*
@@ -152,8 +151,6 @@ export default function TermsPage() {
                     </motion.section>
                 </motion.div>
             </main>
-
-            <Footer />
         </div>
     );
 }

@@ -24,6 +24,8 @@ export const HEALTH_GOALS = healthGoalsData as unknown as HealthGoal[];
  * 3. Robust Tag Matching: Checks protocol.tags, protocol.name, and protocol.category.
  */
 
+const GOAL_WEIGHT = 0.1;
+
 export function applyGoalBoost(
     protocols: (Protocol & { score: number })[],
     goalId: string
@@ -34,10 +36,10 @@ export function applyGoalBoost(
     return protocols.map(p => {
         const goalBoost = calculateProtocolScore(p, goal);
 
-        // Additive Boost: Goal is a 'preference layer' (10% weight)
+        // Additive Boost: Goal is a 'preference layer'
         return {
             ...p,
-            score: p.score + (goalBoost * 0.1)
+            score: p.score + (goalBoost * GOAL_WEIGHT)
         };
     }).sort((a, b) => b.score - a.score);
 }
@@ -55,24 +57,21 @@ function calculateProtocolScore(protocol: Protocol, goal: HealthGoal): number {
         score += goal.module_boosts[moduleLower] * 3;
     }
 
-    // 2. Protocol Tag matches (Robust Schema-based matching)
+    // 2. Protocol Tag matches (Hierarchical matching to prevent double-counting)
     for (const goalTag of goal.protocol_tags) {
         const tagLower = goalTag.toLowerCase();
+        let tagContribution = 0;
 
-        // High Signal: Direct Tag Match
+        // Highest match tier only for each goal tag
         if (protoTags.some(t => t.toLowerCase() === tagLower)) {
-            score += 3;
+            tagContribution = 3; // Tier 1: Direct Tag Match
+        } else if (protoNameLower.includes(tagLower)) {
+            tagContribution = 2; // Tier 2: Name Match
+        } else if (protoCategoryLower.includes(tagLower)) {
+            tagContribution = 1; // Tier 3: Category Match
         }
 
-        // Medium Signal: Name includes goal tag
-        if (protoNameLower.includes(tagLower)) {
-            score += 2;
-        }
-
-        // Low Signal: Category includes goal tag
-        if (protoCategoryLower.includes(tagLower)) {
-            score += 1;
-        }
+        score += tagContribution;
     }
 
     return score;

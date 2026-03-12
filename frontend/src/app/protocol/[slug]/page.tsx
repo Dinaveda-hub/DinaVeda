@@ -1,4 +1,4 @@
-import { PROTOCOLS, PROTOCOL_MAP } from "@/data/health-content";
+import { PROTOCOL_GUIDES, PROTOCOL_MAP } from "@/data";
 import { notFound } from "next/navigation";
 import ProtocolClient from "./ProtocolClient";
 
@@ -6,19 +6,19 @@ export default async function ProtocolPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   
   // Try to find in manual bundles first
-  const bundle = PROTOCOLS[slug];
+  const bundle = PROTOCOL_GUIDES[slug];
   // Then try in the raw clinical dataset
-  const raw = !bundle ? PROTOCOL_MAP[slug] : null;
+  const raw = PROTOCOL_MAP[slug];
 
   if (!bundle && !raw) {
     notFound();
   }
 
-  const name = bundle?.name || (raw.name.split('_').map((s: string) => s.charAt(0).toUpperCase() + s.slice(1)).join(' '));
-  const mechanism = bundle?.mechanism || raw.instructions;
-  const duration = bundle?.duration || raw.duration || "Self-paced";
-  const indications = bundle?.indications || raw.tags || [];
-  const contraindications = bundle?.contraindications || raw.contraindications || [];
+  const name = bundle?.name || (raw?.name.split('_').map((s: string) => s.charAt(0).toUpperCase() + s.slice(1)).join(' '));
+  const mechanism = bundle?.mechanism || raw?.instructions;
+  const duration = bundle?.duration || raw?.duration || "Self-paced";
+  const indications = bundle?.indications || raw?.tags || [];
+  const contraindications = bundle?.contraindications || raw?.contraindications || [];
 
   return (
     <ProtocolClient 
@@ -34,7 +34,7 @@ export default async function ProtocolPage({ params }: { params: Promise<{ slug:
 }
 
 export async function generateStaticParams() {
-  const manualSlugs = Object.keys(PROTOCOLS).map((slug) => ({ slug }));
+  const manualSlugs = Object.keys(PROTOCOL_GUIDES).map((slug) => ({ slug }));
   const rawSlugs = Object.keys(PROTOCOL_MAP).map((slug) => ({ slug }));
   
   return [...manualSlugs, ...rawSlugs];

@@ -8,7 +8,6 @@ import {
     Sparkles, ShieldCheck, Zap, Leaf, Heart, ArrowRight,
     Utensils, Focus, Moon, Wind
 } from "lucide-react";
-import Footer from "@/components/Footer";
 
 // Metadata cannot be in client components, but we'll include it as a comment for the user to move to a layout or metadata file if needed.
 /*
@@ -246,8 +245,6 @@ export default function HowItWorks() {
 
                 </motion.div>
             </main>
-
-            <Footer />
         </div>
     );
 }

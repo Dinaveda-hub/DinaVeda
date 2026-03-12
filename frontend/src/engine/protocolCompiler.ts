@@ -11,6 +11,8 @@ export interface CompiledProtocolItem {
     module: string;
     duration: string;
     category: string;
+    is_premium?: boolean;
+    variables?: Record<string, number>;
 }
 
 export interface CompiledDailyPlan {
@@ -71,25 +73,51 @@ export function compileDailyProtocols(
     rankedProtocols: Protocol[]
 ): CompiledDailyPlan {
     const seen = new Set<string>();
+    const categoryCounts: Record<string, number> = {};
+    
     const morning: CompiledProtocolItem[] = [];
     const midday: CompiledProtocolItem[] = [];
     const evening: CompiledProtocolItem[] = [];
 
-    // The input rankedProtocols is already sorted by Score (Drift + Prediction + Decay)
+    // The input rankedProtocols is already sorted by Score
     for (const p of rankedProtocols) {
         // 1. Deduplicate by name
         if (seen.has(p.name)) continue;
-        seen.add(p.name);
 
-        const tod = p.time_of_day.toLowerCase();
+        // 2. Category Diversity Guard
+        // Limit each category to max 2 per day to prevent repetition.
+        // High-score protocols (score > 2.0) bypass this guard.
+        const category = p.category;
+        const score = p.score || 0;
+        const currentCatCount = categoryCounts[category] || 0;
+        
+        if (currentCatCount >= 2 && score <= 2.0) continue;
 
-        // 2. Route to correct bucket with cap enforcement (Morning: 3, Midday: 2, Evening: 3)
+        // 3. Routing to UI Buckets with Cap Enforcement
+        const tod = (p.time_of_day || 'midday').toLowerCase();
+        let added = false;
+
         if (MORNING_TAGS.has(tod)) {
-            if (morning.length < 3) morning.push(toItem(p));
-        } else if (MIDDAY_TAGS.has(tod)) {
-            if (midday.length < 2) midday.push(toItem(p));
+            if (morning.length < 3) {
+                morning.push(toItem(p));
+                added = true;
+            }
         } else if (EVENING_TAGS.has(tod)) {
-            if (evening.length < 3) evening.push(toItem(p));
+            if (evening.length < 3) {
+                evening.push(toItem(p));
+                added = true;
+            }
+        } else {
+            // Default Fallback: Unknown or MIDDAY_TAGS route to Midday
+            if (midday.length < 2) {
+                midday.push(toItem(p));
+                added = true;
+            }
+        }
+
+        if (added) {
+            seen.add(p.name);
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
         }
     }
 

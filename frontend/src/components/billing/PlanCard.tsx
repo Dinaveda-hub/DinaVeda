@@ -1,10 +1,9 @@
-"use client";
-
 import SubscribeButton from "./SubscribeButton";
 import { Check } from "lucide-react";
+import { Plan } from "@/services/billing/plans";
 
 interface PlanCardProps {
-    plan: any;
+    plan: Plan;
     userId: string;
     onSuccess?: () => void;
 }
@@ -23,9 +22,16 @@ export default function PlanCard({ plan, userId, onSuccess }: PlanCardProps) {
             <div className="text-4xl font-black mb-1 flex items-baseline gap-1 text-slate-800">
                 ₹{plan.price} <span className="text-sm font-bold text-slate-400">/{plan.interval}</span>
             </div>
-            <p className="text-xs font-bold text-slate-500 mb-8 tracking-wide">
-                Billed {plan.interval}ly
+            <p className="text-xs font-bold text-slate-500 mb-2 tracking-wide">
+                Billed {plan.interval === "year" ? "yearly" : "monthly"}
             </p>
+
+            {plan.id === "yearly" && (
+                <div className="text-xs text-emerald-600 font-bold mb-6">
+                    Save ₹1789 with yearly plan
+                </div>
+            )}
+            {plan.id === "monthly" && <div className="mb-8" />}
 
             <ul className="space-y-4 mb-10 flex-1 w-full">
                 {plan.features.map((f: string) => (

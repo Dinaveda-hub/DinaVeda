@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, Activity, ShieldCheck, Leaf, BrainCircuit, ArrowRight, Zap, Target, Play, User } from "lucide-react";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 
 interface Option {
     label: string;
@@ -403,8 +402,6 @@ export default function WelcomeLandingPage() {
                     </div>
                 </section>
             </main>
-
-            <Footer />
         </div>
     );
 }

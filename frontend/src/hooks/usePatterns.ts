@@ -9,7 +9,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { PhysiologyPattern, fetchPatterns, triggerPatternAnalysis } from '../services/patternService';
-import { usePhysiologyState } from './usePhysiologyState';
+import { usePhysiology } from '../contexts/PhysiologyContext';
 
 interface UsePatternsResult {
     patterns: PhysiologyPattern[];
@@ -20,8 +20,7 @@ interface UsePatternsResult {
 }
 
 export function usePatterns(): UsePatternsResult {
-    const { userId } = usePhysiologyState();
-    const [patterns, setPatterns] = useState<PhysiologyPattern[]>([]);
+    const { userId, patterns, setPatterns } = usePhysiology();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -38,18 +37,24 @@ export function usePatterns(): UsePatternsResult {
         } finally {
             setIsLoading(false);
         }
-    }, [userId]);
+    }, [userId, setPatterns]);
 
     const analyze = useCallback(async (): Promise<PhysiologyPattern[]> => {
         if (!userId) return [];
         setIsLoading(true);
         setError(null);
         try {
-            const detected = await triggerPatternAnalysis(userId);
-            // Refresh the full list after analysis
-            const all = await fetchPatterns(userId);
-            setPatterns(all);
-            return detected;
+            const newlyDetected = await triggerPatternAnalysis(userId);
+            
+            // Optimistic update: Immediate merge to avoid the redundant fetchPatterns call
+            // and ensure the orchestrator sees the new patterns immediately.
+            setPatterns((prev: PhysiologyPattern[]) => {
+                const existingLabels = new Set(prev.map(p => p.pattern_type));
+                const uniqueNew = newlyDetected.filter(p => !existingLabels.has(p.pattern_type));
+                return [...prev, ...uniqueNew];
+            });
+
+            return newlyDetected;
         } catch (err) {
             setError('Pattern analysis failed');
             console.error(err);
@@ -57,11 +62,15 @@ export function usePatterns(): UsePatternsResult {
         } finally {
             setIsLoading(false);
         }
-    }, [userId]);
+    }, [userId, setPatterns]);
+
+    const refreshCallback = useCallback(async () => {
+        await refresh();
+    }, [refresh]);
 
     useEffect(() => {
         refresh();
     }, [refresh]);
 
-    return { patterns, isLoading, error, refresh, analyze };
+    return { patterns, isLoading, error, refresh: refreshCallback, analyze };
 }

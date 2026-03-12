@@ -4,10 +4,12 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { defaultState, VedaState } from '../engine/stateModel';
 import { createClient } from '../utils/supabase/client';
 import { fetchUserProtocolWeights, ProtocolWeights } from '../utils/userWeightsService';
-import { applySeasonalDrift, getCurrentSeason, Season } from '../engine/rutuDriftEngine';
-import { applyBaselineStabilizer } from '../engine/baselineStabilizer';
+import { runPhysiologyCycle } from '../engine/physiologyOrchestrator';
+import { Season, getCurrentSeason } from '../engine/rutuDriftEngine';
 
 const STORAGE_KEY = 'veda_health_state';
+
+import { PhysiologyPattern, fetchPatterns } from '../services/patternService';
 
 interface PhysiologyContextType {
     state: VedaState;
@@ -19,6 +21,8 @@ interface PhysiologyContextType {
     currentSeason: Season;
     healthGoal: string;
     setHealthGoal: (goal: string) => void;
+    patterns: PhysiologyPattern[];
+    setPatterns: React.Dispatch<React.SetStateAction<PhysiologyPattern[]>>;
 }
 
 const PhysiologyContext = createContext<PhysiologyContextType | undefined>(undefined);
@@ -29,6 +33,7 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
     const [userWeights, setUserWeights] = useState<ProtocolWeights>({});
     const [userId, setUserId] = useState<string | null>(null);
     const [subscriptionStatus, setSubscriptionStatus] = useState<string>('inactive');
+    const [patterns, setPatterns] = useState<PhysiologyPattern[]>([]);
     const [healthGoal, setHealthGoalInternal] = useState<string>('general_wellness');
 
     useEffect(() => {
@@ -47,20 +52,23 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
             if (!userId) {
                 setState(defaultState);
                 setHealthGoalInternal('general_wellness');
+                setPatterns([]);
                 setIsLoaded(true);
                 return;
             }
 
-            const [{ data: profile }, weightsMap] = await Promise.all([
+            const [{ data: profile }, weightsMap, patternsList] = await Promise.all([
                 supabase
                     .from('profiles')
                     .select('veda_health_state, is_onboarded, subscription_status, health_goal')
                     .eq('id', userId)
                     .single(),
-                fetchUserProtocolWeights()
+                fetchUserProtocolWeights(),
+                fetchPatterns(userId)
             ]);
 
             setUserWeights(weightsMap);
+            setPatterns(patternsList);
 
             if (profile) {
                 setSubscriptionStatus(profile.subscription_status || 'inactive');
@@ -152,16 +160,24 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const updateState = async (newState: VedaState) => {
-        // ── Physiology Pipeline ────────────────────────────────────────────
-        // 1. User Input (signals) have already been applied by the caller.
-        // 2. Apply Seasonal Drift (Rutu Drift) — environmental pressure.
-        const withDrift = applySeasonalDrift(newState);
-        // 3. Apply Baseline Stabilizer — prevents constitutional runaway.
-        const stabilized = applyBaselineStabilizer(withDrift);
+        // ── Physiology Orchestration ───────────────────────────────────────
+        // Execute the full 21-subsystem pipeline via the central orchestrator.
+        const { state: stabilized, notifications } = runPhysiologyCycle(
+            state,
+            newState,
+            userWeights,
+            healthGoal,
+            patterns
+        );
         // ──────────────────────────────────────────────────────────────────
 
         setState(stabilized);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stabilized));
+
+        if (notifications.length > 0) {
+            console.log("Physiology Events Detected:", notifications);
+            // Future: Trigger high-level UI alerts or push notifications here
+        }
 
         const supabase = createClient();
         const { data: { user } } = await supabase.auth.getUser();
@@ -194,7 +210,8 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
     return (
         <PhysiologyContext.Provider value={{ 
             state, updateState, isLoaded, userWeights, userId, 
-            subscriptionStatus, currentSeason, healthGoal, setHealthGoal 
+            subscriptionStatus, currentSeason, healthGoal, setHealthGoal,
+            patterns, setPatterns 
         }}>
             {children}
         </PhysiologyContext.Provider>

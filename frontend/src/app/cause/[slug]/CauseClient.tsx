@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Info, Activity, Sparkles, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
-import { CAUSES, PROTOCOLS } from "@/data/health-content";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
+import { CAUSES, PROTOCOL_GUIDES } from "@/data";
 import { notFound } from "next/navigation";
 
 interface CauseClientProps {
@@ -15,7 +13,7 @@ interface CauseClientProps {
 export default function CauseClient({ slug }: CauseClientProps) {
   const cause = CAUSES[slug];
   if (!cause) { return null; }
-  const protocol = PROTOCOLS[cause.recommendedProtocol];
+  const protocol = PROTOCOL_GUIDES[cause.recommendedProtocol];
 
   const JSON_LD = {
     "@context": "https://schema.org",
@@ -179,9 +177,6 @@ export default function CauseClient({ slug }: CauseClientProps) {
           </section>
         </section>
       </main>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

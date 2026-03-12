@@ -37,13 +37,27 @@ export default function RhythmClock({ sleepHour, wakeHour, mealHour }: RhythmClo
     };
   };
 
+  // Pre-calculate marker positions for efficiency and layout
+  const sleepPos = sleepHour !== undefined ? getMarkerPos(sleepHour, 130) : null;
+  const sleepLabelPos = sleepHour !== undefined ? getMarkerPos(sleepHour, 150) : null;
+  
+  const wakePos = wakeHour !== undefined ? getMarkerPos(wakeHour, 130) : null;
+  const wakeLabelPos = wakeHour !== undefined ? getMarkerPos(wakeHour, 145) : null;
+  
+  const mealPos = mealHour !== undefined ? getMarkerPos(mealHour, 130) : null;
+  const mealLabelPos = mealHour !== undefined ? getMarkerPos(mealHour, 140) : null;
+
+  // Agni/Pitta Peak (12 PM)
+  const agniPos = getMarkerPos(12, 130);
+  const agniLabelPos = getMarkerPos(12, 75);
+
   return (
-    <div className="relative w-full max-w-md mx-auto aspect-square">
+    <div className="relative w-full max-w-[320px] md:max-w-md mx-auto aspect-square">
       <svg viewBox="0 0 300 300" className="w-full h-full drop-shadow-xl overflow-visible">
         {/* Ambient Glow */}
         <defs>
           <filter id="glow">
-             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+             <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
              <feMerge>
                 <feMergeNode in="coloredBlur"/>
                 <feMergeNode in="SourceGraphic"/>
@@ -58,7 +72,7 @@ export default function RhythmClock({ sleepHour, wakeHour, mealHour }: RhythmClo
           <g key={i}>
             <path
               d={describeArc(seg.start, seg.end, 130)}
-              className={`${seg.color} transition-all duration-700 hover:opacity-100`}
+              className={`${seg.color} opacity-80 transition-all duration-700`}
             />
             {(() => {
                 const midAngle = ((seg.start + (seg.end < seg.start ? seg.end + 24 : seg.end)) / 2 * 15) - 90;
@@ -68,7 +82,7 @@ export default function RhythmClock({ sleepHour, wakeHour, mealHour }: RhythmClo
                     <text 
                         x={tx} 
                         y={ty} 
-                        className={`text-[8px] font-black uppercase tracking-widest ${seg.text} opacity-40`}
+                        className={`text-[10px] md:text-[8px] font-black uppercase tracking-widest ${seg.text} opacity-40`}
                         textAnchor="middle"
                     >
                         {seg.label}
@@ -88,30 +102,34 @@ export default function RhythmClock({ sleepHour, wakeHour, mealHour }: RhythmClo
           return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-slate-200 stroke-1" />;
         })}
 
+        {/* Agni Peak Indicator */}
+        <g className="opacity-30">
+            <line x1="150" y1="150" x2={agniPos.x} y2={agniPos.y} className="stroke-orange-400 stroke-[1] stroke-dasharray-[2,2]" strokeDasharray="2,2" />
+            <text x={agniLabelPos.x} y={agniLabelPos.y} className="text-[10px] md:text-[8px] font-black fill-orange-500 uppercase" textAnchor="middle">Agni Peak</text>
+        </g>
+
         {/* Dynamic Markers */}
-        <AnimatePresence>
-          {sleepHour !== undefined && (
-            <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-               <line x1="150" y1="150" {...getMarkerPos(sleepHour, 130)} className="stroke-slate-900 stroke-[2] stroke-dasharray-[4,4]" strokeDasharray="4,4" />
-               <circle {...getMarkerPos(sleepHour, 130)} r="8" className="fill-slate-900 shadow-lg" filter="url(#glow)" />
-               <text {...getMarkerPos(sleepHour, 145)} className="text-[7px] font-black fill-slate-900 uppercase" textAnchor="middle">Sleep</text>
-            </motion.g>
-          )}
-          {wakeHour !== undefined && (
-            <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-               <line x1="150" y1="150" {...getMarkerPos(wakeHour, 130)} className="stroke-emerald-500 stroke-[2]" />
-               <circle {...getMarkerPos(wakeHour, 130)} r="8" className="fill-emerald-500 shadow-lg" filter="url(#glow)" />
-               <text {...getMarkerPos(wakeHour, 145)} className="text-[7px] font-black fill-emerald-500 uppercase" textAnchor="middle">Wake</text>
-            </motion.g>
-          )}
-          {mealHour !== undefined && (
-            <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-               <line x1="150" y1="150" {...getMarkerPos(mealHour, 130)} className="stroke-orange-500 stroke-[2]" />
-               <circle {...getMarkerPos(mealHour, 130)} r="8" className="fill-orange-500 shadow-lg" filter="url(#glow)" />
-               <text {...getMarkerPos(mealHour, 145)} className="text-[7px] font-black fill-orange-500 uppercase" textAnchor="middle">Meal</text>
-            </motion.g>
-          )}
-        </AnimatePresence>
+        {sleepPos && sleepLabelPos && (
+          <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <line x1="150" y1="150" x2={sleepPos.x} y2={sleepPos.y} className="stroke-slate-900 stroke-[2] stroke-dasharray-[4,4]" strokeDasharray="4,4" />
+              <circle cx={sleepPos.x} cy={sleepPos.y} r="8" className="fill-slate-900 shadow-lg" filter="url(#glow)" />
+              <text x={sleepLabelPos.x} y={sleepLabelPos.y} className="text-[9px] md:text-[7px] font-black fill-slate-900 uppercase" textAnchor="middle">Sleep</text>
+          </motion.g>
+        )}
+        {wakePos && wakeLabelPos && (
+          <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <line x1="150" y1="150" x2={wakePos.x} y2={wakePos.y} className="stroke-emerald-500 stroke-[2]" />
+              <circle cx={wakePos.x} cy={wakePos.y} r="8" className="fill-emerald-500 shadow-lg" filter="url(#glow)" />
+              <text x={wakeLabelPos.x} y={wakeLabelPos.y} className="text-[9px] md:text-[7px] font-black fill-emerald-500 uppercase" textAnchor="middle">Wake</text>
+          </motion.g>
+        )}
+        {mealPos && mealLabelPos && (
+          <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <line x1="150" y1="150" x2={mealPos.x} y2={mealPos.y} className="stroke-orange-500 stroke-[2]" />
+              <circle cx={mealPos.x} cy={mealPos.y} r="8" className="fill-orange-500 shadow-lg" filter="url(#glow)" />
+              <text x={mealLabelPos.x} y={mealLabelPos.y} className="text-[9px] md:text-[7px] font-black fill-orange-500 uppercase" textAnchor="middle">Meal</text>
+          </motion.g>
+        )}
 
         {/* Center Hole for "Donut" look */}
         <circle cx="150" cy="150" r="60" className="fill-[#FAFBFB]" />

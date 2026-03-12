@@ -5,7 +5,6 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ArrowLeft, HelpCircle, Search, ChevronDown, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 import { FAQ_DATA, FAQCategory } from "@/data/faq";
 
 // Metadata cannot be in client components, but we'll include it as a comment for documentation.
@@ -181,8 +180,6 @@ export default function FAQPage() {
                     </motion.div>
                 </motion.div>
             </main>
-
-            <Footer />
         </div>
     );
 }

@@ -6,9 +6,9 @@
         "time_of_day": "morning",
         "duration": "habit",
         "variables": {
-            "circadian": 4,
-            "kapha": -2,
-            "sleep": 1
+            "vata_axis": -2.5,
+            "ojas_axis": 2.5,
+            "kapha_axis": -2
         },
         "instructions": "Wake up close to sunrise. Early waking synchronizes circadian rhythm with natural light cycles and reduces morning Kapha heaviness.",
         "contraindications": [],
@@ -27,8 +27,8 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "circadian": 9,
-            "ojas": 1
+            "vata_axis": -4.5,
+            "ojas_axis": 5.5
         },
         "instructions": "Spend time outdoors in morning sunlight. Natural light resets circadian rhythm signals and supports hormone balance.",
         "contraindications": [],
@@ -46,8 +46,8 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "ama": -2,
-            "agni": 2
+            "agni_axis": 3.4,
+            "kapha_axis": -0.6
         },
         "instructions": "Use a tongue scraper after waking to remove metabolic waste from the tongue and stimulate digestive reflexes.",
         "contraindications": [],
@@ -65,9 +65,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "agni": 2,
-            "hydration": 2,
-            "digestion": 1
+            "agni_axis": 3,
+            "kapha_axis": 1,
+            "vata_axis": -1
         },
         "instructions": "Drink a glass of warm water after waking to stimulate digestion and rehydrate the body after sleep.",
         "contraindications": [],
@@ -86,8 +86,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "ama": -1,
-            "vata": -1
+            "agni_axis": 0.7,
+            "kapha_axis": -0.3,
+            "vata_axis": -1
         },
         "instructions": "Swish sesame or coconut oil in the mouth for several minutes to improve oral hygiene and reduce dryness.",
         "contraindications": [],
@@ -103,8 +104,8 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "vata": -3,
-            "stress": -1
+            "vata_axis": -3.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Apply a few drops of medicated oil into the nostrils to lubricate nasal passages and calm Vata in the head region.",
         "contraindications": [
@@ -124,9 +125,9 @@
         "time_of_day": "morning",
         "duration": "15 minutes",
         "variables": {
-            "vata": -6,
-            "stress": -2,
-            "ojas": 3
+            "vata_axis": -7.4,
+            "pitta_axis": -0.6,
+            "ojas_axis": 3
         },
         "instructions": "Massage warm oil over the body before bathing. Oil nourishes tissues, improves circulation, and stabilizes the nervous system.",
         "contraindications": [
@@ -148,8 +149,8 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement": 2,
-            "vata": -1
+            "kapha_axis": -1,
+            "vata_axis": -2
         },
         "instructions": "Perform gentle stretching movements after waking to activate muscles and improve circulation.",
         "contraindications": [
@@ -169,9 +170,9 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "vata": -4,
-            "movement": 3,
-            "mental_clarity": 2
+            "vata_axis": -6.7,
+            "kapha_axis": -1.5,
+            "ojas_axis": 0.8
         },
         "instructions": "Practice slow grounding yoga postures to calm the nervous system and stabilize Vata.",
         "contraindications": [
@@ -192,9 +193,9 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "kapha": -5,
-            "movement": 4,
-            "agni": 2
+            "kapha_axis": -7,
+            "vata_axis": -2,
+            "agni_axis": 2
         },
         "instructions": "Walk briskly to stimulate metabolism and reduce Kapha stagnation.",
         "contraindications": [],
@@ -214,8 +215,8 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "kapha": -3,
-            "movement": 1
+            "kapha_axis": -3.5,
+            "vata_axis": -0.5
         },
         "instructions": "Brush the skin before bathing to stimulate lymphatic circulation and reduce Kapha accumulation.",
         "contraindications": [],
@@ -233,9 +234,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "kapha": -3,
-            "agni": 3,
-            "ama": -1
+            "kapha_axis": -3.3,
+            "agni_axis": 3.7
         },
         "instructions": "Add digestive spices such as ginger, cumin, and black pepper to meals to stimulate metabolism.",
         "contraindications": [
@@ -256,8 +256,8 @@
         "time_of_day": "before_meal",
         "duration": "1 minute",
         "variables": {
-            "agni": 3,
-            "kapha": -2
+            "agni_axis": 3,
+            "kapha_axis": -2
         },
         "instructions": "Consume a slice of fresh ginger before meals to activate digestive enzymes and improve appetite.",
         "contraindications": [
@@ -277,8 +277,7 @@
         "time_of_day": "midday",
         "duration": "meal",
         "variables": {
-            "agni": 2,
-            "digestion": 2
+            "agni_axis": 4
         },
         "instructions": "Eat the largest meal around midday when digestive fire is strongest.",
         "contraindications": [],
@@ -296,9 +295,9 @@
         "time_of_day": "after_meal",
         "duration": "10 minutes",
         "variables": {
-            "bloating": -2,
-            "agni": 2,
-            "movement": 1
+            "vata_axis": -1.7,
+            "agni_axis": 2.8,
+            "kapha_axis": -0.5
         },
         "instructions": "Take a slow walk after meals to stimulate digestion and prevent heaviness.",
         "contraindications": [],
@@ -316,8 +315,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "agni": 1
+            "agni_axis": 3
         },
         "instructions": "Chew food thoroughly before swallowing to support proper digestion.",
         "contraindications": [],
@@ -334,7 +332,7 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "agni": 2
+            "agni_axis": 2
         },
         "instructions": "Maintain adequate spacing between meals to allow digestion to complete.",
         "contraindications": [],
@@ -351,7 +349,8 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "hydration": 2
+            "kapha_axis": 1,
+            "vata_axis": -1
         },
         "instructions": "Drink water or herbal infusions during the afternoon to maintain hydration.",
         "contraindications": [],
@@ -368,8 +367,9 @@
         "time_of_day": "any",
         "duration": "15 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 2
+            "vata_axis": -2.6,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.8
         },
         "instructions": "Spend time in nature to calm the nervous system and improve mental clarity.",
         "contraindications": [],
@@ -389,9 +389,9 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress": -4,
-            "mental_clarity": 3,
-            "ojas": 2
+            "vata_axis": -4.6,
+            "pitta_axis": -1.2,
+            "ojas_axis": 3.2
         },
         "instructions": "Practice meditation to calm mental activity and restore emotional balance.",
         "contraindications": [],
@@ -411,8 +411,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "stress": -3,
-            "mental_clarity": 1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.9,
+            "ojas_axis": 0.4
         },
         "instructions": "Practice slow breathing exercises to regulate the nervous system and reduce stress.",
         "contraindications": [],
@@ -431,9 +432,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -5,
-            "sleep": 2,
-            "stress": -2
+            "vata_axis": -7.4,
+            "ojas_axis": 1,
+            "pitta_axis": -0.6
         },
         "instructions": "Massage warm oil into the soles of the feet before sleep to calm the nervous system.",
         "contraindications": [],
@@ -451,7 +452,8 @@
         "time_of_day": "evening",
         "duration": "1 hour",
         "variables": {
-            "circadian": 7
+            "vata_axis": -3.5,
+            "ojas_axis": 3.5
         },
         "instructions": "Avoid screens before bedtime to allow natural melatonin release and improve sleep quality.",
         "contraindications": [],
@@ -469,9 +471,8 @@
         "time_of_day": "night",
         "duration": "15 minutes",
         "variables": {
-            "circadian": 4,
-            "sleep": 2,
-            "ojas": 2
+            "vata_axis": -3,
+            "ojas_axis": 5
         },
         "instructions": "Follow a consistent relaxing routine before sleep to signal the body to prepare for rest.",
         "contraindications": [],
@@ -489,9 +490,9 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1,
-            "ojas": 2
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 2.4
         },
         "instructions": "Write down positive experiences from the day to cultivate a balanced emotional state.",
         "contraindications": [],
@@ -509,9 +510,8 @@
         "time_of_day": "morning",
         "duration": "meal",
         "variables": {
-            "vata": -2,
-            "agni": 2,
-            "digestion": 1
+            "vata_axis": -2,
+            "agni_axis": 3
         },
         "instructions": "Eat a warm, freshly prepared breakfast such as porridge or cooked grains. Warm foods support digestion and stabilize Vata in the morning.",
         "contraindications": [],
@@ -530,8 +530,8 @@
         "time_of_day": "morning",
         "duration": "meal",
         "variables": {
-            "kapha": -2,
-            "agni": 1
+            "kapha_axis": -2,
+            "agni_axis": 1
         },
         "instructions": "Choose a light breakfast like fruit or herbal tea when appetite is low. This prevents Kapha heaviness and sluggish digestion.",
         "contraindications": [],
@@ -549,7 +549,8 @@
         "time_of_day": "midday",
         "duration": "10 minutes",
         "variables": {
-            "circadian": 4
+            "vata_axis": -2,
+            "ojas_axis": 2
         },
         "instructions": "Step outside for natural light exposure around midday to reinforce circadian rhythm signals.",
         "contraindications": [],
@@ -566,8 +567,8 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2,
-            "kapha": -1
+            "kapha_axis": -2,
+            "vata_axis": -1
         },
         "instructions": "Stand or move briefly after prolonged sitting to stimulate circulation and reduce Kapha stagnation.",
         "contraindications": [],
@@ -585,7 +586,8 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "hydration": 2
+            "kapha_axis": 1,
+            "vata_axis": -1
         },
         "instructions": "Drink water periodically throughout the day to maintain hydration and support metabolic processes.",
         "contraindications": [],
@@ -602,8 +604,8 @@
         "time_of_day": "after_meal",
         "duration": "drink",
         "variables": {
-            "agni": 2,
-            "bloating": -1
+            "agni_axis": 2.4,
+            "vata_axis": -0.6
         },
         "instructions": "Drink a mild digestive tea with ginger, cumin, or fennel after meals to support digestion.",
         "contraindications": [
@@ -622,8 +624,8 @@
         "time_of_day": "afternoon",
         "duration": "5 minutes",
         "variables": {
-            "pitta": -4,
-            "stress": -1
+            "pitta_axis": -4.3,
+            "vata_axis": -0.7
         },
         "instructions": "Practice cooling breathing such as sheetali pranayama to reduce internal heat and calm Pitta.",
         "contraindications": [],
@@ -641,8 +643,9 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "pitta": -2,
-            "movement": 2
+            "pitta_axis": -2,
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Walk in a shaded or cool environment to calm body heat and improve circulation.",
         "contraindications": [],
@@ -659,8 +662,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -2,
-            "movement": 1
+            "vata_axis": -2.5,
+            "kapha_axis": -0.5
         },
         "instructions": "Perform gentle stretches to release tension accumulated during the day.",
         "contraindications": [],
@@ -678,8 +681,8 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "vata": -3,
-            "stress": -2
+            "vata_axis": -4.4,
+            "pitta_axis": -0.6
         },
         "instructions": "Take a warm bath to relax muscles and calm the nervous system.",
         "contraindications": [
@@ -700,8 +703,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "pitta": -3,
-            "stress": -1
+            "pitta_axis": -3.3,
+            "vata_axis": -0.7
         },
         "instructions": "Use lukewarm water for bathing during hot conditions to reduce body heat.",
         "contraindications": [],
@@ -718,8 +721,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 1
+            "vata_axis": -2,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Listen to calming instrumental music to relax the nervous system.",
         "contraindications": [],
@@ -737,8 +741,9 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 2
+            "vata_axis": -2.6,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.8
         },
         "instructions": "Walk slowly while observing breathing and surroundings to calm mental activity.",
         "contraindications": [],
@@ -757,8 +762,9 @@
         "time_of_day": "night",
         "duration": "10 minutes",
         "variables": {
-            "stress": -1,
-            "sleep": 1
+            "vata_axis": -1.2,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.5
         },
         "instructions": "Read calming material before sleep to transition the mind into rest mode.",
         "contraindications": [],
@@ -776,8 +782,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "circadian": 5,
-            "sleep": 2
+            "vata_axis": -3.5,
+            "ojas_axis": 3.5
         },
         "instructions": "Maintain a consistent sleep time daily to stabilize circadian rhythm.",
         "contraindications": [],
@@ -795,8 +801,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress": -3,
-            "mental_clarity": 2
+            "vata_axis": -3.3,
+            "pitta_axis": -0.9,
+            "ojas_axis": 0.8
         },
         "instructions": "Meditate briefly in the evening to reduce accumulated stress.",
         "contraindications": [],
@@ -815,8 +822,8 @@
         "time_of_day": "evening",
         "duration": "meal",
         "variables": {
-            "agni": 2,
-            "kapha": -2
+            "agni_axis": 2,
+            "kapha_axis": -2
         },
         "instructions": "Eat a light dinner to prevent nighttime digestive overload and support sleep.",
         "contraindications": [],
@@ -833,8 +840,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "ama": -1
+            "agni_axis": 2.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Avoid eating late snacks to allow digestion to complete before sleep.",
         "contraindications": [],
@@ -851,8 +858,9 @@
         "time_of_day": "evening",
         "duration": "20 minutes",
         "variables": {
-            "circadian": 3,
-            "stress": -1
+            "vata_axis": -2.2,
+            "ojas_axis": 1.5,
+            "pitta_axis": -0.3
         },
         "instructions": "Reduce stimulation and activity gradually in the evening to prepare the body for sleep.",
         "contraindications": [],
@@ -870,8 +878,8 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "circadian": 2,
-            "mental_clarity": 1
+            "vata_axis": -1.6,
+            "ojas_axis": 1.4
         },
         "instructions": "Take short breaks from screens throughout the day to reduce mental fatigue.",
         "contraindications": [],
@@ -889,8 +897,9 @@
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "ojas": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3,
+            "ojas_axis": 1
         },
         "instructions": "Reflect on positive experiences from the day to cultivate emotional stability.",
         "contraindications": [],
@@ -908,8 +917,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "pitta": -2,
-            "mental_clarity": 1
+            "pitta_axis": -2,
+            "ojas_axis": 0.4,
+            "vata_axis": -0.6
         },
         "instructions": "Observe the sunset quietly to help the body transition from activity to rest.",
         "contraindications": [],
@@ -927,8 +937,9 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 1
+            "vata_axis": -2,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Spend time in silence without stimulation to calm the mind.",
         "contraindications": [],
@@ -946,8 +957,9 @@
         "time_of_day": "afternoon",
         "duration": "10 minutes",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.4
         },
         "instructions": "Pause for a warm herbal tea break to reset mental focus.",
         "contraindications": [],
@@ -965,8 +977,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1,
-            "vata": -1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.5
         },
         "instructions": "Correct posture and stretch the spine periodically during the day to prevent stiffness.",
         "contraindications": [
@@ -986,9 +998,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "digestion": 2,
-            "agni": 1,
-            "ama": -1
+            "agni_axis": 3.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Prefer cooked vegetables rather than raw foods when digestion feels weak. Cooking softens fiber and makes nutrients easier to absorb.",
         "contraindications": [],
@@ -1005,9 +1016,8 @@
         "time_of_day": "evening",
         "duration": "meal",
         "variables": {
-            "agni": 2,
-            "digestion": 2,
-            "vata": -1
+            "agni_axis": 4,
+            "vata_axis": -1
         },
         "instructions": "Eat warm soups or broths during dinner to support digestion while keeping the meal light.",
         "contraindications": [],
@@ -1025,8 +1035,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "kapha": -1
+            "agni_axis": 2,
+            "kapha_axis": -1
         },
         "instructions": "Avoid very cold foods and drinks during meals because they weaken digestive fire.",
         "contraindications": [],
@@ -1044,8 +1054,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "agni": 2,
-            "bloating": -1
+            "agni_axis": 2.4,
+            "vata_axis": -0.6
         },
         "instructions": "Use digestive spices such as cumin, coriander, fennel, and ginger while cooking meals.",
         "contraindications": [
@@ -1064,8 +1074,9 @@
         "time_of_day": "midday",
         "duration": "10 minutes",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.4
         },
         "instructions": "Take a brief pause during midday to relax and reset mental focus.",
         "contraindications": [],
@@ -1083,8 +1094,9 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 1
+            "vata_axis": -2,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Pause for slow deep breathing to calm the nervous system and reduce stress.",
         "contraindications": [],
@@ -1102,8 +1114,8 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "circadian": 3,
-            "mental_clarity": 1
+            "vata_axis": -2.1,
+            "ojas_axis": 1.9
         },
         "instructions": "Observe the sunrise calmly to strengthen circadian rhythm and promote alertness.",
         "contraindications": [],
@@ -1120,8 +1132,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Write brief thoughts or intentions for the day to organize mental focus.",
         "contraindications": [],
@@ -1139,8 +1152,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "stress": -2,
-            "ojas": 1
+            "vata_axis": -1.4,
+            "pitta_axis": -0.6,
+            "ojas_axis": 1
         },
         "instructions": "Reflect on gratitude during meditation to cultivate positive mental states.",
         "contraindications": [],
@@ -1159,9 +1173,9 @@
         "time_of_day": "morning",
         "duration": "30 minutes",
         "variables": {
-            "kapha": -6,
-            "movement": 5,
-            "agni": 2
+            "kapha_axis": -8.5,
+            "vata_axis": -2.5,
+            "agni_axis": 2
         },
         "instructions": "Perform vigorous exercise such as jogging or cycling to stimulate metabolism and reduce Kapha stagnation.",
         "contraindications": [],
@@ -1181,8 +1195,8 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "kapha": -4,
-            "movement": 3
+            "kapha_axis": -5.5,
+            "vata_axis": -1.5
         },
         "instructions": "Practice dynamic yoga sequences that stimulate circulation and increase energy.",
         "contraindications": [],
@@ -1201,9 +1215,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "kapha": -2,
-            "agni": 1,
-            "ama": -2
+            "kapha_axis": -2.6,
+            "agni_axis": 2.4
         },
         "instructions": "Maintain a natural fasting gap between dinner and breakfast to support metabolic balance.",
         "contraindications": [
@@ -1222,8 +1235,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "kapha": -2,
-            "ama": -1
+            "kapha_axis": -2.3,
+            "agni_axis": 0.7
         },
         "instructions": "Reduce sugary foods and beverages to prevent Kapha accumulation and metabolic sluggishness.",
         "contraindications": [],
@@ -1241,8 +1254,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "kapha": -3,
-            "mental_clarity": 2
+            "kapha_axis": -3,
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Practice energizing breathing techniques such as kapalabhati to stimulate metabolism.",
         "contraindications": [
@@ -1263,8 +1277,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 1,
-            "kapha": -1
+            "ojas_axis": 0.4,
+            "vata_axis": -0.6,
+            "kapha_axis": -1
         },
         "instructions": "Listen to uplifting music in the morning to increase alertness and motivation.",
         "contraindications": [],
@@ -1282,8 +1297,9 @@
         "time_of_day": "afternoon",
         "duration": "20 minutes",
         "variables": {
-            "movement": 3,
-            "stress": -1
+            "kapha_axis": -1.5,
+            "vata_axis": -2.2,
+            "pitta_axis": -0.3
         },
         "instructions": "Spend time outdoors performing physical activity such as walking or light sports.",
         "contraindications": [],
@@ -1301,8 +1317,9 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "bloating": -1,
-            "movement": 2
+            "vata_axis": -1.6,
+            "agni_axis": 0.4,
+            "kapha_axis": -1
         },
         "instructions": "Walk gently in the evening to support digestion and relax the body.",
         "contraindications": [],
@@ -1320,8 +1337,9 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress": -3,
-            "mental_clarity": 1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.9,
+            "ojas_axis": 0.4
         },
         "instructions": "Practice slow breathing to calm the nervous system before sleep.",
         "contraindications": [],
@@ -1340,8 +1358,8 @@
         "time_of_day": "night",
         "duration": "drink",
         "variables": {
-            "sleep": 1,
-            "ojas": 2
+            "vata_axis": -0.5,
+            "ojas_axis": 2.5
         },
         "instructions": "Drink warm herbal milk with calming spices before sleep to promote relaxation.",
         "contraindications": [
@@ -1361,7 +1379,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "circadian": 5
+            "vata_axis": -2.5,
+            "ojas_axis": 2.5
         },
         "instructions": "Stop using screens after sunset to protect natural sleep hormone rhythms.",
         "contraindications": [],
@@ -1378,8 +1397,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "sleep": 1,
-            "circadian": 1
+            "vata_axis": -1,
+            "ojas_axis": 1
         },
         "instructions": "Keep the bedroom dark to promote deeper sleep and proper melatonin release.",
         "contraindications": [],
@@ -1396,8 +1415,9 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "pitta": -1,
-            "sleep": 1
+            "pitta_axis": -1,
+            "vata_axis": -0.5,
+            "ojas_axis": 0.5
         },
         "instructions": "Maintain a slightly cool bedroom temperature to improve sleep quality.",
         "contraindications": [],
@@ -1415,8 +1435,9 @@
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 1,
-            "stress": -1
+            "ojas_axis": 0.4,
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3
         },
         "instructions": "Write reflections about the day to process thoughts and release mental tension.",
         "contraindications": [],
@@ -1434,8 +1455,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "ojas": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3,
+            "ojas_axis": 1
         },
         "instructions": "Practice compassion or kindness meditation to cultivate emotional balance.",
         "contraindications": [],
@@ -1453,8 +1475,9 @@
         "time_of_day": "evening",
         "duration": "20 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 2
+            "vata_axis": -2.6,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.8
         },
         "instructions": "Engage in creative activities like drawing, music, or writing to release emotional tension.",
         "contraindications": [],
@@ -1472,8 +1495,9 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "circadian": 1
+            "agni_axis": 2,
+            "vata_axis": -0.5,
+            "ojas_axis": 0.5
         },
         "instructions": "Eat meals at consistent times each day. Regular meal timing stabilizes digestive rhythms and prevents irregular hunger patterns.",
         "contraindications": [],
@@ -1490,8 +1514,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "ama": -2
+            "agni_axis": 3.4,
+            "kapha_axis": -0.6
         },
         "instructions": "Eat until comfortably satisfied rather than overly full. Overeating weakens digestion and increases metabolic waste.",
         "contraindications": [],
@@ -1508,8 +1532,7 @@
         "time_of_day": "midday",
         "duration": "meal",
         "variables": {
-            "agni": 2,
-            "digestion": 1
+            "agni_axis": 3
         },
         "instructions": "Choose freshly cooked warm meals at lunch to support strong midday digestion.",
         "contraindications": [],
@@ -1527,8 +1550,8 @@
         "time_of_day": "midday",
         "duration": "meal",
         "variables": {
-            "pitta": -2,
-            "agni": 1
+            "pitta_axis": -2,
+            "agni_axis": 1
         },
         "instructions": "Include bitter greens such as spinach or fenugreek leaves to reduce excess heat and support liver metabolism.",
         "contraindications": [],
@@ -1544,7 +1567,7 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "pitta": -2
+            "pitta_axis": -2
         },
         "instructions": "Favor cooling foods such as cucumber, coconut, or leafy greens during hot conditions.",
         "contraindications": [],
@@ -1561,8 +1584,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta": -2,
-            "agni": 1
+            "pitta_axis": -2,
+            "agni_axis": 1
         },
         "instructions": "Limit very spicy foods if experiencing heat, acidity, or irritability.",
         "contraindications": [],
@@ -1578,8 +1601,9 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "pitta": -2,
-            "hydration": 1
+            "pitta_axis": -2,
+            "kapha_axis": 0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Drink coriander-infused water to gently cool digestion and reduce internal heat.",
         "contraindications": [],
@@ -1595,8 +1619,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "pitta": -2,
-            "stress": -1
+            "pitta_axis": -2.3,
+            "vata_axis": -0.7
         },
         "instructions": "Take a calm walk under moonlight or cool evening air to reduce accumulated heat and tension.",
         "contraindications": [],
@@ -1613,8 +1637,8 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "vata": -2,
-            "stress": -1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Practice slow restorative yoga postures in the evening to relax muscles and calm the nervous system.",
         "contraindications": [
@@ -1635,8 +1659,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "vata": -3,
-            "stress": -2
+            "vata_axis": -4.4,
+            "pitta_axis": -0.6
         },
         "instructions": "Use slow diaphragmatic breathing to stabilize nervous system activity and reduce Vata agitation.",
         "contraindications": [],
@@ -1655,9 +1679,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -3,
-            "stress": -2,
-            "sleep": 1
+            "vata_axis": -4.9,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.5
         },
         "instructions": "Massage warm oil gently into the scalp to calm nerves and reduce tension before sleep.",
         "contraindications": [],
@@ -1676,8 +1700,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -2,
-            "sleep": 1
+            "vata_axis": -2.5,
+            "ojas_axis": 0.5
         },
         "instructions": "Soak the feet in warm water to relax the body and improve sleep readiness.",
         "contraindications": [],
@@ -1695,8 +1719,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "sleep": 1,
-            "circadian": 1
+            "vata_axis": -1,
+            "ojas_axis": 1
         },
         "instructions": "Avoid caffeine late in the day to prevent stimulation of the nervous system before sleep.",
         "contraindications": [],
@@ -1713,7 +1737,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "circadian": 3
+            "vata_axis": -1.5,
+            "ojas_axis": 1.5
         },
         "instructions": "Use screen filters or reduce brightness in the evening to reduce blue-light disruption.",
         "contraindications": [],
@@ -1730,8 +1755,9 @@
         "time_of_day": "morning",
         "duration": "drink",
         "variables": {
-            "hydration": 2,
-            "digestion": 1
+            "kapha_axis": 1,
+            "vata_axis": -1,
+            "agni_axis": 1
         },
         "instructions": "Drink water shortly after waking to restore hydration and activate metabolism.",
         "contraindications": [],
@@ -1747,8 +1773,9 @@
         "time_of_day": "any",
         "duration": "2 minutes",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.4
         },
         "instructions": "Take short breathing pauses during stressful work periods to reset mental focus.",
         "contraindications": [],
@@ -1767,8 +1794,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2,
-            "vata": -1
+            "kapha_axis": -1,
+            "vata_axis": -2
         },
         "instructions": "Stretch the neck, shoulders, and spine during desk work to prevent stiffness and improve circulation.",
         "contraindications": [
@@ -1788,8 +1815,9 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 2
+            "vata_axis": -2.6,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.8
         },
         "instructions": "Pause midday for brief mindfulness practice to reduce mental overload.",
         "contraindications": [],
@@ -1807,10 +1835,11 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 1,
-            "stress": -1
+            "ojas_axis": 0.4,
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3
         },
-        "instructions": "Reflect on the day\u00e2\u20ac\u2122s experiences to improve self-awareness and emotional balance.",
+        "instructions": "Reflect on the dayâ€™s experiences to improve self-awareness and emotional balance.",
         "contraindications": [],
         "tags": [
             "vata",
@@ -1826,8 +1855,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "ojas": 1,
-            "stress": -1
+            "ojas_axis": 1,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Perform small acts of kindness or generosity to cultivate positive emotional states.",
         "contraindications": [],
@@ -1843,8 +1873,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Focus on one task at a time to improve attention and reduce cognitive fatigue.",
         "contraindications": [],
@@ -1862,7 +1893,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2
+            "agni_axis": 2
         },
         "instructions": "Pause briefly before eating to relax and prepare digestion.",
         "contraindications": [],
@@ -1879,7 +1910,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "circadian": 3
+            "vata_axis": -1.5,
+            "ojas_axis": 1.5
         },
         "instructions": "Maintain consistent wake, meal, and sleep times to stabilize biological rhythms.",
         "contraindications": [],
@@ -1896,7 +1928,8 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Set a clear intention for the day to improve mental focus and emotional stability.",
         "contraindications": [],
@@ -1914,8 +1947,9 @@
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "ojas": 1,
-            "stress": -1
+            "ojas_axis": 1,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Reflect on positive events before sleep to cultivate a calm and satisfied mental state.",
         "contraindications": [],
@@ -1933,8 +1967,8 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "kapha": -3,
-            "ama": -2
+            "kapha_axis": -3.6,
+            "agni_axis": 1.4
         },
         "instructions": "During spring favor lighter foods such as vegetables, legumes, and spices to counter Kapha accumulation that occurs naturally in this season.",
         "contraindications": [],
@@ -1950,8 +1984,9 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "pitta": -3,
-            "hydration": 1
+            "pitta_axis": -3,
+            "kapha_axis": 0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Eat cooling foods like cucumber, coconut, and fresh fruits during summer to balance rising heat in the body.",
         "contraindications": [],
@@ -1968,8 +2003,8 @@
         "time_of_day": "daily",
         "duration": "seasonal habit",
         "variables": {
-            "vata": -3,
-            "ojas": 1
+            "vata_axis": -3,
+            "ojas_axis": 1
         },
         "instructions": "During windy autumn months emphasize warm meals, oil massage, and grounding routines to stabilize Vata.",
         "contraindications": [],
@@ -1985,8 +2020,8 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "ojas": 2,
-            "agni": 2
+            "ojas_axis": 2,
+            "agni_axis": 2
         },
         "instructions": "Eat nourishing foods such as soups, grains, and healthy fats during winter to support stronger digestive fire and maintain vitality.",
         "contraindications": [],
@@ -2002,8 +2037,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 1,
-            "ama": -1
+            "agni_axis": 1.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Adjust spice use according to climate: warming spices in cold weather and milder spices during hot seasons.",
         "contraindications": [],
@@ -2019,8 +2054,9 @@
         "time_of_day": "morning",
         "duration": "15 minutes",
         "variables": {
-            "circadian": 2,
-            "movement": 2
+            "vata_axis": -2,
+            "ojas_axis": 1,
+            "kapha_axis": -1
         },
         "instructions": "Engage in light movement soon after sunrise to activate metabolism and reinforce circadian rhythms.",
         "contraindications": [],
@@ -2037,8 +2073,8 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "vata": -2,
-            "stress": -1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Take a slow evening walk focusing on steady breathing and relaxed posture to stabilize nervous system activity.",
         "contraindications": [],
@@ -2057,8 +2093,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Perform a brief breathing sequence after waking to improve oxygenation and alertness.",
         "contraindications": [],
@@ -2077,8 +2114,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress": -2,
-            "sleep": 1
+            "vata_axis": -1.9,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.5
         },
         "instructions": "Listen to calm instrumental music to ease mental tension before sleep.",
         "contraindications": [],
@@ -2096,8 +2134,9 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "ojas": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3,
+            "ojas_axis": 1
         },
         "instructions": "Reflect on positive experiences of the day to cultivate emotional stability and reduce stress.",
         "contraindications": [],
@@ -2115,8 +2154,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.4
         },
         "instructions": "Engage in calm and mindful communication to maintain emotional balance and reduce mental agitation.",
         "contraindications": [],
@@ -2132,8 +2172,9 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 2
+            "vata_axis": -2.6,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.8
         },
         "instructions": "Sit quietly in a natural environment to calm sensory stimulation and restore mental clarity.",
         "contraindications": [],
@@ -2152,8 +2193,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress": -2,
-            "vata": -1
+            "vata_axis": -2.4,
+            "pitta_axis": -0.6
         },
         "instructions": "Practice deep relaxation posture such as savasana to release physical and mental tension.",
         "contraindications": [],
@@ -2169,8 +2210,9 @@
         "time_of_day": "night",
         "duration": "drink",
         "variables": {
-            "sleep": 1,
-            "stress": -1
+            "vata_axis": -1.2,
+            "ojas_axis": 0.5,
+            "pitta_axis": -0.3
         },
         "instructions": "Drink mild herbal teas such as chamomile or tulsi before sleep to promote relaxation.",
         "contraindications": [],
@@ -2187,8 +2229,9 @@
         "time_of_day": "night",
         "duration": "10 minutes",
         "variables": {
-            "sleep": 1,
-            "stress": -1
+            "vata_axis": -1.2,
+            "ojas_axis": 0.5,
+            "pitta_axis": -0.3
         },
         "instructions": "Read calm non-stimulating material to transition the mind into rest mode.",
         "contraindications": [],
@@ -2205,8 +2248,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "sleep": 1,
-            "circadian": 1
+            "vata_axis": -1,
+            "ojas_axis": 1
         },
         "instructions": "Maintain a quiet sleeping environment to support uninterrupted sleep cycles.",
         "contraindications": [],
@@ -2223,8 +2266,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "circadian": 1,
-            "sleep": 1
+            "vata_axis": -1,
+            "ojas_axis": 1
         },
         "instructions": "Reduce light exposure in the bedroom to enhance natural melatonin production.",
         "contraindications": [],
@@ -2241,8 +2284,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2,
-            "vata": -1
+            "kapha_axis": -1,
+            "vata_axis": -2
         },
         "instructions": "Take short stretch breaks throughout the day to improve circulation and prevent stiffness.",
         "contraindications": [],
@@ -2260,8 +2303,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "movement": 1,
-            "stress": -1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.2,
+            "pitta_axis": -0.3
         },
         "instructions": "Maintain upright posture during sitting to support breathing and spinal alignment.",
         "contraindications": [
@@ -2281,7 +2325,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "circadian": 5
+            "vata_axis": -2.5,
+            "ojas_axis": 2.5
         },
         "instructions": "Turn off electronic screens one hour before bedtime to protect natural sleep cycles.",
         "contraindications": [],
@@ -2298,8 +2343,9 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 1,
-            "stress": -1
+            "ojas_axis": 0.4,
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3
         },
         "instructions": "Pause briefly at the end of the day to reflect on actions and experiences, promoting self-awareness.",
         "contraindications": [],
@@ -2317,8 +2363,9 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 1
+            "vata_axis": -2,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Count slow breaths to focus attention and calm mental activity.",
         "contraindications": [],
@@ -2336,7 +2383,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "stress": -1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Engage in relaxed and positive conversations during evening hours to maintain emotional calm before sleep.",
         "contraindications": [],
@@ -2354,8 +2402,9 @@
         "time_of_day": "night",
         "duration": "3 minutes",
         "variables": {
-            "ojas": 1,
-            "stress": -1
+            "ojas_axis": 1,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Reflect on acts of kindness given or received during the day to cultivate positive emotional states.",
         "contraindications": [],
@@ -2371,8 +2420,9 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Briefly scan the body after waking to become aware of physical sensations and set a calm tone for the day.",
         "contraindications": [],
@@ -2390,8 +2440,9 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "hydration": 3,
-            "digestion": 1
+            "kapha_axis": 1.5,
+            "vata_axis": -1.5,
+            "agni_axis": 1
         },
         "instructions": "Drink a glass of room temperature or warm water immediately after waking to rehydrate the body and activate metabolic processes.",
         "contraindications": [],
@@ -2409,8 +2460,9 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.4
         },
         "instructions": "Spend the first few minutes after waking without phone or stimulation to allow the nervous system to transition naturally.",
         "contraindications": [],
@@ -2427,8 +2479,8 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "mental_clarity": 1,
-            "circadian": 1
+            "ojas_axis": 0.9,
+            "vata_axis": -1.1
         },
         "instructions": "Open windows or step outside briefly to allow fresh air and natural light to stimulate alertness.",
         "contraindications": [],
@@ -2445,8 +2497,9 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Pause briefly after waking to observe bodily sensations and breathing before beginning the day.",
         "contraindications": [],
@@ -2463,8 +2516,9 @@
         "time_of_day": "meal_time",
         "duration": "1 minute",
         "variables": {
-            "digestion": 1,
-            "stress": -1
+            "agni_axis": 1,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Pause for a few breaths before eating to allow the body to shift into digestive mode.",
         "contraindications": [],
@@ -2481,8 +2535,9 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "stress": -1
+            "agni_axis": 2,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Eat meals without screens or intense conversation to support proper digestion.",
         "contraindications": [],
@@ -2499,8 +2554,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "bloating": -1
+            "agni_axis": 2.4,
+            "vata_axis": -0.6
         },
         "instructions": "Eat slowly and chew thoroughly to improve digestive efficiency.",
         "contraindications": [],
@@ -2516,8 +2571,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "ama": -2,
-            "digestion": 1
+            "agni_axis": 2.4,
+            "kapha_axis": -0.6
         },
         "instructions": "Finish eating when comfortably satisfied rather than overly full.",
         "contraindications": [],
@@ -2533,8 +2588,9 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "mental_clarity": 1
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.4
         },
         "instructions": "Take a short pause during midday to relax the mind and reset attention.",
         "contraindications": [],
@@ -2551,8 +2607,9 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress": -1,
-            "circadian": 1
+            "vata_axis": -1.2,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.5
         },
         "instructions": "Reduce stimulation in the evening by lowering noise and activity levels.",
         "contraindications": [],
@@ -2569,8 +2626,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "ama": -2
+            "agni_axis": 3.4,
+            "kapha_axis": -0.6
         },
         "instructions": "Eat meals when genuine hunger is present rather than out of habit or boredom.",
         "contraindications": [],
@@ -2588,9 +2645,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "digestion": 1,
-            "ama": -1
+            "agni_axis": 3.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Favor freshly cooked warm meals instead of cold or refrigerated foods.",
         "contraindications": [],
@@ -2609,8 +2665,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 1,
-            "digestion": 1
+            "agni_axis": 2
         },
         "instructions": "Avoid drinking very cold beverages during or immediately after meals.",
         "contraindications": [],
@@ -2628,8 +2683,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "ama": -1
+            "agni_axis": 2.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Prefer meals with fewer ingredients and avoid overly complex combinations.",
         "contraindications": [],
@@ -2646,8 +2701,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "agni": 2,
-            "ojas": 1
+            "agni_axis": 2,
+            "ojas_axis": 1
         },
         "instructions": "Include a balanced variety of tastes such as sweet, sour, salty, pungent, bitter, and astringent within meals.",
         "contraindications": [],
@@ -2664,8 +2719,9 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "hydration": 2,
-            "digestion": 1
+            "kapha_axis": 1,
+            "vata_axis": -1,
+            "agni_axis": 1
         },
         "instructions": "Drink water between meals rather than large quantities during meals.",
         "contraindications": [],
@@ -2682,8 +2738,8 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "agni": 2,
-            "bloating": -1
+            "agni_axis": 2.4,
+            "vata_axis": -0.6
         },
         "instructions": "Drink warm water infused with mild digestive spices such as cumin or coriander.",
         "contraindications": [],
@@ -2701,8 +2757,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 1,
-            "bloating": -1
+            "agni_axis": 1.4,
+            "vata_axis": -0.6
         },
         "instructions": "Sit upright and relaxed while eating to allow optimal digestive function.",
         "contraindications": [],
@@ -2719,8 +2775,8 @@
         "time_of_day": "after_meal",
         "duration": "drink",
         "variables": {
-            "digestion": 2,
-            "bloating": -1
+            "agni_axis": 2.4,
+            "vata_axis": -0.6
         },
         "instructions": "Sip warm water or herbal tea after meals to assist digestion.",
         "contraindications": [],
@@ -2737,8 +2793,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "kapha": -1,
-            "digestion": 2
+            "kapha_axis": -1,
+            "agni_axis": 2
         },
         "instructions": "Prefer lighter dinners to prevent digestive burden before sleep.",
         "contraindications": [],
@@ -2755,8 +2811,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 1,
-            "ama": -1
+            "agni_axis": 1.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Limit consumption of cold or refrigerated foods to protect digestive fire.",
         "contraindications": [],
@@ -2774,9 +2830,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "kapha": -2,
-            "agni": 1,
-            "digestion": 1
+            "kapha_axis": -2,
+            "agni_axis": 2
         },
         "instructions": "Include millets such as ragi, jowar, or bajra as alternatives to refined grains.",
         "contraindications": [],
@@ -2793,8 +2848,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "ama": -1
+            "agni_axis": 2.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Consume vegetables that are locally grown and seasonal.",
         "contraindications": [],
@@ -2811,8 +2866,9 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "mental_clarity": 1
+            "agni_axis": 2,
+            "ojas_axis": 0.4,
+            "vata_axis": -0.6
         },
         "instructions": "Combine grains, vegetables, legumes, and healthy fats in meals to maintain balanced nutrition.",
         "contraindications": [],
@@ -2829,8 +2885,9 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta": -2,
-            "ama": -1
+            "pitta_axis": -2,
+            "agni_axis": 0.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Include bitter vegetables such as fenugreek leaves or bitter gourd in meals.",
         "contraindications": [],
@@ -2847,8 +2904,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "ama": -1
+            "agni_axis": 2.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Include whole grains, legumes, and vegetables to support digestive health.",
         "contraindications": [],
@@ -2865,8 +2922,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "kapha": -2,
-            "ama": -1
+            "kapha_axis": -2.3,
+            "agni_axis": 0.7
         },
         "instructions": "Limit consumption of refined sugar and sweetened beverages.",
         "contraindications": [],
@@ -2883,8 +2940,9 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "hydration": 2,
-            "digestion": 1
+            "kapha_axis": 1,
+            "vata_axis": -1,
+            "agni_axis": 1
         },
         "instructions": "Drink herbal infusions such as cumin, coriander, or fennel water.",
         "contraindications": [],
@@ -2901,8 +2959,7 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "agni": 1,
-            "digestion": 1
+            "agni_axis": 2
         },
         "instructions": "Include lentils or legumes in meals to provide plant-based protein.",
         "contraindications": [],
@@ -2919,9 +2976,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "vata": -3,
-            "agni": 1,
-            "digestion": 1
+            "vata_axis": -3,
+            "agni_axis": 2
         },
         "instructions": "Favor warm cooked meals such as soups, stews, and porridge to stabilize Vata.",
         "contraindications": [],
@@ -2939,8 +2995,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "vata": -2,
-            "ojas": 1
+            "vata_axis": -2,
+            "ojas_axis": 1
         },
         "instructions": "Use healthy oils such as ghee or sesame oil to nourish tissues and calm dryness.",
         "contraindications": [],
@@ -2957,8 +3013,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "vata": -2,
-            "agni": 2
+            "vata_axis": -2,
+            "agni_axis": 2
         },
         "instructions": "Eat meals at consistent times to stabilize digestion and nervous system rhythm.",
         "contraindications": [],
@@ -2975,7 +3031,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta": -3
+            "pitta_axis": -3
         },
         "instructions": "Favor cooling foods such as cucumber, coconut, leafy greens, and sweet fruits.",
         "contraindications": [
@@ -2994,7 +3050,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta": -2
+            "pitta_axis": -2
         },
         "instructions": "Limit extremely spicy foods such as chili and excessive garlic.",
         "contraindications": [],
@@ -3011,8 +3067,9 @@
         "time_of_day": "afternoon",
         "duration": "meal",
         "variables": {
-            "pitta": -2,
-            "hydration": 1
+            "pitta_axis": -2,
+            "kapha_axis": 0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Eat hydrating fruits such as melon, pear, or grapes during the day.",
         "contraindications": [],
@@ -3029,8 +3086,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "kapha": -2,
-            "agni": 1
+            "kapha_axis": -2,
+            "agni_axis": 1
         },
         "instructions": "Favor lighter grains such as barley, millet, and quinoa.",
         "contraindications": [],
@@ -3047,7 +3104,7 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "kapha": -2
+            "kapha_axis": -2
         },
         "instructions": "Limit heavy dairy foods such as cheese and cream.",
         "contraindications": [],
@@ -3064,8 +3121,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "kapha": -2,
-            "agni": 2
+            "kapha_axis": -2,
+            "agni_axis": 2
         },
         "instructions": "Use warming spices such as ginger, cumin, turmeric, and black pepper.",
         "contraindications": [
@@ -3085,8 +3142,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion": 2,
-            "ama": -2
+            "agni_axis": 3.4,
+            "kapha_axis": -0.6
         },
         "instructions": "Eat until comfortably satisfied rather than completely full.",
         "contraindications": [],
@@ -3103,8 +3160,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "vata": -3,
-            "digestion": 1
+            "vata_axis": -3,
+            "agni_axis": 1
         },
         "instructions": "Prefer warm, moist, and nourishing foods.",
         "recommended_foods": [
@@ -3142,8 +3199,8 @@
         "time_of_day": "morning",
         "duration": "meal",
         "variables": {
-            "vata": -2,
-            "agni": 1
+            "vata_axis": -2,
+            "agni_axis": 1
         },
         "instructions": "Choose nourishing warm breakfasts.",
         "recommended_foods": [
@@ -3174,7 +3231,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta": -3
+            "pitta_axis": -3
         },
         "instructions": "Favor cooling, mildly sweet, and hydrating foods.",
         "recommended_foods": [
@@ -3209,8 +3266,9 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "pitta": -2,
-            "hydration": 1
+            "pitta_axis": -2,
+            "kapha_axis": 0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Drink cooling herbal beverages.",
         "recommended_foods": [
@@ -3238,8 +3296,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "kapha": -3,
-            "agni": 1
+            "kapha_axis": -3,
+            "agni_axis": 1
         },
         "instructions": "Favor light, warm, and stimulating foods.",
         "recommended_foods": [
@@ -3272,8 +3330,8 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "kapha": -2,
-            "agni": 2
+            "kapha_axis": -2,
+            "agni_axis": 2
         },
         "instructions": "Use warming spices and lighter grains.",
         "recommended_foods": [
@@ -3302,8 +3360,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "kapha": -1,
-            "digestion": 1
+            "kapha_axis": -1,
+            "agni_axis": 1
         },
         "instructions": "Rotate different millets in meals for metabolic health.",
         "recommended_foods": [
@@ -3330,8 +3388,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "circadian": 2,
-            "sleep": 1
+            "vata_axis": -1.5,
+            "ojas_axis": 1.5
         },
         "instructions": "Reduce lighting intensity during the evening to support natural melatonin production.",
         "contraindications": [],
@@ -3349,8 +3407,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -2,
-            "sleep": 1
+            "vata_axis": -2.5,
+            "ojas_axis": 0.5
         },
         "instructions": "Warm the feet with a brief soak or gentle massage to relax the nervous system before sleep.",
         "contraindications": [
@@ -3370,8 +3428,9 @@
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "stress": -2,
-            "sleep": 1
+            "vata_axis": -1.9,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.5
         },
         "instructions": "Practice slow breathing patterns to calm the nervous system before sleep.",
         "contraindications": [],
@@ -3389,8 +3448,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "sleep": 1,
-            "mental_clarity": 1
+            "vata_axis": -1.1,
+            "ojas_axis": 0.9
         },
         "instructions": "Ensure the bedroom has fresh air circulation before sleep.",
         "contraindications": [
@@ -3410,8 +3469,9 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "stress": -1,
-            "sleep": 1
+            "vata_axis": -1.2,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.5
         },
         "instructions": "Keep the sleep environment clean and uncluttered to reduce sensory stimulation.",
         "contraindications": [],
@@ -3429,8 +3489,9 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "stress": -1,
-            "circadian": 1
+            "vata_axis": -1.2,
+            "pitta_axis": -0.3,
+            "ojas_axis": 0.5
         },
         "instructions": "Reduce conversation and stimulation during the final hour before sleep.",
         "contraindications": [],
@@ -3448,8 +3509,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -2,
-            "stress": -1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Perform slow stretches to release tension accumulated during the day.",
         "contraindications": [
@@ -3469,8 +3530,9 @@
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 1
+            "vata_axis": -2,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Write down thoughts or unfinished tasks before sleep to reduce mental activity.",
         "contraindications": [],
@@ -3488,7 +3550,8 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "circadian": 5
+            "vata_axis": -2.5,
+            "ojas_axis": 2.5
         },
         "instructions": "Reduce exposure to bright screens after sunset.",
         "contraindications": [],
@@ -3506,8 +3569,8 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "circadian": 3,
-            "sleep": 2
+            "vata_axis": -2.5,
+            "ojas_axis": 2.5
         },
         "instructions": "Maintain a consistent bedtime and wake time daily.",
         "contraindications": [],
@@ -3525,8 +3588,8 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement": 2,
-            "vata": -1
+            "kapha_axis": -1,
+            "vata_axis": -2
         },
         "instructions": "Perform gentle rotations of neck, shoulders, wrists, hips, knees, and ankles to mobilize joints.",
         "contraindications": [
@@ -3546,9 +3609,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1,
-            "vata": -1,
-            "mental_clarity": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -2.1,
+            "ojas_axis": 0.4
         },
         "instructions": "Perform slow spinal extension movements such as gentle backbends to activate posture muscles.",
         "contraindications": [
@@ -3568,8 +3631,9 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement": 2,
-            "agni": 1
+            "kapha_axis": -1,
+            "vata_axis": -1,
+            "agni_axis": 1
         },
         "instructions": "Activate abdominal and core muscles using controlled movements.",
         "contraindications": [
@@ -3589,9 +3653,9 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement": 2,
-            "kapha": -2,
-            "mental_clarity": 1
+            "kapha_axis": -3,
+            "vata_axis": -1.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Perform energizing movement such as jumping, skipping, or dynamic stretching.",
         "contraindications": [
@@ -3611,8 +3675,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1,
-            "kapha": -1
+            "kapha_axis": -1.5,
+            "vata_axis": -0.5
         },
         "instructions": "Stand and walk briefly after long periods of sitting.",
         "contraindications": [],
@@ -3629,8 +3693,8 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "movement": 2,
-            "vata": -1
+            "kapha_axis": -1,
+            "vata_axis": -2
         },
         "instructions": "Perform hip circles, lunges, and mobility movements to improve joint range.",
         "contraindications": [
@@ -3649,8 +3713,9 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1,
-            "mental_clarity": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.1,
+            "ojas_axis": 0.4
         },
         "instructions": "Perform brief walking or stretching movements to improve circulation.",
         "contraindications": [],
@@ -3667,8 +3732,8 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata": -2,
-            "stress": -1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Perform slow stretches to relax muscles and release tension.",
         "contraindications": [
@@ -3688,8 +3753,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1,
-            "mental_clarity": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.1,
+            "ojas_axis": 0.4
         },
         "instructions": "Practice standing balance exercises to improve stability and coordination.",
         "contraindications": [
@@ -3708,8 +3774,9 @@
         "time_of_day": "afternoon",
         "duration": "20 minutes",
         "variables": {
-            "movement": 3,
-            "stress": -1
+            "kapha_axis": -1.5,
+            "vata_axis": -2.2,
+            "pitta_axis": -0.3
         },
         "instructions": "Engage in outdoor movement such as walking, sports, or light recreational activity.",
         "contraindications": [
@@ -3729,11 +3796,11 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement": 4,
-            "kapha": -3,
-            "agni": 1
+            "kapha_axis": -5,
+            "vata_axis": -2,
+            "agni_axis": 1
         },
-        "instructions": "Perform 6\u201312 rounds of Surya Namaskar to activate circulation and increase energy.",
+        "instructions": "Perform 6–12 rounds of Surya Namaskar to activate circulation and increase energy.",
         "contraindications": [
             "severe back pain"
         ],
@@ -3752,8 +3819,8 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "movement": 2,
-            "kapha": -1
+            "kapha_axis": -2,
+            "vata_axis": -1
         },
         "instructions": "Bend knees while raising arms overhead to strengthen legs and activate metabolism.",
         "contraindications": [
@@ -3773,8 +3840,9 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "movement": 2,
-            "mental_clarity": 1
+            "kapha_axis": -1,
+            "vata_axis": -1.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Step one foot forward and bend the knee while raising arms upward.",
         "contraindications": [
@@ -3794,7 +3862,8 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Extend arms sideways while bending the front knee.",
         "contraindications": [
@@ -3814,8 +3883,9 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "movement": 1,
-            "mental_clarity": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.1,
+            "ojas_axis": 0.4
         },
         "instructions": "Stand upright with balanced posture and steady breathing.",
         "contraindications": [],
@@ -3833,7 +3903,8 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Perform lateral bending stretches to improve flexibility.",
         "contraindications": [
@@ -3853,7 +3924,8 @@
         "time_of_day": "morning",
         "duration": "4 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Extend the torso sideways over a bent knee while stretching the arms.",
         "contraindications": [
@@ -3873,7 +3945,8 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Bend backward gently from standing position.",
         "contraindications": [
@@ -3893,8 +3966,9 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2,
-            "mental_clarity": 2
+            "kapha_axis": -1,
+            "vata_axis": -2.2,
+            "ojas_axis": 0.8
         },
         "instructions": "Balance on one leg with the other foot placed on the inner thigh.",
         "contraindications": [
@@ -3914,7 +3988,8 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Lift the chest upward while lying prone.",
         "contraindications": [
@@ -3934,7 +4009,8 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Lift hips upward while lying on the back.",
         "contraindications": [
@@ -3954,7 +4030,8 @@
         "time_of_day": "morning",
         "duration": "4 minutes",
         "variables": {
-            "movement": 3
+            "kapha_axis": -1.5,
+            "vata_axis": -1.5
         },
         "instructions": "Lift the chest and legs while holding the ankles.",
         "contraindications": [
@@ -3974,7 +4051,8 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress": -2
+            "vata_axis": -1.4,
+            "pitta_axis": -0.6
         },
         "instructions": "Lie flat on the back and relax the body completely.",
         "contraindications": [],
@@ -3992,7 +4070,8 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress": -2
+            "vata_axis": -1.4,
+            "pitta_axis": -0.6
         },
         "instructions": "Sit back on heels and stretch arms forward to relax the spine.",
         "contraindications": [
@@ -4012,7 +4091,8 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Draw knees toward chest while lying on the back.",
         "contraindications": [
@@ -4032,8 +4112,8 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "movement": 3,
-            "kapha": -2
+            "kapha_axis": -3.5,
+            "vata_axis": -1.5
         },
         "instructions": "Walk at a fast pace that slightly increases breathing and heart rate.",
         "contraindications": [
@@ -4054,8 +4134,8 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "movement": 3,
-            "kapha": -2
+            "kapha_axis": -3.5,
+            "vata_axis": -1.5
         },
         "instructions": "Climb stairs at a steady pace to improve cardiovascular fitness.",
         "contraindications": [
@@ -4075,8 +4155,8 @@
         "time_of_day": "morning",
         "duration": "25 minutes",
         "variables": {
-            "movement": 3,
-            "kapha": -2
+            "kapha_axis": -3.5,
+            "vata_axis": -1.5
         },
         "instructions": "Cycle at moderate intensity to improve endurance and circulation.",
         "contraindications": [
@@ -4096,8 +4176,8 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "movement": 4,
-            "kapha": -3
+            "kapha_axis": -5,
+            "vata_axis": -2
         },
         "instructions": "Jog at a comfortable pace while maintaining steady breathing.",
         "contraindications": [
@@ -4117,7 +4197,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Perform slow controlled squats keeping the back straight.",
         "contraindications": [
@@ -4138,7 +4219,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Lower the chest toward the floor while keeping the body straight.",
         "contraindications": [
@@ -4158,8 +4240,9 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "movement": 2,
-            "mental_clarity": 1
+            "kapha_axis": -1,
+            "vata_axis": -1.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Hold a straight body position supported by forearms and toes.",
         "contraindications": [
@@ -4179,7 +4262,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Step forward into a lunge while keeping the torso upright.",
         "contraindications": [
@@ -4199,7 +4283,8 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement": 2
+            "kapha_axis": -1,
+            "vata_axis": -1
         },
         "instructions": "Perform gentle movements for shoulders, hips, and spine.",
         "contraindications": [],
@@ -4216,7 +4301,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Perform slow hip rotations and stretches.",
         "contraindications": [
@@ -4235,7 +4321,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Rotate shoulders slowly and stretch arms overhead.",
         "contraindications": [
@@ -4254,8 +4341,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement": 1,
-            "vata": -1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.5
         },
         "instructions": "Stretch neck, shoulders, and back after long sitting.",
         "contraindications": [
@@ -4274,7 +4361,8 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "movement": 1
+            "kapha_axis": -0.5,
+            "vata_axis": -0.5
         },
         "instructions": "Perform slow neck rotations to release tension.",
         "contraindications": [
@@ -4293,8 +4381,9 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "movement": 2,
-            "stress": -1
+            "kapha_axis": -1,
+            "vata_axis": -1.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Walk slowly to relax the body and support digestion.",
         "contraindications": [
@@ -4313,8 +4402,9 @@
         "time_of_day": "evening",
         "duration": "8 minutes",
         "variables": {
-            "movement": 1,
-            "stress": -1
+            "kapha_axis": -0.5,
+            "vata_axis": -1.2,
+            "pitta_axis": -0.3
         },
         "instructions": "Perform gentle stretches to relax muscles before sleep.",
         "contraindications": [
@@ -4333,8 +4423,9 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 1
+            "vata_axis": -2,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.4
         },
         "instructions": "Pause and observe slow breathing to calm the nervous system.",
         "contraindications": [],
@@ -4352,8 +4443,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "attention_stability": 2,
-            "mental_clarity": 1
+            "vata_axis": -2.2,
+            "ojas_axis": 0.8
         },
         "instructions": "Focus attention on a single object such as breath or sound without distraction.",
         "contraindications": [],
@@ -4371,8 +4462,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "cognitive_energy": 1,
-            "mental_clarity": 2
+            "ojas_axis": 1.3,
+            "agni_axis": 0.5,
+            "vata_axis": -1.2
         },
         "instructions": "Recall events or information from the previous day to strengthen memory pathways.",
         "contraindications": [],
@@ -4390,8 +4482,9 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "stress": -2,
-            "mental_clarity": 2
+            "vata_axis": -2.6,
+            "pitta_axis": -0.6,
+            "ojas_axis": 0.8
         },
         "instructions": "Take a pause to release mental overload and reset attention.",
         "contraindications": [],
@@ -4409,8 +4502,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "ojas": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3,
+            "ojas_axis": 1
         },
         "instructions": "Visualize a calm or positive situation to shift emotional state.",
         "contraindications": [],
@@ -4427,8 +4521,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Observe sounds, sensations, and surroundings without judgment.",
         "contraindications": [],
@@ -4445,8 +4540,9 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "cognitive_energy": 2,
-            "mental_clarity": 1
+            "ojas_axis": 1.4,
+            "agni_axis": 1,
+            "vata_axis": -0.6
         },
         "instructions": "Engage in drawing, brainstorming, or idea generation activities.",
         "contraindications": [],
@@ -4464,8 +4560,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "attention_stability": 1,
-            "cognitive_energy": 1
+            "vata_axis": -0.8,
+            "ojas_axis": 0.7,
+            "agni_axis": 0.5
         },
         "instructions": "Perform simple calculations mentally to stimulate cognitive processing.",
         "contraindications": [],
@@ -4482,8 +4579,9 @@
         "time_of_day": "evening",
         "duration": "3 minutes",
         "variables": {
-            "ojas": 1,
-            "stress": -1
+            "ojas_axis": 1,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Reflect on positive events from the day.",
         "contraindications": [],
@@ -4500,8 +4598,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "attention_stability": 2,
-            "stress": -1
+            "vata_axis": -2.3,
+            "ojas_axis": 0.4,
+            "pitta_axis": -0.3
         },
         "instructions": "Take periodic breaks from digital stimulation to restore focus.",
         "contraindications": [],
@@ -4518,9 +4617,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "stress": -3,
-            "mental_clarity": 2,
-            "vata": -2
+            "vata_axis": -5.3,
+            "pitta_axis": -0.9,
+            "ojas_axis": 0.8
         },
         "instructions": "Close one nostril and inhale through the other, then alternate sides while breathing slowly.",
         "contraindications": [
@@ -4540,8 +4639,9 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress": -3,
-            "mental_clarity": 1
+            "vata_axis": -2.7,
+            "pitta_axis": -0.9,
+            "ojas_axis": 0.4
         },
         "instructions": "Inhale slowly and exhale with a gentle humming sound to calm the mind.",
         "contraindications": [
@@ -4561,8 +4661,8 @@
         "time_of_day": "afternoon",
         "duration": "5 minutes",
         "variables": {
-            "pitta": -2,
-            "stress": -1
+            "pitta_axis": -2.3,
+            "vata_axis": -0.7
         },
         "instructions": "Inhale through a rolled tongue and exhale slowly through the nose.",
         "contraindications": [
@@ -4581,8 +4681,9 @@
         "time_of_day": "morning",
         "duration": "3 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "kapha": -2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2,
+            "kapha_axis": -2
         },
         "instructions": "Perform rapid exhalations while the inhalation remains passive.",
         "contraindications": [
@@ -4602,7 +4703,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Choose a word and quickly list related words to stimulate thinking.",
         "contraindications": [],
@@ -4619,7 +4721,8 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Observe an object closely and note details such as shape, texture, and color.",
         "contraindications": [],
@@ -4636,7 +4739,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Look for patterns in numbers, shapes, or sequences.",
         "contraindications": [],
@@ -4653,8 +4757,9 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress": -1,
-            "ojas": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3,
+            "ojas_axis": 1
         },
         "instructions": "Reflect on positive events or achievements from the day.",
         "contraindications": [],
@@ -4671,8 +4776,9 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 2,
-            "stress": -1
+            "ojas_axis": 0.8,
+            "vata_axis": -1.9,
+            "pitta_axis": -0.3
         },
         "instructions": "Eat meals slowly without distractions to improve cognitive awareness and digestion.",
         "contraindications": [],
@@ -4690,8 +4796,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 2,
-            "ojas": 1
+            "ojas_axis": 1.8,
+            "vata_axis": -1.2
         },
         "instructions": "Include foods rich in healthy fats such as nuts, seeds, or fish to support brain function.",
         "contraindications": [],
@@ -4708,7 +4814,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 1
+            "ojas_axis": 0.4,
+            "vata_axis": -0.6
         },
         "instructions": "Include fruits, berries, and plant foods rich in antioxidants to support brain health.",
         "contraindications": [],
@@ -4725,7 +4832,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Eat balanced meals combining protein, fats, and complex carbohydrates to maintain steady energy.",
         "contraindications": [],
@@ -4742,7 +4850,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 1
+            "ojas_axis": 0.4,
+            "vata_axis": -0.6
         },
         "instructions": "Maintain adequate hydration throughout the day to support brain performance.",
         "contraindications": [],
@@ -4759,7 +4868,8 @@
         "time_of_day": "any",
         "duration": "15 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Spend time learning new information or skills to stimulate brain activity.",
         "contraindications": [],
@@ -4776,7 +4886,8 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Solve puzzles such as crosswords, sudoku, or logic problems.",
         "contraindications": [],
@@ -4793,7 +4904,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Visualize a scene or object in detail to strengthen attention and imagination.",
         "contraindications": [],
@@ -4810,7 +4922,8 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Focus on a task for 10 minutes without interruption to train sustained attention.",
         "contraindications": [],
@@ -4827,8 +4940,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "stress": -1,
-            "ojas": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3,
+            "ojas_axis": 1
         },
         "instructions": "Engage in thoughtful conversation with friends or family to stimulate mental engagement.",
         "contraindications": [],
@@ -4845,7 +4959,8 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 2
+            "ojas_axis": 0.8,
+            "vata_axis": -1.2
         },
         "instructions": "Recall and narrate stories or events to stimulate memory and communication skills.",
         "contraindications": [],
@@ -4862,8 +4977,8 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "mental_clarity": 2,
-            "attention_stability": 1
+            "ojas_axis": 1,
+            "vata_axis": -2
         },
         "instructions": "Set a clear intention for the day to guide attention and actions.",
         "contraindications": [],
@@ -4881,8 +4996,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "stress": -1,
-            "social_balance": 1
+            "vata_axis": -0.7,
+            "pitta_axis": -0.8,
+            "ojas_axis": 0.5
         },
         "instructions": "Practice calm and respectful communication in daily interactions.",
         "contraindications": [],
@@ -4900,8 +5016,8 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "attention_stability": 2,
-            "mental_clarity": 1
+            "vata_axis": -2.2,
+            "ojas_axis": 0.8
         },
         "instructions": "Focus on one task at a time to improve concentration.",
         "contraindications": [],
@@ -4919,8 +5035,8 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "ojas": 1,
-            "social_balance": 2
+            "ojas_axis": 2,
+            "pitta_axis": -1
         },
         "instructions": "Perform a small act of kindness for someone during the day.",
         "contraindications": [],
@@ -4938,8 +5054,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 1,
-            "social_balance": 2
+            "ojas_axis": 1.4,
+            "vata_axis": -0.6,
+            "pitta_axis": -1
         },
         "instructions": "Listen fully when others speak without interrupting.",
         "contraindications": [],
@@ -4957,8 +5074,9 @@
         "time_of_day": "evening",
         "duration": "1 hour",
         "variables": {
-            "attention_stability": 2,
-            "stress": -1
+            "vata_axis": -2.3,
+            "ojas_axis": 0.4,
+            "pitta_axis": -0.3
         },
         "instructions": "Spend an hour daily away from digital devices to reset mental attention.",
         "contraindications": [],
@@ -4976,8 +5094,9 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "mental_clarity": 1,
-            "stress": -1
+            "ojas_axis": 0.4,
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3
         },
         "instructions": "Keep personal spaces clean and organized to reduce cognitive clutter.",
         "contraindications": [],
@@ -4995,8 +5114,9 @@
         "time_of_day": "evening",
         "duration": "3 minutes",
         "variables": {
-            "ojas": 1,
-            "stress": -1
+            "ojas_axis": 1,
+            "vata_axis": -0.7,
+            "pitta_axis": -0.3
         },
         "instructions": "Reflect on three positive experiences from the day.",
         "contraindications": [],
@@ -5014,8 +5134,9 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "mental_clarity": 1,
-            "stress": -1
+            "ojas_axis": 0.4,
+            "vata_axis": -1.3,
+            "pitta_axis": -0.3
         },
         "instructions": "Pause briefly before responding in conversations.",
         "contraindications": [],
@@ -5032,8 +5153,8 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "attention_stability": 1,
-            "mental_clarity": 1
+            "vata_axis": -1.4,
+            "ojas_axis": 0.6
         },
         "instructions": "Plan and follow a simple schedule for the day.",
         "contraindications": [],
@@ -5054,8 +5175,8 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "ojas": 2,
-            "agni": 2
+            "ojas_axis": 2,
+            "agni_axis": 2
         },
         "instructions": "Favor nourishing warm meals such as soups, grains, and healthy fats during early winter when digestion is strong.",
         "contraindications": [
@@ -5077,8 +5198,8 @@
         "time_of_day": "morning",
         "duration": "seasonal habit",
         "variables": {
-            "vata": -3,
-            "ojas": 1
+            "vata_axis": -3,
+            "ojas_axis": 1
         },
         "instructions": "Regular oil massage during winter protects against dryness and cold.",
         "contraindications": [
@@ -5100,8 +5221,8 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "agni": 2,
-            "kapha": -1
+            "agni_axis": 2,
+            "kapha_axis": -1
         },
         "instructions": "Use warming spices such as ginger, pepper, and cumin during late winter.",
         "contraindications": [
@@ -5123,7 +5244,7 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "vata": -1
+            "vata_axis": -1
         },
         "instructions": "Protect the body from excessive cold and wind during late winter.",
         "contraindications": [],
@@ -5143,8 +5264,8 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "kapha": -3,
-            "ama": -2
+            "kapha_axis": -3.6,
+            "agni_axis": 1.4
         },
         "instructions": "Favor lighter foods and reduce heavy oily foods during spring.",
         "contraindications": [],
@@ -5164,8 +5285,8 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "kapha": -2,
-            "movement": 2
+            "kapha_axis": -3,
+            "vata_axis": -1
         },
         "instructions": "Increase physical activity during spring to reduce Kapha stagnation.",
         "contraindications": [
@@ -5187,8 +5308,9 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "pitta": -3,
-            "hydration": 2
+            "pitta_axis": -3,
+            "kapha_axis": 1,
+            "vata_axis": -1
         },
         "instructions": "Drink cooling fluids such as coconut water and herbal infusions.",
         "contraindications": [],
@@ -5209,7 +5331,7 @@
         "time_of_day": "midday",
         "duration": "habit",
         "variables": {
-            "pitta": -2
+            "pitta_axis": -2
         },
         "instructions": "Avoid excessive sun exposure during peak heat hours.",
         "contraindications": [],
@@ -5229,8 +5351,8 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "agni": 2,
-            "vata": -1
+            "agni_axis": 2,
+            "vata_axis": -1
         },
         "instructions": "Eat warm freshly prepared meals during the rainy season.",
         "contraindications": [],
@@ -5250,7 +5372,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "ama": -2
+            "agni_axis": 1.4,
+            "kapha_axis": -0.6
         },
         "instructions": "Avoid raw foods and salads during the rainy season to protect digestion.",
         "contraindications": [],
@@ -5270,8 +5393,8 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni": 2,
-            "ama": -1
+            "agni_axis": 2.7,
+            "kapha_axis": -0.3
         },
         "instructions": "Use ginger, cumin, and pepper to support digestion during monsoon.",
         "contraindications": [
@@ -5293,7 +5416,7 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta": -2
+            "pitta_axis": -2
         },
         "instructions": "Include bitter vegetables and greens to balance Pitta during autumn.",
         "contraindications": [],
@@ -5313,8 +5436,8 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "pitta": -2,
-            "stress": -1
+            "pitta_axis": -2.3,
+            "vata_axis": -0.7
         },
         "instructions": "Take a calm walk during cool evening hours to balance residual heat.",
         "contraindications": [

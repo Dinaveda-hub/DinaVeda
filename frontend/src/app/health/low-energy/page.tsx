@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Zap, Battery, Sparkles, AlertCircle, Coffee, Moon, Shield } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -136,9 +134,6 @@ export default function LowEnergyPage() {
           </div>
         </section>
       </article>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

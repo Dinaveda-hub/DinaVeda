@@ -1,14 +1,5 @@
-import { VedaState } from "./stateModel";
+import { VedaState, getBaseline } from "./stateModel";
 import { clamp } from "../utils/clamp";
-
-/**
- * recoveryEngine.ts
- * 
- * A deterministic engine that nudges physiological variables toward 
- * equilibrium (neutral 50) based on system vitality (Ojas).
- */
-
-const NEUTRAL = 50;
 const MAX_RECOVERY_STEP = 3;
 
 /**
@@ -16,14 +7,11 @@ const MAX_RECOVERY_STEP = 3;
  * Models biological reality where different systems recover at different rates.
  */
 const RECOVERY_SENSITIVITY: Partial<Record<keyof VedaState, number>> = {
-    stress: 1.0,           // Fast recovery
-    mental_clarity: 0.9,
-    energy: 0.9,
-    vata: 0.8,             // Slower structural recovery
-    pitta: 0.8,
-    kapha: 0.8,
-    digestion: 0.7,        // Slowest recovery systems
-    bloating: 0.7
+    vata_axis: 0.8,
+    pitta_axis: 0.8,
+    kapha_axis: 0.8,
+    agni_axis: 0.7,
+    ojas_axis: 0.9
 };
 
 /**
@@ -45,8 +33,9 @@ export function applyRecovery(state: VedaState): VedaState {
         const value = state[key];
         if (typeof value !== 'number') continue;
 
-        // Calculate drift from neutral 50
-        const drift = NEUTRAL - value;
+        // Calculate drift from personalized baseline (Prakriti or neutral)
+        const baseline = getBaseline(key, state);
+        const drift = baseline - value;
         const sensitivity = RECOVERY_SENSITIVITY[key] || 1.0;
 
         // Step formula: drift * 10% * Ojas-factor * Variable-sensitivity
@@ -58,7 +47,7 @@ export function applyRecovery(state: VedaState): VedaState {
             MAX_RECOVERY_STEP
         );
 
-        // Nudge the variable toward the neutral point
+        // Nudge the variable toward the baseline point
         // Using explicit cast to match the VedaState numeric type
         (nextState[key] as number) = clamp(value + step, 0, 100);
     }

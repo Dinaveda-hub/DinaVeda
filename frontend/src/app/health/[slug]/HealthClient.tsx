@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Sparkles, CheckCircle2, Compass, Layers } from "lucide-react";
 import { motion } from "framer-motion";
-import { SYMPTOMS, DOSHAS, COMBINATIONS } from "@/data/health-content";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
+import { SYMPTOMS, DOSHAS, COMBINATIONS } from "@/data";
 
 interface HealthClientProps {
   slug: string;
@@ -203,9 +201,6 @@ export default function HealthClient({ slug }: HealthClientProps) {
           </div>
         </section>
       </article>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

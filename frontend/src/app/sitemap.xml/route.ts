@@ -1,5 +1,5 @@
 import { CALCULATORS } from '@/data/calculators';
-import { CAUSES, COMBINATIONS, PROTOCOLS, PROTOCOL_MAP, ROUTINES } from '@/data/health-content';
+import { CAUSES, COMBINATIONS, PROTOCOL_GUIDES, PROTOCOL_MAP, ROUTINES } from '@/data';
 
 const BASE_URL = 'https://www.dinaveda.com';
 
@@ -23,7 +23,7 @@ export async function GET() {
   const causeRoutes = Object.keys(CAUSES).map(slug => `/cause/${slug}`);
   const healthRoutes = Object.keys(COMBINATIONS).map(slug => `/health/${slug}`);
   const protocolRoutes = [
-    ...Object.keys(PROTOCOLS),
+    ...Object.keys(PROTOCOL_GUIDES),
     ...Object.keys(PROTOCOL_MAP),
   ].map(slug => `/protocol/${slug}`);
   const routineRoutes = [

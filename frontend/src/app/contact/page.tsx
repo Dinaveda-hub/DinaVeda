@@ -4,7 +4,6 @@ import { motion, Variants } from "framer-motion";
 import { Mail, Globe, Sparkles, ArrowLeft, Heart, HelpCircle, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 
 export default function ContactPage() {
     const itemVariants: Variants = {
@@ -112,8 +111,6 @@ export default function ContactPage() {
                     </motion.div>
                 </motion.div>
             </main>
-
-            <Footer />
         </div>
     );
 }

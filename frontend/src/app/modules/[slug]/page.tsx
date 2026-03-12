@@ -12,7 +12,7 @@ import { getProtocolsForModule, ModuleName } from "@/engine/moduleEngine";
 import { formatProtocolName } from "@/utils/stringUtils";
 import { fetchUserProtocolWeights, ProtocolWeights } from "@/utils/userWeightsService";
 import ModuleHistory from "@/components/ModuleHistory";
-import { MODULE_MAP } from "@/data/moduleRegistry";
+import { MODULE_MAP, ModuleId } from "@/data/moduleRegistry";
 
 // Domain Module Pages — static imports for dynamic component rendering
 import NutrivedaPage from "@/modules/nutriveda/NutrivedaPage";
@@ -75,6 +75,14 @@ function RoutineText({ content }: { content: string }) {
         </div>
     );
 }
+
+const COLOR_MAP = {
+    air: { bg: "bg-blue-50", icon: "text-blue-800" },
+    water: { bg: "bg-teal-50", icon: "text-teal-800" },
+    earth: { bg: "bg-emerald-50", icon: "text-forest" },
+    fire: { bg: "bg-orange-50", icon: "text-orange-900" },
+    space: { bg: "bg-indigo-50", icon: "text-indigo-800" }
+};
 
 // ─────────────────────────────────────────────────────────
 // Page Component
@@ -155,8 +163,10 @@ export default function ModuleDetail({ params }: { params: Promise<{ slug: strin
     if (!isLoaded || !vikriti) return null;
 
     // Resolve module definition from shared registry
-    const mod = MODULE_MAP.get(slug) || MODULE_MAP.get("dinaveda")!;
+    const moduleId = slug as ModuleId;
+    const mod = MODULE_MAP[moduleId] || MODULE_MAP["dinaveda"];
     const Icon = mod.icon;
+    const styles = COLOR_MAP[mod.color as keyof typeof COLOR_MAP];
 
     // Fix #8: Dynamic component lookup
     const DomainComponent = MODULE_COMPONENTS[slug];
@@ -174,8 +184,8 @@ export default function ModuleDetail({ params }: { params: Promise<{ slug: strin
                         <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Back to Dashboard
                     </Link>
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        <div className="w-20 h-20 bg-white shadow-premium border border-slate-100 rounded-[2rem] flex items-center justify-center mb-8">
-                            <Icon className="w-10 h-10 text-forest" />
+                        <div className={`w-20 h-20 ${styles.bg} shadow-premium border border-white rounded-[2rem] flex items-center justify-center mb-8`}>
+                            <Icon className={`w-10 h-10 ${styles.icon}`} />
                         </div>
                         <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-5 md:mb-6 leading-none">{mod.title}</h1>
                         <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">{mod.subtitle}</p>

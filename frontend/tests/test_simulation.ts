@@ -47,6 +47,19 @@ async function runSimulationTest() {
     } else {
         console.error("❌ Simulation failed to increase Vata.");
     }
+
+    // Coupled Logic Assertions
+    if (finalState.agni < initialState.agni) {
+        console.log("✅ Coupled Logic: Agni dropped due to Circadian depletion.");
+    } else {
+        console.warn("⚠️ Coupled Logic: Agni did not drop. Check thresholds.");
+    }
+
+    if (finalState.ama > initialState.ama) {
+        console.log("✅ Coupled Logic: Ama rose due to Metabolic (Agni) weakness.");
+    } else {
+        console.warn("⚠️ Coupled Logic: Ama did not rise. Check thresholds.");
+    }
 }
 
 runSimulationTest().catch(console.error);

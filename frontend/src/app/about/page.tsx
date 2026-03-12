@@ -4,7 +4,6 @@ import { motion, Variants } from "framer-motion";
 import { Leaf, BrainCircuit, Heart, Sparkles, ArrowLeft, ShieldCheck, Database, Zap, Activity } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/components/Footer";
 
 export default function AboutPage() {
     // Animation Variants - Only used for key sections to minimize layout work
@@ -212,8 +211,6 @@ export default function AboutPage() {
                     </motion.section>
                 </div>
             </main>
-
-            <Footer />
         </div>
     );
 }

@@ -2,8 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalNav from "@/components/GlobalNav";
+import Footer from "@/components/layout/Footer";
 import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
+import { UpgradeProvider } from "@/contexts/UpgradeContext";
 import SystemController from "@/components/system/SystemController";
+import UpgradeModal from "@/components/billing/UpgradeModal";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -85,16 +88,22 @@ export default function RootLayout({
         
 
         <PhysiologyProvider>
-          {/* Unified system lifecycle: SW, OneSignal, auth registration, notifications, PWA prompt */}
-          <SystemController />
+          <UpgradeProvider>
+            {/* Unified system lifecycle: SW, OneSignal, auth registration, notifications, PWA prompt */}
+            <SystemController />
 
-          <div className="flex flex-col md:flex-row min-h-dvh">
-            <GlobalNav />
+            <div className="flex flex-col md:flex-row min-h-dvh">
+              <GlobalNav />
 
-            <main className="flex-1 flex flex-col min-h-dvh">
-              {children}
-            </main>
-          </div>
+              <main className="flex-1 flex flex-col min-h-dvh">
+                {children}
+              </main>
+            </div>
+            <Footer />
+
+            {/* Contextual Global Upgrade Modal */}
+            <UpgradeModal />
+          </UpgradeProvider>
         </PhysiologyProvider>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       </body>

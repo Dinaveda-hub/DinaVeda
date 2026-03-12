@@ -1,4 +1,4 @@
-import { CAUSES } from "@/data/health-content";
+import { CAUSES } from "@/data";
 import { notFound } from "next/navigation";
 import CauseClient from "./CauseClient";
 

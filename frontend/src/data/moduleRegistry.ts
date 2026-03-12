@@ -1,17 +1,27 @@
 import { Activity, Moon, Utensils, Zap, BrainCircuit, CloudSun, Leaf } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { VedaState } from "@/engine/stateModel";
+import { VikritiMetrics } from "@/engine/vikritiEngine";
+
+export type ModuleId =
+    | "somasleep"
+    | "nutriveda"
+    | "dinaveda"
+    | "rutuveda"
+    | "ayufit"
+    | "manasayur"
+    | "sattvaliving";
 
 export interface ModuleDefinition {
-    id: string;
+    id: ModuleId;
     title: string;
     subtitle: string;
     icon: LucideIcon;
-    color: string;
-    text: string;
+    color: "air" | "water" | "earth" | "fire" | "space";
     element: string;
     principles: string;
     vedaInsight: string;
-    stats: { label: string; getValue: (s: any, v?: any) => string }[];
+    stats: { label: string; getValue: (state: VedaState, vikriti?: VikritiMetrics) => string }[];
 }
 
 export const MODULES: ModuleDefinition[] = [
@@ -20,14 +30,13 @@ export const MODULES: ModuleDefinition[] = [
         title: "Somasleep",
         subtitle: "Nidra & Sleep Architecture",
         icon: Moon,
-        color: "bg-air",
-        text: "text-blue-800",
+        color: "air",
         element: "Air & Space",
         principles: "Nidra is the natural state of restoration. Proper Sleep provides strength, immunity, and cognitive clarity.",
         vedaInsight: "The Charaka Samhita defines Nidra as one of the 'Trayopastambha' (Three Pillars of Life). It is essential for the nourishment of Ojas.",
         stats: [
-            { label: "Circadian Sync", getValue: (s: any) => `${Math.round(s.circadian)}%` },
-            { label: "Sleep Quality", getValue: (s: any) => s.circadian > 80 ? "Restorative" : "Disrupted" }
+            { label: "Circadian Sync", getValue: (s) => `${Math.round(s.circadian)}%` },
+            { label: "Sleep Quality", getValue: (s) => s.circadian > 80 ? "Restorative" : "Disrupted" }
         ]
     },
     {
@@ -35,14 +44,13 @@ export const MODULES: ModuleDefinition[] = [
         title: "Nutriveda",
         subtitle: "Ahara & Food Medicine",
         icon: Utensils,
-        color: "bg-water",
-        text: "text-teal-800",
+        color: "water",
         element: "Water & Earth",
         principles: "Ahara is the primary source of biological fuel. When diet is correct, medicine is of no need.",
         vedaInsight: "Ahara dictates the quality of all seven Dhatus (tissues).",
         stats: [
-            { label: "Agni Strength", getValue: (s: any) => `${Math.round(s.agni)}/100` },
-            { label: "Metabolic State", getValue: (s: any) => s.agni > 75 ? "Teekshna (Sharp)" : s.agni > 50 ? "Sama (Balanced)" : "Manda (Dull)" }
+            { label: "Agni Strength", getValue: (s) => `${Math.round(s.agni)}/100` },
+            { label: "Metabolic State", getValue: (s) => s.agni > 75 ? "Teekshna (Sharp)" : s.agni > 50 ? "Sama (Balanced)" : "Manda (Dull)" }
         ]
     },
     {
@@ -50,14 +58,13 @@ export const MODULES: ModuleDefinition[] = [
         title: "Dinaveda",
         subtitle: "Dinacharya & Daily Rituals",
         icon: Activity,
-        color: "bg-earth",
-        text: "text-forest",
+        color: "earth",
         element: "Earth",
         principles: "Mastery over the self begins with mastery over the day. Daily rhythm establishes the biological clock.",
         vedaInsight: "Dinacharya aligns your individual biological rhythm with the cosmic solar cycle to prevent chronic imbalances.",
         stats: [
-            { label: "Ojas Core", getValue: (s: any) => `${Math.round(s.ojas_score)}` },
-            { label: "Vitality State", getValue: (s: any) => s.ojas_score > 85 ? "Excellent" : "Stable" }
+            { label: "Ojas Core", getValue: (s) => `${Math.round(s.ojas)}` },
+            { label: "Vitality State", getValue: (s) => s.ojas > 85 ? "Excellent" : "Stable" }
         ]
     },
     {
@@ -65,14 +72,13 @@ export const MODULES: ModuleDefinition[] = [
         title: "Rutuveda",
         subtitle: "Ritucharya & Seasonality",
         icon: CloudSun,
-        color: "bg-fire",
-        text: "text-orange-900",
+        color: "fire",
         element: "Fire",
         principles: "As the universe shifts, so must the inner biological fire. Harmony with seasons prevents disease.",
         vedaInsight: "Each Ritu (season) requires specific shifts in Ahara and Vihara. Kapha accumulates in winter and melts in spring.",
         stats: [
-            { label: "Current Ritu", getValue: () => getCurrentRitu().name },
-            { label: "Dosha Risk", getValue: () => getCurrentRitu().doshaRisk }
+            { label: "Current Ritu", getValue: () => CURRENT_RITU.name },
+            { label: "Dosha Risk", getValue: () => CURRENT_RITU.doshaRisk }
         ]
     },
     {
@@ -80,13 +86,12 @@ export const MODULES: ModuleDefinition[] = [
         title: "Ayufit",
         subtitle: "Vyayama & Flow State",
         icon: Zap,
-        color: "bg-fire",
-        text: "text-orange-800",
+        color: "fire",
         element: "Fire",
         principles: "Movement should provide lightness and strength without exhaustion. Exercise to half capacity.",
         vedaInsight: "Vyayama brings 'Laghava' (lightness) to the body. Excessive exercise generates Vata.",
         stats: [
-            { label: "Physical Strain", getValue: (s: any) => s.vata > 15 ? "High Vata" : "Balanced" },
+            { label: "Physical Strain", getValue: (s) => s.vata > 65 ? "High Vata" : "Balanced" },
             { label: "Movement Pulse", getValue: () => "Stable" }
         ]
     },
@@ -95,14 +100,13 @@ export const MODULES: ModuleDefinition[] = [
         title: "Manasayur",
         subtitle: "Sadvritta & Mental Flow",
         icon: BrainCircuit,
-        color: "bg-air",
-        text: "text-blue-900",
+        color: "air",
         element: "Air",
         principles: "The mind follows the body, and the body follows the mind. Cognitive clarity is the ultimate Ojas.",
         vedaInsight: "Mental hygiene prevents Pragyaparadha (crimes against wisdom).",
         stats: [
-            { label: "Mental Clarity", getValue: (s: any) => s.vata < 10 ? "Clear (Sattvic)" : "Active (Rajasic)" },
-            { label: "Stress Load", getValue: (s: any) => s.ojas_score < 70 ? "Elevated" : "Low" }
+            { label: "Mental Clarity", getValue: (s) => s.vata < 35 ? "Clear (Sattvic)" : "Active (Rajasic)" },
+            { label: "Stress Load", getValue: (s) => s.ojas < 40 ? "Elevated" : "Low" }
         ]
     },
     {
@@ -110,22 +114,23 @@ export const MODULES: ModuleDefinition[] = [
         title: "Sattvaliving",
         subtitle: "Ethical & Harmonious Life",
         icon: Leaf,
-        color: "bg-earth",
-        text: "text-forest",
+        color: "earth",
         element: "Space",
         principles: "Sattva is the quality of clarity, harmony, and balance. Daily behavioral rituals cultivate inner purity.",
         vedaInsight: "Sadvritta (ethical conduct) and daily behavioral hygiene prevent Pragyaparadha and maintain Ojas over time.",
         stats: [
-            { label: "Stress Load", getValue: (s: any) => `${Math.round(s.stress_load)}/100` },
-            { label: "Mental Clarity", getValue: (s: any) => s.mental_clarity > 60 ? "Clear (Sattvic)" : "Clouded (Tamasic)" }
+            { label: "Stress Load", getValue: (s) => `${Math.round(s.stress)}/100` },
+            { label: "Mental Clarity", getValue: (s) => s.mental_clarity > 60 ? "Clear (Sattvic)" : "Clouded (Tamasic)" }
         ]
     },
 ];
 
 // ─────────────────────────────────────────────────────────
-// Fast lookup map: slug → ModuleDefinition
+// Fast lookup map: ModuleId → ModuleDefinition
 // ─────────────────────────────────────────────────────────
-export const MODULE_MAP = new Map(MODULES.map(m => [m.id, m]));
+export const MODULE_MAP: Record<ModuleId, ModuleDefinition> = Object.fromEntries(
+    MODULES.map(m => [m.id, m])
+) as Record<ModuleId, ModuleDefinition>;
 
 // ─────────────────────────────────────────────────────────
 // Season Engine (Ritu)
@@ -155,5 +160,7 @@ const RITU_CALENDAR: RituInfo[] = [
 export function getCurrentRitu(): RituInfo {
     const month = new Date().getMonth(); // 0-indexed
     const index = Math.floor(month / 2); // 0→0, 1→0, 2→1, 3→1, ...
-    return RITU_CALENDAR[index];
+    return RITU_CALENDAR[index] ?? RITU_CALENDAR[0];
 }
+
+export const CURRENT_RITU = getCurrentRitu();

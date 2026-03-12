@@ -6,11 +6,13 @@ import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import SubscriptionStatus from "./SubscriptionStatus";
 
 interface PricingSectionProps {
+    userId?: string;
     onSuccess?: () => void;
 }
 
-export default function PricingSection({ onSuccess }: PricingSectionProps) {
-    const { userId, subscriptionStatus } = usePhysiologyState();
+export default function PricingSection({ userId: propUserId, onSuccess }: PricingSectionProps) {
+    const { userId: hookUserId, subscriptionStatus } = usePhysiologyState();
+    const userId = propUserId || hookUserId;
 
     return (
         <div className="w-full">
@@ -20,7 +22,7 @@ export default function PricingSection({ onSuccess }: PricingSectionProps) {
                 </div>
             ) : null}
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
                 {plans.map((plan) => (
                     <PlanCard
                         key={plan.id}

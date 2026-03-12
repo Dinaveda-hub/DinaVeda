@@ -1,21 +1,15 @@
 import { VedaState } from './stateModel';
 import signals from '../data/signals.json';
 import protocols from '../data/protocols.json';
-import { variableSensitivity } from './sensitivityEngine';
-import { getSeasonalMultipliers } from './seasonalAdjuster';
-import { clamp } from '../utils/clamp';
-import { computeVikriti } from './vikritiEngine';
-import { computeHealthScore } from './healthScoreEngine';
-import { computeIPI } from './imbalancePressureEngine';
-import { detectNotificationEvents } from './notificationEventEngine';
-import { sendNotification } from '../services/notificationService';
-import notificationRulesRaw from '../data/notificationRules.json';
+import { runPhysiologyCycle } from './physiologyOrchestrator';
+import { ENGINE_CONFIG } from './config';
+
+const { clamp } = ENGINE_CONFIG.ranges;
 
 import { createClient } from '../utils/supabase/client';
+import { ProtocolWeights } from '@/utils/userWeightsService';
 
 import signalConflicts from '../data/rules/signal_conflicts.json';
-
-const notificationRules = notificationRulesRaw as Record<string, { time: string, message: string }>;
 
 const MAX_DAILY_DELTA = 15;
 const SIGNAL_COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
@@ -76,7 +70,7 @@ function getTODFactor(actualTime: string | null, recommendedTod: string): { fact
     else if (delta <= 4) factor = 0.7;
     else factor = 0.5;
 
-    const drag = clamp(delta * 0.5, 0, 6);
+    const drag = clamp(delta * 0.5);
 
     return { factor, drag };
 }
@@ -105,9 +99,16 @@ export async function applySignal(signalName: string, state: VedaState, userId: 
     return applySignals([signalName], state, userId, performedAt);
 }
 
-export async function applySignals(signalsList: string[], state: VedaState, userId: string = 'guest', performedAt?: string): Promise<UpdateResult> {
+export async function applySignals(
+    signalsList: string[], 
+    state: VedaState, 
+    userId: string = 'guest', 
+    performedAt?: string,
+    userWeights: ProtocolWeights = {},
+    healthGoal: string = "general_wellness"
+): Promise<UpdateResult> {
     let uniqueSignals = Array.from(new Set(signalsList));
-    if (uniqueSignals.length === 0) return applyEffects(state, []);
+    if (uniqueSignals.length === 0) return applyEffects(state, [], performedAt, [], userWeights, healthGoal);
 
     // ─────────────────────────────────────────────
     // 1. SIGNAL CONFLICT RESOLUTION
@@ -120,7 +121,7 @@ export async function applySignals(signalsList: string[], state: VedaState, user
             const sev1 = severityScore[signalLibrary[s1]?.severity || 'minor'];
             const sev2 = severityScore[signalLibrary[s2]?.severity || 'minor'];
 
-            // Keep the stronger signal. If equal, keep the second one (more recent in theory)
+            // If severity is equal or sev2 is higher, prefer s2 (the later entry)
             if (sev1 > sev2) {
                 signalsToRemove.add(s2);
             } else {
@@ -152,7 +153,10 @@ export async function applySignals(signalsList: string[], state: VedaState, user
 
     uniqueSignals.forEach(signalName => {
         const signal = signalLibrary[signalName];
-        if (!signal) return;
+        if (!signal) {
+            console.warn(`Engine Warning: Unknown signal detected: ${signalName}`);
+            return;
+        }
 
         // Skip guard for positive signals
         if (signal.type !== 'negative') {
@@ -182,35 +186,19 @@ export async function applySignals(signalsList: string[], state: VedaState, user
         .map(name => signalLibrary[name]?.effects)
         .filter((e): e is Partial<Record<keyof VedaState, number>> => !!e);
 
-    return applyEffects(state, effects, performedAt, signalsToApply);
+    return applyEffects(state, effects, performedAt, signalsToApply, userWeights, healthGoal);
 }
 
-// ─────────────────────────────────────────────
-// BIOLOGICAL MOMENTUM FACTORS
-// ─────────────────────────────────────────────
-const MOMENTUM_FACTORS: Partial<Record<NumericKeys, number>> = {
-    // Doshas (vata, pitta, kapha): 0.8 (Moderate resistance)
-    vata: 0.8, pitta: 0.8, kapha: 0.8,
-    // Vitality & Fire (ojas, agni, immunity): 0.7 (High resistance - fundamental stability)
-    ojas: 0.7, agni: 0.7, immunity: 0.7,
-    // Circadian & Sleep: 0.7 (High resistance - rhythms take time to shift)
-    circadian: 0.7, sleep: 0.8,
-    // Physical (stiffness, inflammation, skin): 0.6 (High resistance - slow tissue response)
-    stiffness: 0.6, inflammation: 0.6, skin_health: 0.6, hair_health: 0.6,
-    // Digestion & Metabolic: 0.8
-    digestion: 0.8, elimination: 0.8, appetite: 0.8, energy: 0.8,
-    // Fast Shifting (Mental & Fluctuating stats): 0.9
-    stress: 0.9, mood: 0.9, mental_clarity: 0.9, irritability: 0.9,
-    bloating: 0.9, hydration: 0.9
-};
+// (MOMENTUM_FACTORS removed here to be handled by applyMomentum)
 
 export function applyEffects(
     state: VedaState,
     effectsList: Partial<Record<keyof VedaState, number>>[],
     performedAt?: string,
-    signalNames: string[] = []
+    signalNames: string[] = [],
+    userWeights: ProtocolWeights = {},
+    healthGoal: string = "general_wellness"
 ): UpdateResult {
-    const multipliers = getSeasonalMultipliers(state.rutu_index);
     let nextState = { ...state };
     let dailyCircadianDrag = 0;
 
@@ -269,58 +257,28 @@ export function applyEffects(
         }
     }
 
-    // 2. Apply Pipeline
-    const typedBatchKeys = Object.keys(batchDeltas) as NumericKeys[];
-    for (const variable of typedBatchKeys) {
-        const totalBaseEffect = batchDeltas[variable];
+    // 2. Apply Raw Deltas (clamped 0-100)
+    // Only evolve the 5 core axes directly. 
+    // Any derived variables in the signal vector are currently ignored (or should be mapped).
+    const CORE_AXES: (keyof VedaState)[] = ['vata_axis', 'pitta_axis', 'kapha_axis', 'agni_axis', 'ojas_axis'];
+    
+    for (const variable of CORE_AXES) {
+        const numKey = variable as NumericKeys;
+        const totalBaseEffect = batchDeltas[numKey];
         if (typeof totalBaseEffect !== 'number') continue;
 
-        let effect = totalBaseEffect;
-
-        // I. Seasonal Multiplier (Vata, Pitta, Kapha only)
-        if (variable === 'vata') effect *= multipliers.vata;
-        else if (variable === 'pitta') effect *= multipliers.pitta;
-        else if (variable === 'kapha') effect *= multipliers.kapha;
-
-        // II. Sensitivity Multiplier
-        const sensitivityMap = variableSensitivity as Record<NumericKeys, number>;
-        const sensitivity = sensitivityMap[variable] ?? 1.0;
-        effect *= sensitivity;
-
-        // III. Delta Limit (MAX_DAILY_DELTA = 15)
-        const clampedEffect = clamp(effect, -MAX_DAILY_DELTA, MAX_DAILY_DELTA);
-
-        // IV. Biological Momentum Damping
-        let momentum = MOMENTUM_FACTORS[variable] ?? 1.0;
-        
-        // Age Factor: Older physiology changes slower. age_factor default is 50.
-        const ageDamping = 1 - (state.age_factor / 200);
-        momentum *= ageDamping;
-
-        const finalEffect = clampedEffect * momentum;
-
-        // VII. Noise Threshold: Ignore micro-updates (< 0.5) to maintain stability
-        if (Math.abs(finalEffect) < 0.5) continue;
-
-        // V. State Update & VI. Clamp (0-100)
-        const currentValue = nextState[variable];
-        nextState[variable] = clamp(currentValue + finalEffect, 0, 100);
+        const currentValue = nextState[variable] as number;
+        nextState[variable] = clamp(currentValue + totalBaseEffect) as never;
     }
 
-    // 3. Detect Events (Purity: detect but do not execute side effects)
-    const events = detectNotificationEvents(nextState);
+    // 3. Delegate to central physiology orchestrator 
+    // This executes: Momentum -> Seasonal Drift -> Recovery -> Baseline Stabilizer -> Analysis -> Events
+    const { state: stabilizedState, notifications } = runPhysiologyCycle(
+        state,              // previous state
+        nextState,          // raw signaled state
+        userWeights,
+        healthGoal
+    );
 
-    return { state: nextState, events };
-}
-
-export function updateScores(state: VedaState, _prakriti?: unknown) {
-    const vikriti = computeVikriti(state);
-    const healthScore = computeHealthScore(state, vikriti.drift_index);
-    const ipi = computeIPI(state, vikriti.drift_index);
-
-    return {
-        vikriti,
-        healthScore,
-        ipi
-    };
+    return { state: stabilizedState, events: notifications };
 }

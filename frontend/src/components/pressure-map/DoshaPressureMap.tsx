@@ -30,7 +30,7 @@ export default function DoshaPressureMap() {
     ];
 
     return (
-        <section className="w-full glass p-8 md:p-10 rounded-[2.5rem] border border-white/60 shadow-premium">
+        <section className="w-full glass p-6 md:p-10 rounded-[2.5rem] border border-white/60 shadow-premium">
 
             {/* Header */}
             <h2 className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
@@ -38,10 +38,10 @@ export default function DoshaPressureMap() {
             </h2>
 
             {/* Two-column layout: Triangle + Radar */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
                 {/* Dosha Triangle */}
                 <div className="flex flex-col items-center">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4">Dosha Balance</p>
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6">Dosha Balance</p>
                     <DoshaTriangle
                         vata={state.vata}
                         pitta={state.pitta}
@@ -51,7 +51,7 @@ export default function DoshaPressureMap() {
 
                 {/* Physiology Radar */}
                 <div className="flex flex-col items-center">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4">System Vitality</p>
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6">System Vitality</p>
                     <PhysiologyRadar axes={radarAxes} />
                 </div>
             </div>
@@ -63,7 +63,7 @@ export default function DoshaPressureMap() {
                 <BodySystemBar label="Stress" value={state.stress} icon={<Zap className="w-3 h-3 text-red-400" />} />
                 <BodySystemBar label="Circadian" value={state.circadian} icon={<Moon className="w-3 h-3 text-indigo-500" />} />
                 <BodySystemBar label="Energy" value={state.energy} icon={<Zap className="w-3 h-3 text-emerald-500" />} />
-                <BodySystemBar label="Mental Clarity" value={state.mental_clarity} icon={<BrainCircuit className="w-3 h-3 text-violet-500" />} />
+                <BodySystemBar label="Clarity" value={state.mental_clarity} icon={<BrainCircuit className="w-3 h-3 text-violet-500" />} />
             </div>
 
             {/* Interpretation */}

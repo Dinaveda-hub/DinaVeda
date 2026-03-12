@@ -31,6 +31,15 @@ export async function submitProtocolFeedback(
             return false;
         }
         
+        // --- ADAPTIVE LEARNING LOOP ---
+        // If user provided feedback, we immediately update the learned weights
+        // Perceived shift: -1 (worse), 0 (no change), 1 (better)
+        const effectiveness = perceivedShift; // Map -1..1 directly to effectiveness
+        
+        // Import updateProtocolWeights dynamically to avoid circular dependencies if any
+        const { updateProtocolWeights } = await import("@/engine/effectLearningEngine");
+        await updateProtocolWeights(user.id, protocolName, effectiveness);
+
         return true;
     } catch (e) {
         console.error("Exception in submitProtocolFeedback:", e);

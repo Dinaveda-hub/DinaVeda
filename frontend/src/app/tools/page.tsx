@@ -4,8 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Flame, Wind, Droplets, Activity, Sparkles, ShieldCheck, Target, HeartPulse } from "lucide-react";
 import { CALCULATORS } from "@/data/calculators";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 export default function ToolsHubPage() {
   const container = {
@@ -143,9 +141,6 @@ export default function ToolsHubPage() {
           </div>
         </section>
       </main>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

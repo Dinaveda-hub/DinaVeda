@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, BookOpen, Wind, Flame, Droplets, Zap, Shield, Sparkles, Sun, Moon, Leaf, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 const PILLAR_JSON_LD = {
   "@context": "https://schema.org",
@@ -287,9 +285,6 @@ export default function GuidePage() {
           </dl>
         </section>
 
-        {/* Cluster Grid Footer */}
-        <TopicHubFooter />
-
         {/* Final CTA */}
         <section className="py-24 px-6 text-center relative z-10">
           <div className="max-w-4xl mx-auto overflow-hidden bg-forest p-16 md:p-24 rounded-[4rem] text-white shadow-3xl shadow-forest/20">
@@ -310,8 +305,6 @@ export default function GuidePage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

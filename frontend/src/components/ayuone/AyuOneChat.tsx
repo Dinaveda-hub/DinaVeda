@@ -7,7 +7,7 @@ import { applySignals } from "@/engine/stateUpdater";
 import { validateLLMSignals } from "@/engine/signalValidator";
 import { useChatLimits } from "@/hooks/useChatLimits";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import UpgradeModal from "@/components/billing/UpgradeModal";
+import { useUpgrade } from "@/contexts/UpgradeContext";
 
 // Limit chat history to 50 messages to prevent infinite scrolling lag
 const MAX_MESSAGES = 50;
@@ -21,7 +21,7 @@ export default function AyuOneChat({ isOpen, onClose }: AyuOneChatProps) {
     const { state, updateState, userId, subscriptionStatus } = usePhysiologyState();
     const { checkLimit, incrementCount, isAtDailyCap, timeUntilDailyReset } = useChatLimits();
     const [limitError, setLimitError] = useState<string | null>(null);
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const { openUpgrade } = useUpgrade();
 
     const [messages, setMessages] = useState<{ role: string; text: string }[]>([
         { role: "ai", text: "Namaste! How can I guide your wellness today? Tell me about your sleep, meals, or any discomfort." }
@@ -50,7 +50,7 @@ export default function AyuOneChat({ isOpen, onClose }: AyuOneChatProps) {
 
         const limitStatus = checkLimit();
         if (limitStatus === 'daily_cap') {
-            setIsUpgradeModalOpen(true);
+            openUpgrade('coach_limit');
             return;
         }
         if (limitStatus === 'rate_limit') {
@@ -219,7 +219,7 @@ export default function AyuOneChat({ isOpen, onClose }: AyuOneChatProps) {
                     
                     {isAtDailyCap ? (
                         <button
-                            onClick={() => setIsUpgradeModalOpen(true)}
+                            onClick={() => openUpgrade('coach_limit')}
                             className="bg-amber-100/50 border border-amber-200 text-amber-700 py-3 rounded-[1.5rem] text-xs font-black uppercase tracking-widest w-full hover:bg-amber-100 transition-colors shadow-sm"
                         >
                             Upgrade for Unlimited AI Coaching
@@ -247,16 +247,7 @@ export default function AyuOneChat({ isOpen, onClose }: AyuOneChatProps) {
                 </div>
             </motion.div>
 
-            {/* Premium Upgrade Modal Layered Above Chat */}
-            <UpgradeModal
-                isOpen={isUpgradeModalOpen}
-                onClose={() => setIsUpgradeModalOpen(false)}
-                userId={userId || ''}
-                onSuccess={() => {
-                    setIsUpgradeModalOpen(false);
-                    window.location.reload(); 
-                }}
-            />
+            {/* Premium Upgrade Modal is now handled globally in layout.tsx */}
         </AnimatePresence>
     );
 }

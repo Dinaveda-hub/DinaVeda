@@ -1,4 +1,13 @@
-export const plans = [
+export interface Plan {
+    id: "monthly" | "yearly";
+    name: string;
+    price: number;
+    interval: "month" | "year";
+    features: string[];
+    highlight?: boolean;
+}
+
+export const plans: Plan[] = [
     {
       id: "monthly",
       name: "Monthly Premium",

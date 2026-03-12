@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Brain, AlertCircle, Sparkles, Zap, Shield, Info, Activity } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -118,9 +116,6 @@ export default function BrainFogPage() {
           </div>
         </section>
       </article>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

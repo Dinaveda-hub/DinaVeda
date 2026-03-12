@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ShieldCheck, Clock, AlertTriangle, Bookmark, Heart, Info, Sparkles, Activity } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 interface ProtocolClientProps {
   name: string;
@@ -228,9 +226,6 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
 
         </section>
       </main>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

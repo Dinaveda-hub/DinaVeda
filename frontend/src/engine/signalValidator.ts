@@ -10,6 +10,23 @@ const signalLibrary = signalsRaw as Record<string, {
 // Maximum number of signals the AI can assert in a single prompt
 const MAX_SIGNALS_PER_PROMPT = 3;
 
+// Precomputed O(1) lookup map for synonyms and canonical names
+const SYNONYM_MAP: Record<string, string> = (() => {
+    const map: Record<string, string> = {};
+    for (const [canonicalName, data] of Object.entries(signalLibrary)) {
+        // Map canonical name to itself (lowercased)
+        map[canonicalName.toLowerCase()] = canonicalName;
+        
+        // Map all synonyms to the canonical name
+        if (data.synonyms) {
+            for (const synonym of data.synonyms) {
+                map[synonym.toLowerCase().trim()] = canonicalName;
+            }
+        }
+    }
+    return map;
+})();
+
 /**
  * Validates an array of LLM-extracted signal strings.
  * Discards hallucinations, deduplicates overlaps, and enforces a hard cap.
@@ -24,23 +41,12 @@ export function validateLLMSignals(extractedSignals: string[]): string[] {
 
         const normalizedSignal = rawSignal.toLowerCase().trim();
 
-        // Check if exact match exists in JSON library
-        if (signalLibrary[normalizedSignal]) {
-            validSignals.add(normalizedSignal);
-            continue;
-        }
-
-        // Check synonyms if not exact match
-        let foundMatch = false;
-        for (const [canonicalName, data] of Object.entries(signalLibrary)) {
-            if (data.synonyms && data.synonyms.includes(normalizedSignal)) {
-                validSignals.add(canonicalName);
-                foundMatch = true;
-                break;
-            }
-        }
-
-        if (!foundMatch) {
+        // Check precomputed map for O(1) lookup (canonical or synonym)
+        const canonicalMatch = SYNONYM_MAP[normalizedSignal];
+        
+        if (canonicalMatch) {
+            validSignals.add(canonicalMatch);
+        } else {
             console.warn(`[SignalValidator] Dropped hallucinated/unknown signal: ${normalizedSignal}`);
         }
     }

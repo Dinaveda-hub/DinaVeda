@@ -37,3 +37,37 @@ export async function fetchUserProtocolWeights(): Promise<ProtocolWeights> {
         return {};
     }
 }
+
+/**
+ * Saves or updates a specific protocol's weight multipliers.
+ */
+export async function saveUserProtocolWeights(
+    protocolName: string,
+    multipliers: Record<string, number>
+): Promise<boolean> {
+    try {
+        const supabase = createClient();
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+        if (authError || !user) return false;
+
+        const { error } = await supabase
+            .from('user_protocol_weights')
+            .upsert({
+                user_id: user.id,
+                protocol_name: protocolName,
+                effect_multipliers: multipliers,
+                last_updated: new Date().toISOString()
+            }, { onConflict: 'user_id,protocol_name' });
+
+        if (error) {
+            console.error("Error saving protocol weights:", error);
+            return false;
+        }
+
+        return true;
+    } catch (e) {
+        console.error("Exception saving protocol weights", e);
+        return false;
+    }
+}

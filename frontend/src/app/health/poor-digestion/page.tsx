@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Thermometer, Flame, AlertCircle, Sparkles, CheckCircle2, Shield, Activity } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -117,9 +115,6 @@ export default function PoorDigestionPage() {
           </div>
         </section>
       </article>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

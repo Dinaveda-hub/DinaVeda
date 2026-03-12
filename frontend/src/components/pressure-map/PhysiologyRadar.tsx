@@ -40,8 +40,11 @@ export default function PhysiologyRadar({ axes }: { axes: PhysiologyAxis[] }) {
         .join(" ");
 
     return (
-        <div className="flex flex-col items-center">
-            <svg width="220" height="220" viewBox="0 0 220 220" className="overflow-visible">
+        <div className="flex flex-col items-center w-full">
+            <svg 
+                viewBox="0 0 220 220" 
+                className="w-full max-w-[220px] h-auto overflow-visible"
+            >
                 {/* Concentric grid polygons */}
                 {gridLevels.map((frac) => {
                     const pts = Array.from({ length: count }, (_, i) => {
@@ -91,7 +94,7 @@ export default function PhysiologyRadar({ axes }: { axes: PhysiologyAxis[] }) {
                             fill={a.color}
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            transition={{ delay: 0.5 + i * 0.1 }}
+                            transition={{ delay: 0.3 + i * 0.05 }}
                         />
                     );
                 })}

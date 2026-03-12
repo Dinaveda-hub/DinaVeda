@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ShieldAlert, Sparkles, Droplets } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
-import TopicHubFooter from "@/components/TopicHubFooter";
 
 const ARTICLE_JSON_LD = {
   "@context": "https://schema.org",
@@ -97,9 +95,6 @@ export default function AmaPage() {
           </div>
         </div>
       </article>
-
-      <TopicHubFooter />
-      <Footer />
     </div>
   );
 }

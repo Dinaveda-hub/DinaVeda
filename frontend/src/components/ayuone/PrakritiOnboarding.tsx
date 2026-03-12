@@ -60,9 +60,13 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
             prakriti_vata: metrics.prakriti_vata,
             prakriti_pitta: metrics.prakriti_pitta,
             prakriti_kapha: metrics.prakriti_kapha,
+            confidence: metrics.confidence,
+            is_extreme: metrics.is_extreme,
             insights: [
                 `Your ${metrics.constitution_string} nature suggests a specific thermodynamic baseline.`,
-                `This biological blueprint is now the permanent anchor for your daily health analysis.`
+                metrics.confidence > 25 
+                    ? `With a dominance index of ${metrics.confidence}, your constitution is highly distinct.`
+                    : `Your constitution shows signs of significant balance between multiple forces.`
             ],
             timestamp: new Date().toISOString()
         };
@@ -261,6 +265,10 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
                         </div>
                         <span className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
                         <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter">{constitution.type}</h3>
+                        <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-forest/5 border border-forest/10">
+                            <span className="text-[10px] font-black text-forest/60 uppercase tracking-widest">Confidence Index</span>
+                            <span className="text-[10px] font-black text-forest">{constitution.confidence}</span>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 py-8 border-y border-forest/5">

@@ -5,9 +5,8 @@ import { ArrowRight, ShieldCheck, Activity, BrainCircuit, CheckCircle2, ChevronD
 import PhysiologyPreview from "@/components/PhysiologyPreview";
 import DailyInsightTimeline from "@/components/DailyInsightTimeline";
 import SampleInsightCard from "@/components/SampleInsightCard";
-import Footer from "@/components/Footer";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 
 const FAQS = [
   { q: "Is this medical advice?", a: "No. Dinaveda is an educational wellness platform designed to align your daily lifestyle with natural rhythms. It is not intended to diagnose, treat, or cure any medical conditions." },
@@ -20,14 +19,15 @@ export default function LandingPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     return (
-        <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans overflow-x-hidden selection:bg-forest/20 selection:text-forest">
-            {/* Ambient background glows */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-40 -mt-40 blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40 blur-3xl" />
-            
-            {/* 1. Redesigned Hero Section */}
-            <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 max-w-7xl mx-auto flex flex-col items-center text-center lg:text-left lg:flex-row gap-12 relative z-10">
-              <div className="absolute -z-10 w-[400px] h-[400px] bg-emerald-300/20 blur-[120px] rounded-full hidden md:block right-10" />
+        <LazyMotion features={domAnimation}>
+            <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest" style={{ transform: "translateZ(0)" }}>
+                {/* Ambient background glows */}
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-40 -mt-40 blur-2xl" style={{ willChange: "transform" }} />
+                <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40 blur-2xl" style={{ willChange: "transform" }} />
+                
+                {/* 1. Redesigned Hero Section */}
+                <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 max-w-7xl mx-auto flex flex-col items-center text-center lg:text-left lg:flex-row gap-12 relative z-10">
+                  <div className="absolute -z-10 w-[300px] h-[300px] bg-emerald-300/20 blur-[60px] rounded-full hidden md:block right-10" style={{ willChange: "transform" }} />
 
               {/* LEFT SIDE */}
               <div className="flex-1 space-y-8">
@@ -124,27 +124,27 @@ export default function LandingPage() {
             <section id="features" className="py-16 md:py-24 px-6 bg-white border-y border-slate-100 relative z-10">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                    <motion.div whileHover={{ y: -4 }} className="text-center md:text-left p-6 transition-all">
+                    <div className="text-center md:text-left p-6 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-forest flex items-center justify-center mb-6 mx-auto md:mx-0">
                             <ShieldCheck className="w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-black text-forest mb-3 tracking-tight">Know Your Body Type</h3>
                         <p className="text-sm font-bold text-slate-500 leading-relaxed">Discover your unique Dosha profile and understand your innate physiological strengths.</p>
-                    </motion.div>
-                    <motion.div whileHover={{ y: -4 }} className="text-center md:text-left p-6 transition-all">
+                    </div>
+                    <div className="text-center md:text-left p-6 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-amber-50 text-gold flex items-center justify-center mb-6 mx-auto md:mx-0">
                             <Activity className="w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-black text-forest mb-3 tracking-tight">Track Daily Rhythms</h3>
                         <p className="text-sm font-bold text-slate-500 leading-relaxed">Monitor your energy, digestion, and sleep through our advanced analytical engine.</p>
-                    </motion.div>
-                    <motion.div whileHover={{ y: -4 }} className="text-center md:text-left p-6 transition-all">
+                    </div>
+                    <div className="text-center md:text-left p-6 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-forest/5 text-forest flex items-center justify-center mb-6 mx-auto md:mx-0">
                             <BrainCircuit className="w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-black text-forest mb-3 tracking-tight">Personalized Rituals</h3>
                         <p className="text-sm font-bold text-slate-500 leading-relaxed">Receive time-based protocols mapped precisely to your Ayurvedic constitution.</p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -172,7 +172,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="bg-forest text-white p-8 md:p-10 rounded-[2.5rem] shadow-premium relative overflow-hidden flex flex-col items-center text-center gap-6">
-                     <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[80px] opacity-20 -mr-20 -mt-20 pointer-events-none" />
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-3xl opacity-20 -mr-20 -mt-20 pointer-events-none" />
                      <p className="text-lg md:text-2xl font-black text-emerald-100 tracking-tighter leading-snug relative z-10 max-w-lg">
                         Dinaveda analyzes these subtle patterns to guide your daily routine with microscopic precision.
                      </p>
@@ -249,7 +249,7 @@ export default function LandingPage() {
             {/* 6. Lead Magnet */}
             <section className="py-16 md:py-24 bg-[#F8FAF9] px-6 relative z-10">
                  <div className="max-w-3xl mx-auto text-center bg-white p-8 md:p-16 rounded-[3rem] border border-slate-100 shadow-premium relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-[80px] pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
                     
                     <h2 className="text-xs font-black text-gold uppercase tracking-[0.3em] mb-4">Free Ayurvedic Rhythm Guide</h2>
                     <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-6 relative z-10 leading-tight">
@@ -307,9 +307,9 @@ export default function LandingPage() {
             <section className="py-16 md:py-24 px-6 bg-white border-y border-slate-100 relative z-10">
                 <div className="max-w-3xl mx-auto">
                      <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-10 text-center">Frequently Asked Questions</h2>
-                     <motion.div layout className="space-y-4">
+                     <div className="space-y-4">
                         {FAQS.map((faq, idx) => (
-                            <motion.div layout key={idx} className="border border-slate-100 rounded-3xl overflow-hidden hover:border-forest/20 transition-all bg-slate-50/50">
+                            <div key={idx} className="border border-slate-100 rounded-3xl overflow-hidden hover:border-forest/20 transition-all bg-slate-50/50">
                                 <button
                                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                                     className="w-full flex items-center justify-between p-6 text-left"
@@ -317,27 +317,28 @@ export default function LandingPage() {
                                     <h4 className="font-black text-forest pr-4">{faq.q}</h4>
                                     <ChevronDown className={`w-5 h-5 shrink-0 text-forest/50 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
                                 </button>
-                                <AnimatePresence>
+                                <AnimatePresence initial={false}>
                                     {openFaq === idx && (
                                         <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="px-6 pb-6"
+                                            initial={{ opacity: 0, scaleY: 0.95 }}
+                                            animate={{ opacity: 1, scaleY: 1 }}
+                                            exit={{ opacity: 0, scaleY: 0.95 }}
+                                            transition={{ duration: 0.18 }}
+                                            className="px-6 pb-6 origin-top"
                                         >
                                             <p className="text-sm font-medium text-slate-600 leading-relaxed">{faq.a}</p>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-                            </motion.div>
+                            </div>
                         ))}
-                     </motion.div>
+                     </div>
                 </div>
             </section>
 
             {/* 9. Final CTA & Footer */}
             <section className="pt-20 md:pt-24 pb-0 bg-forest text-white text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-400/20 blur-[100px] rounded-full pointer-events-none -mr-40 -mt-40" />
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-400/20 blur-[60px] rounded-full pointer-events-none -mr-40 -mt-40" />
                 <div className="max-w-4xl mx-auto px-6 relative z-10 pb-20 md:pb-24">
                     <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-[1.05]">
                         Your Body Has Its Own Rhythm. <br className="hidden md:block"/> Discover It.
@@ -351,9 +352,9 @@ export default function LandingPage() {
                         </Link>
                     </motion.div>
                 </div>
-                <Footer />
             </section>
         </div>
+        </LazyMotion>
     );
 }
 

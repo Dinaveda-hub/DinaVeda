@@ -1,6 +1,8 @@
 import { VedaState } from './stateModel';
 import { VikritiMetrics } from './vikritiEngine';
-import { clamp } from '../utils/clamp';
+import { ENGINE_CONFIG } from './config';
+
+const { clamp } = ENGINE_CONFIG.ranges;
 
 /**
  * doshaPressureEngine.ts
@@ -21,6 +23,12 @@ export interface DoshaPressure {
 
 import { computeVikriti } from './vikritiEngine';
 
+const PRESSURE_THRESHOLDS = {
+    EARLY: 30,
+    MODERATE: 60,
+    HIGH: 80
+};
+
 /**
  * Calculates dosha pressure based on current vikriti drift and history.
  * 
@@ -34,47 +42,39 @@ export function calculateDoshaPressure(
     history: VedaState[]
 ): DoshaPressure {
     // Step 1 — Base Pressure Calculation
-    // Pressure is the absolute diff from Prakriti baseline.
-    const vata_pressure = Math.abs(vikriti.vata_diff);
-    const pitta_pressure = Math.abs(vikriti.pitta_diff);
-    const kapha_pressure = Math.abs(vikriti.kapha_diff);
+    const vata_pressure_base = Math.abs(vikriti.vata_diff);
+    const pitta_pressure_base = Math.abs(vikriti.pitta_diff);
+    const kapha_pressure_base = Math.abs(vikriti.kapha_diff);
 
-    let base_pressure = (vata_pressure + pitta_pressure + kapha_pressure) / 3;
-    base_pressure = clamp(base_pressure, 0, 100);
-
-    // Step 2 — Momentum Weighting
-    // Calculate persistence using the last 3 days average imbalance.
-    // We use the same Prakriti-based calculation as the base pressure for theoretical consistency.
+    // Step 2 — Persistence Weighting (Granular per-dosha)
+    // We sample the last 3 days to determine if an imbalance is "settling in"
     const last3Days = history.slice(-3);
-    let recent_drift = 0;
+    
+    let vata_persistence = 1.0;
+    let pitta_persistence = 1.0;
+    let kapha_persistence = 1.0;
 
     if (last3Days.length > 0) {
-        const sumImbalance = last3Days.reduce((acc, state) => {
-            const metrics = computeVikriti(state);
-            // Average absolute imbalance (deviation from Prakriti)
-            const dailyImbalance = (
-                Math.abs(metrics.vata_diff) +
-                Math.abs(metrics.pitta_diff) +
-                Math.abs(metrics.kapha_diff)
-            ) / 3;
-            return acc + dailyImbalance;
-        }, 0);
-        recent_drift = sumImbalance / last3Days.length;
-    } else {
-        // Fallback to current base pressure if no history available
-        recent_drift = base_pressure;
+        const historyMetrics = last3Days.map(state => computeVikriti(state));
+        
+        const avgVataDrift = historyMetrics.reduce((acc, m) => acc + Math.abs(m.vata_diff), 0) / last3Days.length;
+        const avgPittaDrift = historyMetrics.reduce((acc, m) => acc + Math.abs(m.pitta_diff), 0) / last3Days.length;
+        const avgKaphaDrift = historyMetrics.reduce((acc, m) => acc + Math.abs(m.kapha_diff), 0) / last3Days.length;
+
+        // Cumulative pressure multiplier: 1 + (avg_drift / 200), capped at 1.5
+        vata_persistence = Math.min(1 + (avgVataDrift / 200), 1.5);
+        pitta_persistence = Math.min(1 + (avgPittaDrift / 200), 1.5);
+        kapha_persistence = Math.min(1 + (avgKaphaDrift / 200), 1.5);
     }
 
-    // Persistence multiplier: 1 + (recent_drift / 200)
-    let persistence_factor = 1 + (recent_drift / 200);
-    // Limit factor: persistence_factor ≤ 1.5
-    if (persistence_factor > 1.5) persistence_factor = 1.5;
+    const vata_pressure = vata_pressure_base * vata_persistence;
+    const pitta_pressure = pitta_pressure_base * pitta_persistence;
+    const kapha_pressure = kapha_pressure_base * kapha_persistence;
 
-    let adjusted_pressure = base_pressure * persistence_factor;
-    adjusted_pressure = clamp(adjusted_pressure, 0, 100);
+    let adjusted_pressure = (vata_pressure + pitta_pressure + kapha_pressure) / 3;
+    adjusted_pressure = clamp(adjusted_pressure);
 
-    // Step 3 — Dosha Dominance (Determine which contributes most pressure)
-    // Support tie-aware logic (e.g. Vata-Pitta)
+    // Step 3 — Dosha Dominance
     const maxP = Math.max(vata_pressure, pitta_pressure, kapha_pressure);
     let dominant_pressure_dosha = "Balanced";
 
@@ -82,27 +82,25 @@ export function calculateDoshaPressure(
         dominant_pressure_dosha = "Balanced";
     } else {
         const dominants: string[] = [];
-        if (vata_pressure === maxP) dominants.push("Vata");
-        if (pitta_pressure === maxP) dominants.push("Pitta");
-        if (kapha_pressure === maxP) dominants.push("Kapha");
+        if (Math.abs(vata_pressure - maxP) < 2) dominants.push("Vata");
+        if (Math.abs(pitta_pressure - maxP) < 2) dominants.push("Pitta");
+        if (Math.abs(kapha_pressure - maxP) < 2) dominants.push("Kapha");
         dominant_pressure_dosha = dominants.join("-");
     }
 
-    // Step 4 — Pressure Categories
-    // 0–30 → stable, 31–60 → early, 61–80 → moderate, 81–100 → high
+    // Step 4 — Pressure Categories using constants
     let pressure_category = "stable";
-    if (adjusted_pressure > 80) pressure_category = "high imbalance";
-    else if (adjusted_pressure > 60) pressure_category = "moderate imbalance";
-    else if (adjusted_pressure > 30) pressure_category = "early imbalance";
+    if (adjusted_pressure > PRESSURE_THRESHOLDS.HIGH) pressure_category = "high imbalance";
+    else if (adjusted_pressure > PRESSURE_THRESHOLDS.MODERATE) pressure_category = "moderate imbalance";
+    else if (adjusted_pressure > PRESSURE_THRESHOLDS.EARLY) pressure_category = "early imbalance";
     else pressure_category = "stable";
 
-    // Step 5 — Output Structure
     return {
-        vata_pressure,
-        pitta_pressure,
-        kapha_pressure,
-        base_pressure,
-        adjusted_pressure,
+        vata_pressure: Math.round(vata_pressure),
+        pitta_pressure: Math.round(pitta_pressure),
+        kapha_pressure: Math.round(kapha_pressure),
+        base_pressure: Math.round((vata_pressure_base + pitta_pressure_base + kapha_pressure_base) / 3),
+        adjusted_pressure: Math.round(adjusted_pressure),
         dominant_pressure_dosha,
         pressure_category
     };

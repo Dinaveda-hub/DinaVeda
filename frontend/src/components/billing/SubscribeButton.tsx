@@ -10,6 +10,8 @@ interface SubscribeButtonProps {
     className?: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
 export default function SubscribeButton({ plan, userId, onSuccess, className }: SubscribeButtonProps) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,10 +21,17 @@ export default function SubscribeButton({ plan, userId, onSuccess, className }: 
             return;
         }
 
+        // Razorpay Existence Guard
+        if (!(window as any).Razorpay) {
+            alert("Payment system is still loading. Please try again in a few seconds.");
+            setIsLoading(false);
+            return;
+        }
+
         try {
             setIsLoading(true);
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'}/api/billing/create-subscription`,
+                `${API_URL}/api/billing/create-subscription`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -60,6 +69,7 @@ export default function SubscribeButton({ plan, userId, onSuccess, className }: 
             const rzp = new (window as any).Razorpay(options);
             rzp.on('payment.failed', function (response: any) {
                 console.error(response.error.description);
+                alert("Payment failed. Please try again.");
                 setIsLoading(false);
             });
             rzp.open();

@@ -42,5 +42,12 @@ export interface VedaState {
 
     daily_circadian_drag: number
 
+    // --- Latent Health Axes (Core Engine State) ---
+    vata_axis: number
+    pitta_axis: number
+    kapha_axis: number
+    agni_axis: number
+    ojas_axis: number
+
     is_onboarded: boolean
 }

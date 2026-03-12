@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Zap, Shield, Sparkles, AlertCircle, Compass, Activity, Thermometer, Brain, Wind } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
 
 const SYMPTOMS = [
   { 
@@ -225,8 +224,6 @@ export default function HealthHubPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

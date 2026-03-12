@@ -1,4 +1,4 @@
-import { COMBINATIONS } from "@/data/health-content";
+import { COMBINATIONS } from "@/data";
 import { notFound } from "next/navigation";
 import HealthClient from "./HealthClient";
 
