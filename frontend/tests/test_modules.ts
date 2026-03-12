@@ -6,10 +6,51 @@ async function runTest() {
     console.log("=== Module Engine (Hardened) Verification ===");
 
     const mockProtocols: Protocol[] = [
-        { name: "Warm water", module: "Dinaveda", score: 90, physics: { vata: -5, pitta: 0, kapha: 0 } },
-        { name: "Ginger tea", module: "nutriveda", score: 85, physics: { vata: 0, pitta: 0, kapha: -5 } },
-        { name: "Cooling Water", module: "rutuveda", score: 80, season: ["grishma", "sharad"], physics: { vata: 0, pitta: -10, kapha: 0 } },
-        { name: "Morning Exercise", module: "Ayufit", score: 75, physics: { vata: -5, pitta: 5, kapha: -5 } }
+        { 
+            name: "Warm water", 
+            module: "Dinaveda", 
+            score: 90, 
+            variables: { vata: -5, pitta: 0, kapha: 0 },
+            category: "dinacharya",
+            time_of_day: "morning",
+            duration: "1 min",
+            instructions: "Sip warm water on an empty stomach.",
+            contraindications: []
+        },
+        { 
+            name: "Ginger tea", 
+            module: "nutriveda", 
+            score: 85, 
+            variables: { vata: 0, pitta: 0, kapha: -5 },
+            category: "agni_support",
+            time_of_day: "midday",
+            duration: "10 min",
+            instructions: "Sip ginger tea before lunch.",
+            contraindications: ["pitta_imbalance"]
+        },
+        { 
+            name: "Cooling Water", 
+            module: "rutuveda", 
+            score: 80, 
+            season: ["grishma", "sharad"], 
+            variables: { vata: 0, pitta: -10, kapha: 0 },
+            category: "seasonal_balance",
+            time_of_day: "midday",
+            duration: "any",
+            instructions: "Drink room temperature water with coriander.",
+            contraindications: ["low_agni"]
+        },
+        { 
+            name: "Morning Exercise", 
+            module: "Ayufit", 
+            score: 75, 
+            variables: { vata: -5, pitta: 5, kapha: -5 },
+            category: "movement",
+            time_of_day: "morning",
+            duration: "20 min",
+            instructions: "Brisk walking or Surya Namaskar.",
+            contraindications: ["acute_injury"]
+        }
     ];
 
     // 1. Case-Insensitive Matching
