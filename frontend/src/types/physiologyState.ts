@@ -39,5 +39,7 @@ export interface VedaState {
     prakriti_pitta: number
     prakriti_kapha: number
 
+    daily_circadian_drag: number
+
     is_onboarded: boolean
 }

@@ -21,6 +21,9 @@ const MAX_DAILY_DELTA = 15;
 const SIGNAL_COOLDOWN_MS = 60 * 60 * 1000; // 1 hour
 const MAX_DAILY_CIRCADIAN_PENALTY = 10;
 
+// O(1) Protocol Lookup Cache
+const protocolMap = new Map((protocols as any[]).map(p => [p.name, p]));
+
 // ─────────────────────────────────────────────
 // TOD CYCLE & DISPLACEMENT LOGIC
 // ─────────────────────────────────────────────
@@ -218,8 +221,8 @@ export function applyEffects(
         const effects = effectsList[i];
         const signalName = signalNames[i];
 
-        // Find if this is a protocol with TOD metadata
-        const protocol = (protocols as any[]).find(p => p.name === signalName);
+        // Find if this is a protocol with TOD metadata (O(1) lookup)
+        const protocol = protocolMap.get(signalName);
         let todFactor = 1.0;
         let todDrag = 0;
 
@@ -251,11 +254,19 @@ export function applyEffects(
         }
     }
 
-    // Apply Circadian Drag (capped at 10/day total)
+    // Apply Circadian Drag persistently (capped at 10/day total)
     if (dailyCircadianDrag > 0) {
-        const remainingCapacity = MAX_DAILY_CIRCADIAN_PENALTY; // In a stateless session, we assume 10 capacity per batch. In production, this would track daily usage in DB.
-        const finalDrag = Math.min(dailyCircadianDrag, remainingCapacity);
-        batchDeltas['circadian'] = (batchDeltas['circadian'] || 0) - finalDrag;
+        // Read previous drag from state, add current batch's drag
+        const currentTotalDrag = (nextState.daily_circadian_drag || 0) + dailyCircadianDrag;
+        const clampedNewDrag = Math.min(currentTotalDrag, MAX_DAILY_CIRCADIAN_PENALTY);
+        
+        // Calculate the actual effective drag applied in this batch
+        const effectiveDragThisBatch = clampedNewDrag - (nextState.daily_circadian_drag || 0);
+        
+        if (effectiveDragThisBatch > 0) {
+            batchDeltas['circadian'] = (batchDeltas['circadian'] || 0) - effectiveDragThisBatch;
+            nextState.daily_circadian_drag = clampedNewDrag;
+        }
     }
 
     // 2. Apply Pipeline

@@ -42,6 +42,8 @@ export const defaultState: VedaState = {
     prakriti_pitta: 30,
     prakriti_kapha: 20,
 
+    daily_circadian_drag: 0,
+
     is_onboarded: false
 }
 
