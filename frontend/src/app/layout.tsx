@@ -5,9 +5,6 @@ import GlobalNav from "@/components/GlobalNav";
 import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
 import SystemController from "@/components/system/SystemController";
 import Script from "next/script";
-import GlobalRegistration from "@/components/GlobalRegistration";
-import OneSignalInitializer from "@/components/OneSignalInitializer";
-import NotificationMonitor from "@/components/NotificationMonitor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,9 +65,6 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         
-        <OneSignalInitializer />
-        <GlobalRegistration />
-        <NotificationMonitor />
 
         <PhysiologyProvider>
           {/* Unified system lifecycle: SW, OneSignal, auth registration, notifications, PWA prompt */}
