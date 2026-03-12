@@ -20,10 +20,10 @@
   /* Core Design System */
   --color-primary: #1B5E43;
   /* Signature Forest */
-  --color-accent: #059669;
-  /* Emerald UI */
-  --gold: #B8860B;
-  /* Antique gold */
+  --color-accent: #047857;
+  /* Emerald 700 for better contrast */
+  --gold: #996F05;
+  /* Darkened Antique gold for AA compliance */
   --color-error: #E53E3E;
   --color-petal: #FDE2E4;
 

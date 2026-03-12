@@ -60,7 +60,7 @@ export default function RoutineClient({ slug }: RoutineClientProps) {
       />
 
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
           <ArrowLeft className="w-4 h-4" /> Symptom Hub
         </Link>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">
@@ -90,7 +90,7 @@ export default function RoutineClient({ slug }: RoutineClientProps) {
 
         <section className="space-y-16">
           <div className="bg-white p-10 md:p-16 rounded-[4rem] border border-slate-100 shadow-premium relative">
-            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-12 text-center flex items-center justify-center gap-4">
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-slate-600 mb-12 text-center flex items-center justify-center gap-4">
                <Repeat className="w-4 h-4" /> The 24-Hour Cycle
             </h3>
             
@@ -98,7 +98,7 @@ export default function RoutineClient({ slug }: RoutineClientProps) {
               {routine.blocks.map((block: any, idx: number) => (
                 <div key={idx} className="flex flex-col md:flex-row gap-8 items-start md:items-center group">
                   <div className="w-full md:w-48 text-left md:text-right shrink-0">
-                    <span className="text-xs font-black text-slate-400 tracking-widest">{block.time}</span>
+                    <span className="text-xs font-black text-slate-600 tracking-widest">{block.time}</span>
                   </div>
                   <div className="hidden md:block w-3 h-3 rounded-full bg-slate-100 group-hover:bg-forest transition-colors shrink-0" />
                   <div className="flex-1 flex gap-6 items-center p-8 rounded-[2.5rem] bg-slate-50 border border-slate-50 group-hover:bg-white group-hover:border-slate-100 group-hover:shadow-lg transition-all">
@@ -129,7 +129,7 @@ export default function RoutineClient({ slug }: RoutineClientProps) {
               </div>
             </div>
             <div className="bg-emerald-50 p-10 rounded-[3rem] border border-emerald-100 space-y-6">
-               <Activity className="w-10 h-10 text-emerald-600" />
+               <Activity className="w-10 h-10 text-emerald-700" />
                <h4 className="text-xl font-black text-emerald-900">Measure Your Window</h4>
                <p className="text-sm text-emerald-800/60 font-medium leading-relaxed">
                  {isClinical 

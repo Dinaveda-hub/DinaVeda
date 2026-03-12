@@ -107,7 +107,7 @@ export default function PrivacyPage() {
                 <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.05 } } }} className="space-y-12">
                     <motion.div variants={itemVariants} className="space-y-4">
                         <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none">Privacy Policy</h1>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Last Updated: March 2026</p>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em]">Last Updated: March 2026</p>
                     </motion.div>
 
                     <motion.div variants={itemVariants} className="p-8 glass rounded-[2.5rem] border border-white shadow-sm flex items-start gap-6">

@@ -96,7 +96,7 @@ export default function FAQPage() {
 
                         {/* Search Bar */}
                         <div className="max-w-md mx-auto relative group">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-forest transition-colors" />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-forest transition-colors" />
                             <input
                                 type="text"
                                 placeholder="Search questions..."
@@ -114,7 +114,7 @@ export default function FAQPage() {
                                 <motion.section key={catIdx} variants={itemVariants} className="space-y-6">
                                     <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
                                         <category.icon className="w-5 h-5 text-gold" />
-                                        <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">{category.category}</h2>
+                                        <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600">{category.category}</h2>
                                     </div>
                                     <div className="grid gap-3">
                                         {category.questions.map((item, qIdx) => {
@@ -154,7 +154,7 @@ export default function FAQPage() {
                             ))
                         ) : (
                             <div className="text-center py-20 bg-white/40 rounded-[3rem] border border-dashed border-slate-200">
-                                <p className="text-slate-400 font-bold">No results found for "{query}"</p>
+                                <p className="text-slate-600 font-bold">No results found for "{query}"</p>
                                 <button onClick={() => setQuery("")} className="text-forest underline mt-2 text-sm font-black uppercase tracking-widest">Clear search</button>
                             </div>
                         )}
@@ -174,7 +174,7 @@ export default function FAQPage() {
                         </Link>
                     </motion.section>
 
-                    <motion.div variants={itemVariants} className="pt-20 text-center text-[10px] font-medium text-slate-400 max-w-md mx-auto leading-relaxed">
+                    <motion.div variants={itemVariants} className="pt-20 text-center text-[10px] font-medium text-slate-600 max-w-md mx-auto leading-relaxed">
                         Dinaveda provides wellness guidance and educational insights. 
                         Our algorithms are intended for lifestyle optimization and do not replace professional medical advice.
                     </motion.div>

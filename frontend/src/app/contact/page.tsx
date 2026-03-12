@@ -105,7 +105,7 @@ export default function ContactPage() {
                         </motion.div>
                     </div>
 
-                    <motion.div variants={itemVariants} className="pt-20 text-[10px] font-medium text-slate-400 max-w-md mx-auto leading-relaxed">
+                    <motion.div variants={itemVariants} className="pt-20 text-[10px] font-medium text-slate-600 max-w-md mx-auto leading-relaxed">
                         Dinaveda provides wellness guidance and educational insights. 
                         It does not replace professional medical advice.
                     </motion.div>

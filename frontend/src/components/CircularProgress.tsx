@@ -45,7 +45,7 @@ export default function CircularProgress({ value, max, label, color = "text-[#2D
                     <span className="text-[13px] font-black text-slate-800 tracking-tight">{value}</span>
                 </div>
             </div>
-            <span className="mt-2 text-xs font-black text-slate-400 uppercase tracking-widest">{label}</span>
+            <span className="mt-2 text-xs font-black text-slate-600 uppercase tracking-widest">{label}</span>
         </div>
     );
 }

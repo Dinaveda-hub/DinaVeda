@@ -56,11 +56,11 @@ export default function PatternInsights() {
             >
                 <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-2xl bg-amber-100 flex items-center justify-center">
-                        <Lock className="w-5 h-5 text-amber-600" />
+                        <Lock className="w-5 h-5 text-amber-700" />
                     </div>
                     <div>
                         <h3 className="text-sm font-black text-forest uppercase tracking-widest">Behavioral Memory</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Premium Feature</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Premium Feature</p>
                     </div>
                 </div>
                 <p className="text-sm text-slate-500 font-bold leading-relaxed">
@@ -90,7 +90,7 @@ export default function PatternInsights() {
                     </div>
                     <div>
                         <h3 className="text-sm font-black text-forest uppercase tracking-widest">Behavioral Memory</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">30-Day Pattern Analysis</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">30-Day Pattern Analysis</p>
                     </div>
                 </div>
                 <button
@@ -107,7 +107,7 @@ export default function PatternInsights() {
             {patterns.length === 0 ? (
                 <div className="text-center py-8">
                     <Eye className="w-8 h-8 text-slate-200 mx-auto mb-3" />
-                    <p className="text-sm font-bold text-slate-400">No patterns detected yet</p>
+                    <p className="text-sm font-bold text-slate-600">No patterns detected yet</p>
                     <p className="text-xs text-slate-300 mt-1">Log at least 7 days for pattern detection to activate.</p>
                 </div>
             ) : (
@@ -142,11 +142,11 @@ export default function PatternInsights() {
                                                     className={`h-full rounded-full ${colorClass}`}
                                                 />
                                             </div>
-                                            <span className="text-xs font-black text-slate-400 tabular-nums whitespace-nowrap">
+                                            <span className="text-xs font-black text-slate-600 tabular-nums whitespace-nowrap">
                                                 {pct}% {getConfidenceLabel(pattern.confidence)}
                                             </span>
                                         </div>
-                                        <p className="text-xs text-slate-400 mt-1.5 font-bold">
+                                        <p className="text-xs text-slate-600 mt-1.5 font-bold">
                                             Observed {pattern.occurrences} time{pattern.occurrences !== 1 ? 's' : ''}
                                         </p>
                                     </div>

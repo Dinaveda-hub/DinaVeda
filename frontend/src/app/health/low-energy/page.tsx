@@ -26,7 +26,7 @@ export default function LowEnergyPage() {
       />
 
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
           <ArrowLeft className="w-4 h-4" /> Symptom Hub
         </Link>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">Dinaveda</Link>
@@ -92,7 +92,7 @@ export default function LowEnergyPage() {
                   <Shield className="w-5 h-5" /> Blockage Fatigue
                 </h4>
                 <p className="text-sm text-slate-600 leading-relaxed mb-4">You feel heavy, stiff, and foggy. Common when metabolic waste (Ama) clogs your body's energy channels. Ojas is blocked.</p>
-                <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Cause: High Ama</div>
+                <div className="text-[10px] font-black uppercase text-slate-600 tracking-widest">Cause: High Ama</div>
               </div>
             </div>
           </div>

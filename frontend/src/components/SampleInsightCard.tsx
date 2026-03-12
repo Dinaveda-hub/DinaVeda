@@ -36,7 +36,7 @@ export default function SampleInsightCard({ sleep = "23:30", dinner = "20:30" }:
 
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-4 h-4 text-gold" />
-        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
           Sample Dinaveda Insight
         </span>
       </div>

@@ -24,7 +24,7 @@ export default function DoshaPressureTimeline({ logs }: DoshaPressureTimelinePro
                     <h3 className="text-xs font-black uppercase tracking-[0.3em] text-forest mb-1">
                         Dosha Load
                     </h3>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">System Pressure</p>
+                    <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">System Pressure</p>
                 </div>
             </header>
 
@@ -37,7 +37,7 @@ export default function DoshaPressureTimeline({ logs }: DoshaPressureTimelinePro
 
                     return (
                         <div key={log.id} className="group relative">
-                            <p className="text-xs font-black text-slate-400 mb-3 border-b border-forest/5 pb-2">
+                            <p className="text-xs font-black text-slate-600 mb-3 border-b border-forest/5 pb-2">
                                 {new Date(log.created_at).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}
                             </p>
 
@@ -62,7 +62,7 @@ export default function DoshaPressureTimeline({ logs }: DoshaPressureTimelinePro
                                 </div>
                                 <div>
                                     <div className="flex justify-between items-end mb-1">
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Kapha</span>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700">Kapha</span>
                                         <span className="text-xs font-bold text-slate-600">{kapha}</span>
                                     </div>
                                     <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">

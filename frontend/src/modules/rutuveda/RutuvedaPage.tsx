@@ -33,18 +33,18 @@ export default function RutuvedaPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Ritucharya Intelligence</h2>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Seasonal Synchronization</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-widest leading-tight">Seasonal Synchronization</p>
                     </div>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-8 items-center bg-white/40 p-8 rounded-[2.5rem] border border-white/60 mb-8">
                     <div className="flex-1 text-center md:text-left">
-                        <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-2">Current Cycle</span>
+                        <span className="text-xs font-black text-slate-600 uppercase tracking-widest block mb-2">Current Cycle</span>
                         <h3 className="text-4xl font-black text-forest tracking-tighter">{currentSeason}</h3>
                     </div>
                     <div className="w-px h-12 bg-forest/10 hidden md:block" />
                     <div className="flex-1 text-center md:text-left">
-                        <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-2">Dominant Imbalance</span>
+                        <span className="text-xs font-black text-slate-600 uppercase tracking-widest block mb-2">Dominant Imbalance</span>
                         <h3 className="text-4xl font-black text-orange-500 tracking-tighter">{vikriti?.dominant_dosha} Flux</h3>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ export default function RutuvedaPage({
                         />
                     ))}
                     {protocols.length === 0 && (
-                        <p className="text-xs font-bold text-slate-400 text-center py-10 italic">Your internal climate is currently stable against the seasonal backdrop.</p>
+                        <p className="text-xs font-bold text-slate-600 text-center py-10 italic">Your internal climate is currently stable against the seasonal backdrop.</p>
                     )}
                 </div>
             </section>

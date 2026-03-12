@@ -18,7 +18,7 @@ export default function ProtocolLandingPage() {
 
       <main className="max-w-6xl mx-auto px-6 pt-24 relative z-10">
         <header className="mb-16">
-          <p className="text-xs font-black uppercase tracking-[0.3em] text-forest/60 mb-3">
+          <p className="text-xs font-black uppercase tracking-[0.3em] text-forest/90 mb-3">
             Therapeutic Sanctum
           </p>
           <h1 className="text-4xl md:text-6xl font-black text-forest tracking-tighter mb-6">
@@ -49,7 +49,7 @@ export default function ProtocolLandingPage() {
                     {p.mechanism}
                   </p>
                   <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-50">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">
                       {p.duration}
                     </span>
                     <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-forest transition-all" />
@@ -73,7 +73,7 @@ export default function ProtocolLandingPage() {
                   <h4 className="text-sm font-black text-forest mb-1 group-hover:text-emerald-700 transition-colors truncate">
                     {formatProtocolName(p.name)}
                   </h4>
-                  <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-tighter text-slate-400">
+                  <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-tighter text-slate-600">
                     <ShieldCheck className="w-3 h-3" />
                     {p.time_of_day} • {p.duration || '5-10 min'}
                   </div>
@@ -82,7 +82,7 @@ export default function ProtocolLandingPage() {
             ))}
           </div>
           <div className="mt-12 text-center">
-             <p className="text-xs font-bold text-slate-400 italic">
+             <p className="text-xs font-bold text-slate-600 italic">
                + {Object.keys(PROTOCOL_MAP).length - 12} additional clinical signatures indexed in the engine.
              </p>
           </div>

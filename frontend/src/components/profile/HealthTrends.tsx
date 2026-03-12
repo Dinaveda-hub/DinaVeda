@@ -26,7 +26,7 @@ export default function HealthTrends({ logs }: HealthTrendsProps) {
                 <h3 className="text-xs font-black uppercase tracking-[0.3em] text-forest mb-2">
                     Biological Trends
                 </h3>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Last 14 Days</p>
+                <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">Last 14 Days</p>
             </header>
 
             <div className="h-64 w-full">

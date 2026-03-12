@@ -23,7 +23,7 @@ export default function InsightTimeline({ logs }: InsightTimelineProps) {
                     <h3 className="text-xs font-black uppercase tracking-[0.3em] text-forest mb-1">
                         Veda Intelligence
                     </h3>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Medical Journal</p>
+                    <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">Medical Journal</p>
                 </div>
             </header>
 

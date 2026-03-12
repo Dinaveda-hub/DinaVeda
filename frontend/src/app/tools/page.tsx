@@ -33,8 +33,8 @@ export default function ToolsHubPage() {
           Dinaveda
         </Link>
         <div className="flex gap-8 items-center">
-            <Link href="/guide" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-colors">Education</Link>
-            <Link href="/health" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-colors">Symptoms</Link>
+            <Link href="/guide" className="text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Education</Link>
+            <Link href="/health" className="text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Symptoms</Link>
             <Link href="/login" className="text-xs font-black text-forest uppercase tracking-widest bg-forest/5 px-6 py-2.5 rounded-full hover:bg-forest hover:text-white transition-all">
               Analysis
             </Link>
@@ -78,7 +78,7 @@ export default function ToolsHubPage() {
                     <calc.icon className="w-8 h-8 text-white" />
                   </div>
                   
-                  <h2 className="text-3xl font-black text-forest tracking-tight mb-4 group-hover:text-emerald-600 transition-colors">
+                  <h2 className="text-3xl font-black text-forest tracking-tight mb-4 group-hover:text-emerald-700 transition-colors">
                     {calc.title}
                   </h2>
                   
@@ -87,7 +87,7 @@ export default function ToolsHubPage() {
                   </p>
                   
                   <div className="flex items-center justify-between pt-8 border-t border-slate-50">
-                    <span className="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-forest transition-colors">
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-600 group-hover:text-forest transition-colors">
                       Start Assessment
                     </span>
                     <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-forest group-hover:text-white transition-all">
@@ -103,8 +103,8 @@ export default function ToolsHubPage() {
           <motion.div variants={item}>
             <div className="bg-slate-50/50 p-10 md:p-14 rounded-[4rem] border border-slate-100 border-dashed text-center flex flex-col items-center justify-center h-full opacity-60">
                <HeartPulse className="w-10 h-10 text-slate-300 mb-6" />
-               <h3 className="text-xl font-black text-slate-400 tracking-tight uppercase">Ojas Vitality Score</h3>
-               <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">In Development</p>
+               <h3 className="text-xl font-black text-slate-600 tracking-tight uppercase">Ojas Vitality Score</h3>
+               <p className="text-xs font-bold text-slate-600 mt-2 uppercase tracking-widest">In Development</p>
             </div>
           </motion.div>
         </motion.div>
@@ -119,7 +119,7 @@ export default function ToolsHubPage() {
                      Go Beyond <br />
                      <span className="text-emerald-400 underline decoration-emerald-400/20 underline-offset-8">Single Samples.</span>
                    </h2>
-                   <p className="text-slate-400 font-medium leading-relaxed max-w-xl text-lg">
+                   <p className="text-slate-600 font-medium leading-relaxed max-w-xl text-lg">
                      A single test is just a snapshot. The Dinaveda engine tracks your metabolic pulse 24/7 to predict changes before they manifest as fatigue or illness.
                    </p>
                    <Link 

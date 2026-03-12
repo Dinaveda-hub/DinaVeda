@@ -46,7 +46,7 @@ export default function BottomNav() {
                   className={`w-6 h-6 transition-all duration-500 ${
                     isActive
                       ? "text-forest scale-110"
-                      : "text-slate-400 group-hover:text-forest"
+                      : "text-slate-600 group-hover:text-forest"
                   }`}
                 />
                 

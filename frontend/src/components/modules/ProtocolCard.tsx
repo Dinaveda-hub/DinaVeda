@@ -64,15 +64,15 @@ export default function ProtocolCard({
                 <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1.5">
                         <h4 className={`font-black tracking-tight text-lg transition-all ${
-                            isChecked || isLocked ? 'text-slate-400' : 'text-forest'
+                            isChecked || isLocked ? 'text-slate-600' : 'text-forest'
                         } ${isChecked ? 'line-through' : ''}`}>
                             {'title' in protocol ? protocol.title : (protocol.display_name || formatProtocolName(protocol.name))}
                         </h4>
-                        {isLocked && <Lock className="w-3 h-3 text-slate-400" />}
+                        {isLocked && <Lock className="w-3 h-3 text-slate-600" />}
                     </div>
                     
                     <p className={`text-xs font-bold leading-relaxed ${
-                        isChecked || isLocked ? 'text-slate-400' : 'text-slate-600'
+                        isChecked || isLocked ? 'text-slate-600' : 'text-slate-600'
                     }`}>
                         {'description' in protocol ? protocol.description : protocol.instructions}
                     </p>
@@ -82,7 +82,7 @@ export default function ProtocolCard({
                         <div className="flex flex-wrap items-center gap-2 mt-4">
                             {Object.entries(protocol.variables || {}).map(([key, val]) => (
                                 <div key={key} className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-white/50 border border-white/80">
-                                    <span className="text-slate-400">{key.replace('_axis', '')}</span>
+                                    <span className="text-slate-600">{key.replace('_axis', '')}</span>
                                     <span className={val > 0 ? 'text-emerald-500' : 'text-orange-500'}>
                                         {val > 0 ? '↑' : '↓'}
                                     </span>

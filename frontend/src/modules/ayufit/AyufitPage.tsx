@@ -35,7 +35,7 @@ export default function AyufitPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Vyayama Logic</h2>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Flow & Vitality</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-widest leading-tight">Flow & Vitality</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-forest/20 pl-6 text-balance">
@@ -46,12 +46,12 @@ export default function AyufitPage({
             {/* Movement Insight */}
             <section className="glass rounded-[3rem] p-6 md:p-10 shadow-premium border border-white">
                 <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-600">
+                    <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-700">
                         <Sparkles className="w-6 h-6" />
                     </div>
                     <div>
                         <p className="text-sm font-black text-forest uppercase tracking-[0.2em]">AI Movement Insight</p>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Neural Recommendation</p>
+                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Neural Recommendation</p>
                     </div>
                 </div>
                 <div className="bg-emerald-50/50 p-6 rounded-[2rem] border border-emerald-100/50">
@@ -79,7 +79,7 @@ export default function AyufitPage({
                         ))
                     ) : (
                         <div className="bg-slate-50/50 p-8 rounded-[2rem] border border-dashed border-slate-200 text-center">
-                            <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">No movement protocols recommended today.</p>
+                            <p className="text-sm font-bold text-slate-600 uppercase tracking-widest">No movement protocols recommended today.</p>
                         </div>
                     )}
                 </div>

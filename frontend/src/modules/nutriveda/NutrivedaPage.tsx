@@ -38,7 +38,7 @@ export default function NutrivedaPage({
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em] mb-1">Ahara Logic</h2>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-tight">Food as Medicine</p>
+                        <p className="text-xs font-bold text-slate-600 uppercase tracking-widest leading-tight">Food as Medicine</p>
                     </div>
                 </div>
                 <p className="text-xl md:text-2xl font-bold text-slate-700 leading-relaxed mb-10 border-l-4 border-forest/20 pl-6 text-balance">
@@ -46,11 +46,11 @@ export default function NutrivedaPage({
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Agni Strength</p>
+                        <p className="text-xs font-black text-slate-600 uppercase tracking-[0.3em]">Agni Strength</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(agniStrength)}/100</p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
-                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Metabolic Pulse</p>
+                        <p className="text-xs font-black text-slate-600 uppercase tracking-[0.3em]">Metabolic Pulse</p>
                         <p className="text-3xl font-black text-forest tracking-tighter">
                             {agniStrength > 75 ? "Teekshna" : agniStrength > 50 ? "Balanced" : "Manda"}
                         </p>
@@ -74,7 +74,7 @@ export default function NutrivedaPage({
             {/* Protocols */}
             <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
                 <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-600">
+                    <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-700">
                         <Activity className="w-6 h-6" />
                     </div>
                     <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Dietary Protocols</h2>

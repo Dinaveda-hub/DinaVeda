@@ -28,7 +28,7 @@ export default function ModulesPage() {
 
             <div className="max-w-6xl mx-auto relative z-10">
                 <header className="text-center mb-16">
-                    <p className="text-xs font-black uppercase tracking-[0.3em] text-forest/60 mb-3">
+                    <p className="text-xs font-black uppercase tracking-[0.3em] text-forest/90 mb-3">
                         Life Architecture
                     </p>
                     <h1 className="text-4xl md:text-6xl font-black text-forest tracking-tight">

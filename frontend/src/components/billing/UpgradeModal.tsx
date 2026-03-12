@@ -96,7 +96,7 @@ export default function UpgradeModal({ userId = "", onSuccess = () => {} }: Upgr
                                 <motion.span 
                                     initial={{ opacity: 0, x: 10 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-white/80 px-3 py-1.5 rounded-full border border-slate-100 hidden md:inline-block"
+                                    className="text-[10px] font-black uppercase tracking-widest text-slate-600 bg-white/80 px-3 py-1.5 rounded-full border border-slate-100 hidden md:inline-block"
                                 >
                                     Review your personalized guidance
                                 </motion.span>
@@ -124,12 +124,12 @@ export default function UpgradeModal({ userId = "", onSuccess = () => {} }: Upgr
                         <PricingSection userId={userId} onSuccess={onSuccess} />
                         
                         <div className="text-center mt-8">
-                             <p className="text-center text-xs text-slate-400 font-medium pb-4">
+                             <p className="text-center text-xs text-slate-600 font-medium pb-4">
                                 Fast, secure checkout via Razorpay. Cancel anytime.
                             </p>
                             <button 
                                 onClick={closeUpgrade}
-                                className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-colors"
+                                className="text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors"
                             >
                                 Continue with free version
                             </button>

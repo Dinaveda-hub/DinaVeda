@@ -44,7 +44,7 @@ export default function DoshaTriangle({ vata, pitta, kapha }: Props) {
     const doshaStatus = (val: number) => {
         if (val > 65) return { label: "Aggravated", color: "text-red-500" };
         if (val > 45) return { label: "Pressured", color: "text-amber-500" };
-        return { label: "Balanced", color: "text-emerald-600" };
+        return { label: "Balanced", color: "text-emerald-700" };
     };
 
     return (

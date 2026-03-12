@@ -28,7 +28,7 @@ const NotificationToggle = ({ label, description, enabled, onChange }: { label: 
     <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
             <p className="font-black text-forest tracking-tight leading-none mb-1">{label}</p>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{description}</p>
+            <p className="text-xs font-bold text-slate-600 uppercase tracking-widest">{description}</p>
         </div>
         <button
             onClick={() => onChange(!enabled)}
@@ -160,10 +160,10 @@ export default function SettingsPage() {
                                     Ojas is the "superfine" essence of all bodily tissues. It represents your immune strength, resilience, and sensory clarity.
                                 </p>
                                 <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                                    <p className="text-xs font-black text-emerald-600 uppercase tracking-widest mb-1">Status: Vital Reserve</p>
+                                    <p className="text-xs font-black text-emerald-700 uppercase tracking-widest mb-1">Status: Vital Reserve</p>
                                     <p className="text-[10px] text-emerald-700 font-bold leading-tight">High Ojas allows you to handle stress without "breaking." When Ojas is depleted, you feel fragile and overwhelmed.</p>
                                 </div>
-                                <p className="text-xs text-slate-400 font-bold italic leading-relaxed">Imbalance Pressure: When your environment or habits push against your nature, Ojas absorbs the shock. Constant pressure eventually drains this reserve.</p>
+                                <p className="text-xs text-slate-600 font-bold italic leading-relaxed">Imbalance Pressure: When your environment or habits push against your nature, Ojas absorbs the shock. Constant pressure eventually drains this reserve.</p>
                             </div>
                         )
                     })
@@ -220,7 +220,7 @@ export default function SettingsPage() {
                                     <p className="text-xs font-black text-blue-600 uppercase tracking-widest mb-1">Status: Neural Deviation</p>
                                     <p className="text-[10px] text-blue-700 font-bold leading-tight">When lifestyle, stress, or environment pull you away from your nature, you experience 'Drift.' High drift is often a precursor to fatigue and imbalance.</p>
                                 </div>
-                                <p className="text-xs text-slate-400 font-bold italic leading-relaxed">The goal of Veda protocols is to minimize drift and return you to your core biological baseline.</p>
+                                <p className="text-xs text-slate-600 font-bold italic leading-relaxed">The goal of Veda protocols is to minimize drift and return you to your core biological baseline.</p>
                             </div>
                         )
                     })
@@ -356,7 +356,7 @@ export default function SettingsPage() {
                                 </button>
                                 <button
                                     onClick={() => setActiveModal(null)}
-                                    className="w-full py-5 rounded-2xl bg-slate-50 text-slate-400 font-black uppercase tracking-widest hover:bg-slate-100 transition-all"
+                                    className="w-full py-5 rounded-2xl bg-slate-50 text-slate-600 font-black uppercase tracking-widest hover:bg-slate-100 transition-all"
                                 >
                                     Cancel
                                 </button>
@@ -396,14 +396,14 @@ export default function SettingsPage() {
                 <header className="mb-12 md:mb-16">
                     <div className="w-12 h-1 bg-forest/20 mb-6 rounded-full" />
                     <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5 md:mb-6">Settings</h1>
-                    <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">Customize your Veda experience</p>
+                    <p className="text-[10px] md:text-sm text-slate-600 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">Customize your Veda experience</p>
                 </header>
 
                 <div className="mb-12">
                     <h2 className="text-xs font-black text-forest uppercase tracking-[0.3em] mb-6 ml-2">Current Biological Pulse</h2>
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-6 glass rounded-[2.5rem] border border-white/40 shadow-premium">
                         <div className="text-center p-4">
-                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 block mb-1">Ojas</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700 block mb-1">Ojas</span>
                             <span className="text-3xl font-black text-forest">{Math.round(state.ojas)}</span>
                         </div>
                         <div className="text-center p-4 border-l border-forest/5">
@@ -443,7 +443,7 @@ export default function SettingsPage() {
                                                 </div>
                                                 <div className="text-left">
                                                     <p className="font-black text-forest text-lg tracking-tight leading-none mb-1">{item.name}</p>
-                                                    <p className="text-xs font-black text-slate-400 uppercase tracking-widest">{item.detail}</p>
+                                                    <p className="text-xs font-black text-slate-600 uppercase tracking-widest">{item.detail}</p>
                                                 </div>
                                             </div>
                                             <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-forest group-hover:translate-x-1 transition-all" />
@@ -487,7 +487,7 @@ export default function SettingsPage() {
                                 <h3 className="font-black text-forest tracking-tight">{activeModal.title}</h3>
                                 <button
                                     onClick={() => setActiveModal(null)}
-                                    className="w-8 h-8 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center hover:bg-slate-200 hover:text-slate-600 transition-colors"
+                                    className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 hover:text-slate-600 transition-colors"
                                 >
                                     <X className="w-4 h-4" />
                                 </button>

@@ -51,7 +51,7 @@ export default function SystemMessage({ vata, pitta, kapha, sleep, stress }: Pro
 
     const colorClass =
         severity === "alert" ? "text-orange-600 border-orange-100 bg-orange-50/50" :
-        severity === "warn" ? "text-amber-600 border-amber-100 bg-amber-50/50" :
+        severity === "warn" ? "text-amber-700 border-amber-100 bg-amber-50/50" :
         "text-forest/80 border-forest/10 bg-forest/5";
 
     return (

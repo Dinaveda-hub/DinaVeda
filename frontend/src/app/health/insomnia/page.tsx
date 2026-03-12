@@ -26,7 +26,7 @@ export default function InsomniaPage() {
       />
 
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
           <ArrowLeft className="w-4 h-4" /> Symptom Hub
         </Link>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">Dinaveda</Link>
@@ -104,7 +104,7 @@ export default function InsomniaPage() {
             >
               Master Your <br /> Night Rhythm
             </motion.h3>
-            <p className="text-slate-400 font-bold mb-12 uppercase tracking-widest text-xs max-w-md mx-auto">
+            <p className="text-slate-600 font-bold mb-12 uppercase tracking-widest text-xs max-w-md mx-auto">
               Dinaveda's Somasleep module detects circadian drift and helps you reset your biological midnight.
             </p>
             <Link 

@@ -50,8 +50,6 @@ export const viewport: Viewport = {
   themeColor: "#1B5E43",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export default async function RootLayout({
@@ -66,6 +64,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://cdn-cookieyes.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn-cookieyes.com" />
+
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5QD4DQ6KM"></script>
         <script dangerouslySetInnerHTML={{ __html: `
@@ -86,7 +91,6 @@ export default async function RootLayout({
         )}
         {/* End cookieyes banner */}
 
-        <link rel="preconnect" href="https://cdn.onesignal.com" />
 
         {/* OneSignal CDN — must load before SystemController initializes it */}
         <Script

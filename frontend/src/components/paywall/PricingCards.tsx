@@ -7,7 +7,7 @@ export default function PricingCards() {
         Choose Your Path
       </h3>
       <PricingSection />
-      <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-400 mt-10 px-6">
+      <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-600 mt-10 px-6">
         Secure checkout via Razorpay • Cancel anytime with one tap
       </p>
     </section>

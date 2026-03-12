@@ -102,7 +102,7 @@ export default function GoalSelector({ onSelect }: GoalSelectorProps) {
                                 }`}>
                                 {goal.label}
                             </h4>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate mt-0.5">
+                            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest truncate mt-0.5">
                                 {SUBGOAL_HINTS[goal.id] || goal.description}
                             </p>
                         </div>

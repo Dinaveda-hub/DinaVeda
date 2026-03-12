@@ -55,7 +55,7 @@ export default function HowItWorks() {
                     <div className="w-10 h-10 rounded-xl bg-forest/5 flex items-center justify-center text-forest group-hover:bg-forest group-hover:text-white transition-all duration-300">
                         <ArrowLeft className="w-5 h-5" />
                     </div>
-                    <span className="font-extrabold text-[10px] md:text-xs uppercase tracking-[0.3em] text-forest/60">The Portal</span>
+                    <span className="font-extrabold text-[10px] md:text-xs uppercase tracking-[0.3em] text-forest/90">The Portal</span>
                 </Link>
                 <Link href="/" className="flex items-center gap-2 group">
                     <div className="relative w-10 h-10">
@@ -71,7 +71,7 @@ export default function HowItWorks() {
                     {/* Header */}
                     <motion.header variants={itemVariants} className="text-center md:text-left">
                         <Heart className="w-10 h-10 text-rose-400 mx-auto md:mx-0 mb-8 animate-pulse" />
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-forest/5 text-forest/60 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-forest/5 text-forest/90 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-8">
                             <Sparkles className="w-4 h-4" /> The Science of Balance
                         </div>
                         <h1 className="text-[2.75rem] md:text-8xl font-black text-forest tracking-tighter leading-none mb-8">
@@ -93,7 +93,7 @@ export default function HowItWorks() {
                                     </div>
                                     <div>
                                         <div className="text-[10px] font-black uppercase tracking-widest text-forest mb-1">{step.title}</div>
-                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{step.desc}</div>
+                                        <div className="text-[10px] font-bold text-slate-600 uppercase tracking-tighter">{step.desc}</div>
                                     </div>
                                     {idx < timelineSteps.length - 1 && (
                                         <div className="hidden md:block absolute top-7 left-[100%] w-full h-[1px] bg-slate-100 -translate-y-1/2 z-0" />
@@ -148,10 +148,10 @@ export default function HowItWorks() {
                                         { l: 'Stress & Mood', v: 'Nervous System Load' }
                                     ].map((item, idx) => (
                                         <li key={idx} className="flex items-start gap-4">
-                                            <Zap className="w-4 h-4 text-amber-600 mt-1 flex-shrink-0" />
+                                            <Zap className="w-4 h-4 text-amber-700 mt-1 flex-shrink-0" />
                                             <div>
                                                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-800">{item.l}</div>
-                                                <div className="text-xs font-medium text-slate-400">{item.v}</div>
+                                                <div className="text-xs font-medium text-slate-600">{item.v}</div>
                                             </div>
                                         </li>
                                     ))}
@@ -195,7 +195,7 @@ export default function HowItWorks() {
                     {/* What Dinaveda Generates Section */}
                     <motion.section variants={itemVariants} className="space-y-12">
                         <div className="text-center space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">The Outcome</h2>
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600">The Outcome</h2>
                             <h3 className="text-3xl md:text-6xl font-black text-forest tracking-tighter">What Dinaveda Generates</h3>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -237,7 +237,7 @@ export default function HowItWorks() {
                                 </div>
                             </div>
                         </div>
-                        <div className="pt-20 text-[10px] font-medium text-slate-400 text-center max-w-md mx-auto leading-relaxed">
+                        <div className="pt-20 text-[10px] font-medium text-slate-600 text-center max-w-md mx-auto leading-relaxed">
                             Dinaveda provides wellness insights based on Ayurvedic principles. 
                             It does not replace professional medical diagnosis or treatment.
                         </div>

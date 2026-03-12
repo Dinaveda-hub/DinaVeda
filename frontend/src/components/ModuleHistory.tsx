@@ -39,7 +39,7 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
                     </div>
                     <div>
                         <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Temporal Activity</h2>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Stewardship of Historical State</p>
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mt-1">Stewardship of Historical State</p>
                     </div>
                 </div>
                 <span className="text-xs font-black text-slate-300 uppercase tracking-widest">Protocol Archive</span>
@@ -54,12 +54,12 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
                         // Generate quick insight
                         let insight = "Balanced State";
                         let InsightIcon = Sparkles;
-                        let insightColor = "text-emerald-600 bg-emerald-50";
+                        let insightColor = "text-emerald-700 bg-emerald-50";
 
                         if (ojas > 80) {
                             insight = "Optimal Day";
                             InsightIcon = Zap;
-                            insightColor = "text-emerald-600 bg-emerald-50";
+                            insightColor = "text-emerald-700 bg-emerald-50";
                         } else if (log.agni === "low" || log.agni === "variable") {
                             insight = "Digestive Disturbance";
                             InsightIcon = Flame;
@@ -67,7 +67,7 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
                         } else if (log.mood && log.mood.toLowerCase().includes("restless")) {
                             insight = "Restless Mind";
                             InsightIcon = Brain;
-                            insightColor = "text-amber-600 bg-amber-50";
+                            insightColor = "text-amber-700 bg-amber-50";
                         } else if (ojas < 60) {
                             insight = "Low Ojas Day";
                             InsightIcon = Activity; // Note: needs import if keeping activity, else fallback
@@ -93,7 +93,7 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
                                             {date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                         </p>
                                         <div className="flex items-center gap-2 mt-0.5">
-                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
                                                 {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </p>
                                             <span className="w-1 h-1 rounded-full bg-slate-200 hidden md:block" />
@@ -106,7 +106,7 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
                                 </div>
 
                                 <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-6">
-                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full ${ojas > 70 ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'
+                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-full ${ojas > 70 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
                                         }`}>
                                         Ojas: {ojas}
                                     </span>
@@ -135,19 +135,19 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
 
                                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                                 <div className="bg-white/40 p-4 rounded-xl border border-white">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Agni Status</p>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Agni Status</p>
                                                     <p className="text-[10px] font-black text-forest uppercase">{log.agni || 'Balanced'}</p>
                                                 </div>
                                                 <div className="bg-white/40 p-4 rounded-xl border border-white">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Ama State</p>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Ama State</p>
                                                     <p className="text-[10px] font-black text-forest uppercase">{log.ama || 'None'}</p>
                                                 </div>
                                                 <div className="bg-white/40 p-4 rounded-xl border border-white">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Mood Archetype</p>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Mood Archetype</p>
                                                     <p className="text-[10px] font-black text-forest uppercase">{log.mood || 'Calm'}</p>
                                                 </div>
                                                 <div className="bg-white/40 p-4 rounded-xl border border-white">
-                                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Sync Intensity</p>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Sync Intensity</p>
                                                     <p className="text-[10px] font-black text-forest uppercase">{ojas}% Ojas</p>
                                                 </div>
                                             </div>

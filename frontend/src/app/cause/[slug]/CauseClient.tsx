@@ -57,7 +57,7 @@ export default function CauseClient({ slug }: CauseClientProps) {
 
       {/* Navigation */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
           <ArrowLeft className="w-4 h-4" /> Symptom Hub
         </Link>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">
@@ -103,7 +103,7 @@ export default function CauseClient({ slug }: CauseClientProps) {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-slate-50">
                 <div>
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Associated Symptoms</h4>
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-600 mb-4">Associated Symptoms</h4>
                   <div className="flex flex-wrap gap-2">
                     {cause.symptoms.map(s => (
                       <span key={s} className="px-3 py-1 bg-slate-50 rounded-full text-xs font-bold text-slate-500">{s}</span>
@@ -111,7 +111,7 @@ export default function CauseClient({ slug }: CauseClientProps) {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Ayurvedic Layer</h4>
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-600 mb-4">Ayurvedic Layer</h4>
                   <div className="flex items-center gap-2 text-forest font-black">
                      <BookOpen className="w-4 h-4" />
                      <span>Clinical Pathophysiology</span>

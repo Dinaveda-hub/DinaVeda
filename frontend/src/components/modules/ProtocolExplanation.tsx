@@ -101,7 +101,7 @@ export default function ProtocolExplanation({ protocolName }: ProtocolExplanatio
                         <div className="p-4 mt-2 bg-white rounded-xl border border-forest/10 shadow-sm relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-forest/5 rounded-full blur-2xl pointer-events-none -mt-10 -mr-10" />
                             {isLoading ? (
-                                <div className="flex items-center gap-3 text-slate-400">
+                                <div className="flex items-center gap-3 text-slate-600">
                                     <BrainCircuit className="w-5 h-5 animate-pulse text-forest/50" />
                                     <span className="text-xs font-bold uppercase tracking-widest">Veda Engine Processing...</span>
                                 </div>

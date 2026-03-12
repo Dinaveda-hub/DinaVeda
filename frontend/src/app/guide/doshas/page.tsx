@@ -27,7 +27,7 @@ export default function DoshasPage() {
       
       {/* Top Nav */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto border-b border-slate-50">
-        <Link href="/guide" className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-forest transition-colors group">
+        <Link href="/guide" className="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-forest transition-colors group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to Hub
         </Link>
@@ -40,7 +40,7 @@ export default function DoshasPage() {
             The Three Doshas Explained: <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-500">Vata, Pitta, Kapha</span>
           </h1>
-          <div className="flex items-center gap-4 text-xs font-black text-slate-400 uppercase tracking-widest border-l-4 border-emerald-500 pl-6 py-2">
+          <div className="flex items-center gap-4 text-xs font-black text-slate-600 uppercase tracking-widest border-l-4 border-emerald-500 pl-6 py-2">
             <span>Fundamental Principles</span>
             <span>•</span>
             <span>1200 Words</span>
@@ -98,7 +98,7 @@ export default function DoshasPage() {
             <p className="text-sm font-medium">
                 Kapha is composed of <strong>Earth and Water</strong>. It is the energy that governs physical structure, stability, and the lubrication of the body.
             </p>
-            <ul className="text-sm mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0 uppercase tracking-tight font-black text-emerald-600/60">
+            <ul className="text-sm mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0 uppercase tracking-tight font-black text-emerald-700/60">
                 <li className="flex items-center gap-2">💧 Governs Structure</li>
                 <li className="flex items-center gap-2">💧 Heavy & Slow Quality</li>
                 <li className="flex items-center gap-2">💧 Endurance & Calm</li>

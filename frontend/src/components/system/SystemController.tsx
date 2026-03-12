@@ -122,7 +122,7 @@ export default function SystemController() {
                                 <button
                                     onClick={handleDismiss}
                                     aria-label="Dismiss install banner"
-                                    className="p-2 text-slate-400 hover:text-forest transition-colors"
+                                    className="p-2 text-slate-600 hover:text-forest transition-colors"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>

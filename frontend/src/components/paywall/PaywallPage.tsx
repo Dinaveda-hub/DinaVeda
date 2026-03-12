@@ -26,7 +26,7 @@ export default function PaywallPage() {
         <div className="max-w-4xl mx-auto px-6 pt-12 relative z-10">
             <Link
                 href="/"
-                className="inline-flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-forest transition-colors"
+                className="inline-flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 hover:text-forest transition-colors"
             >
                 <ChevronLeft className="w-3 h-3" /> Back to Dashboard
             </Link>

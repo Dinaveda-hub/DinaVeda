@@ -188,7 +188,7 @@ export default function ModuleDetail({ params }: { params: Promise<{ slug: strin
                             <Icon className={`w-10 h-10 ${styles.icon}`} />
                         </div>
                         <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-5 md:mb-6 leading-none">{mod.title}</h1>
-                        <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">{mod.subtitle}</p>
+                        <p className="text-[10px] md:text-sm text-slate-600 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">{mod.subtitle}</p>
                     </motion.div>
                 </div>
             </header>
@@ -215,7 +215,7 @@ export default function ModuleDetail({ params }: { params: Promise<{ slug: strin
                                         <span className="font-bold text-forest">
                                             {p.display_name || formatProtocolName(p.name)}
                                         </span>
-                                        <span className="text-xs text-slate-400 font-bold uppercase">{p.time_of_day}</span>
+                                        <span className="text-xs text-slate-600 font-bold uppercase">{p.time_of_day}</span>
                                     </div>
                                     <ProtocolExplanation protocolName={p.name} />
                                 </div>

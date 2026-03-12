@@ -1,7 +1,7 @@
 export default function PaywallHero() {
   return (
     <section className="pt-16 pb-10 px-6 text-center max-w-xl mx-auto">
-      <p className="text-xs font-black uppercase tracking-[0.3em] text-emerald-600 mb-3">
+      <p className="text-xs font-black uppercase tracking-[0.3em] text-emerald-700 mb-3">
         Dinaveda Premium
       </p>
 

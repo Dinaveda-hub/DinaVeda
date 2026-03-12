@@ -12,7 +12,7 @@ export default function PremiumPreview() {
       <div className="relative bg-white rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm shadow-slate-200/50">
         {/* Blurred Content */}
         <div className="blur-[3px] opacity-40 p-8 scale-[1.02] pointer-events-none select-none">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-4 flex items-center gap-2">
             Tomorrow's Protocol Forecast
           </p>
 
@@ -24,7 +24,7 @@ export default function PremiumPreview() {
 
             <div className="flex justify-between items-center pb-3 border-b border-slate-50">
               <span>Agni (Digestive Fire)</span>
-              <span className="text-emerald-600">Stable Strength</span>
+              <span className="text-emerald-700">Stable Strength</span>
             </div>
 
             <div className="flex justify-between items-center">
@@ -51,7 +51,7 @@ export default function PremiumPreview() {
         </div>
       </div>
 
-      <p className="text-center text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-[0.15em]">
+      <p className="text-center text-[10px] font-bold text-slate-600 mt-4 uppercase tracking-[0.15em]">
         Join premium to see your 24-hour predictive model
       </p>
     </section>

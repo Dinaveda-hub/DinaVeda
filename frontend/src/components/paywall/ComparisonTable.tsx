@@ -16,7 +16,7 @@ export default function ComparisonTable() {
       </h3>
 
       <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
-        <div className="grid grid-cols-3 p-4 bg-slate-50/50 font-black text-[10px] uppercase tracking-widest text-slate-400 border-b border-slate-100">
+        <div className="grid grid-cols-3 p-4 bg-slate-50/50 font-black text-[10px] uppercase tracking-widest text-slate-600 border-b border-slate-100">
           <div>Feature</div>
           <div className="text-center">Free</div>
           <div className="text-center">Premium</div>

@@ -26,7 +26,7 @@ export default function WeightGainPage() {
       />
 
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
           <ArrowLeft className="w-4 h-4" /> Symptom Hub
         </Link>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">Dinaveda</Link>
@@ -39,7 +39,7 @@ export default function WeightGainPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-24"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest mb-8">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-widest mb-8">
             Metabolic Balance
           </span>
           <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">

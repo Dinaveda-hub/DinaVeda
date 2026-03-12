@@ -52,7 +52,7 @@ function BodySystemBar({ label, value, icon }: BodySystemBarProps) {
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     {icon}
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{label}</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">{label}</span>
                 </div>
                 <span className="text-[10px] font-black text-slate-600">{Math.round(value)}%</span>
             </div>
@@ -209,7 +209,7 @@ export default function Dashboard() {
             <div className="relative w-6 h-6">
               <Image src="/logo.png" alt="Logo" fill className="object-contain" priority sizes="24px" />
             </div>
-            <p className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] flex items-center gap-2">
+            <p className="text-[10px] md:text-sm font-black text-forest/90 uppercase tracking-[0.3em] flex items-center gap-2">
               Dinaveda Neural Hub <Sparkles className="w-3.5 h-3.5 text-gold/60" />
             </p>
           </div>
@@ -238,7 +238,7 @@ export default function Dashboard() {
         {/* 3. Physiology Map & System Message */}
         <motion.section variants={itemVariants} className="flex flex-col gap-6">
             <div className="glass p-6 md:p-10 rounded-[3rem] border border-white/60 shadow-premium flex flex-col items-center">
-                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-8">Physiology Map</h3>
+                <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] mb-8">Physiology Map</h3>
                 <PhysiologyMap state={state} />
                 
                 {/* 4. System Message (Formerly PressureExplanation) */}
@@ -252,7 +252,7 @@ export default function Dashboard() {
 
                 {/* 5. Dosha Balance Triangle */}
                 <div className="mt-12 w-full flex flex-col items-center border-t border-slate-100 pt-12">
-                     <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-8">Subtle Balance</h3>
+                     <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] mb-8">Subtle Balance</h3>
                      <DoshaTriangle vata={state.vata} pitta={state.pitta} kapha={state.kapha} />
                 </div>
             </div>
@@ -276,7 +276,7 @@ export default function Dashboard() {
                 <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] flex items-center gap-3">
                     <ShieldCheck className="w-4 h-4 text-forest/40" /> Corrective Protocol Plan
                 </h2>
-                <button onClick={() => setIsGoalModalOpen(true)} className="text-[10px] font-black text-forest/60 uppercase tracking-widest bg-forest/5 px-4 py-2 rounded-full border border-forest/10 hover:bg-forest/10 transition-colors">
+                <button onClick={() => setIsGoalModalOpen(true)} className="text-[10px] font-black text-forest/90 uppercase tracking-widest bg-forest/5 px-4 py-2 rounded-full border border-forest/10 hover:bg-forest/10 transition-colors">
                     Goal: {healthGoal.replace(/_/g, ' ')}
                 </button>
             </div>
@@ -284,7 +284,7 @@ export default function Dashboard() {
             <div className="flex flex-col gap-6">
                 {/* Morning */}
                 <div className="space-y-4">
-                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] px-4">Morning</h3>
+                    <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] px-4">Morning</h3>
                     {morningRecs.length > 0 ? morningRecs.map(rec => (
                         <ProtocolCard 
                             key={rec.name}
@@ -295,13 +295,13 @@ export default function Dashboard() {
                             userId={userId}
                         />
                     )) : (
-                        <p className="text-xs font-bold text-slate-400 px-4">No specific morning protocols today.</p>
+                        <p className="text-xs font-bold text-slate-600 px-4">No specific morning protocols today.</p>
                     )}
                 </div>
 
                 {/* Midday */}
                 <div className="space-y-4">
-                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] px-4">Midday</h3>
+                    <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] px-4">Midday</h3>
                     {middayRecs.length > 0 ? middayRecs.map(rec => (
                         <ProtocolCard 
                             key={rec.name}
@@ -312,13 +312,13 @@ export default function Dashboard() {
                             userId={userId}
                         />
                     )) : (
-                        <p className="text-xs font-bold text-slate-400 px-4">No specific midday protocols today.</p>
+                        <p className="text-xs font-bold text-slate-600 px-4">No specific midday protocols today.</p>
                     )}
                 </div>
 
                 {/* Evening */}
                 <div className="space-y-4">
-                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] px-4">Evening</h3>
+                    <h3 className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] px-4">Evening</h3>
                     {eveningRecs.length > 0 ? eveningRecs.map(rec => (
                         <ProtocolCard 
                             key={rec.name}
@@ -329,7 +329,7 @@ export default function Dashboard() {
                             userId={userId}
                         />
                     )) : (
-                        <p className="text-xs font-bold text-slate-400 px-4">No specific evening protocols today.</p>
+                        <p className="text-xs font-bold text-slate-600 px-4">No specific evening protocols today.</p>
                     )}
                 </div>
 
@@ -395,7 +395,7 @@ export default function Dashboard() {
               className="bg-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl relative border border-white/50 overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-forest/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-              <button onClick={() => setIsGoalModalOpen(false)} className="absolute top-6 right-6 text-slate-400 hover:text-forest transition-colors z-10">
+              <button onClick={() => setIsGoalModalOpen(false)} className="absolute top-6 right-6 text-slate-600 hover:text-forest transition-colors z-10">
                 <X className="w-5 h-5" />
               </button>
               <h3 className="text-2xl font-black text-forest tracking-tighter leading-tight mb-2">Refine your path</h3>

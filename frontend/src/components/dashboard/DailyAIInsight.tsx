@@ -56,7 +56,7 @@ export default function DailyAIInsight() {
                         <Lock className="w-7 h-7" />
                     </div>
                     <div className="text-center relative z-10">
-                        <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-amber-600 mb-2 flex items-center justify-center gap-2">
+                        <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-amber-700 mb-2 flex items-center justify-center gap-2">
                            Deep Biological Scanning Locked
                         </p>
                         <h4 className="text-xl md:text-2xl font-black text-forest tracking-tight">
@@ -77,11 +77,11 @@ export default function DailyAIInsight() {
             
             <div className="flex items-center gap-4 border-b border-emerald-50 pb-4 relative z-10">
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 border border-emerald-100">
-                    <BrainCircuit className="w-5 h-5 text-emerald-600" />
+                    <BrainCircuit className="w-5 h-5 text-emerald-700" />
                 </div>
                 <div>
                     <h3 className="text-sm font-black uppercase tracking-widest text-emerald-800">AyuOne Insight</h3>
-                    <p className="text-xs font-bold text-slate-400 flex items-center gap-2">
+                    <p className="text-xs font-bold text-slate-600 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block" /> Live Analysis
                     </p>
                 </div>
@@ -91,7 +91,7 @@ export default function DailyAIInsight() {
                 {isLoading ? (
                     <div className="flex items-center justify-center py-6 gap-3">
                         <BrainCircuit className="w-6 h-6 animate-pulse text-emerald-300" />
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest animate-pulse">Scanning physiological markers...</span>
+                        <span className="text-xs font-bold text-slate-600 uppercase tracking-widest animate-pulse">Scanning physiological markers...</span>
                     </div>
                 ) : (
                     <p className="text-base md:text-lg font-bold text-forest leading-relaxed text-balance">

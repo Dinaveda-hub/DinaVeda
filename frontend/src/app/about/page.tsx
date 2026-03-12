@@ -60,7 +60,7 @@ export default function AboutPage() {
                     {/* How Dinaveda Works */}
                     <section className="space-y-12">
                         <div className="text-center space-y-4">
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">The Process</h2>
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600">The Process</h2>
                             <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter">How Dinaveda Works</h3>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -92,7 +92,7 @@ export default function AboutPage() {
                         className="space-y-12 bg-white/40 p-12 rounded-[4rem] border border-slate-100"
                     >
                         <div className="text-center">
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600 mb-4">
                                 Scientific Model
                             </h2>
                             <h3 className="text-4xl font-black text-forest tracking-tighter">
@@ -112,7 +112,7 @@ export default function AboutPage() {
                             ].map((stat, idx) => (
                                 <div key={idx} className="text-center space-y-2">
                                     <div className="text-3xl font-black text-forest">{stat.label}</div>
-                                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.detail}</div>
+                                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-600">{stat.detail}</div>
                                 </div>
                             ))}
                         </div>
@@ -127,7 +127,7 @@ export default function AboutPage() {
                         className="space-y-12"
                     >
                         <div className="text-center">
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">Clinical Authority</h2>
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600 mb-4">Clinical Authority</h2>
                             <h3 className="text-4xl font-black text-forest tracking-tighter">The Visionary Behind Dinaveda</h3>
                         </div>
                         <div className="glass p-2 flex flex-col md:flex-row items-stretch gap-2 rounded-[3.5rem] border border-white max-w-4xl mx-auto overflow-hidden">
@@ -190,7 +190,7 @@ export default function AboutPage() {
                             <div key={idx} className="p-8 rounded-[2rem] bg-slate-50/50 border border-slate-100 flex flex-col items-center text-center space-y-4">
                                 <item.icon className="w-5 h-5 text-forest/40" />
                                 <h5 className="font-black text-forest uppercase tracking-widest text-[10px]">{item.title}</h5>
-                                <p className="text-xs text-slate-400 font-bold leading-relaxed">{item.desc}</p>
+                                <p className="text-xs text-slate-600 font-bold leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </section>
@@ -204,7 +204,7 @@ export default function AboutPage() {
                         className="text-center py-10"
                     >
                         <Heart className="w-12 h-12 text-rose-400 mx-auto mb-8 animate-pulse shadow-rose-200" />
-                        <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Physiology is Wellness</h4>
+                        <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600 mb-6">Physiology is Wellness</h4>
                         <Link href="/welcome" className="inline-flex items-center gap-3 bg-forest text-white px-10 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all">
                             Discover Your Ayurvedic Blueprint
                         </Link>

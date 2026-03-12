@@ -73,7 +73,7 @@ export default function HistoryPage() {
 
             <header className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
                 <div>
-                    <Link href="/profile" className="inline-flex items-center gap-2 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs hover:text-forest transition-all mb-6 group">
+                    <Link href="/profile" className="inline-flex items-center gap-2 text-slate-600 font-bold uppercase tracking-[0.2em] text-xs hover:text-forest transition-all mb-6 group">
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Profile
                     </Link>
                     <h1 className="text-5xl font-black text-forest tracking-tighter">Biological Logs</h1>
@@ -82,28 +82,28 @@ export default function HistoryPage() {
                 {logs.length > 0 && (
                     <div className="bg-white/60 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/80 shadow-premium flex flex-wrap justify-center md:items-center gap-4 md:gap-6">
                         <div className="text-center">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Avg Ojas</span>
+                            <span className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Avg Ojas</span>
                             <span className="text-xl font-black text-forest">
                                 {Math.round(logs.reduce((a, b) => a + (b.ojas_score || 0), 0) / logs.length)}
                             </span>
                         </div>
                         <div className="w-px h-8 bg-slate-200 hidden md:block" />
                         <div className="text-center">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Avg Sleep</span>
+                            <span className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Avg Sleep</span>
                             <span className="text-xl font-black text-slate-700">
                                 {(logs.reduce((a, b) => a + (b.sleep_hours || 0), 0) / logs.length).toFixed(1)}h
                             </span>
                         </div>
                         <div className="w-px h-8 bg-slate-200 hidden md:block" />
                         <div className="text-center">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Agni Stability</span>
+                            <span className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Agni Stability</span>
                             <span className="text-xl font-black text-orange-600 capitalize">
                                 {logs.filter(l => l.agni === 'balanced' || l.agni === 'sama').length > (logs.length / 2) ? 'Stable' : 'Variable'}
                             </span>
                         </div>
                         <div className="w-px h-8 bg-slate-200 hidden md:block" />
                         <div className="text-center">
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Total Logs</span>
+                            <span className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] block mb-0.5 whitespace-nowrap">Total Logs</span>
                             <span className="text-xl font-black text-slate-700">{logs.length}</span>
                         </div>
                     </div>
@@ -120,7 +120,7 @@ export default function HistoryPage() {
                         >
                             <BrainCircuit className="w-12 h-12" />
                         </motion.div>
-                        <p className="text-slate-400 font-black uppercase tracking-[0.3em] text-xs">Accessing Archives...</p>
+                        <p className="text-slate-600 font-black uppercase tracking-[0.3em] text-xs">Accessing Archives...</p>
                     </div>
                 ) : logs.length === 0 ? (
                     <div className="text-center py-32 glass rounded-[3rem] border border-white/40 shadow-premium flex flex-col items-center gap-6">
@@ -128,7 +128,7 @@ export default function HistoryPage() {
                             <Activity className="w-10 h-10" />
                         </div>
                         <div>
-                            <p className="text-slate-400 font-black uppercase tracking-[0.2em] text-xs">No entries found in your pulse history.</p>
+                            <p className="text-slate-600 font-black uppercase tracking-[0.2em] text-xs">No entries found in your pulse history.</p>
                             <p className="text-xs font-bold text-slate-300 mt-2">Log your daily dialogue to populate this archive.</p>
                         </div>
                         <Link href="/ayuone" className="text-forest font-black uppercase tracking-widest text-xs bg-forest/5 px-6 py-3 rounded-full hover:bg-forest hover:text-white transition-all">
@@ -178,7 +178,7 @@ export default function HistoryPage() {
                                                                     {log.mood} Energy • {log.movement.replace("_", " ")}
                                                                 </h3>
                                                                 <div className="flex items-center gap-4 mt-1.5">
-                                                                    <span className="flex items-center gap-1.5 text-xs font-black text-slate-400 uppercase tracking-widest">
+                                                                    <span className="flex items-center gap-1.5 text-xs font-black text-slate-600 uppercase tracking-widest">
                                                                         <Clock className="w-3.5 h-3.5 text-slate-300" />
                                                                         {new Date(log.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                                     </span>
@@ -189,21 +189,21 @@ export default function HistoryPage() {
                                                         <div className="flex flex-wrap items-center gap-4 md:gap-8">
                                                             <div className="flex items-center gap-8 px-8 py-5 bg-white/40 rounded-[2rem] border border-white/60">
                                                                 <div className="text-center">
-                                                                    <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-1">Ojas</span>
+                                                                    <span className="text-xs font-black text-slate-600 uppercase tracking-widest block mb-1">Ojas</span>
                                                                     <span className="text-2xl font-black text-forest">{log.ojas_score || "--"}</span>
                                                                 </div>
                                                                 <div className="w-px h-10 bg-forest/5" />
                                                                 <div className="text-center">
-                                                                    <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-1">Sleep</span>
+                                                                    <span className="text-xs font-black text-slate-600 uppercase tracking-widest block mb-1">Sleep</span>
                                                                     <span className="text-2xl font-black text-slate-700 flex items-baseline gap-0.5">
-                                                                        {log.sleep_hours}<span className="text-xs text-slate-400">h</span>
+                                                                        {log.sleep_hours}<span className="text-xs text-slate-600">h</span>
                                                                     </span>
                                                                 </div>
                                                                 <div className="w-px h-10 bg-forest/5" />
                                                                 <div className="text-center">
-                                                                    <span className="text-xs font-black text-slate-400 uppercase tracking-widest block mb-1">Agni</span>
-                                                                    <span className={`text-2xl font-black capitalize ${log.agni === 'high' ? 'text-amber-600' :
-                                                                        log.agni === 'low' ? 'text-blue-600' : 'text-emerald-600'
+                                                                    <span className="text-xs font-black text-slate-600 uppercase tracking-widest block mb-1">Agni</span>
+                                                                    <span className={`text-2xl font-black capitalize ${log.agni === 'high' ? 'text-amber-700' :
+                                                                        log.agni === 'low' ? 'text-blue-600' : 'text-emerald-700'
                                                                         }`}>{log.agni}</span>
                                                                 </div>
                                                             </div>

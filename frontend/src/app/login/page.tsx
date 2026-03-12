@@ -121,13 +121,13 @@ export default function LoginPage() {
                             <Leaf className="w-10 h-10" />
                         </div>
 
-                        <h1 className="text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.3em] mb-4">
+                        <h1 className="text-[10px] md:text-sm font-black text-slate-600 uppercase tracking-[0.3em] mb-4">
                             Dinaveda Central Login
                         </h1>
                         <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter mb-4 leading-none">
                             {mode === 'signin' ? "Welcome Back" : "Create Account"}
                         </h2>
-                        <p className="text-sm font-bold text-slate-400 mb-10 text-balance leading-relaxed uppercase tracking-wide">
+                        <p className="text-sm font-bold text-slate-600 mb-10 text-balance leading-relaxed uppercase tracking-wide">
                             {mode === 'signin' ? "Sign in to your health dashboard" : "Join Dinaveda to track your rhythms"}
                         </p>
 
@@ -141,7 +141,7 @@ export default function LoginPage() {
                                         className="relative"
                                     >
                                         <label htmlFor="full-name" className="sr-only">Full Name</label>
-                                        <User className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                        <User className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" />
                                         <input
                                             id="full-name"
                                             type="text"
@@ -158,7 +158,7 @@ export default function LoginPage() {
                             
                             <div className="relative">
                                 <label htmlFor="email" className="sr-only">Email Address</label>
-                                <Mail className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <Mail className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" />
                                 <input
                                     id="email"
                                     type="email"
@@ -173,7 +173,7 @@ export default function LoginPage() {
 
                             <div className="relative">
                                 <label htmlFor="password" className="sr-only">Password</label>
-                                <Lock className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <Lock className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" />
                                 <input
                                     id="password"
                                     type="password"
@@ -190,7 +190,7 @@ export default function LoginPage() {
                                 {mode === 'signin' && (
                                     <Link 
                                         href="/forgot-password" 
-                                        className="text-[10px] font-black uppercase tracking-widest text-forest/60 hover:text-forest transition-colors self-end pr-2"
+                                        className="text-[10px] font-black uppercase tracking-widest text-forest/90 hover:text-forest transition-colors self-end pr-2"
                                     >
                                         Forgot Password?
                                     </Link>
@@ -202,7 +202,7 @@ export default function LoginPage() {
                                             {acceptTos && <span className="text-xs font-black">✓</span>}
                                         </div>
                                         <input type="checkbox" className="hidden" checked={acceptTos} onChange={(e) => setAcceptTos(e.target.checked)} />
-                                        <span className="text-[10px] font-black text-slate-400 leading-tight uppercase tracking-wider">
+                                        <span className="text-[10px] font-black text-slate-600 leading-tight uppercase tracking-wider">
                                             I agree to the <Link href="/terms" className="text-forest underline underline-offset-4">Terms</Link> & <Link href="/privacy" className="text-forest underline underline-offset-4">Privacy</Link>
                                         </span>
                                     </label>
@@ -294,7 +294,7 @@ export default function LoginPage() {
                 </div>
 
                 <div className="mt-8 text-center px-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center justify-center gap-2">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center justify-center gap-2">
                         <ShieldCheck className="w-3 h-3 text-emerald-500" /> Securely encrypted authentication
                     </p>
                 </div>

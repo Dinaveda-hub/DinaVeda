@@ -20,7 +20,7 @@ export default function RoutineLandingPage() {
       
       <main className="max-w-6xl mx-auto px-6 pt-24 relative z-10">
         <header className="mb-16">
-          <p className="text-xs font-black uppercase tracking-[0.3em] text-forest/60 mb-3">
+          <p className="text-xs font-black uppercase tracking-[0.3em] text-forest/90 mb-3">
             Life Architecture
           </p>
           <h1 className="text-4xl md:text-6xl font-black text-forest tracking-tighter mb-6">
@@ -49,7 +49,7 @@ export default function RoutineLandingPage() {
                     <r.icon className="w-7 h-7 text-forest" />
                   </div>
                   <h3 className="text-xl font-black text-forest mb-2 relative z-10">{r.name}</h3>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest relative z-10 mb-8">{r.time}</p>
+                  <p className="text-xs font-bold text-slate-600 uppercase tracking-widest relative z-10 mb-8">{r.time}</p>
                   <div className="flex items-center gap-2 text-[10px] font-black text-forest uppercase tracking-widest group-hover:translate-x-1 transition-transform relative z-10">
                     View Sequence <ArrowRight className="w-3 h-3" />
                   </div>
@@ -73,7 +73,7 @@ export default function RoutineLandingPage() {
                   className="bg-white/60 hover:bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-lg transition-all flex items-center justify-between group"
                 >
                   <div>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">
+                    <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest mb-2 block">
                       {r.category} Sequence
                     </span>
                     <h3 className="text-2xl font-black text-forest tracking-tight group-hover:text-emerald-700 transition-colors">

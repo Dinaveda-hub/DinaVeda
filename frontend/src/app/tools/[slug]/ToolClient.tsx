@@ -88,7 +88,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
       <div className="bg-[#FAFBFB] text-slate-800 min-h-screen relative font-sans">
         <nav className="p-6 border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-[70]">
            <div className="max-w-7xl mx-auto flex justify-between items-center">
-              <Link href="/tools" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+              <Link href="/tools" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
                 <ArrowLeft className="w-4 h-4" /> All Tools
               </Link>
               <span className="font-black text-forest text-xl tracking-tighter italic">Dinaveda Tools</span>
@@ -146,7 +146,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                          <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center mb-6 shadow-sm">
                             <sys.icon className="w-6 h-6 text-forest" />
                          </div>
-                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{sys.name}</span>
+                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-2">{sys.name}</span>
                          <span className="text-4xl font-black text-forest">{Math.round(sys.score || 0)}</span>
                       </div>
                     ))}
@@ -171,16 +171,16 @@ export default function ToolClient({ slug }: ToolClientProps) {
                     <ul className="space-y-4">
                       {result.recommendations.map((rec, i) => (
                         <li key={i} className="flex gap-4 text-sm font-bold text-slate-500 items-start">
-                          <span className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-[10px] shrink-0">{i+1}</span>
+                          <span className="w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-[10px] shrink-0">{i+1}</span>
                           {rec}
                         </li>
                       ))}
                       {result.recommendedProtocol && (
                         <li className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 mt-6 group">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-2">Recommended System Protocol</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-700 mb-2">Recommended System Protocol</p>
                           <Link href={`/protocol/${result.recommendedProtocol}`} className="flex items-center justify-between group-hover:underline">
                             <span className="text-sm font-black text-forest">{result.recommendedProtocol.replace(/-/g, ' ').toUpperCase()}</span>
-                            <ArrowRight className="w-4 h-4 text-emerald-600 transition-transform group-hover:translate-x-1" />
+                            <ArrowRight className="w-4 h-4 text-emerald-700 transition-transform group-hover:translate-x-1" />
                           </Link>
                         </li>
                       )}
@@ -193,7 +193,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                   <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 blur-[150px] opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000" />
                   <Sparkles className="w-12 h-12 text-emerald-400 mx-auto mb-8" />
                   <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic italic">Identity is Time.</h3>
-                  <p className="text-slate-400 font-medium mb-12 max-w-lg mx-auto text-base leading-relaxed">
+                  <p className="text-slate-600 font-medium mb-12 max-w-lg mx-auto text-base leading-relaxed">
                     This analysis is a static baseline. The Dinaveda health OS measures your specific pulse, sleep depth, and digestive fire in real-time to generate a protocol that breathes with you.
                   </p>
                   <Link 
@@ -210,7 +210,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                    setShowResult(false);
                    setAnswers([]);
                  }}
-                 className="w-full py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:text-forest transition-all"
+                 className="w-full py-6 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:text-forest transition-all"
                >
                  <RefreshCw className="w-4 h-4" /> Recalculate Your Rhythm
                </button>
@@ -237,7 +237,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
 
       <nav className="p-6 border-b border-white sticky top-0 bg-white/40 backdrop-blur-md z-[70]">
          <div className="max-w-7xl mx-auto flex justify-between items-center text-xs font-black uppercase tracking-widest">
-            <Link href="/tools" className="flex items-center gap-2 text-slate-400 hover:text-forest transition-all">
+            <Link href="/tools" className="flex items-center gap-2 text-slate-600 hover:text-forest transition-all">
               <ArrowLeft className="w-4 h-4" /> Exit Test
             </Link>
             <div className="flex items-center gap-4 text-slate-300">
@@ -262,7 +262,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                   <RefreshCw className="w-10 h-10 text-forest animate-spin" />
                </div>
                <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter italic">Compiling Biological <br /> Data Points...</h2>
-               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Synthesizing Clinical Heuristics</p>
+               <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">Synthesizing Clinical Heuristics</p>
             </motion.div>
           ) : (
             <motion.div 

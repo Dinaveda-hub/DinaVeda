@@ -65,7 +65,7 @@ function ProtocolNav() {
     <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
       <Link 
         href="/health" 
-        className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all"
+        className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all"
         aria-label="Return to health hub"
       >
         <ArrowLeft className="w-4 h-4" /> Health Hub
@@ -91,13 +91,13 @@ function ProtocolHeader({ name, duration, raw }: { name: string; duration: strin
       animate={{ opacity: 1, y: 0 }}
       className="text-center mb-16 md:mb-20"
     >
-      <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest mb-8">
+      <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-widest mb-8">
         {raw ? 'Clinical Protocol' : 'Health Reset Bundle'}
       </span>
       <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
         {name}
       </h1>
-      <div className="flex items-center justify-center gap-8 text-xs font-black uppercase tracking-widest text-slate-400">
+      <div className="flex items-center justify-center gap-8 text-xs font-black uppercase tracking-widest text-slate-600">
          <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> {duration}</div>
          <div className="w-1.5 h-1.5 bg-slate-200 rounded-full" />
          <div className="flex items-center gap-2"><ShieldCheck className="w-4 h-4" /> {raw ? raw.module : 'Verified'}</div>
@@ -117,7 +117,7 @@ function ProtocolMechanism({ name, mechanism, raw }: { name: string; mechanism: 
       <p className="text-slate-600 font-medium leading-relaxed italic pr-4">
         "{mechanism}"
       </p>
-      <div className="mt-8 pt-8 border-t border-slate-50 flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+      <div className="mt-8 pt-8 border-t border-slate-50 flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-600">
          <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" /> Static Baseline</span>
          <span className="w-1 h-1 bg-slate-200 rounded-full" />
          <span>{raw ? raw.module : 'Verified'}</span>
@@ -136,14 +136,14 @@ function MetabolicImpact({ name }: { name: string }) {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100">
-            <span className="block text-[10px] font-black text-slate-400 uppercase mb-2">Agni Ignite</span>
+            <span className="block text-[10px] font-black text-slate-600 uppercase mb-2">Agni Ignite</span>
             <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
               <div className="h-full bg-orange-400 opacity-30 w-[60%]" />
             </div>
             <span className="mt-2 block text-[10px] font-bold text-slate-500 italic">Locked in Personalizer</span>
         </div>
         <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100">
-            <span className="block text-[10px] font-black text-slate-400 uppercase mb-2">Ama Scraping</span>
+            <span className="block text-[10px] font-black text-slate-600 uppercase mb-2">Ama Scraping</span>
             <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
               <div className="h-full bg-slate-400 opacity-30 w-[40%]" />
             </div>
@@ -236,7 +236,7 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
                 <MetabolicImpact name={name} />
 
                 <div className="bg-emerald-50/50 p-6 md:p-8 rounded-3xl md:rounded-[3rem] border border-emerald-100/50">
-                   <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-4">Precision Warning</h4>
+                   <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-700 mb-4">Precision Warning</h4>
                    <p className="text-xs text-emerald-800/70 font-bold leading-relaxed">
                      This is a generalized clinical baseline. To ensure biological safety, the Dinaveda engine must calibrate the intensity and timing of this action based on your detected circadian drift and metabolic momentum.
                    </p>
@@ -245,7 +245,7 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
 
              <aside className="bg-slate-50 p-6 md:p-8 rounded-3xl md:rounded-[3rem] border border-slate-100 flex flex-col justify-between">
                 <div>
-                   <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">Target Indicators</h4>
+                   <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-6">Target Indicators</h4>
                    <div className="flex flex-wrap gap-2">
                      {(indications ?? []).map((ind: string) => (
                        <span key={ind} className="px-3 py-1.5 bg-white rounded-xl text-[10px] font-black text-slate-500 uppercase border border-slate-200 shadow-sm">
@@ -260,7 +260,7 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
                          <Heart className="w-5 h-5" />
                       </div>
                       <div>
-                         <span className="block text-[10px] font-black text-slate-400 uppercase tracking-tighter">Clinical Standard</span>
+                         <span className="block text-[10px] font-black text-slate-600 uppercase tracking-tighter">Clinical Standard</span>
                          <span className="block text-xs font-bold text-forest uppercase">Veda-Core 2.0</span>
                       </div>
                    </div>
@@ -280,7 +280,7 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
               </p>
               <div className="flex justify-center gap-2">
                  {(raw?.tags ?? []).slice(0, 3).map((tag: string) => (
-                   <span key={tag} className="text-[10px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">#{tag}</span>
+                   <span key={tag} className="text-[10px] font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">#{tag}</span>
                  ))}
               </div>
             </div>

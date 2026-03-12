@@ -57,7 +57,7 @@ const SummaryCard = ({ observation, score }: { observation: string; score: numbe
         <div className={`mb-8 p-8 rounded-[2rem] bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]`}>
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-1 bg-[#2D7A5C] rounded-full" />
-                <h3 className={`text-xs font-black text-slate-400 tracking-[0.2em] uppercase`}>
+                <h3 className={`text-xs font-black text-slate-600 tracking-[0.2em] uppercase`}>
                     Wellness Observation
                 </h3>
             </div>
@@ -126,7 +126,7 @@ export default function PathyaPlanDisplay({ observation, principle, timeline, sc
             {rituInfo && (
                 <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-[#F0FDF4] to-[#ECFCCB] border border-emerald-100 flex flex-col md:flex-row md:items-center justify-between shadow-sm gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-[1.25rem] bg-emerald-500/10 flex items-center justify-center text-emerald-600 shrink-0">
+                        <div className="w-10 h-10 rounded-[1.25rem] bg-emerald-500/10 flex items-center justify-center text-emerald-700 shrink-0">
                             <Sun className="w-5 h-5" />
                         </div>
                         <div>
@@ -172,7 +172,7 @@ export default function PathyaPlanDisplay({ observation, principle, timeline, sc
                         title="Morning"
                         content={timeline?.morning || "Maintain a steady morning routine based on your Prakriti."}
                         icon={Sunrise}
-                        colorClass="text-emerald-600 bg-emerald-100"
+                        colorClass="text-emerald-700 bg-emerald-100"
                     />
                     <TimelineCard
                         title="Midday"

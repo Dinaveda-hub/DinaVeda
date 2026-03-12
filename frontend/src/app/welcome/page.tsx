@@ -143,7 +143,7 @@ export default function WelcomeLandingPage() {
                     </div>
                     <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
                 </Link>
-                <div className="hidden md:flex gap-8 items-center text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.2em] md:tracking-[0.3em] pl-4 pr-12">
+                <div className="hidden md:flex gap-8 items-center text-[10px] md:text-sm font-black text-slate-600 uppercase tracking-[0.2em] md:tracking-[0.3em] pl-4 pr-12">
                     <button onClick={() => {
                         document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                     }} className="hover:text-forest transition-colors">How it works</button>
@@ -246,16 +246,16 @@ export default function WelcomeLandingPage() {
                                         </div>
                                         <div className="space-y-4">
                                             <div>
-                                                <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Full Name</label>
+                                                <label className="text-xs font-black uppercase tracking-widest text-slate-600 ml-4 mb-2 block">Full Name</label>
                                                 <input type="text" value={userInfo.name} onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })} className="w-full bg-slate-50 font-bold text-slate-700 px-6 py-4 rounded-2xl border border-slate-100 focus:outline-none focus:border-forest/30 focus:bg-white transition-all shadow-sm" placeholder="Your Name" />
                                             </div>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div>
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Age</label>
+                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-600 ml-4 mb-2 block">Age</label>
                                                     <input type="number" value={userInfo.age} onChange={(e) => setUserInfo({ ...userInfo, age: e.target.value })} className="w-full bg-slate-50 font-bold text-slate-700 px-6 py-4 rounded-2xl border border-slate-100 focus:outline-none focus:border-forest/30 focus:bg-white transition-all shadow-sm" placeholder="Age" />
                                                 </div>
                                                 <div>
-                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-4 mb-2 block">Gender</label>
+                                                    <label className="text-xs font-black uppercase tracking-widest text-slate-600 ml-4 mb-2 block">Gender</label>
                                                     <select value={userInfo.gender} onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })} className="w-full bg-slate-50 font-bold text-slate-700 px-6 py-4 rounded-2xl border border-slate-100 focus:outline-none focus:border-forest/30 focus:bg-white transition-all shadow-sm cursor-pointer appearance-none">
                                                         <option value="">Select</option>
                                                         <option value="male">Male</option>
@@ -321,14 +321,14 @@ export default function WelcomeLandingPage() {
                                             <div className="w-16 h-16 rounded-[2rem] bg-forest/5 flex items-center justify-center text-forest mx-auto mb-4">
                                                 <ShieldCheck className="w-8 h-8" />
                                             </div>
-                                            <span className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-2 block">Your Core Nature Revealed</span>
+                                            <span className="text-xs font-black text-slate-600 uppercase tracking-[0.3em] mb-2 block">Your Core Nature Revealed</span>
                                             <h3 className="text-5xl font-black text-forest tracking-tighter mb-2">{resultData.type}</h3>
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-6 py-4">
                                             {Object.entries(resultData.scores).map(([dosha, score]: any) => (
                                                 <div key={dosha} className="text-center">
-                                                    <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">{dosha}</div>
+                                                    <div className="text-xs font-black text-slate-600 uppercase tracking-widest mb-1">{dosha}</div>
                                                     <div className="text-2xl font-black text-forest">{score}</div>
                                                 </div>
                                             ))}

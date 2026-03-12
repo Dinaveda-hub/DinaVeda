@@ -41,7 +41,7 @@ export default function CircadianPreview() {
 
       <div className="space-y-4">
         <div>
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 mb-1 block">
+          <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 mb-1 block">
             Sleep Time
           </label>
           <input
@@ -53,7 +53,7 @@ export default function CircadianPreview() {
         </div>
 
         <div>
-           <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 mb-1 block">
+           <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 mb-1 block">
             Wake Time
           </label>
           <input
@@ -65,7 +65,7 @@ export default function CircadianPreview() {
         </div>
 
         <div>
-           <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-2 mb-1 block">
+           <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest pl-2 mb-1 block">
             Dinner Time
           </label>
           <input
@@ -80,7 +80,7 @@ export default function CircadianPreview() {
 
       <div className="mt-8 pt-6 border-t border-slate-100 text-center">
 
-        <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
+        <div className="text-[10px] font-black uppercase tracking-widest text-slate-600 mb-1">
           Alignment Score
         </div>
 

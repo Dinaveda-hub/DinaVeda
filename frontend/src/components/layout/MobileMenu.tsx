@@ -88,7 +88,7 @@ export default function MobileMenu() {
                 <span className="font-black text-forest text-xl tracking-tighter">Dinaveda</span>
                 <button 
                   onClick={toggleMenu}
-                  className="p-2 text-slate-400 hover:text-forest transition-colors"
+                  className="p-2 text-slate-600 hover:text-forest transition-colors"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -100,9 +100,9 @@ export default function MobileMenu() {
                   
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
                        <BookOpen className="w-3.5 h-3.5" /> Education
-                    </h3>
+                    </p>
                     <div className="grid grid-cols-1 gap-2">
                       {TOPIC_GROUPS.education.map((item) => (
                         <Link 
@@ -119,9 +119,9 @@ export default function MobileMenu() {
 
                   {/* Tools */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
                        <Activity className="w-3.5 h-3.5" /> Diagnostic Tools
-                    </h3>
+                    </p>
                     <div className="grid grid-cols-1 gap-2">
                       {TOPIC_GROUPS.tools.map((item) => (
                         <Link 
@@ -138,9 +138,9 @@ export default function MobileMenu() {
 
                   {/* Symptoms */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
                        <HeartPulse className="w-3.5 h-3.5" /> Health Hub
-                    </h3>
+                    </p>
                     <div className="grid grid-cols-1 gap-2">
                       {TOPIC_GROUPS.symptoms.map((item) => (
                         <Link 
@@ -167,7 +167,7 @@ export default function MobileMenu() {
                 >
                   Start Assessment <ArrowRight className="w-4 h-4" />
                 </Link>
-                <p className="text-[10px] text-center font-bold text-slate-400 uppercase tracking-widest">
+                <p className="text-[10px] text-center font-bold text-slate-600 uppercase tracking-widest">
                    © 2026 Dinaveda AI
                 </p>
               </div>

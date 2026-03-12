@@ -160,13 +160,13 @@ export default function AyuOneChat({ isOpen, onClose }: AyuOneChatProps) {
                             <h4 className="text-sm font-black text-forest uppercase tracking-widest">AyuOne Veda</h4>
                             <div className="flex items-center gap-1.5">
                                 <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Neural Core Active</span>
+                                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tighter">Neural Core Active</span>
                             </div>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
-                        className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 transition-colors"
+                        className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-600 transition-colors"
                     >
                         <Zap className="w-4 h-4 rotate-45" />
                     </button>

@@ -73,8 +73,8 @@ export default function PrakritiPage() {
     const severity = DRIFT_SEVERITY[driftLevel];
     
     const severityColor = useMemo(() => {
-        if (driftLevel === "STABLE") return "text-emerald-600";
-        if (driftLevel === "MILD") return "text-amber-600";
+        if (driftLevel === "STABLE") return "text-emerald-700";
+        if (driftLevel === "MILD") return "text-amber-700";
         if (driftLevel === "MODERATE") return "text-orange-600";
         return "text-red-600"; // Severe/Critical
     }, [driftLevel]);
@@ -89,7 +89,7 @@ export default function PrakritiPage() {
             <header className="p-8 md:px-14 md:pt-24 pb-12 md:pb-16">
                 <div className="flex items-center gap-4 mb-4 md:mb-6">
                     <ShieldCheck className="w-6 h-6 text-forest/40" />
-                    <span className="text-xs font-black text-forest/60 uppercase tracking-[0.3em]">Genetic Intelligence</span>
+                    <span className="text-xs font-black text-forest/90 uppercase tracking-[0.3em]">Genetic Intelligence</span>
                 </div>
                 <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none">Prakriti Core</h1>
             </header>
@@ -99,7 +99,7 @@ export default function PrakritiPage() {
                     {/* Prakriti (Constitution) */}
                     <section className="glass p-8 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-emerald-500/20 transition-colors">
                         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
+                        <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
                             <Target className="w-4 h-4 text-forest/40" /> Biological Anchor
                         </h2>
 
@@ -116,7 +116,7 @@ export default function PrakritiPage() {
                                             <div className="flex justify-between text-xs font-black uppercase tracking-widest text-slate-500 mb-3">
                                                 <span className="flex items-center gap-2">
                                                     {bar.id} Essence
-                                                    <span className="text-[10px] font-bold text-slate-400 normal-case tracking-normal">{DOSHA_DESCRIPTIONS[bar.id]}</span>
+                                                    <span className="text-[10px] font-bold text-slate-600 normal-case tracking-normal">{DOSHA_DESCRIPTIONS[bar.id]}</span>
                                                 </span>
                                                 <span className="text-forest">{bar.value}</span>
                                             </div>
@@ -145,7 +145,7 @@ export default function PrakritiPage() {
                     {/* Vikriti (Current Imbalance) */}
                     <section className="glass p-8 md:p-12 rounded-[3rem] shadow-premium border border-white/60 relative overflow-hidden group hover:border-orange-500/20 transition-colors">
                         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
+                        <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
                             <Compass className="w-4 h-4 text-orange-400/60" /> Dynamic Recalibration
                         </h2>
 
@@ -157,7 +157,7 @@ export default function PrakritiPage() {
                                     </div>
                                     <div>
                                         {/* Fix #10: Rename "Dominant Flux" to "Dominant Imbalance" */}
-                                        <span className="text-xs font-black uppercase tracking-widest text-slate-400 block mb-1">Dominant Imbalance</span>
+                                        <span className="text-xs font-black uppercase tracking-widest text-slate-600 block mb-1">Dominant Imbalance</span>
                                         <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter">{vikriti.dominant_dosha}</h3>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@ export default function PrakritiPage() {
                     {isLoaded && prakriti ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div>
-                                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Correlation</h4>
+                                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-600 mb-4">Correlation</h4>
                                 <p className="text-sm font-bold text-slate-600 leading-relaxed text-balance">
                                     Your core constitution is <strong className="text-forest">{prakriti.type}</strong>.
                                     Currently, your <strong className="text-orange-600">{vikriti?.dominant_dosha}</strong> is accumulating.
@@ -216,7 +216,7 @@ export default function PrakritiPage() {
                                 </p>
                             </div>
                             <div>
-                                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Drift Severity</h4>
+                                <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-600 mb-4">Drift Severity</h4>
                                 <div className="flex items-baseline gap-3 mb-2">
                                     <span className="text-5xl font-black text-forest">{Math.round(driftIndex)}%</span>
                                     <span className={`text-sm font-black uppercase tracking-widest ${severityColor}`}>{severity.label}</span>
@@ -233,7 +233,7 @@ export default function PrakritiPage() {
                             </div>
                         </div>
                     ) : (
-                        <p className="text-sm font-bold text-slate-400 py-4">Insufficient data to calculate trends.</p>
+                        <p className="text-sm font-bold text-slate-600 py-4">Insufficient data to calculate trends.</p>
                     )}
                 </section>
             </main>

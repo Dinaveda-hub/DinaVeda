@@ -31,7 +31,7 @@ export default function StickyUpgradeBar() {
                     className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 flex items-center justify-between z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:hidden"
                 >
                     <div className="flex flex-col">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Premium Access</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-600">Premium Access</span>
                         <div className="text-xs font-bold text-slate-600">
                             From <span className="text-forest">₹399/month</span>
                         </div>

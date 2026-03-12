@@ -58,9 +58,9 @@ export default function GuidePage() {
             Dinaveda
           </Link>
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/guide/doshas" className="text-sm font-bold text-slate-400 hover:text-forest transition-colors">Doshas</Link>
-            <Link href="/guide/prakriti" className="text-sm font-bold text-slate-400 hover:text-forest transition-colors">Prakriti</Link>
-            <Link href="/guide/agni" className="text-sm font-bold text-slate-400 hover:text-forest transition-colors">Agni</Link>
+            <Link href="/guide/doshas" className="text-sm font-bold text-slate-600 hover:text-forest transition-colors">Doshas</Link>
+            <Link href="/guide/prakriti" className="text-sm font-bold text-slate-600 hover:text-forest transition-colors">Prakriti</Link>
+            <Link href="/guide/agni" className="text-sm font-bold text-slate-600 hover:text-forest transition-colors">Agni</Link>
           </div>
           <div className="ml-auto">
             <Link 
@@ -82,7 +82,7 @@ export default function GuidePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="block text-xs font-black text-forest/60 uppercase tracking-[0.4em] mb-6">
+            <span className="block text-xs font-black text-forest/90 uppercase tracking-[0.4em] mb-6">
               Ayurveda Knowledge Hub
             </span>
             <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
@@ -116,7 +116,7 @@ export default function GuidePage() {
                           <el.icon className="w-6 h-6" />
                       </div>
                       <h4 className="text-sm font-black text-forest tracking-tighter mb-1">{el.name}</h4>
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] mb-3 block">{el.en}</span>
+                      <span className="text-[10px] font-black uppercase text-slate-600 tracking-[0.2em] mb-3 block">{el.en}</span>
                       <p className="text-[10px] font-medium text-slate-500 leading-tight">{el.desc}</p>
                   </motion.div>
               ))}
@@ -144,12 +144,12 @@ export default function GuidePage() {
                   <div className="flex items-center gap-4 pt-4">
                       <div className="flex flex-col">
                           <span className="text-2xl font-black text-forest leading-none">Baseline</span>
-                          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Prakriti</span>
+                          <span className="text-xs font-bold text-slate-600 uppercase tracking-widest mt-1">Prakriti</span>
                       </div>
                       <ArrowRight className="w-5 h-5 text-slate-300" />
                       <div className="flex flex-col">
                           <span className="text-2xl font-black text-emerald-500 leading-none">Imbalance</span>
-                          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Vikriti</span>
+                          <span className="text-xs font-bold text-slate-600 uppercase tracking-widest mt-1">Vikriti</span>
                       </div>
                   </div>
               </motion.div>
@@ -187,7 +187,7 @@ export default function GuidePage() {
                           <h4 className="text-3xl font-black text-forest mb-2 flex items-center gap-2">
                              {dosha.title} <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </h4>
-                          <p className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] mb-6">{dosha.elements} • {dosha.role}</p>
+                          <p className="text-[10px] font-black uppercase text-slate-600 tracking-[0.2em] mb-6">{dosha.elements} • {dosha.role}</p>
                           <p className="text-slate-600 font-medium leading-relaxed">{dosha.desc}</p>
                       </motion.div>
                     </Link>
@@ -203,7 +203,7 @@ export default function GuidePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                 {[
                     { icon: <Zap className="w-10 h-10" />, name: "Agni", sub: "Fire", link: "/guide/agni", color: "text-orange-400", desc: "Metabolic fire. Weak Agni creates Ama." },
-                    { icon: <Shield className="w-10 h-10" />, name: "Ama", sub: "Toxins", link: "/guide/ama", color: "text-slate-400", desc: "Sludge that blocks intelligent channels." },
+                    { icon: <Shield className="w-10 h-10" />, name: "Ama", sub: "Toxins", link: "/guide/ama", color: "text-slate-600", desc: "Sludge that blocks intelligent channels." },
                     { icon: <Sparkles className="w-10 h-10" />, name: "Ojas", sub: "Radiance", link: "/guide/ojas", color: "text-emerald-400", desc: "The ultimate essence of pure immunity." }
                 ].map((mech) => (
                     <Link key={mech.name} href={mech.link} className="group">
@@ -214,7 +214,7 @@ export default function GuidePage() {
                             <div>
                                 <h4 className="text-2xl font-black text-white group-hover:text-emerald-300 transition-colors uppercase tracking-tight">{mech.name}</h4>
                                 <p className="text-[10px] font-black text-slate-500 tracking-widest uppercase mb-4">{mech.sub}</p>
-                                <p className="text-sm text-slate-400 leading-relaxed font-medium">{mech.desc}</p>
+                                <p className="text-sm text-slate-600 leading-relaxed font-medium">{mech.desc}</p>
                             </div>
                         </div>
                     </Link>

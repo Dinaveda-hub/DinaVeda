@@ -25,13 +25,13 @@ export default function Footer() {
 
           {/* Legal & Social */}
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-            <Link href="/privacy" className="text-xs font-bold text-slate-400 hover:text-forest transition-colors">Privacy</Link>
-            <Link href="/terms" className="text-xs font-bold text-slate-400 hover:text-forest transition-colors">Terms</Link>
-            <Link href="/contact" className="text-xs font-bold text-slate-400 hover:text-forest transition-colors">Contact</Link>
+            <Link href="/privacy" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors">Privacy</Link>
+            <Link href="/terms" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors">Terms</Link>
+            <Link href="/contact" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors">Contact</Link>
           </div>
 
           {/* Copyright */}
-          <div className="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
+          <div className="text-slate-600 text-[11px] font-bold tracking-widest uppercase">
             © {currentYear} Dinaveda AI
           </div>
         </div>

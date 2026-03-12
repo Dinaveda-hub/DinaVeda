@@ -26,7 +26,7 @@ export default function AmaPage() {
       
       {/* Top Nav */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto border-b border-slate-50">
-        <Link href="/guide" className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-forest transition-colors group">
+        <Link href="/guide" className="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-forest transition-colors group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to Hub
         </Link>
@@ -39,7 +39,7 @@ export default function AmaPage() {
             Ama: Understanding <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-600 to-slate-900">Metabolic Sludge</span>
           </h1>
-          <div className="flex items-center gap-4 text-xs font-black text-slate-400 uppercase tracking-widest border-l-4 border-slate-800 pl-6 py-2">
+          <div className="flex items-center gap-4 text-xs font-black text-slate-600 uppercase tracking-widest border-l-4 border-slate-800 pl-6 py-2">
             <span>Toxic Accumulation</span>
             <span>•</span>
             <span>1000 Words</span>
@@ -59,9 +59,9 @@ export default function AmaPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-16">
             <div className="p-10 rounded-[2.5rem] bg-slate-800 text-white">
-                <ShieldAlert className="w-12 h-12 mb-6 text-slate-400" />
+                <ShieldAlert className="w-12 h-12 mb-6 text-slate-600" />
                 <h3 className="text-xl font-bold mb-4 text-white">Signs of Ama</h3>
-                <ul className="text-xs space-y-2 font-bold text-slate-400 uppercase tracking-widest list-none p-0">
+                <ul className="text-xs space-y-2 font-bold text-slate-600 uppercase tracking-widest list-none p-0">
                     <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-slate-500" /> Coated Tongue</li>
                     <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-slate-500" /> Morning Fatigue</li>
                     <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-slate-500" /> Mental Fog</li>

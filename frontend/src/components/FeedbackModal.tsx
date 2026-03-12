@@ -112,7 +112,7 @@ export default function FeedbackModal({ queue, currentState, onClose, onComplete
                     <button
                         disabled={isSubmitting}
                         onClick={onClose}
-                        className="absolute top-6 right-6 text-slate-400 hover:text-forest transition-colors disabled:opacity-30"
+                        className="absolute top-6 right-6 text-slate-600 hover:text-forest transition-colors disabled:opacity-30"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -132,7 +132,7 @@ export default function FeedbackModal({ queue, currentState, onClose, onComplete
                             whileTap={{ scale: 0.95 }}
                             disabled={isSubmitting}
                             onClick={() => handleFeedback(-1)}
-                            className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-50 hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all group disabled:opacity-50"
+                            className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-50 hover:bg-red-50 text-slate-600 hover:text-red-500 transition-all group disabled:opacity-50"
                         >
                             <ThumbsDown className="w-6 h-6 group-hover:scale-110 transition-transform" />
                             <span className="text-[10px] font-black uppercase tracking-widest">Worse</span>
@@ -142,7 +142,7 @@ export default function FeedbackModal({ queue, currentState, onClose, onComplete
                             whileTap={{ scale: 0.95 }}
                             disabled={isSubmitting}
                             onClick={() => handleFeedback(0)}
-                            className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all group disabled:opacity-50"
+                            className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-600 transition-all group disabled:opacity-50"
                         >
                             <Minus className="w-6 h-6 group-hover:scale-110 transition-transform" />
                             <span className="text-[10px] font-black uppercase tracking-widest">No Change</span>
@@ -152,7 +152,7 @@ export default function FeedbackModal({ queue, currentState, onClose, onComplete
                             whileTap={{ scale: 0.95 }}
                             disabled={isSubmitting}
                             onClick={() => handleFeedback(1)}
-                            className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 text-slate-400 hover:text-emerald-500 transition-all group disabled:opacity-50"
+                            className="flex-1 flex flex-col items-center gap-2 p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 text-slate-600 hover:text-emerald-500 transition-all group disabled:opacity-50"
                         >
                             <ThumbsUp className="w-6 h-6 group-hover:scale-110 transition-transform" />
                             <span className="text-[10px] font-black uppercase tracking-widest">Better</span>

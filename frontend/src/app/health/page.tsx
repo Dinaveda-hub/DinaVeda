@@ -58,7 +58,7 @@ const SYMPTOMS = [
     name: "Weight Gain", 
     slug: "weight-gain", 
     icon: Sparkles, 
-    color: "text-amber-600", 
+    color: "text-amber-700", 
     desc: "Stubborn weight and metabolic slows explained through elements.",
     pattern: "Kapha / Low Agni"
   }
@@ -94,7 +94,7 @@ export default function HealthHubPage() {
             Dinaveda
           </Link>
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/guide" className="text-sm font-bold text-slate-400 hover:text-forest transition-colors">Guide</Link>
+            <Link href="/guide" className="text-sm font-bold text-slate-600 hover:text-forest transition-colors">Guide</Link>
             <Link href="/health" className="text-sm font-black text-forest">Symptom Hub</Link>
           </div>
           <div className="ml-auto">
@@ -116,7 +116,7 @@ export default function HealthHubPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="block text-xs font-black text-forest/60 uppercase tracking-[0.4em] mb-6">
+            <span className="block text-xs font-black text-forest/90 uppercase tracking-[0.4em] mb-6">
               Symptom Hub
             </span>
             <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
@@ -152,14 +152,14 @@ export default function HealthHubPage() {
                     <h2 className="text-3xl font-black text-forest mb-2 flex items-center gap-2">
                       {symptom.name} <ArrowRight className="w-5 h-5 opacity-20 group-hover:opacity-100 transition-all" />
                     </h2>
-                    <p className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] mb-6">{symptom.pattern}</p>
+                    <p className="text-[10px] font-black uppercase text-slate-600 tracking-[0.2em] mb-6">{symptom.pattern}</p>
                     <p className="text-slate-600 font-medium leading-relaxed">{symptom.desc}</p>
                     
                     {/* Programmatic Shortcuts */}
                     <div className="mt-8 pt-6 border-t border-slate-50 flex flex-wrap gap-2">
-                      <Link href={`/health/${symptom.slug}-vata`} className="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-colors">Vata</Link>
-                      <Link href={`/health/${symptom.slug}-pitta`} className="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-colors">Pitta</Link>
-                      <Link href={`/health/${symptom.slug}-kapha`} className="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-colors">Kapha</Link>
+                      <Link href={`/health/${symptom.slug}-vata`} className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Vata</Link>
+                      <Link href={`/health/${symptom.slug}-pitta`} className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Pitta</Link>
+                      <Link href={`/health/${symptom.slug}-kapha`} className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Kapha</Link>
                     </div>
                   </div>
                 </motion.div>

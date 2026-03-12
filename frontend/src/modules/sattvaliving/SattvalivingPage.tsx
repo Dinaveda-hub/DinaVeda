@@ -29,7 +29,7 @@ export default function SattvalivingPage({
             {/* ... sections ... */}
             <section className="glass rounded-[3rem] p-10 shadow-premium border border-white">
                 <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-600">
+                    <div className="w-12 h-12 rounded-[1.2rem] bg-emerald-50 flex items-center justify-center text-emerald-700">
                         <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Lifestyle Protocols</h2>

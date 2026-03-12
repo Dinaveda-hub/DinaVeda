@@ -52,14 +52,14 @@ export default function ForgotPasswordPage() {
                         <h1 className="text-3xl md:text-4xl font-black text-forest tracking-tighter mb-4 leading-none lowercase">
                             Reset Access
                         </h1>
-                        <p className="text-sm font-bold text-slate-400 mb-10 text-balance uppercase tracking-widest leading-relaxed">
+                        <p className="text-sm font-bold text-slate-600 mb-10 text-balance uppercase tracking-widest leading-relaxed">
                             Enter your email to receive a secure login link
                         </p>
 
                         <form onSubmit={handleReset} className="w-full space-y-4 mb-8">
                             <div className="relative">
                                 <label htmlFor="email-reset" className="sr-only">Email Address</label>
-                                <Mail className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <Mail className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" />
                                 <input
                                     id="email-reset"
                                     type="email"

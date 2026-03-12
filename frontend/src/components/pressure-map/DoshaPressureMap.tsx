@@ -32,7 +32,7 @@ export default function DoshaPressureMap() {
         <section className="w-full glass p-6 md:p-10 rounded-[2.5rem] border border-white/60 shadow-premium">
 
             {/* Header */}
-            <h2 className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
+            <h2 className="text-[10px] md:text-xs font-black text-slate-600 uppercase tracking-[0.3em] mb-8 flex items-center gap-3">
                 <Heart className="w-4 h-4 text-forest/40" /> Dosha Pressure Map
             </h2>
 
@@ -40,7 +40,7 @@ export default function DoshaPressureMap() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
                 {/* Dosha Triangle */}
                 <div className="flex flex-col items-center">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6">Dosha Balance</p>
+                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-[0.3em] mb-6">Dosha Balance</p>
                     <DoshaTriangle
                         vata={state.vata}
                         pitta={state.pitta}
@@ -50,7 +50,7 @@ export default function DoshaPressureMap() {
 
                 {/* Physiology Radar */}
                 <div className="flex flex-col items-center">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em] mb-6">System Vitality</p>
+                    <p className="text-[9px] font-black text-slate-600 uppercase tracking-[0.3em] mb-6">System Vitality</p>
                     <PhysiologyRadar axes={radarAxes} />
                 </div>
             </div>

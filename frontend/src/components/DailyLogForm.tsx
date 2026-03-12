@@ -209,7 +209,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                 </div>
                                 <div>
                                     <h4 className="text-sm font-black text-forest uppercase tracking-widest leading-none mb-1.5">Vigor & Rest</h4>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Biological Recharge</p>
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Biological Recharge</p>
                                 </div>
                             </div>
 
@@ -290,7 +290,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                 </div>
                                 <div>
                                     <h4 className="text-sm font-black text-forest uppercase tracking-widest leading-none mb-1.5">Metabolic Center</h4>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Agni & Elimination</p>
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Agni & Elimination</p>
                                 </div>
                             </div>
 
@@ -356,7 +356,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                 </div>
                                 <div>
                                     <h4 className="text-sm font-black text-forest uppercase tracking-widest leading-none mb-1.5">Action & Habits</h4>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Movement & Dinacharya</p>
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Movement & Dinacharya</p>
                                 </div>
                             </div>
 
@@ -386,7 +386,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                             onClick={() => handleToggleRoutine(habit)}
                                             className={`p-3 rounded-xl flex items-center justify-between transition-all border ${form.routines.includes(habit)
                                                 ? 'bg-forest/5 border-forest text-forest'
-                                                : 'bg-white border-slate-100 text-slate-400'
+                                                : 'bg-white border-slate-100 text-slate-600'
                                                 }`}
                                         >
                                             <span className="text-[10px] font-black uppercase tracking-widest">{habit.replace("_", " ")}</span>
@@ -406,7 +406,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                 </div>
                                 <div>
                                     <h4 className="text-sm font-black text-forest uppercase tracking-widest leading-none mb-1.5">Contextual Flow</h4>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nourishment & Awareness</p>
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Nourishment & Awareness</p>
                                 </div>
                             </div>
 
@@ -440,7 +440,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                                                 </button>
                                             ))}
                                         </div>
-                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                        <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">
                                             {form.hydration === 1 ? "< 1L" : form.hydration === 2 ? "1-2L" : form.hydration === 3 ? "2-3L" : "3L+"}
                                         </span>
                                     </div>
@@ -479,7 +479,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     <button
                         type="button"
                         onClick={prevStep}
-                        className="flex-1 px-6 py-4 rounded-2xl border border-slate-200 text-slate-400 font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all"
+                        className="flex-1 px-6 py-4 rounded-2xl border border-slate-200 text-slate-600 font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all"
                     >
                         <ArrowLeft className="w-4 h-4" /> Back
                     </button>

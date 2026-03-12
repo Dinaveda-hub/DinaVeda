@@ -62,7 +62,7 @@ export default function Sidebar() {
                                     href={item.href}
                                     className={`flex items-center gap-5 px-6 py-5 rounded-[1.75rem] transition-all duration-500 group relative overflow-hidden ${isActive
                                         ? "text-white shadow-lg shadow-forest/10"
-                                        : "text-slate-400 hover:text-forest hover:bg-forest/5"
+                                        : "text-slate-600 hover:text-forest hover:bg-forest/5"
                                         }`}
                                 >
                                     {isActive && (

@@ -26,7 +26,7 @@ export default function AgniPage() {
       
       {/* Top Nav */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto border-b border-slate-50">
-        <Link href="/guide" className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-forest transition-colors group">
+        <Link href="/guide" className="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-forest transition-colors group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to Hub
         </Link>
@@ -39,7 +39,7 @@ export default function AgniPage() {
             Agni: The Fire <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">Of Transformation</span>
           </h1>
-          <div className="flex items-center gap-4 text-xs font-black text-slate-400 uppercase tracking-widest border-l-4 border-orange-500 pl-6 py-2">
+          <div className="flex items-center gap-4 text-xs font-black text-slate-600 uppercase tracking-widest border-l-4 border-orange-500 pl-6 py-2">
             <span>Metabolic Intelligence</span>
             <span>•</span>
             <span>1100 Words</span>
@@ -74,9 +74,9 @@ export default function AgniPage() {
             </p>
             <ul className="space-y-4 list-none p-0">
                 <li className="flex items-start gap-4">
-                    <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">1</span>
+                    <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 font-bold text-xs">1</span>
                     <div>
-                        <strong className="block text-emerald-600 uppercase tracking-widest text-xs mb-1">Sama Agni</strong>
+                        <strong className="block text-emerald-700 uppercase tracking-widest text-xs mb-1">Sama Agni</strong>
                         <p className="text-sm">Balanced metabolism. Food is digested perfectly, leading to energy and clarity.</p>
                     </div>
                 </li>
@@ -114,7 +114,7 @@ export default function AgniPage() {
           <div className="py-12 border-y border-slate-100">
             <motion.div whileHover={{ scale: 1.02 }} className="bg-[#1a1a1a] p-10 rounded-[2.5rem] text-white text-center shadow-2xl">
                 <h4 className="text-3xl font-black mb-4">Track Your Metabolic State</h4>
-                <p className="text-slate-400 mb-8 font-medium">Dinaveda monitors your digestive signals daily to provide a real-time Agni score.</p>
+                <p className="text-slate-600 mb-8 font-medium">Dinaveda monitors your digestive signals daily to provide a real-time Agni score.</p>
                 <Link href="/login" className="inline-flex items-center gap-3 bg-orange-500 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest transition-all hover:bg-orange-600 shadow-xl shadow-orange-500/20">
                     See Your Agni Score <ArrowRight className="w-5 h-5" />
                 </Link>

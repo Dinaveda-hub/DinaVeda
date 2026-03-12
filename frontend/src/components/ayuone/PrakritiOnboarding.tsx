@@ -194,7 +194,7 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
                                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-forest/5 text-forest mb-4">
                                     <BrainCircuit className="w-6 h-6" />
                                 </div>
-                                <h4 className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-3">
+                                <h4 className="text-[10px] md:text-xs font-black text-slate-600 uppercase tracking-[0.3em] mb-3">
                                     {quizFlow[currentStep].domain ? `${quizFlow[currentStep].domain} • ` : ''} Question {currentStep + 1} of {quizFlow.length}
                                 </h4>
                                 <h2 className="text-xl md:text-3xl font-black text-forest tracking-tighter text-balance">
@@ -202,7 +202,7 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
                                 </h2>
                                 
                                 {getProgressReassurance() && (
-                                    <p className="text-[10px] font-bold text-emerald-600/70 uppercase tracking-widest mt-4 animate-pulse">
+                                    <p className="text-[10px] font-bold text-emerald-700/70 uppercase tracking-widest mt-4 animate-pulse">
                                         {getProgressReassurance()}
                                     </p>
                                 )}
@@ -232,7 +232,7 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
                                 <button
                                     onClick={handleBack}
                                     disabled={currentStep === 0 || isSubmitting}
-                                    className="flex-1 bg-slate-50 text-slate-400 py-4 rounded-2xl font-black text-xs uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed transition-all border border-slate-100"
+                                    className="flex-1 bg-slate-50 text-slate-600 py-4 rounded-2xl font-black text-xs uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed transition-all border border-slate-100"
                                 >
                                     Back
                                 </button>
@@ -263,25 +263,25 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
                         <div className="w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-forest text-white flex items-center justify-center mb-6 shadow-xl shadow-forest/20">
                             <ShieldCheck className="w-8 h-8 md:w-10 md:h-10" />
                         </div>
-                        <span className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
+                        <span className="text-xs font-black text-slate-600 uppercase tracking-[0.3em] mb-2">{constitution.title}</span>
                         <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter">{constitution.type}</h3>
                         <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-forest/5 border border-forest/10">
-                            <span className="text-[10px] font-black text-forest/60 uppercase tracking-widest">Confidence Index</span>
+                            <span className="text-[10px] font-black text-forest/90 uppercase tracking-widest">Confidence Index</span>
                             <span className="text-[10px] font-black text-forest">{constitution.confidence}</span>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 py-8 border-y border-forest/5">
                         <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
-                            <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Vata</div>
+                            <div className="text-xs font-black text-slate-600 uppercase tracking-widest mb-1.5">Vata</div>
                             <div className="text-3xl font-black text-forest">{constitution.prakriti_vata}%</div>
                         </div>
                         <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
-                            <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Pitta</div>
+                            <div className="text-xs font-black text-slate-600 uppercase tracking-widest mb-1.5">Pitta</div>
                             <div className="text-3xl font-black text-forest">{constitution.prakriti_pitta}%</div>
                         </div>
                         <div className="text-center bg-white/40 p-6 rounded-2xl border border-white/80 transition-all hover:border-forest/20 shadow-sm">
-                            <div className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Kapha</div>
+                            <div className="text-xs font-black text-slate-600 uppercase tracking-widest mb-1.5">Kapha</div>
                             <div className="text-3xl font-black text-forest">{constitution.prakriti_kapha}%</div>
                         </div>
                     </div>

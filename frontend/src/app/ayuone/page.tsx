@@ -17,7 +17,7 @@ import RitualCards from "@/components/ayuone/RitualCards";
 // Lazy-load the heavy Chat Component
 const AyuOneChat = dynamic(() => import('@/components/ayuone/AyuOneChat'), {
     ssr: false,
-    loading: () => <div className="p-4 text-center text-xs font-bold text-slate-400">Loading Neural Core...</div>
+    loading: () => <div className="p-4 text-center text-xs font-bold text-slate-600">Loading Neural Core...</div>
 });
 
 export default function AyuOneHub() {
@@ -208,7 +208,7 @@ export default function AyuOneHub() {
                         <div className="relative w-6 h-6">
                             <Image src="/logo.png" alt="Logo" fill className="object-contain" sizes="24px" />
                         </div>
-                        <span className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
+                        <span className="text-[10px] md:text-sm font-black text-forest/90 uppercase tracking-[0.3em]">AyuOne Neural Interface</span>
                     </div>
                     <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter drop-shadow-sm leading-none">
                         {!isPrakritiSet ? "Protocol" : "Dialogue"}

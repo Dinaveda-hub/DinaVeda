@@ -94,7 +94,7 @@ export default function PwaInstallBanner() {
                             </button>
                             <button
                                 onClick={handleDismiss}
-                                className="p-2 text-slate-400 hover:text-forest transition-colors"
+                                className="p-2 text-slate-600 hover:text-forest transition-colors"
                                 aria-label="Dismiss install banner"
                             >
                                 <X className="w-5 h-5" />

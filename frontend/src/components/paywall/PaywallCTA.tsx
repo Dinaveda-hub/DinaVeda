@@ -15,7 +15,7 @@ export default function PaywallCTA() {
         Start Premium Now <ArrowRight className="w-4 h-4" />
       </Link>
 
-      <p className="text-xs text-slate-400 mt-6 font-bold uppercase tracking-widest opacity-60">
+      <p className="text-xs text-slate-600 mt-6 font-bold uppercase tracking-widest opacity-60">
         Join 2,400+ health explorers
       </p>
     </section>

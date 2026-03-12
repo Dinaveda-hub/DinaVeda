@@ -20,14 +20,14 @@ export default function PlanCard({ plan, userId, onSuccess }: PlanCardProps) {
             <h3 className="text-2xl font-black mb-2 text-forest tracking-tighter">{plan.name}</h3>
 
             <div className="text-4xl font-black mb-1 flex items-baseline gap-1 text-slate-800">
-                ₹{plan.price} <span className="text-sm font-bold text-slate-400">/{plan.interval}</span>
+                ₹{plan.price} <span className="text-sm font-bold text-slate-600">/{plan.interval}</span>
             </div>
             <p className="text-xs font-bold text-slate-500 mb-2 tracking-wide">
                 Billed {plan.interval === "year" ? "yearly" : "monthly"}
             </p>
 
             {plan.id === "yearly" && (
-                <div className="text-xs text-emerald-600 font-bold mb-6">
+                <div className="text-xs text-emerald-700 font-bold mb-6">
                     Save ₹1789 with yearly plan
                 </div>
             )}
@@ -37,7 +37,7 @@ export default function PlanCard({ plan, userId, onSuccess }: PlanCardProps) {
                 {plan.features.map((f: string) => (
                     <li key={f} className="text-sm text-slate-600 font-medium flex items-start gap-3">
                         <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
-                            <Check className="w-3 h-3 text-emerald-600" />
+                            <Check className="w-3 h-3 text-emerald-700" />
                         </div>
                         {f}
                     </li>

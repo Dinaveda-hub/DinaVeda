@@ -40,7 +40,7 @@ export default function SeasonalPulseBadge({ ritu_info }: SeasonalPulseBadgeProp
                             Transition Active
                         </span>
 
-                        <span className="text-xs font-bold text-slate-400 italic">
+                        <span className="text-xs font-bold text-slate-600 italic">
                             Moving towards {ritu_info.transition_to?.split(' ')[0]}
                         </span>
                     </div>

@@ -36,7 +36,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
       {/* Navigation */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
           <ArrowLeft className="w-4 h-4" /> Symptom Hub
         </Link>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">
@@ -95,7 +95,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
               <p className="text-slate-600 font-medium leading-relaxed">
                 {combo.whyItHappens}
               </p>
-              <div className="pt-4 flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+              <div className="pt-4 flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-600">
                 <span>{dosha?.elements}</span>
                 <span className="w-1 h-1 bg-slate-200 rounded-full" />
                 <span>{dosha?.role}</span>
@@ -114,7 +114,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
                     {symptom.name} is a branch. <br />
                     The root is <span className="text-emerald-400 underline underline-offset-8 decoration-emerald-400/30">biological instability.</span>
                   </h3>
-                  <p className="text-slate-400 font-medium leading-relaxed max-w-xl">
+                  <p className="text-slate-600 font-medium leading-relaxed max-w-xl">
                     While {symptom.name} manifestations are bothersome, the underlying mechanism is often related to biological patterns like {symptom.relatedCause === 'weak-agni' ? 'weakened digestion' : symptom.relatedCause === 'ama-accumulation' ? 'stored metabolic waste' : 'nervous system aggravation'}.
                   </p>
                   <Link 
@@ -173,9 +173,9 @@ export default function HealthClient({ slug }: HealthClientProps) {
               <span className="text-sm font-black text-forest uppercase tracking-widest">Connect to Wisdom</span>
             </div>
             <div className="flex gap-8">
-              <Link href="/guide/agni" className="text-xs font-bold text-slate-400 hover:text-forest transition-colors underline underline-offset-4">Agni Biology</Link>
-              <Link href="/guide/ama" className="text-xs font-bold text-slate-400 hover:text-forest transition-colors underline underline-offset-4">Waste Clearance</Link>
-              <Link href="/guide/doshas" className="text-xs font-bold text-slate-400 hover:text-forest transition-colors underline underline-offset-4">Understanding Doshas</Link>
+              <Link href="/guide/agni" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors underline underline-offset-4">Agni Biology</Link>
+              <Link href="/guide/ama" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors underline underline-offset-4">Waste Clearance</Link>
+              <Link href="/guide/doshas" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors underline underline-offset-4">Understanding Doshas</Link>
             </div>
           </div>
 

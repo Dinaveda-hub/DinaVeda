@@ -64,7 +64,7 @@ export default function DailyCheckin({ type, onClose, onComplete }: DailyCheckin
             {/* Close Button */}
             <button
                 onClick={onClose}
-                className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-50 transition-all font-bold shadow-sm z-10"
+                className="absolute top-6 right-6 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-600 hover:text-slate-700 hover:bg-slate-50 transition-all font-bold shadow-sm z-10"
             >
                 ✕
             </button>
@@ -78,7 +78,7 @@ export default function DailyCheckin({ type, onClose, onComplete }: DailyCheckin
                 />
             </div>
             
-            <div className="mt-8 absolute top-8 left-6 text-xs font-black text-slate-400 uppercase tracking-[0.3em]">
+            <div className="mt-8 absolute top-8 left-6 text-xs font-black text-slate-600 uppercase tracking-[0.3em]">
                 Question {checkinStep + 1} of {activeQuestions.length}
             </div>
 
@@ -135,7 +135,7 @@ export default function DailyCheckin({ type, onClose, onComplete }: DailyCheckin
                         onClick={handleCheckinNext}
                         disabled={!checkinAnswers[activeQuestions[checkinStep].id]}
                         className={`flex-1 flex items-center justify-center gap-2 py-5 rounded-[1.5rem] font-black uppercase tracking-[0.1em] text-[10px] transition-all shadow-lg ${!checkinAnswers[activeQuestions[checkinStep].id]
-                            ? "bg-slate-100 text-slate-400 cursor-not-allowed shadow-none"
+                            ? "bg-slate-100 text-slate-600 cursor-not-allowed shadow-none"
                             : "bg-forest text-white shadow-forest/20 hover:bg-emerald-800"
                             }`}
                     >
