@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X, Info, Zap, Utensils, Moon, MessageSquare } from "lucide-react";
 import { useState, useEffect } from "react";
