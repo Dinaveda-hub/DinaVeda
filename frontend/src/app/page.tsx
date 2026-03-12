@@ -21,7 +21,7 @@ export default function LandingPage() {
 
     return (
         <LazyMotion features={domAnimation}>
-            <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest" style={{ transform: "translateZ(0)" }}>
+            <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans selection:bg-forest/20 selection:text-forest overflow-hidden" style={{ transform: "translateZ(0)" }}>
                 {/* Ambient background glows */}
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-40 -mt-40 blur-2xl" style={{ willChange: "transform" }} />
                 <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40 blur-2xl" style={{ willChange: "transform" }} />
