@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, Sparkles, ChevronDown, ChevronUp, BrainCircuit } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import UpgradeModal from "@/components/billing/UpgradeModal";
+import { useUpgrade } from "@/contexts/UpgradeContext";
 import { getApiUrl } from "@/services/notificationService";
 
 interface ProtocolExplanationProps {
@@ -18,11 +18,11 @@ export default function ProtocolExplanation({ protocolName }: ProtocolExplanatio
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [explanation, setExplanation] = useState<string | null>(null);
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const { openUpgrade } = useUpgrade();
 
     const handleToggle = async () => {
         if (!isPremium) {
-            setIsUpgradeModalOpen(true);
+            openUpgrade("advanced_insights");
             return;
         }
 
@@ -115,17 +115,6 @@ export default function ProtocolExplanation({ protocolName }: ProtocolExplanatio
                 )}
             </AnimatePresence>
 
-            {/* Render Upgrade Modal if triggered */}
-            <UpgradeModal
-                isOpen={isUpgradeModalOpen}
-                onClose={() => setIsUpgradeModalOpen(false)}
-                userId={userId || ''}
-                onSuccess={() => {
-                    setIsUpgradeModalOpen(false);
-                    // Standard practice to reload data manually or trigger page refresh
-                    window.location.reload();
-                }}
-            />
         </div>
     );
 }

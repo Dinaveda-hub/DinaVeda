@@ -4,7 +4,7 @@ import { Sparkles, BrainCircuit, Lock } from "lucide-react";
 import Link from "next/link";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { getApiUrl } from "@/services/notificationService";
-import UpgradeModal from "@/components/billing/UpgradeModal";
+import { useUpgrade } from "@/contexts/UpgradeContext";
 
 export default function DailyAIInsight() {
     const { state, subscriptionStatus, isLoaded, userId } = usePhysiologyState();
@@ -12,7 +12,7 @@ export default function DailyAIInsight() {
     
     const [insight, setInsight] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const { openUpgrade } = useUpgrade();
 
     useEffect(() => {
         // Only fetch automatically if they are premium
@@ -50,7 +50,7 @@ export default function DailyAIInsight() {
     if (!isPremium) {
         return (
             <>
-                <div onClick={() => setIsUpgradeModalOpen(true)} className="glass p-6 md:p-8 rounded-[2rem] border border-forest/10 shadow-sm relative overflow-hidden group hover:shadow-premium hover:border-forest/30 transition-all flex flex-col items-center gap-4 cursor-pointer mb-8 w-full max-w-2xl mx-auto">
+                <div onClick={() => openUpgrade("advanced_insights")} className="glass p-6 md:p-8 rounded-[2rem] border border-forest/10 shadow-sm relative overflow-hidden group hover:shadow-premium hover:border-forest/30 transition-all flex flex-col items-center gap-4 cursor-pointer mb-8 w-full max-w-2xl mx-auto">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl pointer-events-none group-hover:bg-gold/20 transition-all -mt-10 -mr-10" />
                     <div className="w-14 h-14 rounded-[1.5rem] bg-amber-50 text-amber-500 border border-amber-100 flex items-center justify-center shrink-0 shadow-sm relative z-10">
                         <Lock className="w-7 h-7" />
@@ -67,13 +67,6 @@ export default function DailyAIInsight() {
                         Upgrade
                     </div>
                 </div>
-                
-                <UpgradeModal 
-                    isOpen={isUpgradeModalOpen}
-                    onClose={() => setIsUpgradeModalOpen(false)}
-                    userId={userId || ''}
-                    onSuccess={() => window.location.reload()}
-                />
             </>
         );
     }
