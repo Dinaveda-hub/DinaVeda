@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import ProtocolClient from "./ProtocolClient";
 import { formatProtocolName } from "@/utils/stringUtils";
 
-export default async function ProtocolPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function ProtocolPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   
   // Try to find in manual bundles first
   const bundle = (slug in PROTOCOL_GUIDES) ? (PROTOCOL_GUIDES as any)[slug] : undefined;

@@ -1,9 +1,10 @@
 import { COMBINATIONS } from "@/data";
 import { notFound } from "next/navigation";
 import HealthClient from "./HealthClient";
+import { use } from "react";
 
-export default async function DynamicHealthPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default function DynamicHealthPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
   
   if (!(slug in COMBINATIONS)) {
     notFound();
