@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalNav from "@/components/GlobalNav";
-import Footer from "@/components/layout/Footer";
 import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
 import { UpgradeProvider } from "@/contexts/UpgradeContext";
 import SystemController from "@/components/system/SystemController";
@@ -99,7 +98,6 @@ export default function RootLayout({
                 {children}
               </main>
             </div>
-            <Footer />
 
             {/* Contextual Global Upgrade Modal */}
             <UpgradeModal />

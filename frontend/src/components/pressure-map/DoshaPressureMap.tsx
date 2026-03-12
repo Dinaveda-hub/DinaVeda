@@ -5,7 +5,6 @@ import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import DoshaTriangle from "./DoshaTriangle";
 import PhysiologyRadar from "./PhysiologyRadar";
 import BodySystemBar from "./BodySystemBar";
-import PressureExplanation from "./PressureExplanation";
 
 /**
  * DoshaPressureMap — Full physiological visualization cockpit.
@@ -14,7 +13,7 @@ import PressureExplanation from "./PressureExplanation";
  *   Dosha Triangle (balance vis)
  *   Physiology Radar (multi-system spider)
  *   Body System Bars (individual metrics)
- *   Pressure Explanation (Ayurvedic interpretation)
+ *   Body System Bars (individual metrics)
  */
 export default function DoshaPressureMap() {
     const { state, isLoaded } = usePhysiologyState();
@@ -66,14 +65,6 @@ export default function DoshaPressureMap() {
                 <BodySystemBar label="Clarity" value={state.mental_clarity} icon={<BrainCircuit className="w-3 h-3 text-violet-500" />} />
             </div>
 
-            {/* Interpretation */}
-            <PressureExplanation
-                vata={state.vata}
-                pitta={state.pitta}
-                kapha={state.kapha}
-                sleep={state.sleep}
-                stress={state.stress}
-            />
         </section>
     );
 }
