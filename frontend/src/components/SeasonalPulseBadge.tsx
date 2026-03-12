@@ -9,73 +9,39 @@ interface SeasonalPulseBadgeProps {
 }
 
 export default function SeasonalPulseBadge({ ritu_info }: SeasonalPulseBadgeProps) {
+    // Determine dominant dosha focus based on Ritu
+    let focus = "Tridoshic Focus";
     const name = ritu_info.name;
 
-    let focus = "Tridoshic Balance";
-    let accent = "bg-emerald-600";
-    let tint = "bg-emerald-50";
-    let text = "text-emerald-700";
-
-    if (name.includes("Vasanta")) {
-        focus = "Kapha Detox Phase";
-        accent = "bg-emerald-600";
-        tint = "bg-emerald-50";
-        text = "text-emerald-700";
-    }
-    else if (name.includes("Grishma")) {
-        focus = "Cooling & Hydration";
-        accent = "bg-amber-500";
-        tint = "bg-amber-50";
-        text = "text-amber-700";
-    }
-    else if (name.includes("Varsha")) {
-        focus = "Vata Stabilization";
-        accent = "bg-indigo-500";
-        tint = "bg-indigo-50";
-        text = "text-indigo-700";
-    }
-    else if (name.includes("Sharad")) {
-        focus = "Pitta Pacification";
-        accent = "bg-orange-500";
-        tint = "bg-orange-50";
-        text = "text-orange-700";
-    }
-    else if (name.includes("Hemanta") || name.includes("Shishira")) {
-        focus = "Ojas & Strength Building";
-        accent = "bg-teal-600";
-        tint = "bg-teal-50";
-        text = "text-teal-700";
-    }
-
-    const shortName = name.split(" ")[0];
+    if (name.includes("Vasanta")) focus = "Kapha Detox Focus";
+    else if (name.includes("Grishma")) focus = "Pitta/Vata Soothing Focus";
+    else if (name.includes("Varsha")) focus = "Vata Pacification Focus";
+    else if (name.includes("Sharad")) focus = "Pitta Detox Focus";
+    else if (name.includes("Hemanta") || name.includes("Shishira")) focus = "Bala (Strength) Building";
 
     return (
-        <div className="rounded-[2rem] border border-slate-100 bg-white shadow-sm overflow-hidden mb-8">
-            {/* Accent bar */}
-            <div className={`h-1 w-full ${accent}`} />
-
-            <div className={`p-6 ${tint}`}>
-                {/* header */}
+        <div className="w-full flex items-center justify-between p-5 bg-[#F8F9F8] rounded-[2rem] border border-emerald-100 shadow-sm mb-8">
+            <div className="flex flex-col">
+                
                 <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-2 h-2 rounded-full animate-pulse ${accent}`} />
-                    <span className={`text-[10px] font-black uppercase tracking-[0.25em] ${text}`}>
-                        {shortName} Seasonal Pulse
+                    <div className="w-2 h-2 rounded-full bg-[#2D7A5C] animate-pulse"></div>
+                    <span className="text-xs font-black text-[#2D7A5C] uppercase tracking-widest">
+                        {name.split(' ')[0]} Seasonal Pulse
                     </span>
                 </div>
 
-                {/* main focus */}
-                <h3 className="text-lg font-black text-slate-800">
+                <h3 className="text-xl font-black text-slate-800 tracking-tight leading-none mb-2">
                     {focus}
                 </h3>
 
-                {/* transition */}
                 {ritu_info.is_transition && (
-                    <div className="flex items-center gap-2 mt-3">
-                        <span className={`text-[10px] font-black uppercase tracking-widest text-white px-3 py-1 rounded-full ${accent}`}>
-                            Transition
+                    <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs font-black text-white bg-[#2D7A5C] px-3 py-1 rounded-full uppercase tracking-widest">
+                            Transition Active
                         </span>
-                        <span className="text-xs font-semibold text-slate-500">
-                            Moving toward {ritu_info.transition_to?.split(" ")[0]}
+
+                        <span className="text-xs font-bold text-slate-400 italic">
+                            Moving towards {ritu_info.transition_to?.split(' ')[0]}
                         </span>
                     </div>
                 )}
