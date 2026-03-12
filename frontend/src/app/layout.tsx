@@ -58,12 +58,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
-        {/* CookieYes Consent Banner — must load before other scripts for Consent Mode v2 */}
+        {/* Start cookieyes banner */}
         <Script
           id="cookieyes"
-          src={`https://cdn-cookieyes.com/client_data/${process.env.NEXT_PUBLIC_COOKIEYES_TOKEN}/script.js`}
+          src="https://cdn-cookieyes.com/client_data/3ed2a749e0e980e4777bb45b4c4f9a26/script.js"
           strategy="beforeInteractive"
         />
+        {/* End cookieyes banner */}
 
         <link rel="preconnect" href="https://cdn.onesignal.com" />
 
