@@ -5,6 +5,7 @@ import GlobalNav from "@/components/GlobalNav";
 import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
 import SystemController from "@/components/system/SystemController";
 import Script from "next/script";
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,6 +58,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
+        {/* CookieYes Consent Banner — must load before other scripts for Consent Mode v2 */}
+        <Script
+          id="cookieyes"
+          src={`https://cdn-cookieyes.com/client_data/${process.env.NEXT_PUBLIC_COOKIEYES_TOKEN}/script.js`}
+          strategy="beforeInteractive"
+        />
+
         <link rel="preconnect" href="https://cdn.onesignal.com" />
 
         {/* OneSignal CDN — must load before SystemController initializes it */}
@@ -79,6 +87,10 @@ export default function RootLayout({
           </div>
         </PhysiologyProvider>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+        
+        {/* Google Analytics & Tag Manager */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       </body>
     </html>
   );
