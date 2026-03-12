@@ -6,6 +6,7 @@ export interface VedaState {
     agni: number
     ama: number
     ojas: number
+    immunity: number
 
     sleep: number
     energy: number

@@ -191,8 +191,8 @@ export async function applySignals(signalsList: string[], state: VedaState, user
 const MOMENTUM_FACTORS: Partial<Record<NumericKeys, number>> = {
     // Doshas (vata, pitta, kapha): 0.8 (Moderate resistance)
     vata: 0.8, pitta: 0.8, kapha: 0.8,
-    // Vitality & Fire (ojas, agni): 0.7 (High resistance - fundamental stability)
-    ojas: 0.7, agni: 0.7,
+    // Vitality & Fire (ojas, agni, immunity): 0.7 (High resistance - fundamental stability)
+    ojas: 0.7, agni: 0.7, immunity: 0.7,
     // Circadian & Sleep: 0.7 (High resistance - rhythms take time to shift)
     circadian: 0.7, sleep: 0.8,
     // Physical (stiffness, inflammation, skin): 0.6 (High resistance - slow tissue response)
@@ -291,7 +291,12 @@ export function applyEffects(
         const clampedEffect = clamp(effect, -MAX_DAILY_DELTA, MAX_DAILY_DELTA);
 
         // IV. Biological Momentum Damping
-        const momentum = MOMENTUM_FACTORS[variable] ?? 1.0;
+        let momentum = MOMENTUM_FACTORS[variable] ?? 1.0;
+        
+        // Age Factor: Older physiology changes slower. age_factor default is 50.
+        const ageDamping = 1 - (state.age_factor / 200);
+        momentum *= ageDamping;
+
         const finalEffect = clampedEffect * momentum;
 
         // VII. Noise Threshold: Ignore micro-updates (< 0.5) to maintain stability

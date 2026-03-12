@@ -9,6 +9,7 @@ export const defaultState: VedaState = {
     agni: 60,
     ama: 20,
     ojas: 70,
+    immunity: 65,
 
     sleep: 60,
     energy: 60,
