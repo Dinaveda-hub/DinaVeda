@@ -121,8 +121,9 @@ export default function LandingPage() {
             </section>
 
             {/* 2. Instant Value */}
-            <section className="py-16 md:py-24 px-6 bg-white border-y border-slate-100 relative z-10">
+            <section id="features" className="py-16 md:py-24 px-6 bg-white border-y border-slate-100 relative z-10">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+
                     <motion.div whileHover={{ y: -4 }} className="text-center md:text-left p-6 transition-all">
                         <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-forest flex items-center justify-center mb-6 mx-auto md:mx-0">
                             <ShieldCheck className="w-6 h-6" />
@@ -182,11 +183,12 @@ export default function LandingPage() {
             </section>
 
             {/* 4. How Dinaveda Works */}
-            <section className="py-16 md:py-24 px-6 bg-white border-t border-slate-100 relative z-10">
+            <section id="how-it-works" className="py-16 md:py-24 px-6 bg-white border-t border-slate-100 relative z-10">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter">How It Works</h2>
                     </div>
+
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 relative">
                         {/* Connecting Line */}
