@@ -77,19 +77,6 @@ export default function ModulesPage() {
                 </div>
             </div>
 
-            {/* Premium Upgrade Modal */}
-            <UpgradeModal
-                isOpen={isUpgradeModalOpen}
-                onClose={() => setIsUpgradeModalOpen(false)}
-                userId={userId || ''}
-                onSuccess={() => {
-                    setIsUpgradeModalOpen(false);
-                    // In a real app, this triggers a re-fetch of the session or context.
-                    // The webhook will update the DB, and the frontend will eventually catch up.
-                    // For immediate UX relief, we could force a reload or local state override.
-                    window.location.reload(); 
-                }}
-            />
         </div>
     );
 }
