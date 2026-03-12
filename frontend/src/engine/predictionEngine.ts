@@ -40,41 +40,51 @@ export class PredictionEngine {
 
     /**
      * Saves today's physiology snapshot, keeping only the last MAX_HISTORY_DAYS entries.
-     * Call this once per day (e.g., at nightly reset).
      */
     public saveStateSnapshot(state: VedaState): void {
         if (typeof window === 'undefined') return;
         const today = new Date().toISOString().split('T')[0];
         const history = this.loadStateHistory();
 
-        // Replace or upsert today's entry
         const filtered = history.filter(s => s.date !== today);
+
+        // Comprehensive Snapshot: Captures all 26 variables
         const snapshot: StateSnapshot = {
             date: today,
             state: {
-                vata_state: state.vata_state,
-                pitta_state: state.pitta_state,
-                kapha_state: state.kapha_state,
-                agni_strength: state.agni_strength,
-                agni_stability: state.agni_stability,
-                ama_risk: state.ama_risk,
-                ojas_score: state.ojas_score,
-                ojas_recovery: state.ojas_recovery,
-                circadian_alignment: state.circadian_alignment,
-                sleep_debt: state.sleep_debt,
-                stress_load: state.stress_load,
+                vata: state.vata,
+                pitta: state.pitta,
+                kapha: state.kapha,
+                agni: state.agni,
+                ama: state.ama,
+                ojas: state.ojas,
+                sleep: state.sleep,
+                energy: state.energy,
+                stress: state.stress,
+                mood: state.mood,
+                digestion: state.digestion,
+                bloating: state.bloating,
+                elimination: state.elimination,
+                hydration: state.hydration,
+                appetite: state.appetite,
+                movement: state.movement,
+                stiffness: state.stiffness,
+                inflammation: state.inflammation,
+                skin_health: state.skin_health,
+                hair_health: state.hair_health,
                 mental_clarity: state.mental_clarity,
-                movement_level: state.movement_level,
+                irritability: state.irritability,
+                circadian: state.circadian,
+                rutu_index: state.rutu_index,
+                age_factor: state.age_factor
             }
         };
 
+        // Guard: Limit stored history to max 7 days
         const updated = [...filtered, snapshot].slice(-this.MAX_HISTORY_DAYS);
         localStorage.setItem(this.HISTORY_KEY, JSON.stringify(updated));
     }
 
-    /**
-     * Loads state history from localStorage, sorted chronologically oldest → newest.
-     */
     public loadStateHistory(): StateSnapshot[] {
         if (typeof window === 'undefined') return [];
         const raw = localStorage.getItem(this.HISTORY_KEY);
@@ -88,83 +98,90 @@ export class PredictionEngine {
     }
 
     // ─────────────────────────────────────────────
-    // TREND DETECTION
+    // TREND DETECTION (Rolling Average)
     // ─────────────────────────────────────────────
 
     /**
-     * Detects the raw change in a variable over N days of history.
-     * Returns undefined if insufficient history.
+     * Detects trend based on rolling averages: average(last3days) − average(previous3days)
      */
-    private detectTrend(history: StateSnapshot[], variable: string, days: number): number | undefined {
-        if (history.length < days) return undefined;
+    private detectTrend(history: StateSnapshot[], variable: string): number | undefined {
+        // Guard: If history length < 6 days: skip prediction
+        if (history.length < 6) return undefined;
 
-        const startSnapshot = history[history.length - days];
-        const endSnapshot = history[history.length - 1];
+        const last3 = history.slice(-3);
+        const prev3 = history.slice(-6, -3);
 
-        const startVal = (startSnapshot.state as Record<string, number>)[variable];
-        const endVal = (endSnapshot.state as Record<string, number>)[variable];
+        const avgLast = last3.reduce((sum, s) => sum + ((s.state as Record<string, number>)[variable] || 0), 0) / 3;
+        const avgPrev = prev3.reduce((sum, s) => sum + ((s.state as Record<string, number>)[variable] || 0), 0) / 3;
 
-        if (startVal === undefined || endVal === undefined) return undefined;
-        return endVal - startVal;
+        return avgLast - avgPrev;
     }
 
-    /**
-     * Evaluates all prediction rules against the state history.
-     * Returns triggered prediction rules with their adjustments.
-     */
-    public runPredictions(history: StateSnapshot[]): PredictionRule[] {
-        const triggered: PredictionRule[] = [];
+    public runPredictions(history: StateSnapshot[]): (PredictionRule & { trend_strength: number })[] {
+        // Guard: If history length < 6 days: skip prediction
+        if (history.length < 6) return [];
+        const triggered: (PredictionRule & { trend_strength: number })[] = [];
 
         for (const rule of this.rules) {
-            const change = this.detectTrend(history, rule.variable, rule.trend_days);
-            if (change === undefined) continue;
+            const trend = this.detectTrend(history, rule.variable);
+            if (trend === undefined) continue;
 
-            const directionMatch =
-                (rule.direction === 'rising' && change >= rule.threshold_change) ||
-                (rule.direction === 'declining' && change <= -Math.abs(rule.threshold_change));
+            const isRising = rule.direction === 'rising';
+            const threshold = rule.threshold_change;
 
-            if (directionMatch) {
-                triggered.push(rule);
+            // Trigger Logic: 
+            // Rising: trend >= threshold (e.g., 8 >= 5)
+            // Declining: trend <= threshold (e.g., -8 <= -5)
+            const isTriggered = isRising ? trend >= threshold : trend <= threshold;
+
+            if (isTriggered) {
+                triggered.push({ ...rule, trend_strength: Math.abs(trend) });
             }
         }
 
         return triggered;
     }
 
-    // ─────────────────────────────────────────────
-    // CURRENT STATE ADJUSTMENTS (threshold-based)
-    // ─────────────────────────────────────────────
+    public getPredictionBoostMap(history: StateSnapshot[]): Record<string, number> {
+        const predictions = this.runPredictions(history);
+        const boostMap: Record<string, number> = {};
 
-    /**
-     * Analyzes the current state for immediate threshold risks.
-     */
+        for (const rule of predictions) {
+            for (const protoName of rule.protocol_adjustment) {
+                boostMap[protoName] = (boostMap[protoName] || 0) + rule.trend_strength;
+            }
+        }
+
+        return boostMap;
+    }
+
     public getThresholdAdjustments(state: VedaState, vikriti: VikritiMetrics): HealthAdjustment[] {
         const adjustments: HealthAdjustment[] = [];
 
-        if (state.circadian_alignment < 50) {
+        if (state.circadian < 50) {
             adjustments.push({
                 issue: "Circadian rhythm disruption detected",
                 recommendation: "Strict digital detox 2 hours before sleep tonight."
             });
         }
 
-        if (state.ama_risk > 30 || state.agni_strength < 40) {
+        if (state.ama > 30 || state.agni < 40) {
             adjustments.push({
                 issue: "Low digestive fire (Agni) / Ama accumulation",
                 recommendation: "Lighter, warm cooked meals today. Avoid raw foods."
             });
         }
 
-        if (state.stress_load > 60 || (vikriti.dominant_dosha === 'Vata' && vikriti.vikriti_vata > 20)) {
+        if (state.stress > 60 || (vikriti.dominant_dosha === 'Vata' && vikriti.vata_diff > 20)) {
             adjustments.push({
                 issue: "Elevated subtle stress / High Vata pressure",
                 recommendation: "Prioritize grounding practices and slow movement."
             });
         }
 
-        if (state.sleep_debt > 40) {
+        if (state.sleep < 60) {
             adjustments.push({
-                issue: "Sleep debt accumulating",
+                issue: "Sleep quality is sub-optimal",
                 recommendation: "Prioritize early sleep (before 10 PM) tonight for Ojas recovery."
             });
         }
@@ -172,13 +189,8 @@ export class PredictionEngine {
         return adjustments;
     }
 
-    /**
-     * Merges threshold-based and trend-based adjustments into a unified list.
-     */
     public getAdjustments(state: VedaState, vikriti: VikritiMetrics): HealthAdjustment[] {
         const threshold = this.getThresholdAdjustments(state, vikriti);
-
-        // Load history and run trend predictions
         const history = this.loadStateHistory();
         const predictions = this.runPredictions(history);
 
@@ -189,13 +201,9 @@ export class PredictionEngine {
             protocolAdjustments: rule.protocol_adjustment,
         }));
 
-        // Merge: show trending first as they are preventive
         return [...trending, ...threshold];
     }
 
-    /**
-     * Returns all protocol name adjustments triggered by trend predictions.
-     */
     public getPredictionProtocols(history: StateSnapshot[]): string[] {
         const predictions = this.runPredictions(history);
         const names = new Set<string>();
@@ -207,16 +215,9 @@ export class PredictionEngine {
         return Array.from(names);
     }
 
-    // ─────────────────────────────────────────────
-    // SYSTEM REFLECTION
-    // ─────────────────────────────────────────────
-
-    /**
-     * Generates a textual reflection on the current system balance.
-     */
     public getSystemReflection(state: VedaState): string {
-        if (state.ojas_score > 80) return "Your vitality is flourishing. Continue your consistent daily rhythms to maintain this high Ojas.";
-        if (state.ojas_score > 50) return "Your routines are stabilizing your circadian rhythm. Focus on deep rest tonight.";
+        if (state.ojas > 80) return "Your vitality is flourishing. Continue your consistent daily rhythms to maintain this high Ojas.";
+        if (state.ojas > 50) return "Your routines are stabilizing your circadian rhythm. Focus on deep rest tonight.";
         return "Your system is seeking balance. Gentle, restorative practices are key right now to rebuild Ojas.";
     }
 }

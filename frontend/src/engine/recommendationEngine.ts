@@ -3,105 +3,143 @@ import { VikritiMetrics } from './vikritiEngine';
 import protocolsData from '../data/protocols.json';
 import rulesData from '../data/rules/recommendation_rules.json';
 import { applyGoalBoost } from './goalEngine';
-
-
 import { Protocol } from './protocolSelectionEngine';
+import { PredictionEngine } from './predictionEngine';
+import { clamp } from '../utils/clamp';
 
 export interface RecommendationRule {
-    condition: string;
+    variable: keyof VedaState;
+    operator: ">" | "<" | ">=" | "<=" | "==" | "!=";
+    threshold: number | boolean;
     protocols: string[];
-    priority: number;
     module: string;
+    priority: number;
+}
+
+export interface ScoredProtocol extends Protocol {
+    score: number;
 }
 
 export class RecommendationEngine {
-    private allProtocols: Protocol[];
+    private protocolMap: Map<string, Protocol>;
     private allRules: RecommendationRule[];
+    private predictionEngine: PredictionEngine;
 
     constructor() {
-        this.allProtocols = protocolsData as unknown as Protocol[];
+        this.protocolMap = new Map((protocolsData as any[]).map(p => [p.name, p]));
         this.allRules = rulesData as RecommendationRule[];
+        this.predictionEngine = new PredictionEngine();
     }
 
-    private evaluateCondition(conditionStr: string, state: VedaState, vikriti: VikritiMetrics): boolean {
-        const parts = conditionStr.split(' ');
-        if (parts.length !== 3) return false;
+    private evaluateRule(rule: RecommendationRule, state: VedaState, vikriti: VikritiMetrics): boolean {
+        const currentValue = state[rule.variable as keyof VedaState] ?? (vikriti as any)[rule.variable];
+        const threshold = rule.threshold;
 
-        const variable = parts[0];
-        const operator = parts[1];
-        const threshold = parseFloat(parts[2]);
+        if (currentValue === undefined) return false;
 
-        let actualValue = 0;
-        if (variable in state) {
-            actualValue = (state as any)[variable];
-        } else if (variable in vikriti) {
-            actualValue = (vikriti as any)[variable];
-        } else {
-            return false;
+        if (typeof currentValue === 'number' && typeof threshold === 'number') {
+            switch (rule.operator) {
+                case ">": return currentValue > threshold;
+                case "<": return currentValue < threshold;
+                case ">=": return currentValue >= threshold;
+                case "<=": return currentValue <= threshold;
+                case "==": return currentValue === threshold;
+                case "!=": return currentValue !== threshold;
+                default: return false;
+            }
         }
 
-        switch (operator) {
-            case '>': return actualValue > threshold;
-            case '<': return actualValue < threshold;
-            case '>=': return actualValue >= threshold;
-            case '<=': return actualValue <= threshold;
-            case '===':
-            case '==': return actualValue === threshold;
-            default: return false;
+        if (typeof currentValue === 'boolean' && typeof threshold === 'boolean') {
+            switch (rule.operator) {
+                case "==": return currentValue === threshold;
+                case "!=": return currentValue !== threshold;
+                default: return false;
+            }
         }
+
+        return false;
     }
 
-    public getRecommendations(state: VedaState, vikriti: VikritiMetrics, healthGoal: string = "general_wellness"): Protocol[] {
-        const protocolPriorities = new Map<string, number>();
+    /**
+     * Calculates the Drift Severity (S_drift) for a protocol.
+     * Σ ( |state[var] - baseline| × |protocol_effect[var]| )
+     */
+    private calculateDriftScore(protocol: Protocol, state: VedaState): number {
+        let totalDrift = 0;
+        let totalEffectMagnitude = 0;
 
+        for (const [varName, effect] of Object.entries(protocol.variables)) {
+            const magnitude = Math.abs(effect);
+            totalEffectMagnitude += magnitude;
+
+            if (varName in state) {
+                const currentValue = (state as any)[varName];
+                const baseline = (state as any)[`prakriti_${varName}`] ?? 50;
+                const deviation = Math.abs(currentValue - baseline);
+
+                // If the protocol effect moves the variable back towards baseline, it scores.
+                const isBeneficial = (currentValue > baseline && effect < 0) || (currentValue < baseline && effect > 0);
+
+                if (isBeneficial) {
+                    totalDrift += deviation * magnitude;
+                }
+            }
+        }
+
+        if (totalEffectMagnitude === 0) return 0;
+
+        const normalizedDrift = totalDrift / totalEffectMagnitude;
+        return clamp(normalizedDrift / 50, 0, 1);
+    }
+
+    public getRecommendations(
+        state: VedaState,
+        vikriti: VikritiMetrics,
+        healthGoal: string = "general_wellness"
+    ): Protocol[] {
+        const triggeredProtocols = new Set<string>();
+        const predictions = this.predictionEngine.getPredictionProtocols(this.predictionEngine.loadStateHistory());
+
+        // Load completed logs for repetition decay
+        const completedLogs = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("completed_logs") || "{}") : {};
+        const today = new Date().toISOString().split('T')[0];
+
+        // 1. Identify triggered protocols from rules
         for (const rule of this.allRules) {
-            if (this.evaluateCondition(rule.condition, state, vikriti)) {
+            if (this.evaluateRule(rule, state, vikriti)) {
                 for (const protoName of rule.protocols) {
-                    const currentPriority = protocolPriorities.get(protoName) ?? Infinity;
-                    if (rule.priority < currentPriority) {
-                        protocolPriorities.set(protoName, rule.priority);
-                    }
+                    triggeredProtocols.add(protoName);
                 }
             }
         }
 
-        const sortedProtocolNames = Array.from(protocolPriorities.entries())
-            .sort((a, b) => a[1] - b[1])
-            .map(entry => entry[0]);
+        // 2. Score and Rank
+        const scored: ScoredProtocol[] = Array.from(triggeredProtocols)
+            .map(name => this.protocolMap.get(name))
+            .filter((p): p is Protocol => p !== undefined)
+            .map(p => {
+                const sDrift = this.calculateDriftScore(p, state);
+                const sPrediction = predictions.includes(p.name) ? 1.0 : 0.0;
 
-        const validProtocols = sortedProtocolNames
-            .map(name => this.allProtocols.find(p => p.name === name))
-            .filter((p): p is Protocol => p !== undefined);
+                let score = (sDrift * 0.6) + (sPrediction * 0.4);
 
-        if (validProtocols.length < 3) {
-            const baselines = ["morning_hydration", "midday_main_meal", "evening_wind_down"];
-            for (const b of baselines) {
-                const proto = this.allProtocols.find(p => p.name === b);
-                if (proto && !validProtocols.some(vp => vp.name === b)) {
-                    validProtocols.push(proto);
+                // Protocol Repetition Decay (0.85 if completed today)
+                const completedToday = completedLogs[p.name] === today;
+
+                if (completedToday) {
+                    score *= 0.85;
                 }
-            }
-        }
 
-        const boostedProtocols = applyGoalBoost(validProtocols, healthGoal);
+                return { ...p, score };
+            });
 
-        const morning: Protocol[] = [];
-        const midday: Protocol[] = [];
-        const evening: Protocol[] = [];
+        // 3. Sort by Score + Tie stability
+        const ranked = scored.sort((a, b) => {
+            if (b.score !== a.score) return b.score - a.score;
+            return a.name.localeCompare(b.name);
+        });
 
-        for (const p of boostedProtocols) {
-            const tod = p.time_of_day.toLowerCase();
-
-            if (tod === 'morning' || tod === 'before_meal') {
-                if (morning.length < 3) morning.push(p);
-            } else if (tod === 'midday' || tod === 'meal_time' || tod === 'afternoon' || tod === 'any' || tod === 'daily') {
-                if (midday.length < 2) midday.push(p);
-            } else if (tod === 'evening' || tod === 'night' || tod === 'after_meal') {
-                if (evening.length < 3) evening.push(p);
-            }
-        }
-
-        return [...morning, ...midday, ...evening];
+        return ranked;
     }
 
     public getModuleProtocols(moduleName: string, activeProtocols: Protocol[]): Protocol[] {

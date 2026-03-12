@@ -1,6 +1,6 @@
 [
     {
-        "variable": "kapha_state",
+        "variable": "kapha",
         "trend_days": 3,
         "threshold_change": 5,
         "direction": "rising",
@@ -14,7 +14,7 @@
         ]
     },
     {
-        "variable": "vata_state",
+        "variable": "vata",
         "trend_days": 3,
         "threshold_change": 5,
         "direction": "rising",
@@ -28,7 +28,7 @@
         ]
     },
     {
-        "variable": "pitta_state",
+        "variable": "pitta",
         "trend_days": 3,
         "threshold_change": 5,
         "direction": "rising",
@@ -42,7 +42,7 @@
         ]
     },
     {
-        "variable": "agni_strength",
+        "variable": "agni",
         "trend_days": 3,
         "threshold_change": -5,
         "direction": "declining",
@@ -56,7 +56,7 @@
         ]
     },
     {
-        "variable": "ojas_score",
+        "variable": "ojas",
         "trend_days": 3,
         "threshold_change": -5,
         "direction": "declining",
@@ -70,7 +70,7 @@
         ]
     },
     {
-        "variable": "circadian_alignment",
+        "variable": "circadian",
         "trend_days": 3,
         "threshold_change": -5,
         "direction": "declining",
@@ -84,7 +84,7 @@
         ]
     },
     {
-        "variable": "stress_load",
+        "variable": "stress",
         "trend_days": 3,
         "threshold_change": 5,
         "direction": "rising",
@@ -95,6 +95,20 @@
             "meditation",
             "nature_exposure",
             "screen_break_day"
+        ]
+    },
+    {
+        "variable": "sleep",
+        "trend_days": 3,
+        "threshold_change": -5,
+        "direction": "declining",
+        "prediction": "sleep_crash_risk",
+        "message": "Sleep quality is declining sharply. Prioritize grounding rituals and early sleep tonight.",
+        "protocol_adjustment": [
+            "padabhyanga",
+            "sleep_ritual",
+            "evening_wind_down",
+            "warm_milk_ashwagandha"
         ]
     }
 ]

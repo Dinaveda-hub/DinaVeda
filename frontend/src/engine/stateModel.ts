@@ -1,89 +1,49 @@
-export interface VedaState {
-    // Constant baseline
-    prakriti_vata: number;
-    prakriti_pitta: number;
-    prakriti_kapha: number;
-
-    // Vikriti state (daily drifting)
-    vata_state: number;
-    pitta_state: number;
-    kapha_state: number;
-
-    // Agni layer
-    agni_strength: number;
-    agni_stability: number;
-    ama_risk: number;
-
-    // Vitality
-    ojas_score: number;
-    ojas_recovery: number;
-
-    // Circadian layer
-    circadian_alignment: number;
-    sleep_debt: number;
-    light_exposure: number;
-
-    // Digestive signals
-    appetite_quality: number;
-    digestion_comfort: number;
-    bloating_level: number;
-    bowel_quality: number;
-
-    // Nervous system
-    stress_load: number;
-    mental_clarity: number;
-    screen_exposure: number;
-
-    // Lifestyle activity
-    movement_level: number;
-    hydration_status: number;
-    meal_timing: number;
-
-    // Environmental context
-    rutu_season: string; // e.g. 'Grishma' (Summer)
-    climate_quality: number;
-
-    // Onboarding status
-    is_onboarded: boolean;
-}
+import { VedaState } from '@/types/physiologyState';
+export type { VedaState };
 
 export const defaultState: VedaState = {
-    prakriti_vata: 33,
-    prakriti_pitta: 33,
-    prakriti_kapha: 33,
+    vata: 50,
+    pitta: 50,
+    kapha: 50,
 
-    vata_state: 33,
-    pitta_state: 33,
-    kapha_state: 33,
+    agni: 60,
+    ama: 20,
+    ojas: 70,
 
-    agni_strength: 70,
-    agni_stability: 70,
-    ama_risk: 10,
+    sleep: 60,
+    energy: 60,
+    stress: 40,
+    mood: 60,
 
-    ojas_score: 80,
-    ojas_recovery: 50,
+    digestion: 60,
+    bloating: 20,
+    elimination: 60,
+    hydration: 60,
+    appetite: 60,
 
-    circadian_alignment: 85,
-    sleep_debt: 10,
-    light_exposure: 50,
+    movement: 50,
+    stiffness: 20,
+    inflammation: 20,
 
-    appetite_quality: 70,
-    digestion_comfort: 80,
-    bloating_level: 10,
-    bowel_quality: 75,
+    skin_health: 60,
+    hair_health: 60,
 
-    stress_load: 30,
-    mental_clarity: 70,
-    screen_exposure: 60,
+    mental_clarity: 60,
+    irritability: 20,
+    attention_stability: 60,
+    cognitive_energy: 60,
+    social_balance: 60,
 
-    movement_level: 50,
-    hydration_status: 60,
-    meal_timing: 80,
+    circadian: 60,
+    rutu_index: 50,
+    age_factor: 50,
 
-    rutu_season: "Vasanta",
-    climate_quality: 50,
-    is_onboarded: false,
-};
+    prakriti_vata: 50,
+    prakriti_pitta: 30,
+    prakriti_kapha: 20,
+
+    is_onboarded: false
+}
 
 // Global hook/state manager will be implemented in a separate hook if needed.
 // For now, this is the foundational interface.

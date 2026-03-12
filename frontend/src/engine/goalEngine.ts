@@ -16,29 +16,30 @@ export const HEALTH_GOALS = healthGoalsData as unknown as HealthGoal[];
 /**
  * goalEngine.ts
  *
- * Applies health goal weights to protocol priority.
- *
+ * applies health goal weights as a preference layer.
+ * 
  * Rules:
- * 1. Does NOT add or remove protocols (stays deterministic).
- * 2. If a protocol name matches a tag in the goal, it gets boosted.
- * 3. Module-level boosts are applied to all protocols in that module.
+ * 1. Additive Scoring: Adds a small boost to existing physiological scores.
+ * 2. Balanced Multipliers: Uses x3 for modules and small increments for tags.
+ * 3. Robust Tag Matching: Checks protocol.tags, protocol.name, and protocol.category.
  */
 
 export function applyGoalBoost(
-    protocols: Protocol[],
+    protocols: (Protocol & { score: number })[],
     goalId: string
-): Protocol[] {
+): (Protocol & { score: number })[] {
     const goal = HEALTH_GOALS.find(g => g.id === goalId);
     if (!goal) return protocols;
 
-    // We want to return a NEW array, sorted by the boost weight
-    return [...protocols].sort((a, b) => {
-        const aScore = calculateProtocolScore(a, goal);
-        const bScore = calculateProtocolScore(b, goal);
+    return protocols.map(p => {
+        const goalBoost = calculateProtocolScore(p, goal);
 
-        // Higher score comes first
-        return bScore - aScore;
-    });
+        // Additive Boost: Goal is a 'preference layer' (10% weight)
+        return {
+            ...p,
+            score: p.score + (goalBoost * 0.1)
+        };
+    }).sort((a, b) => b.score - a.score);
 }
 
 function calculateProtocolScore(protocol: Protocol, goal: HealthGoal): number {
@@ -47,24 +48,30 @@ function calculateProtocolScore(protocol: Protocol, goal: HealthGoal): number {
     const protoNameLower = protocol.name.toLowerCase();
     const protoCategoryLower = protocol.category.toLowerCase();
     const moduleLower = protocol.module.toLowerCase();
+    const protoTags = protocol.tags || [];
 
-    // 1. Module-level boost
+    // 1. Module-level boost (Balanced: x3 multiplier)
     if (goal.module_boosts[moduleLower]) {
-        score += goal.module_boosts[moduleLower] * 10;
+        score += goal.module_boosts[moduleLower] * 3;
     }
 
-    // 2. Protocol Tag matches (highest signal)
-    for (const tag of goal.protocol_tags) {
-        const tagLower = tag.toLowerCase();
+    // 2. Protocol Tag matches (Robust Schema-based matching)
+    for (const goalTag of goal.protocol_tags) {
+        const tagLower = goalTag.toLowerCase();
 
-        // Direct name match
-        if (protoNameLower.includes(tagLower)) {
-            score += 20;
+        // High Signal: Direct Tag Match
+        if (protoTags.some(t => t.toLowerCase() === tagLower)) {
+            score += 3;
         }
 
-        // Category match
+        // Medium Signal: Name includes goal tag
+        if (protoNameLower.includes(tagLower)) {
+            score += 2;
+        }
+
+        // Low Signal: Category includes goal tag
         if (protoCategoryLower.includes(tagLower)) {
-            score += 5;
+            score += 1;
         }
     }
 

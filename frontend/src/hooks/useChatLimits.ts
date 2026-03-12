@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import { usePhysiologyState } from './usePhysiologyState';
 
 export type ChatLimitStatus = 'ok' | 'rate_limit' | 'daily_cap';
 
 export const useChatLimits = () => {
+    const { subscriptionStatus } = usePhysiologyState();
+    const isPremium = subscriptionStatus === 'active';
+
     const [dailyCount, setDailyCount] = useState(0);
     const [recentTimestamps, setRecentTimestamps] = useState<number[]>([]);
 
@@ -33,15 +37,18 @@ export const useChatLimits = () => {
     }, []);
 
     const checkLimit = (): ChatLimitStatus => {
-        // Daily Limit: 50
-        if (dailyCount >= 50) return 'daily_cap';
+        // Premium users have no limits
+        if (isPremium) return 'ok';
 
-        // Rate Limit: 5 messages per minute
+        // Free Daily Limit: 3
+        if (dailyCount >= 3) return 'daily_cap';
+
+        // Free Rate Limit: 2 messages per minute to prevent span
         const now = Date.now();
         const oneMinuteAgo = now - 60000;
         const messagesInLastMinute = recentTimestamps.filter(ts => ts > oneMinuteAgo);
 
-        if (messagesInLastMinute.length >= 5) return 'rate_limit';
+        if (messagesInLastMinute.length >= 2) return 'rate_limit';
 
         return 'ok';
     };
@@ -76,6 +83,7 @@ export const useChatLimits = () => {
         checkLimit,
         incrementCount,
         timeUntilDailyReset,
-        isAtDailyCap: dailyCount >= 50
+        isPremium,
+        isAtDailyCap: !isPremium && dailyCount >= 3
     };
 };

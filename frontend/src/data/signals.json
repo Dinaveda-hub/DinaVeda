@@ -1,200 +1,314 @@
-[
-  {
-    "signal": "poor_sleep",
+{
+  "poor_sleep": {
+    "type": "negative",
+    "severity": "major",
+    "synonyms": [
+      "slept badly",
+      "insomnia",
+      "waking up tired",
+      "restless night",
+      "broken sleep"
+    ],
     "effects": {
-      "vata_state": 8,
-      "ojas_score": -10,
-      "circadian_alignment": -8,
-      "sleep_debt": 15,
+      "vata": 6,
+      "ojas": -8,
+      "circadian": -8,
+      "sleep": -15,
       "mental_clarity": -10
     }
   },
-  {
-    "signal": "late_sleep",
+  "late_sleep": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "slept late",
+      "went to bed late",
+      "sleep delayed",
+      "late night"
+    ],
     "effects": {
-      "vata_state": 6,
-      "pitta_state": 4,
-      "circadian_alignment": -10,
-      "ojas_recovery": -5,
-      "sleep_debt": 10
+      "vata": 4,
+      "pitta": 4,
+      "circadian": -10,
+      "ojas": -5,
+      "sleep": -10
     }
   },
-  {
-    "signal": "late_dinner",
+  "late_dinner": {
+    "type": "negative",
+    "severity": "minor",
+    "synonyms": [
+      "ate late",
+      "late dinner",
+      "heavy dinner late"
+    ],
     "effects": {
-      "kapha_state": 5,
-      "agni_strength": -6,
-      "circadian_alignment": -3,
-      "digestion_comfort": -5,
-      "ama_risk": 4
+      "kapha": 5,
+      "agni": -6,
+      "circadian": -3,
+      "digestion": -8,
+      "ama": 6
     }
   },
-  {
-    "signal": "bloating",
+  "bloating_after_meal": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "bloating",
+      "stomach feels heavy",
+      "gas after food",
+      "abdomen tight",
+      "gastric"
+    ],
     "effects": {
-      "vata_state": 10,
-      "agni_stability": -5,
-      "digestion_comfort": -15,
-      "ama_risk": 5,
-      "bloating_level": 20
+      "vata": 8,
+      "agni": -8,
+      "digestion": -12,
+      "ama": 6,
+      "bloating": 15
     }
   },
-  {
-    "signal": "high_stress",
+  "high_stress": {
+    "type": "negative",
+    "severity": "major",
+    "synonyms": [
+      "anxiety",
+      "stress",
+      "being overwhelmed",
+      "panic",
+      "feeling pressured"
+    ],
     "effects": {
-      "vata_state": 12,
-      "pitta_state": 8,
-      "stress_load": 20,
+      "vata": 12,
+      "pitta": 8,
+      "stress": 15,
       "mental_clarity": -15,
-      "ojas_score": -5
+      "ojas": -5
     }
   },
-  {
-    "signal": "skipped_meal",
+  "skipped_meal": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "fasting",
+      "missing a meal",
+      "skipped breakfast",
+      "skipped lunch"
+    ],
     "effects": {
-      "vata_state": 8,
-      "agni_strength": -10,
-      "appetite_quality": -5,
-      "ojas_score": -2,
-      "meal_timing": -10
+      "vata": 8,
+      "agni": -10,
+      "appetite": -5,
+      "ojas": -2,
+      "circadian": -8
     }
   },
-  {
-    "signal": "good_hydration",
+  "good_hydration": {
+    "type": "positive",
+    "severity": "minor",
+    "synonyms": [
+      "drinking water",
+      "hydrated",
+      "plenty of fluids"
+    ],
     "effects": {
-      "pitta_state": -5,
-      "vata_state": -2,
-      "hydration_status": 20,
-      "ama_risk": -3
+      "pitta": -5,
+      "vata": -2,
+      "hydration": 15,
+      "ama": -3
     }
   },
-  {
-    "signal": "heavy_meal",
+  "heavy_meal": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "eating a lot",
+      "feeling stuffed",
+      "heavy food",
+      "overate"
+    ],
     "effects": {
-      "kapha_state": 10,
-      "agni_strength": -5,
-      "ama_risk": 8,
-      "digestion_comfort": -10,
-      "bloating_level": 5
+      "kapha": 10,
+      "agni": -8,
+      "ama": 10,
+      "digestion": -10,
+      "bloating": 8
     }
   },
-  {
-    "signal": "morning_exercise",
+  "morning_exercise": {
+    "type": "positive",
+    "severity": "minor",
+    "synonyms": [
+      "working out",
+      "yoga",
+      "running in AM",
+      "morning gym"
+    ],
     "effects": {
-      "kapha_state": -8,
-      "agni_strength": 5,
-      "movement_level": 20,
-      "circadian_alignment": 5,
-      "ojas_score": 2
+      "kapha": -8,
+      "agni": 6,
+      "movement": 15,
+      "circadian": 8,
+      "ojas": 5
     }
   },
-  {
-    "signal": "screen_fatigue",
+  "screen_fatigue": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "staring at computers",
+      "eye strain",
+      "headache from screen",
+      "digital fatigue"
+    ],
     "effects": {
-      "vata_state": 5,
-      "pitta_state": 5,
-      "screen_exposure": 20,
-      "mental_clarity": -8,
-      "stress_load": 5
+      "vata": 6,
+      "pitta": 6,
+      "mental_clarity": -23,
+      "stress": 8
     }
   },
-  {
-    "signal": "nature_walk",
+  "nature_walk": {
+    "type": "positive",
+    "severity": "minor",
+    "synonyms": [
+      "walking outside",
+      "being in nature",
+      "fresh air walk",
+      "park visit"
+    ],
     "effects": {
-      "vata_state": -10,
-      "pitta_state": -5,
-      "stress_load": -15,
-      "movement_level": 10,
-      "ojas_recovery": 5,
-      "mental_clarity": 10
+      "vata": -10,
+      "pitta": -5,
+      "stress": -12,
+      "movement": 10,
+      "ojas": 8,
+      "mental_clarity": 12
     }
   },
-  {
-    "signal": "caffeine_crash",
+  "caffeine_crash": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "coffee crash",
+      "tired after tea",
+      "jitters",
+      "caffeine withdrawal"
+    ],
     "effects": {
-      "vata_state": 15,
-      "pitta_state": 5,
-      "stress_load": 10,
-      "ojas_score": -4,
-      "mental_clarity": -5
+      "vata": 15,
+      "pitta": 5,
+      "stress": 12,
+      "ojas": -6,
+      "mental_clarity": -8
     }
   },
-  {
-    "signal": "deep_sleep",
+  "deep_sleep": {
+    "type": "positive",
+    "severity": "major",
+    "synonyms": [
+      "slept like a log",
+      "very refreshing sleep",
+      "deep rest"
+    ],
     "effects": {
-      "vata_state": -10,
-      "pitta_state": -5,
-      "kapha_state": 2,
-      "ojas_recovery": 20,
-      "ojas_score": 5,
-      "sleep_debt": -20,
-      "circadian_alignment": 10
+      "vata": -10,
+      "pitta": -5,
+      "kapha": 2,
+      "ojas": 15,
+      "sleep": 15,
+      "circadian": 10
     }
   },
-  {
-    "signal": "constipation",
+  "constipation": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "hard stool",
+      "difficulty passing stool",
+      "irregular elimination"
+    ],
     "effects": {
-      "vata_state": 15,
-      "ama_risk": 10,
-      "bowel_quality": -25,
-      "agni_stability": -10,
-      "digestion_comfort": -10
+      "vata": 15,
+      "ama": 12,
+      "elimination": -15,
+      "agni": -10,
+      "digestion": -10
     }
   },
-  {
-    "signal": "heartburn",
+  "heartburn": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "acidity",
+      "acid reflux",
+      "burning in stomach",
+      "burning throat"
+    ],
     "effects": {
-      "pitta_state": 15,
-      "ama_risk": 5,
-      "digestion_comfort": -20,
-      "agni_stability": -15
+      "pitta": 15,
+      "ama": 8,
+      "digestion": -15,
+      "agni": -12
     }
   },
-  {
-    "signal": "sunlight_exposure",
+  "positive_mood": {
+    "type": "positive",
+    "severity": "minor",
+    "synonyms": [
+      "cheerful",
+      "happy",
+      "feeling good",
+      "positive state"
+    ],
     "effects": {
-      "kapha_state": -5,
-      "circadian_alignment": 15,
-      "light_exposure": 20,
-      "ojas_recovery": 5,
-      "mental_clarity": 10
+      "mood": 5,
+      "ojas": 3
     }
   },
-  {
-    "signal": "low_movement",
+  "stable_mood": {
+    "type": "positive",
+    "severity": "minor",
+    "synonyms": [
+      "steady",
+      "neutral mood",
+      "balanced emotion"
+    ],
     "effects": {
-      "kapha_state": 10,
-      "movement_level": -20,
-      "ama_risk": 5,
-      "agni_strength": -5
+      "mood": 2
     }
   },
-  {
-    "signal": "cold_weather",
+  "low_mood": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "feeling low",
+      "sad",
+      "depressed",
+      "heavy heart",
+      "unhappy"
+    ],
     "effects": {
-      "vata_state": 10,
-      "kapha_state": 5,
-      "climate_quality": -10,
-      "agni_strength": -5
+      "mood": -10,
+      "vata": 5,
+      "kapha": 5,
+      "ojas": -5
     }
   },
-  {
-    "signal": "hot_weather",
+  "high_irritability": {
+    "type": "negative",
+    "severity": "moderate",
+    "synonyms": [
+      "irritated",
+      "frustrated",
+      "angry",
+      "short temper",
+      "annoyed"
+    ],
     "effects": {
-      "pitta_state": 15,
-      "climate_quality": -10,
-      "hydration_status": -10
-    }
-  },
-  {
-    "signal": "overworking",
-    "effects": {
-      "vata_state": 10,
-      "pitta_state": 10,
-      "stress_load": 25,
-      "ojas_recovery": -15,
-      "sleep_debt": 5,
-      "screen_exposure": 10
+      "pitta": 12,
+      "stress": 8,
+      "mood": -5
     }
   }
-]
+}

@@ -1,13 +1,17 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * Normalizes session and refreshes the Supabase token.
+ * This should be called in the main middleware.ts.
+ */
 export async function updateSession(request: NextRequest) {
     let supabaseResponse = NextResponse.next({
         request,
     })
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co';
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy_key';
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
     const supabase = createServerClient(
         supabaseUrl,
@@ -58,44 +62,8 @@ export async function updateSession(request: NextRequest) {
     // IMPORTANT: Avoid writing any logic between createServerClient and
     // supabase.auth.getUser(). A simple mistake could make it very hard to debug
     // issues with users being randomly logged out.
-
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
-
-    if (
-        !user &&
-        !request.nextUrl.pathname.startsWith('/login') &&
-        !request.nextUrl.pathname.startsWith('/auth') &&
-        !request.nextUrl.pathname.startsWith('/welcome') &&
-        !request.nextUrl.pathname.startsWith('/about') &&
-        !request.nextUrl.pathname.startsWith('/privacy') &&
-        !request.nextUrl.pathname.startsWith('/terms') &&
-        !request.nextUrl.pathname.startsWith('/contact') &&
-        !request.nextUrl.pathname.startsWith('/how-it-works') &&
-        !request.nextUrl.pathname.startsWith('/manifest.json') &&
-        !request.nextUrl.pathname.startsWith('/sw.js') &&
-        !request.nextUrl.pathname.startsWith('/OneSignalSDKWorker.js') &&
-        !request.nextUrl.pathname.startsWith('/OneSignalSDKUpdaterWorker.js') &&
-        !request.nextUrl.pathname.startsWith('/api') &&
-        !request.nextUrl.pathname.startsWith('/robots.txt') &&
-        !request.nextUrl.pathname.startsWith('/sitemap.xml')
-    ) {
-        // no user, potentially respond by redirecting the user to the login page
-        const url = request.nextUrl.clone()
-        url.pathname = '/welcome'
-        return NextResponse.redirect(url)
-    }
-
-    // Allow authenticated users to bypass the login page
-    if (
-        user &&
-        (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/welcome')
-    ) {
-        const url = request.nextUrl.clone()
-        url.pathname = '/'
-        return NextResponse.redirect(url)
-    }
+    // getUser() triggers the session refresh if needed.
+    await supabase.auth.getUser()
 
     return supabaseResponse
 }

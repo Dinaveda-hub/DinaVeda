@@ -1,526 +1,263 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
-import {
-  CloudSun, ShieldCheck, Flame, Compass, Moon,
-  Sunrise, Sun, Sunset, AlertCircle, CheckCircle2,
-  Sparkles, Leaf, Activity, User, ArrowRight, BrainCircuit,
-  CheckCircle, Square
-} from "lucide-react";
-import Image from "next/image";
-import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import { computeVikriti } from "@/engine/vikritiEngine";
-import { selectProtocols, filterProtocols, Protocol } from "@/engine/protocolSelectionEngine";
-import { computeHealthScore } from "@/engine/healthScoreEngine";
-import { computeIPI } from "@/engine/imbalancePressureEngine";
-import { PredictionEngine } from "@/engine/predictionEngine";
-import { CompiledProtocolItem } from "@/engine/protocolCompiler";
-import { humanizeProtocolName } from "@/utils/stringUtils";
-import { applyEffects } from "@/engine/stateUpdater";
-import protocolsRaw from "@/data/protocols.json";
+import { ArrowRight, ShieldCheck, Activity, BrainCircuit, CheckCircle2, ChevronDown } from "lucide-react";
+import CircadianPreview from "@/components/CircadianPreview";
+import SampleInsightCard from "@/components/SampleInsightCard";
+import Footer from "@/components/Footer";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function Dashboard() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 1, staggerChildren: 0.1 }
-    }
-  };
+const FAQS = [
+  { q: "Is this medical advice?", a: "No. Dinaveda is an educational wellness platform designed to align your daily lifestyle with natural rhythms. It is not intended to diagnose, treat, or cure any medical conditions." },
+  { q: "How long does the assessment take?", a: "The initial Prakriti assessment takes approximately 2 minutes. It contains 21 questions about your innate traits and physiological patterns." },
+  { q: "Is Dinaveda free?", a: "Creating your health profile and viewing your baseline constitution is completely free. We offer premium modules for ongoing daily protocols and adaptive guidance." },
+  { q: "How is my data protected?", a: "We employ end-to-end encryption and strict privacy protocols. Your physiological data is never sold to third parties and is used entirely to power your personal insights." },
+];
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 80, damping: 20 }
-    }
-  };
+export default function LandingPage() {
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const { state, updateState, isLoaded } = usePhysiologyState();
-  const vikriti = isLoaded ? computeVikriti(state) : null;
-  const predictionEngine = new PredictionEngine();
-
-  const ojasBalance = isLoaded && vikriti ? computeHealthScore(state, vikriti.drift_index) : null;
-  const pressureIndex = isLoaded && vikriti ? computeIPI(state, vikriti.drift_index) : null;
-
-  // Health Goal state
-  const [healthGoal, setHealthGoal] = useState<string>("general_wellness");
-
-  // Interaction State for Protocols
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
-  const [completedSections, setCompletedSections] = useState<string[]>([]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("veda_health_goal");
-    if (saved) setHealthGoal(saved);
-
-    const handleGoalChange = () => {
-      const updated = localStorage.getItem("veda_health_goal");
-      if (updated) setHealthGoal(updated);
-    };
-
-    window.addEventListener("veda_goal_changed", handleGoalChange);
-    return () => window.removeEventListener("veda_goal_changed", handleGoalChange);
-  }, []);
-
-  // State history and prediction protocols
-  const stateHistory = isLoaded ? predictionEngine.loadStateHistory() : [];
-  const predictionProtocolNames = isLoaded ? predictionEngine.getPredictionProtocols(stateHistory) : [];
-
-  // Compile all module outputs into a single structured daily plan
-  const plan = isLoaded
-    ? filterProtocols(selectProtocols(state))
-    : { morning: [], midday: [], evening: [] };
-
-  const mapToCompiled = (protos: Protocol[]): CompiledProtocolItem[] =>
-    protos.map(p => ({
-      name: p.name,
-      title: humanizeProtocolName(p.name),
-      description: p.instructions,
-      time_of_day: p.time_of_day,
-      duration: p.duration,
-      module: p.module,
-      category: p.category
-    }));
-
-  const morningRecs = mapToCompiled(plan.morning);
-  const middayRecs = mapToCompiled(plan.midday);
-  const eveningRecs = mapToCompiled(plan.evening);
-
-  const adjustments = isLoaded && vikriti ? predictionEngine.getAdjustments(state, vikriti) : [];
-
-  // Save snapshot on load (once per session)
-  useEffect(() => {
-    if (isLoaded) {
-      predictionEngine.saveStateSnapshot(state);
-    }
-  }, [isLoaded]);
-
-  // Load Interaction Progress and check for Midnight Reset
-  useEffect(() => {
-    const checkReset = () => {
-      const lastResetDate = localStorage.getItem("veda_protocol_reset_date");
-      const today = new Date().toDateString();
-
-      if (lastResetDate !== today) {
-        localStorage.removeItem("veda_checked_items");
-        localStorage.removeItem("veda_completed_sections");
-        localStorage.setItem("veda_protocol_reset_date", today);
-        setCheckedItems([]);
-        setCompletedSections([]);
-      } else {
-        const savedChecked = localStorage.getItem("veda_checked_items");
-        const savedCompleted = localStorage.getItem("veda_completed_sections");
-        if (savedChecked) setCheckedItems(JSON.parse(savedChecked));
-        if (savedCompleted) setCompletedSections(JSON.parse(savedCompleted));
-      }
-    };
-
-    checkReset();
-    const interval = setInterval(checkReset, 60000); // Check every minute
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleToggleProtocol = (name: string) => {
-    if (checkedItems.includes(name)) {
-      const updated = checkedItems.filter(i => i !== name);
-      setCheckedItems(updated);
-      localStorage.setItem("veda_checked_items", JSON.stringify(updated));
-    } else {
-      const updated = [...checkedItems, name];
-      setCheckedItems(updated);
-      localStorage.setItem("veda_checked_items", JSON.stringify(updated));
-    }
-  };
-
-  const handleCompleteSection = async (section: string, items: CompiledProtocolItem[]) => {
-    if (completedSections.includes(section)) return;
-
-    // Filter to only items that were checked
-    const checkedInSection = items.filter(i => checkedItems.includes(i.name));
-
-    // Aggregate effects
-    const effectsList: any[] = [];
-    checkedInSection.forEach(item => {
-      const original = (protocolsRaw as any[]).find(p => p.name === item.name);
-      if (original?.variables) {
-        effectsList.push(original.variables);
-      }
-    });
-
-    if (effectsList.length > 0) {
-      const newState = applyEffects(state, effectsList);
-      await updateState(newState);
-    }
-
-    const updated = [...completedSections, section];
-    setCompletedSections(updated);
-    localStorage.setItem("veda_completed_sections", JSON.stringify(updated));
-  };
-
-  return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="min-h-screen bg-[#F8FAF9] relative overflow-hidden pb-40"
-    >
-      {/* Background Radiance */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-40 -mt-40" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40" />
-
-      <main className="max-w-4xl mx-auto px-6 md:px-10 pt-20 relative z-10 flex flex-col gap-12 font-sans md:pt-32">
-
-        {/* 1. Header */}
-        <motion.header variants={itemVariants} className="text-left mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="relative w-6 h-6">
-              <Image src="/logo.png" alt="Logo" fill className="object-contain" priority sizes="24px" />
-            </div>
-            <p className="text-[10px] md:text-sm font-black text-forest/60 uppercase tracking-[0.3em] flex items-center gap-2">
-              Dinaveda <Sparkles className="w-3.5 h-3.5 text-gold/60" />
-            </p>
-          </div>
-          <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5">
-            Today's guidance
-          </h1>
-          <p className="text-[10px] md:text-sm font-bold text-slate-600 uppercase tracking-widest leading-relaxed">
-            Aligned with your Prakriti • <span className="text-forest underline decoration-forest/40 underline-offset-4">{healthGoal.replace(/_/g, ' ').toUpperCase()}</span>
-          </p>
-        </motion.header>
-
-        {/* 2. Seasonal Context */}
-        <motion.section variants={itemVariants}>
-          <div className="glass p-8 rounded-[2rem] shadow-premium border border-white/60 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:border-orange-500/20 transition-colors">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-[1.5rem] bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 shrink-0">
-                <CloudSun className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="text-xs font-black text-slate-600 uppercase tracking-widest mb-1">Seasonal Rhythm</h2>
-                <h3 className="text-2xl font-black text-forest tracking-tighter leading-none">Vasanta (Spring)</h3>
-              </div>
-            </div>
-            <div className="md:text-right flex-1">
-              <p className="text-xs font-bold text-slate-600 w-full md:max-w-xs md:ml-auto leading-relaxed">
-                Favor light, easily digestible foods and maintain active movement to clear winter accumulation.
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* 3. Ojas Balance & Imbalance Pressure */}
-        <motion.section variants={itemVariants} className="flex flex-col gap-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Main Hero Card: Ojas Balance */}
-            <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col justify-between relative overflow-hidden group hover:bg-white transition-colors h-48">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-              <div>
-                <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-gold" /> Daily Health Score
-                </h2>
-                <h3 className="text-5xl md:text-6xl font-black text-forest tracking-tighter leading-none">
-                  {isLoaded && ojasBalance !== null ? ojasBalance : '--'}
-                </h3>
-              </div>
-              <div>
-                <span className="text-sm font-bold text-slate-600 uppercase tracking-widest block mb-1">Ojas Balance</span>
-              </div>
-            </div>
-
-            {/* Secondary Hero Card: Imbalance Pressure */}
-            <div className="bg-white/80 p-8 rounded-[2rem] border border-white shadow-premium flex flex-col justify-between relative overflow-hidden group hover:bg-white transition-colors h-48">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-              <div>
-                <h2 className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-orange-500" /> Physiological Strain
-                </h2>
-                <h3 className="text-5xl md:text-6xl font-black text-orange-600 tracking-tighter leading-none">
-                  {isLoaded && pressureIndex !== null ? pressureIndex : '--'}
-                </h3>
-              </div>
-              <div>
-                <span className="text-sm font-bold text-slate-600 uppercase tracking-widest block mb-1">Imbalance Pressure</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Sub Grid: Component Indicators */}
-          <div className="grid grid-cols-3 gap-3 md:gap-4">
-            <div className="bg-white/60 p-4 md:p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1 md:gap-1.5"><Flame className="w-3 h-3" /> Agni</span>
-              <span className="text-lg md:text-2xl font-black text-orange-600 tracking-tighter">
-                {isLoaded ? (state.agni_strength > 65 ? 'Strong' : state.agni_strength > 40 ? 'Balanced' : 'Weak') : '--'}
-              </span>
-            </div>
-            <div className="bg-white/60 p-4 md:p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1 md:gap-1.5"><Moon className="w-3 h-3" /> Circadian</span>
-              <span className="text-lg md:text-2xl font-black text-blue-600 tracking-tighter">
-                {isLoaded ? `${Math.round(state.circadian_alignment)}%` : '--'}
-              </span>
-            </div>
-            <div className="bg-white/60 p-4 md:p-5 rounded-[1.5rem] border border-white shadow-sm flex flex-col justify-between h-28 group hover:bg-white transition-colors">
-              <span className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-forest transition-colors flex items-center gap-1 md:gap-1.5"><AlertCircle className="w-3 h-3" /> Drift</span>
-              <div className="flex flex-col md:flex-row md:items-end gap-0 md:gap-1.5">
-                <span className="text-lg md:text-2xl font-black text-forest tracking-tighter leading-none">
-                  {isLoaded && vikriti ? `${Math.round(vikriti.drift_index)}%` : '--'}
-                </span>
-                {isLoaded && vikriti && (
-                  <span className="text-[9px] md:text-xs font-bold text-slate-500 uppercase leading-none md:mb-1 truncate">
-                    ({vikriti.dominant_dosha})
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* 4. Today's Protocol & 5. Time-Based Guidance */}
-        <motion.section variants={itemVariants} className="mt-4">
-          <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
-            <ShieldCheck className="w-4 h-4 text-forest/40" /> Today's Protocol
-          </h2>
-
-          <div className="space-y-6">
-            {/* Morning Block */}
-            <div className={`glass p-8 rounded-[2.5rem] border transition-all duration-500 ${completedSections.includes('morning') ? 'border-emerald-200 bg-emerald-50/20 opacity-90' : 'border-white/60 shadow-premium'}`}>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3">
-                  <Sunrise className="w-5 h-5 text-orange-400" /> Morning
-                </h3>
-                {completedSections.includes('morning') ? (
-                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-100/50 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    <CheckCircle className="w-3.5 h-3.5" /> Completed
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => handleCompleteSection('morning', morningRecs)}
-                    disabled={morningRecs.length === 0}
-                    className="text-[10px] font-black uppercase tracking-widest bg-forest text-white px-5 py-2 rounded-full shadow-lg shadow-forest/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:hover:scale-100"
-                  >
-                    Mark as Complete
-                  </button>
-                )}
-              </div>
-              <div className="space-y-4">
-                {isLoaded && morningRecs.length > 0 ? morningRecs.map(rec => {
-                  const isChecked = checkedItems.includes(rec.name);
-                  const isSectionDone = completedSections.includes('morning');
-                  return (
-                    <div
-                      key={rec.name}
-                      onClick={() => !isSectionDone && handleToggleProtocol(rec.name)}
-                      className={`flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0 group cursor-pointer ${isSectionDone ? 'pointer-events-none' : ''}`}
-                    >
-                      <div className="mt-1 shrink-0 transition-colors">
-                        {isChecked ? (
-                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        ) : (
-                          <Square className="w-5 h-5 text-slate-300 group-hover:text-forest/40" />
-                        )}
-                      </div>
-                      <div className={isChecked || isSectionDone ? "opacity-60" : ""}>
-                        <h4 className={`font-black tracking-tight text-lg mb-1 transition-all ${isChecked ? 'text-slate-400 line-through' : 'text-forest'}`}>{rec.title}</h4>
-                        <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
-                      </div>
+    return (
+        <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans overflow-x-hidden selection:bg-forest/20 selection:text-forest">
+            {/* Ambient background glows */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-forest/5 to-transparent pointer-events-none -z-10 -mr-40 -mt-40 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-40 -mb-40 blur-3xl" />
+            
+            {/* 1. Hero Section */}
+            <section className="pt-24 pb-20 md:pt-32 md:pb-24 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+                <div className="flex-1 space-y-8 z-10 w-full text-center lg:text-left">
+                    <h1 className="text-5xl md:text-6xl lg:text-[5.5rem] font-black text-forest tracking-tighter leading-[0.9] text-balance">
+                        Discover Your Ayurvedic Body Type.
+                    </h1>
+                    <p className="text-base md:text-lg font-bold text-slate-600 max-w-lg leading-relaxed mx-auto lg:mx-0 uppercase tracking-wide">
+                        Dinaveda analyzes your lifestyle rhythms and generates a personalized daily wellness routine based on Ayurveda.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <Link href="/login" className="group relative px-8 py-5 w-full sm:w-auto justify-center rounded-3xl bg-forest text-white flex items-center gap-3 overflow-hidden shadow-xl shadow-forest/20 transition-all hover:-translate-y-1 hover:shadow-2xl active:scale-95">
+                            <span className="relative z-10 font-black text-xs md:text-sm uppercase tracking-widest">Start Free Health Assessment</span>
+                            <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+                        </Link>
                     </div>
-                  );
-                }) : (
-                  <p className="text-xs font-bold text-slate-600 italic">No acute morning protocols active. Continue standard Dinacharya.</p>
-                )}
-              </div>
-            </div>
-
-            {/* Midday Block */}
-            <div className={`glass p-8 rounded-[2.5rem] border transition-all duration-500 ${completedSections.includes('midday') ? 'border-emerald-200 bg-emerald-50/20 opacity-90' : 'border-white/60 shadow-premium'}`}>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3">
-                  <Sun className="w-5 h-5 text-gold" /> Midday
-                </h3>
-                {completedSections.includes('midday') ? (
-                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-100/50 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    <CheckCircle className="w-3.5 h-3.5" /> Completed
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => handleCompleteSection('midday', middayRecs)}
-                    disabled={middayRecs.length === 0}
-                    className="text-[10px] font-black uppercase tracking-widest bg-forest text-white px-5 py-2 rounded-full shadow-lg shadow-forest/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:hover:scale-100"
-                  >
-                    Mark as Complete
-                  </button>
-                )}
-              </div>
-              <div className="space-y-4">
-                {isLoaded && middayRecs.length > 0 ? middayRecs.map(rec => {
-                  const isChecked = checkedItems.includes(rec.name);
-                  const isSectionDone = completedSections.includes('midday');
-                  return (
-                    <div
-                      key={rec.name}
-                      onClick={() => !isSectionDone && handleToggleProtocol(rec.name)}
-                      className={`flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0 group cursor-pointer ${isSectionDone ? 'pointer-events-none' : ''}`}
-                    >
-                      <div className="mt-1 shrink-0 transition-colors">
-                        {isChecked ? (
-                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        ) : (
-                          <Square className="w-5 h-5 text-slate-300 group-hover:text-forest/40" />
-                        )}
-                      </div>
-                      <div className={isChecked || isSectionDone ? "opacity-60" : ""}>
-                        <h4 className={`font-black tracking-tight text-lg mb-1 transition-all ${isChecked ? 'text-slate-400 line-through' : 'text-forest'}`}>{rec.title}</h4>
-                        <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
-                      </div>
-                    </div>
-                  );
-                }) : (
-                  <p className="text-xs font-bold text-slate-600 italic">No acute midday protocols active. Maintain balanced activity and mindful meals.</p>
-                )}
-              </div>
-            </div>
-
-            {/* Evening Block */}
-            <div className={`glass p-8 rounded-[2.5rem] border transition-all duration-500 ${completedSections.includes('evening') ? 'border-emerald-200 bg-emerald-50/20 opacity-90' : 'border-white/60 shadow-premium'}`}>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-sm font-black text-forest uppercase tracking-[0.2em] flex items-center gap-3">
-                  <Sunset className="w-5 h-5 text-indigo-400" /> Evening
-                </h3>
-                {completedSections.includes('evening') ? (
-                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-100/50 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    <CheckCircle className="w-3.5 h-3.5" /> Completed
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => handleCompleteSection('evening', eveningRecs)}
-                    disabled={eveningRecs.length === 0}
-                    className="text-[10px] font-black uppercase tracking-widest bg-forest text-white px-5 py-2 rounded-full shadow-lg shadow-forest/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-30 disabled:hover:scale-100"
-                  >
-                    Mark as Complete
-                  </button>
-                )}
-              </div>
-              <div className="space-y-4">
-                {isLoaded && eveningRecs.length > 0 ? eveningRecs.map(rec => {
-                  const isChecked = checkedItems.includes(rec.name);
-                  const isSectionDone = completedSections.includes('evening');
-                  return (
-                    <div
-                      key={rec.name}
-                      onClick={() => !isSectionDone && handleToggleProtocol(rec.name)}
-                      className={`flex gap-4 items-start pb-4 border-b border-forest/5 last:border-0 last:pb-0 group cursor-pointer ${isSectionDone ? 'pointer-events-none' : ''}`}
-                    >
-                      <div className="mt-1 shrink-0 transition-colors">
-                        {isChecked ? (
-                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                        ) : (
-                          <Square className="w-5 h-5 text-slate-300 group-hover:text-forest/40" />
-                        )}
-                      </div>
-                      <div className={isChecked || isSectionDone ? "opacity-60" : ""}>
-                        <h4 className={`font-black tracking-tight text-lg mb-1 transition-all ${isChecked ? 'text-slate-400 line-through' : 'text-forest'}`}>{rec.title}</h4>
-                        <p className="text-xs font-bold text-slate-600 leading-relaxed text-balance">{rec.description}</p>
-                      </div>
-                    </div>
-                  );
-                }) : (
-                  <p className="text-xs font-bold text-slate-600 italic">Wind down naturally aligned with the sunset.</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* 6. Dynamic Adjustments */}
-        {isLoaded && adjustments.length > 0 && (
-          <motion.section variants={itemVariants} className="mt-4">
-            <h2 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-6 flex items-center gap-3">
-              <AlertCircle className="w-4 h-4 text-orange-400" /> Dynamic Adjustments
-            </h2>
-            <div className="space-y-4">
-              {adjustments.map((adj, idx) => (
-                <div key={idx} className="bg-orange-50/80 p-6 md:p-8 rounded-[2rem] border border-orange-100 flex flex-col md:flex-row md:items-center gap-5 shadow-sm">
-                  <div className="w-12 h-12 rounded-[1.2rem] bg-orange-100/80 flex items-center justify-center text-orange-600 shrink-0">
-                    <AlertCircle className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-widest text-orange-800/60 mb-1">Adjustment Detected</p>
-                    <h4 className="text-sm font-black text-orange-900 mb-1">{adj.issue}</h4>
-                    <p className="text-sm font-bold text-slate-700 leading-snug">Recommendation: {adj.recommendation}</p>
-                  </div>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mx-auto lg:mx-0">
+                        Takes 2 minutes • Free
+                    </p>
                 </div>
-              ))}
-            </div>
-          </motion.section>
-        )}
+                
+                <div className="flex-1 w-full relative z-10 flex flex-col sm:flex-row lg:flex-col gap-6 items-center">
+                    <CircadianPreview />
+                    <SampleInsightCard />
+                </div>
+            </section>
 
-        {/* 7. Reflection */}
-        <motion.section variants={itemVariants} className="mt-10 mb-16 flex justify-center">
-          <div className="text-center max-w-md">
-            <div className="w-10 h-10 rounded-[1.2rem] bg-forest/5 flex items-center justify-center mx-auto mb-5 text-forest">
-              <Leaf className="w-5 h-5" />
-            </div>
-            <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-600 mb-3">Dinaveda Observation</h4>
-            <p className="text-xs md:text-sm font-bold text-slate-700 leading-relaxed italic text-balance px-4">
-              "{isLoaded ? (state.is_onboarded ? predictionEngine.getSystemReflection(state) : "Awaiting biological initialization...") : "Calibrating systemic balance..."}"
-            </p>
-          </div>
-        </motion.section>
+            {/* 2. Instant Value */}
+            <section className="py-20 px-6 bg-white border-y border-slate-100 relative z-10">
+                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="text-center md:text-left p-6">
+                        <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-forest flex items-center justify-center mb-6 mx-auto md:mx-0">
+                            <ShieldCheck className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-xl font-black text-forest mb-3 tracking-tight">Know Your Body Type</h3>
+                        <p className="text-sm font-bold text-slate-500 leading-relaxed">Discover your unique Dosha profile and understand your innate physiological strengths.</p>
+                    </div>
+                    <div className="text-center md:text-left p-6">
+                        <div className="w-14 h-14 rounded-2xl bg-amber-50 text-gold flex items-center justify-center mb-6 mx-auto md:mx-0">
+                            <Activity className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-xl font-black text-forest mb-3 tracking-tight">Track Daily Rhythms</h3>
+                        <p className="text-sm font-bold text-slate-500 leading-relaxed">Monitor your energy, digestion, and sleep through our advanced analytical engine.</p>
+                    </div>
+                    <div className="text-center md:text-left p-6">
+                        <div className="w-14 h-14 rounded-2xl bg-forest/5 text-forest flex items-center justify-center mb-6 mx-auto md:mx-0">
+                            <BrainCircuit className="w-6 h-6" />
+                        </div>
+                        <h3 className="text-xl font-black text-forest mb-3 tracking-tight">Personalized Rituals</h3>
+                        <p className="text-sm font-bold text-slate-500 leading-relaxed">Receive time-based protocols mapped precisely to your Ayurvedic constitution.</p>
+                    </div>
+                </div>
+            </section>
 
-      </main>
+            {/* 3. Problem Awareness */}
+            <section className="py-24 px-6 relative z-10 max-w-5xl mx-auto text-center">
+                <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-4 text-center">The Wellness Paradox</h2>
+                <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter mb-12">Why Most Wellness Advice Fails</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                    <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                        <div className="text-xs font-black text-gold uppercase tracking-widest mb-3">Flaw 01</div>
+                        <p className="font-bold text-slate-600">Everyone receives the exact same generalized advice.</p>
+                    </div>
+                    <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                        <div className="text-xs font-black text-gold uppercase tracking-widest mb-3">Flaw 02</div>
+                        <p className="font-bold text-slate-600">Your body has a unique, permanent constitution.</p>
+                    </div>
+                    <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                        <div className="text-xs font-black text-gold uppercase tracking-widest mb-3">Flaw 03</div>
+                        <p className="font-bold text-slate-600">Small daily habits influence you differently than others.</p>
+                    </div>
+                </div>
 
-      {/* Onboarding Overlay / Gate */}
-      {!state.is_onboarded && isLoaded && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 z-[100] bg-white/60 backdrop-blur-xl flex items-center justify-center px-6"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="glass max-w-lg w-full p-10 md:p-16 rounded-[3rem] border border-white shadow-premium text-center relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-forest/5 to-transparent pointer-events-none" />
+                <div className="bg-forest text-white p-10 rounded-[2.5rem] shadow-premium relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+                     <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[80px] opacity-20 -mr-20 -mt-20 pointer-events-none" />
+                     <div className="relative z-10 md:max-w-xl">
+                        <p className="text-xl font-black text-emerald-100 tracking-tighter sm:text-2xl leading-snug">
+                            Dinaveda analyzes these subtle patterns to guide your daily routine with microscopic precision.
+                        </p>
+                     </div>
+                     <Link href="/login" className="bg-white text-forest px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-black/10 hover:scale-105 active:scale-95 transition-all text-center relative z-10 shrink-0">
+                         Get Your Routine
+                     </Link>
+                </div>
+            </section>
 
-            <div className="relative z-10">
-              <div className="relative w-20 h-20 mx-auto mb-10 transition-transform duration-500 hover:scale-105">
-                <Image
-                  src="/logo.png"
-                  alt="Dinaveda Logo"
-                  fill
-                  priority
-                  sizes="64px"
-                  className="object-contain"
-                />
-              </div>
+            {/* 4. How Dinaveda Works */}
+            <section className="py-24 px-6 bg-slate-50 border-y border-slate-100 relative z-10">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter">How It Works</h2>
+                    </div>
 
-              <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tighter leading-none mb-6">Initialize Your Neural Hub</h2>
-              <p className="text-sm md:text-base font-bold text-slate-600 leading-relaxed mb-10 max-w-xs mx-auto text-balance">
-                To generate your personalized health scores and daily protocols, we first need to map your biological constitution.
-              </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                        {/* Connecting Line */}
+                        <div className="hidden md:block absolute top-[50px] left-[10%] right-[10%] h-[2px] bg-slate-200 z-0" />
 
-              <div className="space-y-4">
-                <Link
-                  href="/ayuone"
-                  className="w-full bg-forest text-white py-6 rounded-[1.8rem] font-black text-xs md:text-sm uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
-                >
-                  Start Assessment <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/how-it-works"
-                  className="w-full bg-white text-slate-600 border border-slate-100 py-6 rounded-[1.8rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
-                >
-                  Learn How it Works
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </motion.div>
-  );
+                        <div className="relative z-10 flex flex-col items-center text-center">
+                            <div className="w-24 h-24 rounded-full bg-white border-4 border-slate-50 flex items-center justify-center text-2xl font-black text-forest shadow-lg mb-6">1</div>
+                            <h4 className="text-xl font-black text-forest mb-3">Take a Short Assessment</h4>
+                            <p className="text-sm font-bold text-slate-500 max-w-[240px]">Answer 21 targeted physiological questions in under 2 minutes.</p>
+                        </div>
+                        <div className="relative z-10 flex flex-col items-center text-center">
+                            <div className="w-24 h-24 rounded-full bg-white border-4 border-slate-50 flex items-center justify-center text-2xl font-black text-forest shadow-lg mb-6">2</div>
+                            <h4 className="text-xl font-black text-forest mb-3">Dinaveda Maps Your Profile</h4>
+                            <p className="text-sm font-bold text-slate-500 max-w-[240px]">Our engine identifies your Prakriti and current imbalances.</p>
+                        </div>
+                        <div className="relative z-10 flex flex-col items-center text-center">
+                            <div className="w-24 h-24 rounded-full bg-forest border-4 border-slate-50 flex items-center justify-center text-2xl font-black text-white shadow-lg mb-6">3</div>
+                            <h4 className="text-xl font-black text-forest mb-3">Receive Your Protocol</h4>
+                            <p className="text-sm font-bold text-slate-500 max-w-[240px]">Access your daily schedule of personalized circadian rituals.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. Trust Layer */}
+            <section className="py-16 px-6 bg-forest text-white relative z-10">
+                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-8">
+                    <div className="flex items-center gap-4">
+                        <CheckCircle2 className="w-8 h-8 text-gold" />
+                        <div className="text-left">
+                            <h4 className="font-black tracking-widest uppercase text-sm text-emerald-100">Built by Experts</h4>
+                            <p className="text-xs font-bold text-emerald-300">Authored by Ayurvedic Doctors</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <CheckCircle2 className="w-8 h-8 text-gold" />
+                        <div className="text-left">
+                            <h4 className="font-black tracking-widest uppercase text-sm text-emerald-100">Evidence-Based</h4>
+                            <p className="text-xs font-bold text-emerald-300">Science + AI physiology engine</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <CheckCircle2 className="w-8 h-8 text-gold" />
+                        <div className="text-left">
+                            <h4 className="font-black tracking-widest uppercase text-sm text-emerald-100">Deep Tradition</h4>
+                            <p className="text-xs font-bold text-emerald-300">Rooted in 5000 years of science</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 6. Lead Magnet */}
+            <section className="py-24 bg-[#F8FAF9] px-6 relative z-10">
+                 <div className="max-w-3xl mx-auto text-center bg-white p-12 md:p-16 rounded-[3rem] border border-slate-100 shadow-premium relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-[80px] pointer-events-none" />
+                    
+                    <h2 className="text-xs font-black text-gold uppercase tracking-[0.3em] mb-4">Free Ayurvedic Rhythm Guide</h2>
+                    <h3 className="text-4xl md:text-5xl font-black text-forest tracking-tighter mb-6 relative z-10">
+                        Unlock 7 Habits That Stabilize Energy, Digestion, And Sleep.
+                    </h3>
+                    <p className="text-slate-500 font-bold mb-10 max-w-lg mx-auto relative z-10">
+                        Learn how identifying and aligning with your natural constitution can resolve fatigue and mental fog.
+                    </p>
+                    <Link
+                        href="/login"
+                        className="inline-block bg-gold text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-gold/20 hover:scale-105 active:scale-95 transition-all relative z-10"
+                    >
+                        Get Free Guide
+                    </Link>
+                </div>
+            </section>
+
+            {/* 7. Primary Conversion CTA */}
+            <section className="py-24 px-6 text-center relative z-10">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="text-5xl md:text-6xl font-black text-forest tracking-tighter mb-6 relative z-10">
+                        Start Your Free Health Assessment
+                    </h2>
+                    <p className="text-lg font-bold text-slate-500 mb-10 max-w-xl mx-auto relative z-10">
+                        Understand your natural constitution and receive a daily personalized routine.
+                    </p>
+                    <Link
+                        href="/login"
+                        className="inline-flex items-center gap-3 bg-forest text-white px-12 py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-forest/30 hover:-translate-y-1 active:scale-95 transition-all hover:bg-forest/90 relative z-10"
+                    >
+                        Create Free Account <ArrowRight className="w-5 h-5" />
+                    </Link>
+                    <p className="text-xs font-bold text-slate-400 mt-6 uppercase tracking-widest relative z-10">
+                        No credit card required
+                    </p>
+                </div>
+            </section>
+
+            {/* 8. FAQ */}
+            <section className="py-24 px-6 bg-white border-y border-slate-100 relative z-10">
+                <div className="max-w-3xl mx-auto">
+                     <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-12 text-center">Frequently Asked Questions</h2>
+                     <div className="space-y-4">
+                        {FAQS.map((faq, idx) => (
+                            <div key={idx} className="border border-slate-100 rounded-3xl overflow-hidden hover:border-forest/20 transition-all bg-slate-50/50">
+                                <button
+                                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                                    className="w-full flex items-center justify-between p-6 text-left"
+                                >
+                                    <h4 className="font-black text-forest">{faq.q}</h4>
+                                    <ChevronDown className={`w-5 h-5 text-forest/50 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
+                                </button>
+                                <AnimatePresence>
+                                    {openFaq === idx && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="px-6 pb-6"
+                                        >
+                                            <p className="text-sm font-bold text-slate-600 leading-relaxed">{faq.a}</p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        ))}
+                     </div>
+                </div>
+            </section>
+
+            {/* 9. Final CTA & Footer */}
+            <section className="pt-24 pb-0 bg-forest text-white text-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-400/20 blur-[100px] rounded-full pointer-events-none -mr-40 -mt-40" />
+                <div className="max-w-4xl mx-auto px-6 relative z-10 pb-24">
+                    <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-tight">
+                        Your Body Has Its Own Rhythm. <br/> Discover It.
+                    </h2>
+                    <Link
+                        href="/login"
+                        className="inline-flex items-center gap-3 bg-white text-forest px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-black/20 hover:scale-105 active:scale-95 transition-all"
+                    >
+                        Start Free Assessment <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
+                <Footer />
+            </section>
+        </div>
+    );
 }
+

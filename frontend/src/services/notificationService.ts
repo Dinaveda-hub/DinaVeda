@@ -9,9 +9,12 @@ import { getApiUrl } from "@/utils/api";
 export { getApiUrl };
 
 const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env.ONESIGNAL_APP_ID || "";
+import notificationRulesRaw from "@/data/notificationRules.json";
+
+const notificationRules = notificationRulesRaw as Record<string, { time: string, message: string }>;
 
 /**
- * Sends a notification via YOUR Backend API (Vercel).
+ * Sends a single notification via YOUR Backend API (Vercel).
  * This keeps your REST API Key secure on the server.
  */
 export async function sendNotification(userId: string, message: string) {
@@ -38,6 +41,25 @@ export async function sendNotification(userId: string, message: string) {
     } catch (error) {
         console.error("Notification Service Error:", error);
         return { success: false, error };
+    }
+}
+
+/**
+ * Batch processes an array of signal events and triggers notifications.
+ * This centralizes the lookup against notificationRules.json.
+ */
+export async function triggerNotifications(events: string[], userId: string) {
+    if (!events || events.length === 0 || !userId) return;
+
+    for (const event of events) {
+        const rule = notificationRules[event];
+        if (rule) {
+            try {
+                await sendNotification(userId, rule.message);
+            } catch (err) {
+                console.error(`Failed to trigger notification for event: ${event}`, err);
+            }
+        }
     }
 }
 

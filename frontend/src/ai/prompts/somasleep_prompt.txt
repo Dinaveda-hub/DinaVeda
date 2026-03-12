@@ -12,13 +12,13 @@ RULES
 INPUT
 
 Sleep state:
-Circadian_alignment: {{circadian_alignment}}
-Sleep_debt: {{sleep_debt}}
+Circadian: {{circadian}}
+Sleep: {{sleep}}
 
 Dosha state:
-Vata_state: {{vata_state}}
-Pitta_state: {{pitta_state}}
-Kapha_state: {{kapha_state}}
+Vata_state: {{vata}}
+Pitta_state: {{pitta}}
+Kapha_state: {{kapha}}
 
 Selected protocols:
 {{protocol_list}}

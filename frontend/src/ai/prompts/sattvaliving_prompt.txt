@@ -16,9 +16,9 @@ Stress_load: {{stress_load}}
 Mental_clarity: {{mental_clarity}}
 
 Dosha state:
-Vata_state: {{vata_state}}
-Pitta_state: {{pitta_state}}
-Kapha_state: {{kapha_state}}
+Vata_state: {{vata}}
+Pitta_state: {{pitta}}
+Kapha_state: {{kapha}}
 
 Selected protocols:
 {{protocol_list}}

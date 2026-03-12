@@ -1,14 +1,17 @@
 import React from 'react';
-import { Activity, ShieldCheck, Clock, CheckCircle2, Zap, BrainCircuit, Sparkles, Sun, Moon, CloudSun } from 'lucide-react';
+import { Activity, CheckCircle2, Sun, Moon, CloudSun } from 'lucide-react';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
-import { humanizeProtocolName } from '@/utils/stringUtils';
+import { formatProtocolName } from '@/utils/stringUtils';
 import { motion } from 'framer-motion';
+import ProtocolCard from '@/components/modules/ProtocolCard';
 
 interface DinavedaPageProps {
     state: VedaState;
     vikriti: any;
     protocols: Protocol[];
+    subscriptionStatus: string;
+    userId: string | null;
     dailyProtocols?: {
         morning: Protocol[];
         midday: Protocol[];
@@ -20,9 +23,11 @@ export default function DinavedaPage({
     state,
     vikriti,
     protocols,
+    subscriptionStatus,
+    userId,
     dailyProtocols
 }: DinavedaPageProps) {
-    const ojasScore = state.ojas_score || 50;
+    const ojasScore = state.ojas || 50;
 
     const sections = [
         { title: "Morning", icon: CloudSun, data: dailyProtocols?.morning || [], color: "text-amber-500", bg: "bg-amber-50" },
@@ -50,7 +55,7 @@ export default function DinavedaPage({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
                         <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Ojas Core</p>
-                        <p className="text-4xl font-black text-forest tracking-tighter">{Math.round(ojasScore)}</p>
+                            <p className="text-3xl font-black text-forest tracking-tighter">{Math.round(state.ojas)}</p>
                     </div>
                     <div className="bg-white/50 p-8 rounded-[2rem] border border-white shadow-sm flex flex-col gap-2">
                         <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Vitality State</p>
@@ -81,25 +86,12 @@ export default function DinavedaPage({
                             <div className="space-y-4">
                                 {section.data.length > 0 ? (
                                     section.data.map((p, i) => (
-                                        <motion.div
+                                        <ProtocolCard
                                             key={i}
-                                            whileHover={{ y: -4 }}
-                                            className="bg-white/60 p-6 rounded-[2rem] border border-slate-100 hover:bg-white transition-all shadow-sm hover:shadow-md group"
-                                        >
-                                            <div className="flex items-start gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-forest/5 flex items-center justify-center text-forest shrink-0 mt-1">
-                                                    <CheckCircle2 className="w-4 h-4" />
-                                                </div>
-                                                <div>
-                                                    <h5 className="font-black text-lg text-forest tracking-tighter mb-1">
-                                                        {humanizeProtocolName(p.name)}
-                                                    </h5>
-                                                    <p className="text-xs font-bold text-slate-500 leading-relaxed">
-                                                        {p.instructions}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </motion.div>
+                                            protocol={p}
+                                            subscriptionStatus={subscriptionStatus}
+                                            userId={userId}
+                                        />
                                     ))
                                 ) : (
                                     <div className="bg-slate-50/50 border-2 border-dashed border-slate-100 rounded-[2rem] p-8 text-center">

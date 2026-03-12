@@ -6,8 +6,8 @@ export function filterNutrivedaProtocols(protocols: Protocol[]): Protocol[] {
 }
 
 export function getAgniInsight(state: VedaState): string {
-    if (state.agni_strength < 40) return "Manda Agni (Low) detected. Favor ginger, black pepper, and warm, light soups.";
-    if (state.agni_strength > 80) return "Teekshna Agni (High) detected. Favor cooling, grounding foods like ghee and sweet grains.";
-    if (state.agni_stability < 50) return "Vishama Agni (Irregular) detected. Extreme regularity in meal timing is your primary medicine.";
+    if (state.agni < 40) return "Manda Agni (Low) detected. Favor ginger, black pepper, and warm, light soups.";
+    if (state.agni > 80) return "Teekshna Agni (High) detected. Favor cooling, grounding foods like ghee and sweet grains.";
+    if (state.digestion < 50) return "Vishama Agni (Irregular) detected. Extreme regularity in meal timing is your primary medicine.";
     return "Balanced Agni active. Maintain balanced portions and seasonal local foods.";
 }

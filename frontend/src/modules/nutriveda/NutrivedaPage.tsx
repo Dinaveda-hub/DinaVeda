@@ -4,12 +4,16 @@ import { motion } from 'framer-motion';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
 import { getAgniInsight } from './dietLogic';
-import { humanizeProtocolName } from '@/utils/stringUtils';
+import { formatProtocolName } from '@/utils/stringUtils';
+import FoodGuidance from '@/components/modules/FoodGuidance';
+import ProtocolCard from '@/components/modules/ProtocolCard';
 
 interface NutrivedaPageProps {
     state: VedaState;
     vikriti: any;
     protocols: Protocol[];
+    subscriptionStatus: string;
+    userId: string | null;
 }
 
 
@@ -17,9 +21,11 @@ export default function NutrivedaPage({
     state,
     vikriti,
     protocols,
+    subscriptionStatus,
+    userId
 }: NutrivedaPageProps) {
     // Agni Metrics
-    const agniStrength = state.agni_strength || 50;
+    const agniStrength = state.agni || 50;
     const agniInsight = getAgniInsight(state);
 
     return (
@@ -73,22 +79,16 @@ export default function NutrivedaPage({
                     </div>
                     <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Dietary Protocols</h2>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-6">
                     {protocols.map((p, i) => (
-                        <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-100 hover:bg-white transition-colors">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-forest/5 flex items-center justify-center text-forest shrink-0 mt-1">
-                                    <CheckCircle2 className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
-                                    <p className="text-xs font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs font-black text-slate-400 bg-slate-50 px-4 py-2 rounded-xl">
-                                <Clock className="w-3 h-3" /> {p.time_of_day}
-                            </div>
-                        </div>
+                        <ProtocolCard
+                            key={i}
+                            protocol={p}
+                            subscriptionStatus={subscriptionStatus}
+                            userId={userId}
+                        >
+                            <FoodGuidance recommended={p.recommended_foods} avoid={p.avoid_foods} />
+                        </ProtocolCard>
                     ))}
                 </div>
             </section>

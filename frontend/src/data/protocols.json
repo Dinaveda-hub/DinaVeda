@@ -6,12 +6,19 @@
         "time_of_day": "morning",
         "duration": "habit",
         "variables": {
-            "circadian_alignment": 4,
-            "kapha_state": -2,
-            "sleep_debt": -1
+            "circadian": 4,
+            "kapha": -2,
+            "sleep": 1
         },
         "instructions": "Wake up close to sunrise. Early waking synchronizes circadian rhythm with natural light cycles and reduces morning Kapha heaviness.",
-        "contraindications": "avoid if recovering from sleep deprivation or illness"
+        "contraindications": [],
+        "time_sensitivity": 1,
+        "tags": [
+            "circadian",
+            "lifestyle",
+            "early_wake"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_sunlight",
@@ -20,12 +27,17 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "circadian_alignment": 5,
-            "light_exposure": 4,
-            "ojas_recovery": 1
+            "circadian": 9,
+            "ojas": 1
         },
         "instructions": "Spend time outdoors in morning sunlight. Natural light resets circadian rhythm signals and supports hormone balance.",
-        "contraindications": "avoid prolonged exposure in intense sun"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "nature",
+            "morning_sunlight"
+        ],
+        "is_premium": false
     },
     {
         "name": "tongue_scraping",
@@ -34,11 +46,17 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "ama_risk": -2,
-            "agni_strength": 2
+            "ama": -2,
+            "agni": 2
         },
         "instructions": "Use a tongue scraper after waking to remove metabolic waste from the tongue and stimulate digestive reflexes.",
-        "contraindications": "avoid if tongue has wounds or infection"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "ama"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_water_morning",
@@ -47,12 +65,19 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "agni_strength": 2,
-            "hydration_status": 2,
-            "digestion_comfort": 1
+            "agni": 2,
+            "hydration": 2,
+            "digestion": 1
         },
         "instructions": "Drink a glass of warm water after waking to stimulate digestion and rehydrate the body after sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.4,
+        "tags": [
+            "digestive",
+            "agni",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "oil_pulling",
@@ -61,11 +86,15 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "ama_risk": -1,
-            "vata_state": -1
+            "ama": -1,
+            "vata": -1
         },
         "instructions": "Swish sesame or coconut oil in the mouth for several minutes to improve oral hygiene and reduce dryness.",
-        "contraindications": "jaw pain or oral infections"
+        "contraindications": [],
+        "tags": [
+            "lifestyle"
+        ],
+        "is_premium": false
     },
     {
         "name": "nasya",
@@ -74,11 +103,19 @@
         "time_of_day": "morning",
         "duration": "2 minutes",
         "variables": {
-            "vata_state": -3,
-            "stress_load": -1
+            "vata": -3,
+            "stress": -1
         },
         "instructions": "Apply a few drops of medicated oil into the nostrils to lubricate nasal passages and calm Vata in the head region.",
-        "contraindications": "avoid during acute sinus infection"
+        "contraindications": [
+            "sinus_infection"
+        ],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "abhyanga",
@@ -87,12 +124,22 @@
         "time_of_day": "morning",
         "duration": "15 minutes",
         "variables": {
-            "vata_state": -6,
-            "stress_load": -2,
-            "ojas_recovery": 3
+            "vata": -6,
+            "stress": -2,
+            "ojas": 3
         },
         "instructions": "Massage warm oil over the body before bathing. Oil nourishes tissues, improves circulation, and stabilizes the nervous system.",
-        "contraindications": "avoid during fever or indigestion"
+        "contraindications": [
+            "fever",
+            "gastric_sensitivity"
+        ],
+        "time_sensitivity": 0.9,
+        "tags": [
+            "vata",
+            "stress",
+            "ojas"
+        ],
+        "is_premium": false
     },
     {
         "name": "gentle_morning_stretch",
@@ -101,11 +148,19 @@
         "time_of_day": "morning",
         "duration": "10 minutes",
         "variables": {
-            "movement_level": 2,
-            "vata_state": -1
+            "movement": 2,
+            "vata": -1
         },
         "instructions": "Perform gentle stretching movements after waking to activate muscles and improve circulation.",
-        "contraindications": "avoid with acute injuries"
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "grounding_yoga",
@@ -114,12 +169,21 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "vata_state": -4,
-            "movement_level": 3,
+            "vata": -4,
+            "movement": 3,
             "mental_clarity": 2
         },
         "instructions": "Practice slow grounding yoga postures to calm the nervous system and stabilize Vata.",
-        "contraindications": "joint injuries"
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "yoga"
+        ],
+        "is_premium": false
     },
     {
         "name": "brisk_walk",
@@ -128,12 +192,20 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "kapha_state": -5,
-            "movement_level": 4,
-            "agni_strength": 2
+            "kapha": -5,
+            "movement": 4,
+            "agni": 2
         },
         "instructions": "Walk briskly to stimulate metabolism and reduce Kapha stagnation.",
-        "contraindications": "severe joint pain"
+        "contraindications": [],
+        "time_sensitivity": 0.8,
+        "tags": [
+            "kapha",
+            "energy",
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "dry_brushing",
@@ -142,11 +214,17 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "kapha_state": -3,
-            "movement_level": 1
+            "kapha": -3,
+            "movement": 1
         },
         "instructions": "Brush the skin before bathing to stimulate lymphatic circulation and reduce Kapha accumulation.",
-        "contraindications": "sensitive or irritated skin"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "warming_spices",
@@ -155,12 +233,21 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "kapha_state": -3,
-            "agni_strength": 3,
-            "ama_risk": -1
+            "kapha": -3,
+            "agni": 3,
+            "ama": -1
         },
         "instructions": "Add digestive spices such as ginger, cumin, and black pepper to meals to stimulate metabolism.",
-        "contraindications": "avoid with gastric ulcers"
+        "contraindications": [
+            "gastric_sensitivity"
+        ],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "ginger_before_meal",
@@ -169,11 +256,19 @@
         "time_of_day": "before_meal",
         "duration": "1 minute",
         "variables": {
-            "agni_strength": 3,
-            "kapha_state": -2
+            "agni": 3,
+            "kapha": -2
         },
         "instructions": "Consume a slice of fresh ginger before meals to activate digestive enzymes and improve appetite.",
-        "contraindications": "avoid in severe acidity"
+        "contraindications": [
+            "gastric_sensitivity"
+        ],
+        "tags": [
+            "digestive",
+            "agni",
+            "ginger"
+        ],
+        "is_premium": false
     },
     {
         "name": "midday_main_meal",
@@ -182,11 +277,17 @@
         "time_of_day": "midday",
         "duration": "meal",
         "variables": {
-            "agni_stability": 2,
-            "digestion_comfort": 2
+            "agni": 2,
+            "digestion": 2
         },
         "instructions": "Eat the largest meal around midday when digestive fire is strongest.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "regular_meal"
+        ],
+        "is_premium": false
     },
     {
         "name": "digestive_walk",
@@ -195,12 +296,18 @@
         "time_of_day": "after_meal",
         "duration": "10 minutes",
         "variables": {
-            "bloating_level": -2,
-            "agni_stability": 2,
-            "movement_level": 1
+            "bloating": -2,
+            "agni": 2,
+            "movement": 1
         },
         "instructions": "Take a slow walk after meals to stimulate digestion and prevent heaviness.",
-        "contraindications": "avoid immediately after very heavy meals"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "mindful_chewing",
@@ -209,11 +316,16 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion_comfort": 2,
-            "agni_stability": 1
+            "digestion": 2,
+            "agni": 1
         },
         "instructions": "Chew food thoroughly before swallowing to support proper digestion.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "meal_spacing",
@@ -222,10 +334,15 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "agni_stability": 2
+            "agni": 2
         },
         "instructions": "Maintain adequate spacing between meals to allow digestion to complete.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "afternoon_hydration",
@@ -234,10 +351,15 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "hydration_status": 2
+            "hydration": 2
         },
         "instructions": "Drink water or herbal infusions during the afternoon to maintain hydration.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.2,
+        "tags": [
+            "hydration"
+        ],
+        "is_premium": false
     },
     {
         "name": "nature_exposure",
@@ -246,11 +368,19 @@
         "time_of_day": "any",
         "duration": "15 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 2
         },
         "instructions": "Spend time in nature to calm the nervous system and improve mental clarity.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "nature"
+        ],
+        "is_premium": false
     },
     {
         "name": "meditation",
@@ -259,12 +389,20 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -4,
+            "stress": -4,
             "mental_clarity": 3,
-            "ojas_recovery": 2
+            "ojas": 2
         },
         "instructions": "Practice meditation to calm mental activity and restore emotional balance.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.6,
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "meditation"
+        ],
+        "is_premium": false
     },
     {
         "name": "breathing_practice",
@@ -273,52 +411,76 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -3,
+            "stress": -3,
             "mental_clarity": 1
         },
         "instructions": "Practice slow breathing exercises to regulate the nervous system and reduce stress.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "padabhyanga",
         "module": "somasleep",
-        "category": "vata_stabilizer",
+        "category": "sleep",
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata_state": -5,
-            "sleep_debt": -2,
-            "stress_load": -2
+            "vata": -5,
+            "sleep": 2,
+            "stress": -2
         },
         "instructions": "Massage warm oil into the soles of the feet before sleep to calm the nervous system.",
-        "contraindications": "avoid with foot infections"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "digital_detox",
         "module": "somasleep",
-        "category": "circadian_support",
+        "category": "sleep",
         "time_of_day": "evening",
         "duration": "1 hour",
         "variables": {
-            "screen_exposure": -4,
-            "circadian_alignment": 3
+            "circadian": 7
         },
         "instructions": "Avoid screens before bedtime to allow natural melatonin release and improve sleep quality.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "sleep_ritual",
         "module": "somasleep",
-        "category": "circadian_support",
+        "category": "sleep",
         "time_of_day": "night",
         "duration": "15 minutes",
         "variables": {
-            "circadian_alignment": 4,
-            "sleep_debt": -2,
-            "ojas_recovery": 2
+            "circadian": 4,
+            "sleep": 2,
+            "ojas": 2
         },
         "instructions": "Follow a consistent relaxing routine before sleep to signal the body to prepare for rest.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "gratitude_journaling",
@@ -327,12 +489,18 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -1,
+            "stress": -1,
             "mental_clarity": 1,
-            "ojas_recovery": 2
+            "ojas": 2
         },
         "instructions": "Write down positive experiences from the day to cultivate a balanced emotional state.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_breakfast",
@@ -341,12 +509,19 @@
         "time_of_day": "morning",
         "duration": "meal",
         "variables": {
-            "vata_state": -2,
-            "agni_strength": 2,
-            "digestion_comfort": 1
+            "vata": -2,
+            "agni": 2,
+            "digestion": 1
         },
         "instructions": "Eat a warm, freshly prepared breakfast such as porridge or cooked grains. Warm foods support digestion and stabilize Vata in the morning.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "light_breakfast",
@@ -355,11 +530,17 @@
         "time_of_day": "morning",
         "duration": "meal",
         "variables": {
-            "kapha_state": -2,
-            "agni_strength": 1
+            "kapha": -2,
+            "agni": 1
         },
         "instructions": "Choose a light breakfast like fruit or herbal tea when appetite is low. This prevents Kapha heaviness and sluggish digestion.",
-        "contraindications": "avoid when very hungry or weak"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "midday_sunlight_break",
@@ -368,11 +549,15 @@
         "time_of_day": "midday",
         "duration": "10 minutes",
         "variables": {
-            "circadian_alignment": 2,
-            "light_exposure": 2
+            "circadian": 4
         },
         "instructions": "Step outside for natural light exposure around midday to reinforce circadian rhythm signals.",
-        "contraindications": "avoid excessive heat exposure"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "standing_work_break",
@@ -381,11 +566,17 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "movement_level": 2,
-            "kapha_state": -1
+            "movement": 2,
+            "kapha": -1
         },
         "instructions": "Stand or move briefly after prolonged sitting to stimulate circulation and reduce Kapha stagnation.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "hydration_reminder",
@@ -394,10 +585,15 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "hydration_status": 2
+            "hydration": 2
         },
         "instructions": "Drink water periodically throughout the day to maintain hydration and support metabolic processes.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.2,
+        "tags": [
+            "hydration"
+        ],
+        "is_premium": false
     },
     {
         "name": "herbal_digestive_tea",
@@ -406,11 +602,18 @@
         "time_of_day": "after_meal",
         "duration": "drink",
         "variables": {
-            "agni_strength": 2,
-            "bloating_level": -1
+            "agni": 2,
+            "bloating": -1
         },
         "instructions": "Drink a mild digestive tea with ginger, cumin, or fennel after meals to support digestion.",
-        "contraindications": "avoid in severe acidity"
+        "contraindications": [
+            "gastric_sensitivity"
+        ],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "cooling_pranayama",
@@ -419,11 +622,17 @@
         "time_of_day": "afternoon",
         "duration": "5 minutes",
         "variables": {
-            "pitta_state": -4,
-            "stress_load": -1
+            "pitta": -4,
+            "stress": -1
         },
         "instructions": "Practice cooling breathing such as sheetali pranayama to reduce internal heat and calm Pitta.",
-        "contraindications": "avoid in cold environments"
+        "contraindications": [],
+        "tags": [
+            "pitta",
+            "cooling",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "shade_walk",
@@ -432,11 +641,16 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "pitta_state": -2,
-            "movement_level": 2
+            "pitta": -2,
+            "movement": 2
         },
         "instructions": "Walk in a shaded or cool environment to calm body heat and improve circulation.",
-        "contraindications": "avoid extreme heat exposure"
+        "contraindications": [],
+        "tags": [
+            "pitta",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_stretch",
@@ -445,11 +659,17 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata_state": -2,
-            "movement_level": 1
+            "vata": -2,
+            "movement": 1
         },
         "instructions": "Perform gentle stretches to release tension accumulated during the day.",
-        "contraindications": "injury"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_bath",
@@ -458,11 +678,20 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "vata_state": -3,
-            "stress_load": -2
+            "vata": -3,
+            "stress": -2
         },
         "instructions": "Take a warm bath to relax muscles and calm the nervous system.",
-        "contraindications": "fever"
+        "contraindications": [
+            "fever"
+        ],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "cooling_bath",
@@ -471,11 +700,16 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "pitta_state": -3,
-            "stress_load": -1
+            "pitta": -3,
+            "stress": -1
         },
         "instructions": "Use lukewarm water for bathing during hot conditions to reduce body heat.",
-        "contraindications": "cold sensitivity"
+        "contraindications": [],
+        "tags": [
+            "pitta",
+            "cooling"
+        ],
+        "is_premium": false
     },
     {
         "name": "calming_music",
@@ -484,11 +718,17 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 1
         },
         "instructions": "Listen to calming instrumental music to relax the nervous system.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "mindful_walking",
@@ -497,37 +737,56 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 2
         },
         "instructions": "Walk slowly while observing breathing and surroundings to calm mental activity.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "reading_evening",
         "module": "somasleep",
-        "category": "sleep_preparation",
+        "category": "sleep",
         "time_of_day": "night",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -1,
-            "sleep_debt": -1
+            "stress": -1,
+            "sleep": 1
         },
         "instructions": "Read calming material before sleep to transition the mind into rest mode.",
-        "contraindications": "avoid stimulating content"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "consistent_bedtime",
         "module": "somasleep",
-        "category": "circadian_support",
+        "category": "sleep",
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "circadian_alignment": 5,
-            "sleep_debt": -2
+            "circadian": 5,
+            "sleep": 2
         },
         "instructions": "Maintain a consistent sleep time daily to stabilize circadian rhythm.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_meditation",
@@ -536,11 +795,18 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -3,
+            "stress": -3,
             "mental_clarity": 2
         },
         "instructions": "Meditate briefly in the evening to reduce accumulated stress.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "meditation"
+        ],
+        "is_premium": false
     },
     {
         "name": "light_dinner",
@@ -549,11 +815,16 @@
         "time_of_day": "evening",
         "duration": "meal",
         "variables": {
-            "agni_stability": 2,
-            "kapha_state": -2
+            "agni": 2,
+            "kapha": -2
         },
         "instructions": "Eat a light dinner to prevent nighttime digestive overload and support sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "avoid_late_snacking",
@@ -562,24 +833,35 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "agni_stability": 2,
-            "ama_risk": -1
+            "agni": 2,
+            "ama": -1
         },
         "instructions": "Avoid eating late snacks to allow digestion to complete before sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_wind_down",
         "module": "somasleep",
-        "category": "circadian_support",
+        "category": "sleep",
         "time_of_day": "evening",
         "duration": "20 minutes",
         "variables": {
-            "circadian_alignment": 3,
-            "stress_load": -1
+            "circadian": 3,
+            "stress": -1
         },
         "instructions": "Reduce stimulation and activity gradually in the evening to prepare the body for sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "screen_break_day",
@@ -588,24 +870,36 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "screen_exposure": -2,
+            "circadian": 2,
             "mental_clarity": 1
         },
         "instructions": "Take short breaks from screens throughout the day to reduce mental fatigue.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "gratitude_reflection",
         "module": "sattvaliving",
-        "category": "mental_balance",
+        "category": "sleep",
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -1,
-            "ojas_recovery": 1
+            "stress": -1,
+            "ojas": 1
         },
         "instructions": "Reflect on positive experiences from the day to cultivate emotional stability.",
-        "contraindications": "none"
+        "contraindications": [],
+        "time_sensitivity": 0.5,
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "sunset_observation",
@@ -614,11 +908,17 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "pitta_state": -2,
+            "pitta": -2,
             "mental_clarity": 1
         },
         "instructions": "Observe the sunset quietly to help the body transition from activity to rest.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "silence_period",
@@ -627,11 +927,17 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 1
         },
         "instructions": "Spend time in silence without stimulation to calm the mind.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "mindful_tea_break",
@@ -640,11 +946,17 @@
         "time_of_day": "afternoon",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -1,
+            "stress": -1,
             "mental_clarity": 1
         },
         "instructions": "Pause for a warm herbal tea break to reset mental focus.",
-        "contraindications": "avoid stimulants late evening"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "posture_reset",
@@ -653,11 +965,19 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement_level": 1,
-            "vata_state": -1
+            "movement": 1,
+            "vata": -1
         },
         "instructions": "Correct posture and stretch the spine periodically during the day to prevent stiffness.",
-        "contraindications": "spinal injury"
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "cooked_vegetable_meal",
@@ -666,12 +986,17 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "digestion_comfort": 2,
-            "agni_strength": 1,
-            "ama_risk": -1
+            "digestion": 2,
+            "agni": 1,
+            "ama": -1
         },
         "instructions": "Prefer cooked vegetables rather than raw foods when digestion feels weak. Cooking softens fiber and makes nutrients easier to absorb.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_soup_meal",
@@ -680,12 +1005,18 @@
         "time_of_day": "evening",
         "duration": "meal",
         "variables": {
-            "agni_strength": 2,
-            "digestion_comfort": 2,
-            "vata_state": -1
+            "agni": 2,
+            "digestion": 2,
+            "vata": -1
         },
         "instructions": "Eat warm soups or broths during dinner to support digestion while keeping the meal light.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "avoid_cold_foods",
@@ -694,11 +1025,17 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni_strength": 2,
-            "kapha_state": -1
+            "agni": 2,
+            "kapha": -1
         },
         "instructions": "Avoid very cold foods and drinks during meals because they weaken digestive fire.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "cooling"
+        ],
+        "is_premium": false
     },
     {
         "name": "digestive_spice_mix",
@@ -707,11 +1044,18 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "agni_strength": 2,
-            "bloating_level": -1
+            "agni": 2,
+            "bloating": -1
         },
         "instructions": "Use digestive spices such as cumin, coriander, fennel, and ginger while cooking meals.",
-        "contraindications": "gastric ulcers"
+        "contraindications": [
+            "gastric_sensitivity"
+        ],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "midday_rest_pause",
@@ -720,11 +1064,17 @@
         "time_of_day": "midday",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -1,
+            "stress": -1,
             "mental_clarity": 1
         },
         "instructions": "Take a brief pause during midday to relax and reset mental focus.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "deep_breath_reset",
@@ -733,11 +1083,17 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 1
         },
         "instructions": "Pause for slow deep breathing to calm the nervous system and reduce stress.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "sunrise_observation",
@@ -746,11 +1102,16 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "circadian_alignment": 3,
+            "circadian": 3,
             "mental_clarity": 1
         },
         "instructions": "Observe the sunrise calmly to strengthen circadian rhythm and promote alertness.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_journaling",
@@ -760,10 +1121,16 @@
         "duration": "5 minutes",
         "variables": {
             "mental_clarity": 2,
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Write brief thoughts or intentions for the day to organize mental focus.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "gratitude_meditation",
@@ -772,11 +1139,18 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -2,
-            "ojas_recovery": 1
+            "stress": -2,
+            "ojas": 1
         },
         "instructions": "Reflect on gratitude during meditation to cultivate positive mental states.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "meditation"
+        ],
+        "is_premium": false
     },
     {
         "name": "vigorous_exercise",
@@ -785,12 +1159,20 @@
         "time_of_day": "morning",
         "duration": "30 minutes",
         "variables": {
-            "kapha_state": -6,
-            "movement_level": 5,
-            "agni_strength": 2
+            "kapha": -6,
+            "movement": 5,
+            "agni": 2
         },
         "instructions": "Perform vigorous exercise such as jogging or cycling to stimulate metabolism and reduce Kapha stagnation.",
-        "contraindications": "cardiac risk or severe fatigue"
+        "contraindications": [],
+        "time_sensitivity": 0.8,
+        "tags": [
+            "kapha",
+            "energy",
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "dynamic_yoga",
@@ -799,11 +1181,18 @@
         "time_of_day": "morning",
         "duration": "20 minutes",
         "variables": {
-            "kapha_state": -4,
-            "movement_level": 3
+            "kapha": -4,
+            "movement": 3
         },
         "instructions": "Practice dynamic yoga sequences that stimulate circulation and increase energy.",
-        "contraindications": "injuries"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
     },
     {
         "name": "intermittent_fasting_window",
@@ -812,12 +1201,19 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "kapha_state": -2,
-            "agni_stability": 1,
-            "ama_risk": -2
+            "kapha": -2,
+            "agni": 1,
+            "ama": -2
         },
         "instructions": "Maintain a natural fasting gap between dinner and breakfast to support metabolic balance.",
-        "contraindications": "pregnancy or medical conditions requiring regular meals"
+        "contraindications": [
+            "pregnancy"
+        ],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "reduce_sugar_intake",
@@ -826,11 +1222,17 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "kapha_state": -2,
-            "ama_risk": -1
+            "kapha": -2,
+            "ama": -1
         },
         "instructions": "Reduce sugary foods and beverages to prevent Kapha accumulation and metabolic sluggishness.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "stimulating_pranayama",
@@ -839,11 +1241,20 @@
         "time_of_day": "morning",
         "duration": "5 minutes",
         "variables": {
-            "kapha_state": -3,
+            "kapha": -3,
             "mental_clarity": 2
         },
         "instructions": "Practice energizing breathing techniques such as kapalabhati to stimulate metabolism.",
-        "contraindications": "hypertension"
+        "contraindications": [
+            "hypertension"
+        ],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_music_activation",
@@ -853,10 +1264,16 @@
         "duration": "5 minutes",
         "variables": {
             "mental_clarity": 1,
-            "kapha_state": -1
+            "kapha": -1
         },
         "instructions": "Listen to uplifting music in the morning to increase alertness and motivation.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "outdoor_activity",
@@ -865,11 +1282,17 @@
         "time_of_day": "afternoon",
         "duration": "20 minutes",
         "variables": {
-            "movement_level": 3,
-            "stress_load": -1
+            "movement": 3,
+            "stress": -1
         },
         "instructions": "Spend time outdoors performing physical activity such as walking or light sports.",
-        "contraindications": "extreme weather"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "gentle_evening_walk",
@@ -878,11 +1301,17 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "bloating_level": -1,
-            "movement_level": 2
+            "bloating": -1,
+            "movement": 2
         },
         "instructions": "Walk gently in the evening to support digestion and relax the body.",
-        "contraindications": "fatigue"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "calming_breathing_evening",
@@ -891,11 +1320,18 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -3,
+            "stress": -3,
             "mental_clarity": 1
         },
         "instructions": "Practice slow breathing to calm the nervous system before sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_herbal_milk",
@@ -904,11 +1340,19 @@
         "time_of_day": "night",
         "duration": "drink",
         "variables": {
-            "sleep_debt": -1,
-            "ojas_recovery": 2
+            "sleep": 1,
+            "ojas": 2
         },
         "instructions": "Drink warm herbal milk with calming spices before sleep to promote relaxation.",
-        "contraindications": "lactose intolerance"
+        "contraindications": [
+            "lactose_intolerance"
+        ],
+        "tags": [
+            "circadian",
+            "sleep",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "digital_sunset",
@@ -917,11 +1361,15 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "screen_exposure": -3,
-            "circadian_alignment": 2
+            "circadian": 5
         },
         "instructions": "Stop using screens after sunset to protect natural sleep hormone rhythms.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "bedroom_darkening",
@@ -930,11 +1378,16 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "sleep_debt": -1,
-            "circadian_alignment": 1
+            "sleep": 1,
+            "circadian": 1
         },
         "instructions": "Keep the bedroom dark to promote deeper sleep and proper melatonin release.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "bedroom_cooling",
@@ -943,11 +1396,17 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "pitta_state": -1,
-            "sleep_debt": -1
+            "pitta": -1,
+            "sleep": 1
         },
         "instructions": "Maintain a slightly cool bedroom temperature to improve sleep quality.",
-        "contraindications": "extreme cold sensitivity"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep",
+            "cooling"
+        ],
+        "is_premium": false
     },
     {
         "name": "reflective_writing",
@@ -957,10 +1416,16 @@
         "duration": "5 minutes",
         "variables": {
             "mental_clarity": 1,
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Write reflections about the day to process thoughts and release mental tension.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "compassion_practice",
@@ -969,11 +1434,17 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -1,
-            "ojas_recovery": 1
+            "stress": -1,
+            "ojas": 1
         },
         "instructions": "Practice compassion or kindness meditation to cultivate emotional balance.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "creative_expression",
@@ -982,11 +1453,17 @@
         "time_of_day": "evening",
         "duration": "20 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 2
         },
         "instructions": "Engage in creative activities like drawing, music, or writing to release emotional tension.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "regular_meal_timing",
@@ -995,11 +1472,16 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "agni_stability": 2,
-            "circadian_alignment": 1
+            "agni": 2,
+            "circadian": 1
         },
         "instructions": "Eat meals at consistent times each day. Regular meal timing stabilizes digestive rhythms and prevents irregular hunger patterns.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "avoid_overeating",
@@ -1008,11 +1490,16 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion_comfort": 2,
-            "ama_risk": -2
+            "digestion": 2,
+            "ama": -2
         },
         "instructions": "Eat until comfortably satisfied rather than overly full. Overeating weakens digestion and increases metabolic waste.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_lunch_preference",
@@ -1021,11 +1508,17 @@
         "time_of_day": "midday",
         "duration": "meal",
         "variables": {
-            "agni_strength": 2,
-            "digestion_comfort": 1
+            "agni": 2,
+            "digestion": 1
         },
         "instructions": "Choose freshly cooked warm meals at lunch to support strong midday digestion.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "bitter_greens_intake",
@@ -1034,11 +1527,15 @@
         "time_of_day": "midday",
         "duration": "meal",
         "variables": {
-            "pitta_state": -2,
-            "agni_strength": 1
+            "pitta": -2,
+            "agni": 1
         },
         "instructions": "Include bitter greens such as spinach or fenugreek leaves to reduce excess heat and support liver metabolism.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
     },
     {
         "name": "cooling_food_choice",
@@ -1047,10 +1544,15 @@
         "time_of_day": "meal_time",
         "duration": "meal",
         "variables": {
-            "pitta_state": -2
+            "pitta": -2
         },
         "instructions": "Favor cooling foods such as cucumber, coconut, or leafy greens during hot conditions.",
-        "contraindications": "avoid excessive cold foods in weak digestion"
+        "contraindications": [],
+        "tags": [
+            "pitta",
+            "cooling"
+        ],
+        "is_premium": false
     },
     {
         "name": "reduce_spicy_foods",
@@ -1059,11 +1561,15 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "pitta_state": -2,
-            "agni_stability": 1
+            "pitta": -2,
+            "agni": 1
         },
         "instructions": "Limit very spicy foods if experiencing heat, acidity, or irritability.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
     },
     {
         "name": "herbal_coriander_water",
@@ -1072,11 +1578,15 @@
         "time_of_day": "afternoon",
         "duration": "drink",
         "variables": {
-            "pitta_state": -2,
-            "hydration_status": 1
+            "pitta": -2,
+            "hydration": 1
         },
         "instructions": "Drink coriander-infused water to gently cool digestion and reduce internal heat.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
     },
     {
         "name": "moonlight_walk",
@@ -1085,11 +1595,16 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "pitta_state": -2,
-            "stress_load": -1
+            "pitta": -2,
+            "stress": -1
         },
         "instructions": "Take a calm walk under moonlight or cool evening air to reduce accumulated heat and tension.",
-        "contraindications": "extreme cold weather"
+        "contraindications": [],
+        "tags": [
+            "pitta",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_relaxation_yoga",
@@ -1098,11 +1613,20 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "vata_state": -2,
-            "stress_load": -1
+            "vata": -2,
+            "stress": -1
         },
         "instructions": "Practice slow restorative yoga postures in the evening to relax muscles and calm the nervous system.",
-        "contraindications": "acute injuries"
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "yoga"
+        ],
+        "is_premium": false
     },
     {
         "name": "grounding_breathing",
@@ -1111,11 +1635,18 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "vata_state": -3,
-            "stress_load": -2
+            "vata": -3,
+            "stress": -2
         },
         "instructions": "Use slow diaphragmatic breathing to stabilize nervous system activity and reduce Vata agitation.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_oil_head_massage",
@@ -1124,12 +1655,19 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata_state": -3,
-            "stress_load": -2,
-            "sleep_debt": -1
+            "vata": -3,
+            "stress": -2,
+            "sleep": 1
         },
         "instructions": "Massage warm oil gently into the scalp to calm nerves and reduce tension before sleep.",
-        "contraindications": "scalp infection"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "warm_foot_bath",
@@ -1138,11 +1676,17 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "vata_state": -2,
-            "sleep_debt": -1
+            "vata": -2,
+            "sleep": 1
         },
         "instructions": "Soak the feet in warm water to relax the body and improve sleep readiness.",
-        "contraindications": "foot wounds"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep",
+            "warm"
+        ],
+        "is_premium": false
     },
     {
         "name": "reduce_evening_caffeine",
@@ -1151,11 +1695,16 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "sleep_debt": -1,
-            "circadian_alignment": 1
+            "sleep": 1,
+            "circadian": 1
         },
         "instructions": "Avoid caffeine late in the day to prevent stimulation of the nervous system before sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_screen_filter",
@@ -1164,11 +1713,15 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "screen_exposure": -2,
-            "circadian_alignment": 1
+            "circadian": 3
         },
         "instructions": "Use screen filters or reduce brightness in the evening to reduce blue-light disruption.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_hydration",
@@ -1177,11 +1730,15 @@
         "time_of_day": "morning",
         "duration": "drink",
         "variables": {
-            "hydration_status": 2,
-            "digestion_comfort": 1
+            "hydration": 2,
+            "digestion": 1
         },
         "instructions": "Drink water shortly after waking to restore hydration and activate metabolism.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "hydration"
+        ],
+        "is_premium": false
     },
     {
         "name": "breathing_pause_break",
@@ -1190,11 +1747,18 @@
         "time_of_day": "any",
         "duration": "2 minutes",
         "variables": {
-            "stress_load": -1,
+            "stress": -1,
             "mental_clarity": 1
         },
         "instructions": "Take short breathing pauses during stressful work periods to reset mental focus.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "desk_stretch_routine",
@@ -1203,11 +1767,19 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement_level": 2,
-            "vata_state": -1
+            "movement": 2,
+            "vata": -1
         },
         "instructions": "Stretch the neck, shoulders, and spine during desk work to prevent stiffness and improve circulation.",
-        "contraindications": "spinal injury"
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "midday_mindfulness",
@@ -1216,11 +1788,17 @@
         "time_of_day": "midday",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 2
         },
         "instructions": "Pause midday for brief mindfulness practice to reduce mental overload.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_reflection",
@@ -1230,10 +1808,16 @@
         "duration": "5 minutes",
         "variables": {
             "mental_clarity": 1,
-            "stress_load": -1
+            "stress": -1
         },
-        "instructions": "Reflect on the day’s experiences to improve self-awareness and emotional balance.",
-        "contraindications": "none"
+        "instructions": "Reflect on the day\u00e2\u20ac\u2122s experiences to improve self-awareness and emotional balance.",
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "daily_kindness_action",
@@ -1242,11 +1826,15 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "ojas_recovery": 1,
-            "stress_load": -1
+            "ojas": 1,
+            "stress": -1
         },
         "instructions": "Perform small acts of kindness or generosity to cultivate positive emotional states.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "lifestyle"
+        ],
+        "is_premium": false
     },
     {
         "name": "reduce_multitasking",
@@ -1256,10 +1844,16 @@
         "duration": "habit",
         "variables": {
             "mental_clarity": 2,
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Focus on one task at a time to improve attention and reduce cognitive fatigue.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "mindful_eating_pause",
@@ -1268,10 +1862,15 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "digestion_comfort": 2
+            "digestion": 2
         },
         "instructions": "Pause briefly before eating to relax and prepare digestion.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
     },
     {
         "name": "daily_routine_consistency",
@@ -1280,10 +1879,15 @@
         "time_of_day": "daily",
         "duration": "habit",
         "variables": {
-            "circadian_alignment": 3
+            "circadian": 3
         },
         "instructions": "Maintain consistent wake, meal, and sleep times to stabilize biological rhythms.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_intention_setting",
@@ -1295,7 +1899,13 @@
             "mental_clarity": 2
         },
         "instructions": "Set a clear intention for the day to improve mental focus and emotional stability.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_gratitude_reflection",
@@ -1304,11 +1914,17 @@
         "time_of_day": "night",
         "duration": "5 minutes",
         "variables": {
-            "ojas_recovery": 1,
-            "stress_load": -1
+            "ojas": 1,
+            "stress": -1
         },
         "instructions": "Reflect on positive events before sleep to cultivate a calm and satisfied mental state.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "spring_light_diet",
@@ -1317,11 +1933,15 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "kapha_state": -3,
-            "ama_risk": -2
+            "kapha": -3,
+            "ama": -2
         },
         "instructions": "During spring favor lighter foods such as vegetables, legumes, and spices to counter Kapha accumulation that occurs naturally in this season.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
     },
     {
         "name": "summer_cooling_foods",
@@ -1330,11 +1950,16 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "pitta_state": -3,
-            "hydration_status": 1
+            "pitta": -3,
+            "hydration": 1
         },
         "instructions": "Eat cooling foods like cucumber, coconut, and fresh fruits during summer to balance rising heat in the body.",
-        "contraindications": "avoid excessive cold foods if digestion is weak"
+        "contraindications": [],
+        "tags": [
+            "seasonal",
+            "cooling"
+        ],
+        "is_premium": false
     },
     {
         "name": "autumn_vata_protection",
@@ -1343,11 +1968,15 @@
         "time_of_day": "daily",
         "duration": "seasonal habit",
         "variables": {
-            "vata_state": -3,
-            "ojas_recovery": 1
+            "vata": -3,
+            "ojas": 1
         },
         "instructions": "During windy autumn months emphasize warm meals, oil massage, and grounding routines to stabilize Vata.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
     },
     {
         "name": "winter_nourishing_diet",
@@ -1356,11 +1985,15 @@
         "time_of_day": "meal_time",
         "duration": "seasonal habit",
         "variables": {
-            "ojas_recovery": 2,
-            "agni_strength": 2
+            "ojas": 2,
+            "agni": 2
         },
         "instructions": "Eat nourishing foods such as soups, grains, and healthy fats during winter to support stronger digestive fire and maintain vitality.",
-        "contraindications": "avoid overeating heavy foods"
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
     },
     {
         "name": "seasonal_spice_adjustment",
@@ -1369,11 +2002,15 @@
         "time_of_day": "meal_time",
         "duration": "habit",
         "variables": {
-            "agni_strength": 1,
-            "ama_risk": -1
+            "agni": 1,
+            "ama": -1
         },
         "instructions": "Adjust spice use according to climate: warming spices in cold weather and milder spices during hot seasons.",
-        "contraindications": "gastric irritation"
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
     },
     {
         "name": "sunrise_movement",
@@ -1382,11 +2019,16 @@
         "time_of_day": "morning",
         "duration": "15 minutes",
         "variables": {
-            "circadian_alignment": 2,
-            "movement_level": 2
+            "circadian": 2,
+            "movement": 2
         },
         "instructions": "Engage in light movement soon after sunrise to activate metabolism and reinforce circadian rhythms.",
-        "contraindications": "severe fatigue"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "grounding_walk",
@@ -1395,11 +2037,18 @@
         "time_of_day": "evening",
         "duration": "15 minutes",
         "variables": {
-            "vata_state": -2,
-            "stress_load": -1
+            "vata": -2,
+            "stress": -1
         },
         "instructions": "Take a slow evening walk focusing on steady breathing and relaxed posture to stabilize nervous system activity.",
-        "contraindications": "extreme weather"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "exercise"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_breathing_sequence",
@@ -1409,10 +2058,17 @@
         "duration": "5 minutes",
         "variables": {
             "mental_clarity": 2,
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Perform a brief breathing sequence after waking to improve oxygenation and alertness.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "breathing"
+        ],
+        "is_premium": false
     },
     {
         "name": "calm_music_evening",
@@ -1421,11 +2077,17 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -2,
-            "sleep_debt": -1
+            "stress": -2,
+            "sleep": 1
         },
         "instructions": "Listen to calm instrumental music to ease mental tension before sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "gratitude_evening_reflection",
@@ -1434,11 +2096,17 @@
         "time_of_day": "evening",
         "duration": "5 minutes",
         "variables": {
-            "stress_load": -1,
-            "ojas_recovery": 1
+            "stress": -1,
+            "ojas": 1
         },
         "instructions": "Reflect on positive experiences of the day to cultivate emotional stability and reduce stress.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "mindful_conversation",
@@ -1447,11 +2115,15 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "stress_load": -1,
+            "stress": -1,
             "mental_clarity": 1
         },
         "instructions": "Engage in calm and mindful communication to maintain emotional balance and reduce mental agitation.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "lifestyle"
+        ],
+        "is_premium": false
     },
     {
         "name": "nature_sitting",
@@ -1460,11 +2132,18 @@
         "time_of_day": "any",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 2
         },
         "instructions": "Sit quietly in a natural environment to calm sensory stimulation and restore mental clarity.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental",
+            "nature"
+        ],
+        "is_premium": false
     },
     {
         "name": "deep_relaxation_pose",
@@ -1473,11 +2152,15 @@
         "time_of_day": "evening",
         "duration": "10 minutes",
         "variables": {
-            "stress_load": -2,
-            "vata_state": -1
+            "stress": -2,
+            "vata": -1
         },
         "instructions": "Practice deep relaxation posture such as savasana to release physical and mental tension.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "herbal_sleep_tea",
@@ -1486,11 +2169,16 @@
         "time_of_day": "night",
         "duration": "drink",
         "variables": {
-            "sleep_debt": -1,
-            "stress_load": -1
+            "sleep": 1,
+            "stress": -1
         },
         "instructions": "Drink mild herbal teas such as chamomile or tulsi before sleep to promote relaxation.",
-        "contraindications": "allergy to herbs"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "bedtime_reading",
@@ -1499,11 +2187,16 @@
         "time_of_day": "night",
         "duration": "10 minutes",
         "variables": {
-            "sleep_debt": -1,
-            "stress_load": -1
+            "sleep": 1,
+            "stress": -1
         },
         "instructions": "Read calm non-stimulating material to transition the mind into rest mode.",
-        "contraindications": "avoid stimulating content"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "sleep_environment_quiet",
@@ -1512,11 +2205,16 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "sleep_debt": -1,
-            "circadian_alignment": 1
+            "sleep": 1,
+            "circadian": 1
         },
         "instructions": "Maintain a quiet sleeping environment to support uninterrupted sleep cycles.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "sleep_environment_dark",
@@ -1525,11 +2223,16 @@
         "time_of_day": "night",
         "duration": "habit",
         "variables": {
-            "circadian_alignment": 1,
-            "sleep_debt": -1
+            "circadian": 1,
+            "sleep": 1
         },
         "instructions": "Reduce light exposure in the bedroom to enhance natural melatonin production.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "daily_stretch_breaks",
@@ -1538,11 +2241,17 @@
         "time_of_day": "any",
         "duration": "5 minutes",
         "variables": {
-            "movement_level": 2,
-            "vata_state": -1
+            "movement": 2,
+            "vata": -1
         },
         "instructions": "Take short stretch breaks throughout the day to improve circulation and prevent stiffness.",
-        "contraindications": "injuries"
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "mindful_posture",
@@ -1551,11 +2260,19 @@
         "time_of_day": "any",
         "duration": "habit",
         "variables": {
-            "movement_level": 1,
-            "stress_load": -1
+            "movement": 1,
+            "stress": -1
         },
         "instructions": "Maintain upright posture during sitting to support breathing and spinal alignment.",
-        "contraindications": "spinal injury"
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "kapha",
+            "energy",
+            "movement"
+        ],
+        "is_premium": false
     },
     {
         "name": "evening_screen_shutdown",
@@ -1564,11 +2281,15 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "screen_exposure": -3,
-            "circadian_alignment": 2
+            "circadian": 5
         },
         "instructions": "Turn off electronic screens one hour before bedtime to protect natural sleep cycles.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": false
     },
     {
         "name": "daily_reflection_pause",
@@ -1578,10 +2299,16 @@
         "duration": "5 minutes",
         "variables": {
             "mental_clarity": 1,
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Pause briefly at the end of the day to reflect on actions and experiences, promoting self-awareness.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "simple_breath_counting",
@@ -1590,11 +2317,17 @@
         "time_of_day": "any",
         "duration": "3 minutes",
         "variables": {
-            "stress_load": -2,
+            "stress": -2,
             "mental_clarity": 1
         },
         "instructions": "Count slow breaths to focus attention and calm mental activity.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "light_evening_conversation",
@@ -1603,10 +2336,16 @@
         "time_of_day": "evening",
         "duration": "habit",
         "variables": {
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Engage in relaxed and positive conversations during evening hours to maintain emotional calm before sleep.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
     },
     {
         "name": "daily_kindness_reflection",
@@ -1615,11 +2354,15 @@
         "time_of_day": "night",
         "duration": "3 minutes",
         "variables": {
-            "ojas_recovery": 1,
-            "stress_load": -1
+            "ojas": 1,
+            "stress": -1
         },
         "instructions": "Reflect on acts of kindness given or received during the day to cultivate positive emotional states.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "lifestyle"
+        ],
+        "is_premium": false
     },
     {
         "name": "morning_body_awareness",
@@ -1629,9 +2372,2957 @@
         "duration": "3 minutes",
         "variables": {
             "mental_clarity": 2,
-            "stress_load": -1
+            "stress": -1
         },
         "instructions": "Briefly scan the body after waking to become aware of physical sensations and set a calm tone for the day.",
-        "contraindications": "none"
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "stress",
+            "mental"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "ushapana_hydration",
+        "module": "dinaveda",
+        "category": "morning_activation",
+        "time_of_day": "morning",
+        "duration": "2 minutes",
+        "variables": {
+            "hydration": 3,
+            "digestion": 1
+        },
+        "instructions": "Drink a glass of room temperature or warm water immediately after waking to rehydrate the body and activate metabolic processes.",
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "hydration",
+            "morning"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "silent_morning_start",
+        "module": "dinaveda",
+        "category": "mental_balance",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "stress": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Spend the first few minutes after waking without phone or stimulation to allow the nervous system to transition naturally.",
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "mental"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "morning_fresh_air",
+        "module": "dinaveda",
+        "category": "environment",
+        "time_of_day": "morning",
+        "duration": "2 minutes",
+        "variables": {
+            "mental_clarity": 1,
+            "circadian": 1
+        },
+        "instructions": "Open windows or step outside briefly to allow fresh air and natural light to stimulate alertness.",
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "environment"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "body_awareness_scan",
+        "module": "dinaveda",
+        "category": "self_awareness",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "stress": -1
+        },
+        "instructions": "Pause briefly after waking to observe bodily sensations and breathing before beginning the day.",
+        "contraindications": [],
+        "tags": [
+            "mental",
+            "lifestyle"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pre_meal_pause",
+        "module": "dinaveda",
+        "category": "digestive_preparation",
+        "time_of_day": "meal_time",
+        "duration": "1 minute",
+        "variables": {
+            "digestion": 1,
+            "stress": -1
+        },
+        "instructions": "Pause for a few breaths before eating to allow the body to shift into digestive mode.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "lifestyle"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "distraction_free_meal",
+        "module": "dinaveda",
+        "category": "digestive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 2,
+            "stress": -1
+        },
+        "instructions": "Eat meals without screens or intense conversation to support proper digestion.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "lifestyle"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "slow_eating_practice",
+        "module": "dinaveda",
+        "category": "digestive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 2,
+            "bloating": -1
+        },
+        "instructions": "Eat slowly and chew thoroughly to improve digestive efficiency.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "moderate_meal_quantity",
+        "module": "dinaveda",
+        "category": "digestive_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "ama": -2,
+            "digestion": 1
+        },
+        "instructions": "Finish eating when comfortably satisfied rather than overly full.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "midday_reset_pause",
+        "module": "dinaveda",
+        "category": "energy_balance",
+        "time_of_day": "midday",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Take a short pause during midday to relax the mind and reset attention.",
+        "contraindications": [],
+        "tags": [
+            "mental",
+            "lifestyle"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "evening_quiet_transition",
+        "module": "dinaveda",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "stress": -1,
+            "circadian": 1
+        },
+        "instructions": "Reduce stimulation in the evening by lowering noise and activity levels.",
+        "contraindications": [],
+        "tags": [
+            "circadian"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "eat_when_hungry",
+        "display_name": "Eat Only When Hungry",
+        "module": "nutriveda",
+        "category": "agni_regulation",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni": 2,
+            "ama": -2
+        },
+        "instructions": "Eat meals when genuine hunger is present rather than out of habit or boredom.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "warm_food_preference",
+        "display_name": "Prefer Warm Cooked Meals",
+        "module": "nutriveda",
+        "category": "agni_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni": 2,
+            "digestion": 1,
+            "ama": -1
+        },
+        "instructions": "Favor freshly cooked warm meals instead of cold or refrigerated foods.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni",
+            "warm"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "avoid_ice_drinks",
+        "display_name": "Avoid Ice Cold Drinks",
+        "module": "nutriveda",
+        "category": "agni_protection",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni": 1,
+            "digestion": 1
+        },
+        "instructions": "Avoid drinking very cold beverages during or immediately after meals.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "simple_meal_structure",
+        "display_name": "Simple Meal Structure",
+        "module": "nutriveda",
+        "category": "digestive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 2,
+            "ama": -1
+        },
+        "instructions": "Prefer meals with fewer ingredients and avoid overly complex combinations.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "six_taste_balance",
+        "display_name": "Balanced Six Taste Meal",
+        "module": "nutriveda",
+        "category": "meal_balance",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "agni": 2,
+            "ojas": 1
+        },
+        "instructions": "Include a balanced variety of tastes such as sweet, sour, salty, pungent, bitter, and astringent within meals.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "hydration_spacing",
+        "display_name": "Hydration Spacing",
+        "module": "nutriveda",
+        "category": "hydration_support",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "hydration": 2,
+            "digestion": 1
+        },
+        "instructions": "Drink water between meals rather than large quantities during meals.",
+        "contraindications": [],
+        "tags": [
+            "hydration"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "digestive_spice_water",
+        "display_name": "Afternoon Digestive Spice Drink",
+        "module": "nutriveda",
+        "category": "agni_support",
+        "time_of_day": "afternoon",
+        "duration": "drink",
+        "variables": {
+            "agni": 2,
+            "bloating": -1
+        },
+        "instructions": "Drink warm water infused with mild digestive spices such as cumin or coriander.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "upright_eating_posture",
+        "display_name": "Mindful Eating Posture",
+        "module": "nutriveda",
+        "category": "digestive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 1,
+            "bloating": -1
+        },
+        "instructions": "Sit upright and relaxed while eating to allow optimal digestive function.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "warm_after_meal_drink",
+        "display_name": "Warm Beverage After Meal",
+        "module": "nutriveda",
+        "category": "digestive_support",
+        "time_of_day": "after_meal",
+        "duration": "drink",
+        "variables": {
+            "digestion": 2,
+            "bloating": -1
+        },
+        "instructions": "Sip warm water or herbal tea after meals to assist digestion.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "avoid_heavy_evening_meal",
+        "display_name": "Avoid Late Heavy Meals",
+        "module": "nutriveda",
+        "category": "agni_regulation",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "kapha": -1,
+            "digestion": 2
+        },
+        "instructions": "Prefer lighter dinners to prevent digestive burden before sleep.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "avoid_refrigerated_food",
+        "display_name": "Avoid Refrigerated Foods",
+        "module": "nutriveda",
+        "category": "agni_protection",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni": 1,
+            "ama": -1
+        },
+        "instructions": "Limit consumption of cold or refrigerated foods to protect digestive fire.",
+        "contraindications": [],
+        "tags": [
+            "digestive",
+            "agni"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "millet_based_meal",
+        "display_name": "Millet-Based Meal",
+        "module": "nutriveda",
+        "category": "metabolic_support",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "kapha": -2,
+            "agni": 1,
+            "digestion": 1
+        },
+        "instructions": "Include millets such as ragi, jowar, or bajra as alternatives to refined grains.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "seasonal_vegetables",
+        "display_name": "Seasonal Vegetable Intake",
+        "module": "nutriveda",
+        "category": "seasonal_nutrition",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 2,
+            "ama": -1
+        },
+        "instructions": "Consume vegetables that are locally grown and seasonal.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "balanced_plate_meal",
+        "display_name": "Balanced Plate Meal",
+        "module": "nutriveda",
+        "category": "metabolic_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni": 2,
+            "mental_clarity": 1
+        },
+        "instructions": "Combine grains, vegetables, legumes, and healthy fats in meals to maintain balanced nutrition.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "bitter_food_intake",
+        "display_name": "Include Bitter Foods",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "pitta": -2,
+            "ama": -1
+        },
+        "instructions": "Include bitter vegetables such as fenugreek leaves or bitter gourd in meals.",
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "fiber_rich_meals",
+        "display_name": "Fiber-Rich Meals",
+        "module": "nutriveda",
+        "category": "digestive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 2,
+            "ama": -1
+        },
+        "instructions": "Include whole grains, legumes, and vegetables to support digestive health.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "reduce_refined_sugar",
+        "display_name": "Reduce Refined Sugar",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "kapha": -2,
+            "ama": -1
+        },
+        "instructions": "Limit consumption of refined sugar and sweetened beverages.",
+        "contraindications": [],
+        "tags": [
+            "kapha"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "herbal_drink_hydration",
+        "display_name": "Herbal Drink Hydration",
+        "module": "nutriveda",
+        "category": "hydration_support",
+        "time_of_day": "afternoon",
+        "duration": "drink",
+        "variables": {
+            "hydration": 2,
+            "digestion": 1
+        },
+        "instructions": "Drink herbal infusions such as cumin, coriander, or fennel water.",
+        "contraindications": [],
+        "tags": [
+            "hydration"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "legume_protein_meal",
+        "display_name": "Legume-Based Protein Meal",
+        "module": "nutriveda",
+        "category": "metabolic_support",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "agni": 1,
+            "digestion": 1
+        },
+        "instructions": "Include lentils or legumes in meals to provide plant-based protein.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vata_warm_nourishing_meals",
+        "display_name": "Warm Nourishing Meals",
+        "module": "nutriveda",
+        "category": "vata_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "vata": -3,
+            "agni": 1,
+            "digestion": 1
+        },
+        "instructions": "Favor warm cooked meals such as soups, stews, and porridge to stabilize Vata.",
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vata_healthy_oils",
+        "display_name": "Healthy Oils in Meals",
+        "module": "nutriveda",
+        "category": "vata_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "vata": -2,
+            "ojas": 1
+        },
+        "instructions": "Use healthy oils such as ghee or sesame oil to nourish tissues and calm dryness.",
+        "contraindications": [],
+        "tags": [
+            "vata"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vata_regular_meals",
+        "display_name": "Regular Meal Timing",
+        "module": "nutriveda",
+        "category": "vata_balance",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "vata": -2,
+            "agni": 2
+        },
+        "instructions": "Eat meals at consistent times to stabilize digestion and nervous system rhythm.",
+        "contraindications": [],
+        "tags": [
+            "vata"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pitta_cooling_foods",
+        "display_name": "Cooling Food Choices",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "pitta": -3
+        },
+        "instructions": "Favor cooling foods such as cucumber, coconut, leafy greens, and sweet fruits.",
+        "contraindications": [
+            "weak digestion"
+        ],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pitta_reduce_spice",
+        "display_name": "Reduce Spicy Foods",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "pitta": -2
+        },
+        "instructions": "Limit extremely spicy foods such as chili and excessive garlic.",
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pitta_hydrating_fruits",
+        "display_name": "Hydrating Fruits",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "afternoon",
+        "duration": "meal",
+        "variables": {
+            "pitta": -2,
+            "hydration": 1
+        },
+        "instructions": "Eat hydrating fruits such as melon, pear, or grapes during the day.",
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "kapha_light_grains",
+        "display_name": "Light Grain Meals",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "kapha": -2,
+            "agni": 1
+        },
+        "instructions": "Favor lighter grains such as barley, millet, and quinoa.",
+        "contraindications": [],
+        "tags": [
+            "kapha"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "kapha_reduce_dairy",
+        "display_name": "Reduce Heavy Dairy",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "kapha": -2
+        },
+        "instructions": "Limit heavy dairy foods such as cheese and cream.",
+        "contraindications": [],
+        "tags": [
+            "kapha"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "kapha_digestive_spices",
+        "display_name": "Digestive Spice Use",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "kapha": -2,
+            "agni": 2
+        },
+        "instructions": "Use warming spices such as ginger, cumin, turmeric, and black pepper.",
+        "contraindications": [
+            "gastric irritation"
+        ],
+        "tags": [
+            "kapha",
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "avoid_overeating_meal",
+        "display_name": "Avoid Overeating",
+        "module": "nutriveda",
+        "category": "agni_protection",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "digestion": 2,
+            "ama": -2
+        },
+        "instructions": "Eat until comfortably satisfied rather than completely full.",
+        "contraindications": [],
+        "tags": [
+            "digestive"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vata_pacifying_diet",
+        "display_name": "Vata Pacifying Diet",
+        "module": "nutriveda",
+        "category": "vata_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "vata": -3,
+            "digestion": 1
+        },
+        "instructions": "Prefer warm, moist, and nourishing foods.",
+        "recommended_foods": [
+            "warm soups",
+            "stews",
+            "rice",
+            "wheat",
+            "oats",
+            "milk",
+            "ghee",
+            "root vegetables",
+            "ripe fruits",
+            "almonds"
+        ],
+        "avoid_foods": [
+            "dry foods",
+            "raw salads",
+            "cold foods",
+            "crackers",
+            "carbonated drinks",
+            "excess beans"
+        ],
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "diet"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vata_breakfast_foods",
+        "display_name": "Vata Stabilizing Breakfast",
+        "module": "nutriveda",
+        "category": "vata_balance",
+        "time_of_day": "morning",
+        "duration": "meal",
+        "variables": {
+            "vata": -2,
+            "agni": 1
+        },
+        "instructions": "Choose nourishing warm breakfasts.",
+        "recommended_foods": [
+            "oat porridge",
+            "warm milk",
+            "dates",
+            "almonds",
+            "ghee",
+            "rice porridge"
+        ],
+        "avoid_foods": [
+            "cold smoothies",
+            "raw fruit bowls",
+            "dry cereals"
+        ],
+        "contraindications": [],
+        "tags": [
+            "vata",
+            "diet"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pitta_cooling_diet",
+        "display_name": "Pitta Cooling Diet",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "pitta": -3
+        },
+        "instructions": "Favor cooling, mildly sweet, and hydrating foods.",
+        "recommended_foods": [
+            "cucumber",
+            "coconut",
+            "leafy greens",
+            "milk",
+            "ghee",
+            "sweet fruits",
+            "basmati rice",
+            "barley"
+        ],
+        "avoid_foods": [
+            "excess chili",
+            "deep fried foods",
+            "alcohol",
+            "sour pickles",
+            "fermented foods"
+        ],
+        "contraindications": [],
+        "tags": [
+            "pitta",
+            "diet"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pitta_cooling_drinks",
+        "display_name": "Cooling Herbal Drinks",
+        "module": "nutriveda",
+        "category": "pitta_balance",
+        "time_of_day": "afternoon",
+        "duration": "drink",
+        "variables": {
+            "pitta": -2,
+            "hydration": 1
+        },
+        "instructions": "Drink cooling herbal beverages.",
+        "recommended_foods": [
+            "coriander water",
+            "coconut water",
+            "rose water drinks",
+            "mint infusions"
+        ],
+        "avoid_foods": [
+            "coffee",
+            "alcohol",
+            "energy drinks"
+        ],
+        "contraindications": [],
+        "tags": [
+            "pitta"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "kapha_light_diet",
+        "display_name": "Kapha Light Diet",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "kapha": -3,
+            "agni": 1
+        },
+        "instructions": "Favor light, warm, and stimulating foods.",
+        "recommended_foods": [
+            "barley",
+            "millets",
+            "lentils",
+            "leafy greens",
+            "ginger",
+            "black pepper"
+        ],
+        "avoid_foods": [
+            "sweets",
+            "deep fried foods",
+            "cheese",
+            "heavy dairy",
+            "sugary beverages"
+        ],
+        "contraindications": [],
+        "tags": [
+            "kapha",
+            "diet"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "kapha_metabolism_foods",
+        "display_name": "Kapha Activating Foods",
+        "module": "nutriveda",
+        "category": "kapha_balance",
+        "time_of_day": "meal_time",
+        "duration": "meal",
+        "variables": {
+            "kapha": -2,
+            "agni": 2
+        },
+        "instructions": "Use warming spices and lighter grains.",
+        "recommended_foods": [
+            "millets",
+            "barley",
+            "ginger",
+            "turmeric",
+            "black pepper"
+        ],
+        "avoid_foods": [
+            "sugar",
+            "desserts",
+            "fried snacks"
+        ],
+        "contraindications": [],
+        "tags": [
+            "kapha"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "millet_grain_rotation",
+        "display_name": "Millet Grain Rotation",
+        "module": "nutriveda",
+        "category": "grain_selection",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "kapha": -1,
+            "digestion": 1
+        },
+        "instructions": "Rotate different millets in meals for metabolic health.",
+        "recommended_foods": [
+            "ragi",
+            "foxtail millet",
+            "barnyard millet",
+            "little millet"
+        ],
+        "avoid_foods": [
+            "excess refined wheat",
+            "excess polished rice"
+        ],
+        "contraindications": [],
+        "tags": [
+            "diet"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "dim_evening_lighting",
+        "display_name": "Dim Lighting Before Bed",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "circadian": 2,
+            "sleep": 1
+        },
+        "instructions": "Reduce lighting intensity during the evening to support natural melatonin production.",
+        "contraindications": [],
+        "tags": [
+            "circadian",
+            "sleep"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "warm_foot_relaxation",
+        "display_name": "Warm Foot Relaxation",
+        "module": "somasleep",
+        "category": "sleep_preparation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "vata": -2,
+            "sleep": 1
+        },
+        "instructions": "Warm the feet with a brief soak or gentle massage to relax the nervous system before sleep.",
+        "contraindications": [
+            "foot wounds"
+        ],
+        "tags": [
+            "sleep",
+            "vata"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "slow_breath_sleep_prep",
+        "display_name": "Breathing for Sleep Onset",
+        "module": "somasleep",
+        "category": "sleep_preparation",
+        "time_of_day": "night",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -2,
+            "sleep": 1
+        },
+        "instructions": "Practice slow breathing patterns to calm the nervous system before sleep.",
+        "contraindications": [],
+        "tags": [
+            "sleep",
+            "breathing"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "bedroom_fresh_air",
+        "display_name": "Bedroom Ventilation",
+        "module": "somasleep",
+        "category": "sleep_environment",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "sleep": 1,
+            "mental_clarity": 1
+        },
+        "instructions": "Ensure the bedroom has fresh air circulation before sleep.",
+        "contraindications": [
+            "extreme weather"
+        ],
+        "tags": [
+            "sleep",
+            "environment"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "declutter_bedroom",
+        "display_name": "Declutter Sleep Space",
+        "module": "somasleep",
+        "category": "sleep_environment",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "stress": -1,
+            "sleep": 1
+        },
+        "instructions": "Keep the sleep environment clean and uncluttered to reduce sensory stimulation.",
+        "contraindications": [],
+        "tags": [
+            "sleep",
+            "environment"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "quiet_evening_transition",
+        "display_name": "Quiet Transition Before Sleep",
+        "module": "somasleep",
+        "category": "sleep_preparation",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "stress": -1,
+            "circadian": 1
+        },
+        "instructions": "Reduce conversation and stimulation during the final hour before sleep.",
+        "contraindications": [],
+        "tags": [
+            "sleep",
+            "circadian"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "bedtime_gentle_stretch",
+        "display_name": "Gentle Stretch Before Bed",
+        "module": "somasleep",
+        "category": "sleep_preparation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "vata": -2,
+            "stress": -1
+        },
+        "instructions": "Perform slow stretches to release tension accumulated during the day.",
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "sleep",
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pre_sleep_thought_dump",
+        "display_name": "Mental Unload Writing",
+        "module": "somasleep",
+        "category": "mental_clearance",
+        "time_of_day": "night",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Write down thoughts or unfinished tasks before sleep to reduce mental activity.",
+        "contraindications": [],
+        "tags": [
+            "sleep",
+            "mental"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "post_sunset_screen_limit",
+        "display_name": "Avoid Bright Screens After Sunset",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "evening",
+        "duration": "habit",
+        "variables": {
+            "circadian": 5
+        },
+        "instructions": "Reduce exposure to bright screens after sunset.",
+        "contraindications": [],
+        "tags": [
+            "sleep",
+            "circadian"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "consistent_sleep_window",
+        "display_name": "Regular Sleep Window",
+        "module": "somasleep",
+        "category": "circadian_support",
+        "time_of_day": "night",
+        "duration": "habit",
+        "variables": {
+            "circadian": 3,
+            "sleep": 2
+        },
+        "instructions": "Maintain a consistent bedtime and wake time daily.",
+        "contraindications": [],
+        "tags": [
+            "sleep",
+            "circadian"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "joint_mobility_routine",
+        "display_name": "Joint Mobility Routine",
+        "module": "ayufit",
+        "category": "mobility",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 2,
+            "vata": -1
+        },
+        "instructions": "Perform gentle rotations of neck, shoulders, wrists, hips, knees, and ankles to mobilize joints.",
+        "contraindications": [
+            "acute injury"
+        ],
+        "tags": [
+            "movement",
+            "mobility"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "spine_extension_flow",
+        "display_name": "Spine Extension Practice",
+        "module": "ayufit",
+        "category": "posture",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1,
+            "vata": -1,
+            "mental_clarity": 1
+        },
+        "instructions": "Perform slow spinal extension movements such as gentle backbends to activate posture muscles.",
+        "contraindications": [
+            "spinal injury"
+        ],
+        "tags": [
+            "movement",
+            "posture"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "core_activation_practice",
+        "display_name": "Core Activation",
+        "module": "ayufit",
+        "category": "strength",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 2,
+            "agni": 1
+        },
+        "instructions": "Activate abdominal and core muscles using controlled movements.",
+        "contraindications": [
+            "abdominal injury"
+        ],
+        "tags": [
+            "movement",
+            "strength"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "morning_energy_activation",
+        "display_name": "Morning Energy Movement",
+        "module": "ayufit",
+        "category": "energy_activation",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 2,
+            "kapha": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Perform energizing movement such as jumping, skipping, or dynamic stretching.",
+        "contraindications": [
+            "joint injury"
+        ],
+        "tags": [
+            "movement",
+            "energy"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "hourly_walk_break",
+        "display_name": "Walking Break During Work",
+        "module": "ayufit",
+        "category": "sedentary_break",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1,
+            "kapha": -1
+        },
+        "instructions": "Stand and walk briefly after long periods of sitting.",
+        "contraindications": [],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "hip_mobility_sequence",
+        "display_name": "Hip Mobility Practice",
+        "module": "ayufit",
+        "category": "mobility",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 2,
+            "vata": -1
+        },
+        "instructions": "Perform hip circles, lunges, and mobility movements to improve joint range.",
+        "contraindications": [
+            "hip injury"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "midday_circulation_boost",
+        "display_name": "Midday Circulation Boost",
+        "module": "ayufit",
+        "category": "circulation",
+        "time_of_day": "midday",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1,
+            "mental_clarity": 1
+        },
+        "instructions": "Perform brief walking or stretching movements to improve circulation.",
+        "contraindications": [],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "evening_relaxation_stretch",
+        "display_name": "Evening Relaxation Stretch",
+        "module": "ayufit",
+        "category": "relaxation",
+        "time_of_day": "evening",
+        "duration": "10 minutes",
+        "variables": {
+            "vata": -2,
+            "stress": -1
+        },
+        "instructions": "Perform slow stretches to relax muscles and release tension.",
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "movement",
+            "relaxation"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "balance_training_practice",
+        "display_name": "Balance Training",
+        "module": "ayufit",
+        "category": "stability",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1,
+            "mental_clarity": 1
+        },
+        "instructions": "Practice standing balance exercises to improve stability and coordination.",
+        "contraindications": [
+            "severe balance disorders"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "outdoor_activity_session",
+        "display_name": "Outdoor Activity Session",
+        "module": "ayufit",
+        "category": "movement",
+        "time_of_day": "afternoon",
+        "duration": "20 minutes",
+        "variables": {
+            "movement": 3,
+            "stress": -1
+        },
+        "instructions": "Engage in outdoor movement such as walking, sports, or light recreational activity.",
+        "contraindications": [
+            "extreme weather"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "surya_namaskar",
+        "display_name": "Surya Namaskar (Sun Salutation)",
+        "module": "ayufit",
+        "category": "energy_activation",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 4,
+            "kapha": -3,
+            "agni": 1
+        },
+        "instructions": "Perform 6\u201312 rounds of Surya Namaskar to activate circulation and increase energy.",
+        "contraindications": [
+            "severe back pain"
+        ],
+        "tags": [
+            "movement",
+            "yoga",
+            "energy"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "utkatasana",
+        "display_name": "Utkatasana (Chair Pose)",
+        "module": "ayufit",
+        "category": "energy_activation",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 2,
+            "kapha": -1
+        },
+        "instructions": "Bend knees while raising arms overhead to strengthen legs and activate metabolism.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "virabhadrasana1",
+        "display_name": "Virabhadrasana I (Warrior Pose I)",
+        "module": "ayufit",
+        "category": "energy_activation",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 2,
+            "mental_clarity": 1
+        },
+        "instructions": "Step one foot forward and bend the knee while raising arms upward.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "virabhadrasana2",
+        "display_name": "Virabhadrasana II (Warrior Pose II)",
+        "module": "ayufit",
+        "category": "energy_activation",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Extend arms sideways while bending the front knee.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "tadasana",
+        "display_name": "Tadasana (Mountain Pose)",
+        "module": "ayufit",
+        "category": "mobility_activation",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 1,
+            "mental_clarity": 1
+        },
+        "instructions": "Stand upright with balanced posture and steady breathing.",
+        "contraindications": [],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "trikonasana",
+        "display_name": "Trikonasana (Triangle Pose)",
+        "module": "ayufit",
+        "category": "mobility_activation",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Perform lateral bending stretches to improve flexibility.",
+        "contraindications": [
+            "acute spinal injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "parsvakonasana",
+        "display_name": "Parsvakonasana (Side Angle Pose)",
+        "module": "ayufit",
+        "category": "mobility_activation",
+        "time_of_day": "morning",
+        "duration": "4 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Extend the torso sideways over a bent knee while stretching the arms.",
+        "contraindications": [
+            "hip injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "ardha_chakrasana",
+        "display_name": "Ardha Chakrasana (Half Wheel Pose)",
+        "module": "ayufit",
+        "category": "mobility_activation",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Bend backward gently from standing position.",
+        "contraindications": [
+            "spinal injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vrikshasana",
+        "display_name": "Vrikshasana (Tree Pose)",
+        "module": "ayufit",
+        "category": "strength_stability",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2,
+            "mental_clarity": 2
+        },
+        "instructions": "Balance on one leg with the other foot placed on the inner thigh.",
+        "contraindications": [
+            "balance disorders"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "bhujangasana",
+        "display_name": "Bhujangasana (Cobra Pose)",
+        "module": "ayufit",
+        "category": "strength_stability",
+        "time_of_day": "morning",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Lift the chest upward while lying prone.",
+        "contraindications": [
+            "back injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "setu_bandhasana",
+        "display_name": "Setu Bandhasana (Bridge Pose)",
+        "module": "ayufit",
+        "category": "strength_stability",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Lift hips upward while lying on the back.",
+        "contraindications": [
+            "neck injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "dhanurasana",
+        "display_name": "Dhanurasana (Bow Pose)",
+        "module": "ayufit",
+        "category": "strength_stability",
+        "time_of_day": "morning",
+        "duration": "4 minutes",
+        "variables": {
+            "movement": 3
+        },
+        "instructions": "Lift the chest and legs while holding the ankles.",
+        "contraindications": [
+            "back injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "shavasana",
+        "display_name": "Shavasana (Corpse Pose)",
+        "module": "ayufit",
+        "category": "restorative_practice",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "stress": -2
+        },
+        "instructions": "Lie flat on the back and relax the body completely.",
+        "contraindications": [],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "balasana",
+        "display_name": "Balasana (Child Pose)",
+        "module": "ayufit",
+        "category": "restorative_practice",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -2
+        },
+        "instructions": "Sit back on heels and stretch arms forward to relax the spine.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pavanamuktasana",
+        "display_name": "Pavanamuktasana (Wind Relieving Pose)",
+        "module": "ayufit",
+        "category": "restorative_practice",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1
+        },
+        "instructions": "Draw knees toward chest while lying on the back.",
+        "contraindications": [
+            "abdominal surgery"
+        ],
+        "tags": [
+            "movement",
+            "yoga"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "brisk_walking_workout",
+        "display_name": "Brisk Walking",
+        "module": "ayufit",
+        "category": "cardio_activation",
+        "time_of_day": "morning",
+        "duration": "20 minutes",
+        "variables": {
+            "movement": 3,
+            "kapha": -2
+        },
+        "instructions": "Walk at a fast pace that slightly increases breathing and heart rate.",
+        "contraindications": [
+            "severe joint pain"
+        ],
+        "tags": [
+            "movement",
+            "exercise",
+            "cardio"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "stair_climbing_workout",
+        "display_name": "Stair Climbing",
+        "module": "ayufit",
+        "category": "cardio_activation",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 3,
+            "kapha": -2
+        },
+        "instructions": "Climb stairs at a steady pace to improve cardiovascular fitness.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "cycling_workout",
+        "display_name": "Cycling",
+        "module": "ayufit",
+        "category": "cardio_activation",
+        "time_of_day": "morning",
+        "duration": "25 minutes",
+        "variables": {
+            "movement": 3,
+            "kapha": -2
+        },
+        "instructions": "Cycle at moderate intensity to improve endurance and circulation.",
+        "contraindications": [
+            "severe knee injury"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "jogging_workout",
+        "display_name": "Jogging",
+        "module": "ayufit",
+        "category": "cardio_activation",
+        "time_of_day": "morning",
+        "duration": "20 minutes",
+        "variables": {
+            "movement": 4,
+            "kapha": -3
+        },
+        "instructions": "Jog at a comfortable pace while maintaining steady breathing.",
+        "contraindications": [
+            "joint injuries"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "bodyweight_squats",
+        "display_name": "Bodyweight Squats",
+        "module": "ayufit",
+        "category": "strength_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Perform slow controlled squats keeping the back straight.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "exercise",
+            "strength"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "push_up_exercise",
+        "display_name": "Push Ups",
+        "module": "ayufit",
+        "category": "strength_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Lower the chest toward the floor while keeping the body straight.",
+        "contraindications": [
+            "shoulder injury"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "plank_hold",
+        "display_name": "Plank Hold",
+        "module": "ayufit",
+        "category": "strength_training",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 2,
+            "mental_clarity": 1
+        },
+        "instructions": "Hold a straight body position supported by forearms and toes.",
+        "contraindications": [
+            "back injury"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "lunges_exercise",
+        "display_name": "Lunges",
+        "module": "ayufit",
+        "category": "strength_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Step forward into a lunge while keeping the torso upright.",
+        "contraindications": [
+            "knee injury"
+        ],
+        "tags": [
+            "movement",
+            "exercise"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "full_body_mobility_flow",
+        "display_name": "Full Body Mobility Routine",
+        "module": "ayufit",
+        "category": "mobility_routine",
+        "time_of_day": "morning",
+        "duration": "10 minutes",
+        "variables": {
+            "movement": 2
+        },
+        "instructions": "Perform gentle movements for shoulders, hips, and spine.",
+        "contraindications": [],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "hip_mobility_routine",
+        "display_name": "Hip Mobility Routine",
+        "module": "ayufit",
+        "category": "mobility_routine",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1
+        },
+        "instructions": "Perform slow hip rotations and stretches.",
+        "contraindications": [
+            "hip injury"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "shoulder_mobility_routine",
+        "display_name": "Shoulder Mobility Routine",
+        "module": "ayufit",
+        "category": "mobility_routine",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1
+        },
+        "instructions": "Rotate shoulders slowly and stretch arms overhead.",
+        "contraindications": [
+            "shoulder injury"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "desk_stretch_routine",
+        "display_name": "Desk Stretch Routine",
+        "module": "ayufit",
+        "category": "desk_recovery",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "movement": 1,
+            "vata": -1
+        },
+        "instructions": "Stretch neck, shoulders, and back after long sitting.",
+        "contraindications": [
+            "spinal injury"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "neck_mobility_break",
+        "display_name": "Neck Mobility Break",
+        "module": "ayufit",
+        "category": "desk_recovery",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "movement": 1
+        },
+        "instructions": "Perform slow neck rotations to release tension.",
+        "contraindications": [
+            "neck injury"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "gentle_evening_walk",
+        "display_name": "Gentle Evening Walk",
+        "module": "ayufit",
+        "category": "restorative_movement",
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "movement": 2,
+            "stress": -1
+        },
+        "instructions": "Walk slowly to relax the body and support digestion.",
+        "contraindications": [
+            "severe fatigue"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "light_stretch_routine",
+        "display_name": "Light Stretch Routine",
+        "module": "ayufit",
+        "category": "restorative_movement",
+        "time_of_day": "evening",
+        "duration": "8 minutes",
+        "variables": {
+            "movement": 1,
+            "stress": -1
+        },
+        "instructions": "Perform gentle stretches to relax muscles before sleep.",
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "movement"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "focused_breath_reset",
+        "display_name": "Focused Breathing Reset",
+        "module": "manasayur",
+        "category": "stress_regulation",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "stress": -2,
+            "mental_clarity": 1
+        },
+        "instructions": "Pause and observe slow breathing to calm the nervous system.",
+        "contraindications": [],
+        "tags": [
+            "breathing",
+            "stress"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "single_object_focus",
+        "display_name": "Attention Training (Single Object Focus)",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "attention_stability": 2,
+            "mental_clarity": 1
+        },
+        "instructions": "Focus attention on a single object such as breath or sound without distraction.",
+        "contraindications": [],
+        "tags": [
+            "cognitive",
+            "focus"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "memory_recall_training",
+        "display_name": "Memory Recall Exercise",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "cognitive_energy": 1,
+            "mental_clarity": 2
+        },
+        "instructions": "Recall events or information from the previous day to strengthen memory pathways.",
+        "contraindications": [],
+        "tags": [
+            "memory",
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "mental_declutter_pause",
+        "display_name": "Mental Declutter Pause",
+        "module": "manasayur",
+        "category": "mental_reset",
+        "time_of_day": "midday",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -2,
+            "mental_clarity": 2
+        },
+        "instructions": "Take a pause to release mental overload and reset attention.",
+        "contraindications": [],
+        "tags": [
+            "mental",
+            "stress"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "positive_visualization",
+        "display_name": "Visualization Practice",
+        "module": "manasayur",
+        "category": "emotional_balance",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -1,
+            "ojas": 1
+        },
+        "instructions": "Visualize a calm or positive situation to shift emotional state.",
+        "contraindications": [],
+        "tags": [
+            "mental"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "sensory_awareness_scan",
+        "display_name": "Sensory Awareness Practice",
+        "module": "manasayur",
+        "category": "mindfulness",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "stress": -1
+        },
+        "instructions": "Observe sounds, sensations, and surroundings without judgment.",
+        "contraindications": [],
+        "tags": [
+            "mindfulness"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "creative_thinking_session",
+        "display_name": "Creative Thinking Session",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "cognitive_energy": 2,
+            "mental_clarity": 1
+        },
+        "instructions": "Engage in drawing, brainstorming, or idea generation activities.",
+        "contraindications": [],
+        "tags": [
+            "cognitive",
+            "creativity"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "mental_arithmetic_practice",
+        "display_name": "Mental Arithmetic Training",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "attention_stability": 1,
+            "cognitive_energy": 1
+        },
+        "instructions": "Perform simple calculations mentally to stimulate cognitive processing.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "gratitude_focus",
+        "display_name": "Gratitude Reflection",
+        "module": "manasayur",
+        "category": "emotional_balance",
+        "time_of_day": "evening",
+        "duration": "3 minutes",
+        "variables": {
+            "ojas": 1,
+            "stress": -1
+        },
+        "instructions": "Reflect on positive events from the day.",
+        "contraindications": [],
+        "tags": [
+            "mental"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "digital_attention_reset",
+        "display_name": "Digital Attention Reset",
+        "module": "manasayur",
+        "category": "attention_regulation",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "attention_stability": 2,
+            "stress": -1
+        },
+        "instructions": "Take periodic breaks from digital stimulation to restore focus.",
+        "contraindications": [],
+        "tags": [
+            "focus"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "nadi_shodhana",
+        "display_name": "Nadi Shodhana (Alternate Nostril Breathing)",
+        "module": "manasayur",
+        "category": "breath_regulation",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -3,
+            "mental_clarity": 2,
+            "vata": -2
+        },
+        "instructions": "Close one nostril and inhale through the other, then alternate sides while breathing slowly.",
+        "contraindications": [
+            "severe nasal congestion"
+        ],
+        "tags": [
+            "breathing",
+            "mental"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "bhramari_pranayama",
+        "display_name": "Bhramari (Humming Bee Breath)",
+        "module": "manasayur",
+        "category": "breath_regulation",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -3,
+            "mental_clarity": 1
+        },
+        "instructions": "Inhale slowly and exhale with a gentle humming sound to calm the mind.",
+        "contraindications": [
+            "ear infections"
+        ],
+        "tags": [
+            "breathing",
+            "mental"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "sheetali_pranayama",
+        "display_name": "Sheetali (Cooling Breath)",
+        "module": "manasayur",
+        "category": "breath_regulation",
+        "time_of_day": "afternoon",
+        "duration": "5 minutes",
+        "variables": {
+            "pitta": -2,
+            "stress": -1
+        },
+        "instructions": "Inhale through a rolled tongue and exhale slowly through the nose.",
+        "contraindications": [
+            "cold climate"
+        ],
+        "tags": [
+            "breathing"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "kapalabhati",
+        "display_name": "Kapalabhati (Skull Shining Breath)",
+        "module": "manasayur",
+        "category": "breath_activation",
+        "time_of_day": "morning",
+        "duration": "3 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "kapha": -2
+        },
+        "instructions": "Perform rapid exhalations while the inhalation remains passive.",
+        "contraindications": [
+            "hypertension"
+        ],
+        "tags": [
+            "breathing",
+            "activation"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "word_association_game",
+        "display_name": "Word Association Exercise",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Choose a word and quickly list related words to stimulate thinking.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "object_observation",
+        "display_name": "Object Observation Exercise",
+        "module": "manasayur",
+        "category": "focus_training",
+        "time_of_day": "any",
+        "duration": "3 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Observe an object closely and note details such as shape, texture, and color.",
+        "contraindications": [],
+        "tags": [
+            "focus"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "pattern_recognition",
+        "display_name": "Pattern Recognition Exercise",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Look for patterns in numbers, shapes, or sequences.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "positive_reflection",
+        "display_name": "Positive Reflection",
+        "module": "manasayur",
+        "category": "emotional_balance",
+        "time_of_day": "evening",
+        "duration": "5 minutes",
+        "variables": {
+            "stress": -1,
+            "ojas": 1
+        },
+        "instructions": "Reflect on positive events or achievements from the day.",
+        "contraindications": [],
+        "tags": [
+            "emotional"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "mindful_eating_focus",
+        "display_name": "Mindful Eating for Mental Clarity",
+        "module": "manasayur",
+        "category": "cognitive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 2,
+            "stress": -1
+        },
+        "instructions": "Eat meals slowly without distractions to improve cognitive awareness and digestion.",
+        "contraindications": [],
+        "tags": [
+            "cognitive",
+            "lifestyle"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "omega_brain_food",
+        "display_name": "Omega-Rich Brain Foods",
+        "module": "manasayur",
+        "category": "cognitive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 2,
+            "ojas": 1
+        },
+        "instructions": "Include foods rich in healthy fats such as nuts, seeds, or fish to support brain function.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "polyphenol_foods",
+        "display_name": "Polyphenol-Rich Foods",
+        "module": "manasayur",
+        "category": "cognitive_support",
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 1
+        },
+        "instructions": "Include fruits, berries, and plant foods rich in antioxidants to support brain health.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "stable_energy_meals",
+        "display_name": "Stable Energy Meals",
+        "module": "manasayur",
+        "category": "cognitive_support",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Eat balanced meals combining protein, fats, and complex carbohydrates to maintain steady energy.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "hydration_for_focus",
+        "display_name": "Hydration for Focus",
+        "module": "manasayur",
+        "category": "cognitive_support",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 1
+        },
+        "instructions": "Maintain adequate hydration throughout the day to support brain performance.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "daily_learning",
+        "display_name": "Daily Learning Practice",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "15 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Spend time learning new information or skills to stimulate brain activity.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "puzzle_solving",
+        "display_name": "Puzzle Solving",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Solve puzzles such as crosswords, sudoku, or logic problems.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "visualization_training",
+        "display_name": "Visualization Training",
+        "module": "manasayur",
+        "category": "focus_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Visualize a scene or object in detail to strengthen attention and imagination.",
+        "contraindications": [],
+        "tags": [
+            "focus"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "attention_interval",
+        "display_name": "Attention Interval Practice",
+        "module": "manasayur",
+        "category": "focus_training",
+        "time_of_day": "any",
+        "duration": "10 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Focus on a task for 10 minutes without interruption to train sustained attention.",
+        "contraindications": [],
+        "tags": [
+            "focus"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "meaningful_conversation",
+        "display_name": "Meaningful Conversation",
+        "module": "manasayur",
+        "category": "emotional_balance",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "stress": -1,
+            "ojas": 1
+        },
+        "instructions": "Engage in thoughtful conversation with friends or family to stimulate mental engagement.",
+        "contraindications": [],
+        "tags": [
+            "social"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "storytelling_practice",
+        "display_name": "Storytelling Practice",
+        "module": "manasayur",
+        "category": "cognitive_training",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 2
+        },
+        "instructions": "Recall and narrate stories or events to stimulate memory and communication skills.",
+        "contraindications": [],
+        "tags": [
+            "cognitive"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "daily_intention_setting",
+        "display_name": "Daily Intention Setting",
+        "module": "sattvaliving",
+        "category": "mental_alignment",
+        "time_of_day": "morning",
+        "duration": "2 minutes",
+        "variables": {
+            "mental_clarity": 2,
+            "attention_stability": 1
+        },
+        "instructions": "Set a clear intention for the day to guide attention and actions.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "mental"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "kind_communication",
+        "display_name": "Kind Communication Practice",
+        "module": "sattvaliving",
+        "category": "social_balance",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "stress": -1,
+            "social_balance": 1
+        },
+        "instructions": "Practice calm and respectful communication in daily interactions.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "social"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "single_task_focus",
+        "display_name": "Reduce Multitasking",
+        "module": "sattvaliving",
+        "category": "attention_management",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "attention_stability": 2,
+            "mental_clarity": 1
+        },
+        "instructions": "Focus on one task at a time to improve concentration.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "focus"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "daily_kindness_action",
+        "display_name": "Daily Act of Kindness",
+        "module": "sattvaliving",
+        "category": "social_balance",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "ojas": 1,
+            "social_balance": 2
+        },
+        "instructions": "Perform a small act of kindness for someone during the day.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "social"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "mindful_listening",
+        "display_name": "Mindful Listening",
+        "module": "sattvaliving",
+        "category": "social_balance",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 1,
+            "social_balance": 2
+        },
+        "instructions": "Listen fully when others speak without interrupting.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "social"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "digital_minimalism_hour",
+        "display_name": "Digital Minimalism Hour",
+        "module": "sattvaliving",
+        "category": "digital_balance",
+        "time_of_day": "evening",
+        "duration": "1 hour",
+        "variables": {
+            "attention_stability": 2,
+            "stress": -1
+        },
+        "instructions": "Spend an hour daily away from digital devices to reset mental attention.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "digital"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "workspace_organization",
+        "display_name": "Personal Space Organization",
+        "module": "sattvaliving",
+        "category": "environment",
+        "time_of_day": "any",
+        "duration": "5 minutes",
+        "variables": {
+            "mental_clarity": 1,
+            "stress": -1
+        },
+        "instructions": "Keep personal spaces clean and organized to reduce cognitive clutter.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "environment"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "evening_gratitude_practice",
+        "display_name": "Evening Gratitude Reflection",
+        "module": "sattvaliving",
+        "category": "emotional_balance",
+        "time_of_day": "evening",
+        "duration": "3 minutes",
+        "variables": {
+            "ojas": 1,
+            "stress": -1
+        },
+        "instructions": "Reflect on three positive experiences from the day.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "mental"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "observational_pause",
+        "display_name": "Speak Less, Observe More",
+        "module": "sattvaliving",
+        "category": "awareness",
+        "time_of_day": "any",
+        "duration": "habit",
+        "variables": {
+            "mental_clarity": 1,
+            "stress": -1
+        },
+        "instructions": "Pause briefly before responding in conversations.",
+        "contraindications": [],
+        "tags": [
+            "behavior"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "time_discipline_practice",
+        "display_name": "Time Discipline Practice",
+        "module": "sattvaliving",
+        "category": "lifestyle_balance",
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "attention_stability": 1,
+            "mental_clarity": 1
+        },
+        "instructions": "Plan and follow a simple schedule for the day.",
+        "contraindications": [],
+        "tags": [
+            "behavior",
+            "discipline"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "hemanta_nourishing_meals",
+        "display_name": "Nourishing Winter Meals",
+        "module": "rutuveda",
+        "category": "seasonal_balance",
+        "season": [
+            "hemanta"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "ojas": 2,
+            "agni": 2
+        },
+        "instructions": "Favor nourishing warm meals such as soups, grains, and healthy fats during early winter when digestion is strong.",
+        "contraindications": [
+            "avoid overeating"
+        ],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "hemanta_abhyanga",
+        "display_name": "Winter Oil Massage",
+        "module": "rutuveda",
+        "category": "vata_protection",
+        "season": [
+            "hemanta"
+        ],
+        "time_of_day": "morning",
+        "duration": "seasonal habit",
+        "variables": {
+            "vata": -3,
+            "ojas": 1
+        },
+        "instructions": "Regular oil massage during winter protects against dryness and cold.",
+        "contraindications": [
+            "fever"
+        ],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "shishira_digestive_spices",
+        "display_name": "Warming Winter Spices",
+        "module": "rutuveda",
+        "category": "agni_support",
+        "season": [
+            "shishira"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "agni": 2,
+            "kapha": -1
+        },
+        "instructions": "Use warming spices such as ginger, pepper, and cumin during late winter.",
+        "contraindications": [
+            "ulcers"
+        ],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "shishira_cold_protection",
+        "display_name": "Late Winter Cold Protection",
+        "module": "rutuveda",
+        "category": "environment",
+        "season": [
+            "shishira"
+        ],
+        "time_of_day": "daily",
+        "duration": "habit",
+        "variables": {
+            "vata": -1
+        },
+        "instructions": "Protect the body from excessive cold and wind during late winter.",
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vasanta_light_diet",
+        "display_name": "Spring Kapha Reduction Diet",
+        "module": "rutuveda",
+        "category": "kapha_balance",
+        "season": [
+            "vasanta"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "kapha": -3,
+            "ama": -2
+        },
+        "instructions": "Favor lighter foods and reduce heavy oily foods during spring.",
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "vasanta_kapha_activation",
+        "display_name": "Spring Morning Exercise",
+        "module": "rutuveda",
+        "category": "movement_activation",
+        "season": [
+            "vasanta"
+        ],
+        "time_of_day": "morning",
+        "duration": "20 minutes",
+        "variables": {
+            "kapha": -2,
+            "movement": 2
+        },
+        "instructions": "Increase physical activity during spring to reduce Kapha stagnation.",
+        "contraindications": [
+            "injury"
+        ],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "grishma_cooling_hydration",
+        "display_name": "Cooling Summer Hydration",
+        "module": "rutuveda",
+        "category": "pitta_balance",
+        "season": [
+            "grishma"
+        ],
+        "time_of_day": "afternoon",
+        "duration": "drink",
+        "variables": {
+            "pitta": -3,
+            "hydration": 2
+        },
+        "instructions": "Drink cooling fluids such as coconut water and herbal infusions.",
+        "contraindications": [],
+        "tags": [
+            "seasonal",
+            "cooling"
+        ],
+        "is_premium": true
+    },
+    {
+        "name": "grishma_heat_avoidance",
+        "display_name": "Midday Heat Avoidance",
+        "module": "rutuveda",
+        "category": "environment",
+        "season": [
+            "grishma"
+        ],
+        "time_of_day": "midday",
+        "duration": "habit",
+        "variables": {
+            "pitta": -2
+        },
+        "instructions": "Avoid excessive sun exposure during peak heat hours.",
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "varsha_warm_foods",
+        "display_name": "Monsoon Warm Food Preference",
+        "module": "rutuveda",
+        "category": "agni_support",
+        "season": [
+            "varsha"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "seasonal habit",
+        "variables": {
+            "agni": 2,
+            "vata": -1
+        },
+        "instructions": "Eat warm freshly prepared meals during the rainy season.",
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "varsha_avoid_raw_food",
+        "display_name": "Avoid Raw Foods in Monsoon",
+        "module": "rutuveda",
+        "category": "digestive_protection",
+        "season": [
+            "varsha"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "ama": -2
+        },
+        "instructions": "Avoid raw foods and salads during the rainy season to protect digestion.",
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "varsha_digestive_spices",
+        "display_name": "Monsoon Digestive Spice Support",
+        "module": "rutuveda",
+        "category": "agni_support",
+        "season": [
+            "varsha"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "agni": 2,
+            "ama": -1
+        },
+        "instructions": "Use ginger, cumin, and pepper to support digestion during monsoon.",
+        "contraindications": [
+            "ulcers"
+        ],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "sharad_bitter_foods",
+        "display_name": "Autumn Bitter Food Inclusion",
+        "module": "rutuveda",
+        "category": "pitta_balance",
+        "season": [
+            "sharad"
+        ],
+        "time_of_day": "meal_time",
+        "duration": "habit",
+        "variables": {
+            "pitta": -2
+        },
+        "instructions": "Include bitter vegetables and greens to balance Pitta during autumn.",
+        "contraindications": [],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": false
+    },
+    {
+        "name": "sharad_evening_cooling_walk",
+        "display_name": "Cooling Autumn Evening Walk",
+        "module": "rutuveda",
+        "category": "pitta_balance",
+        "season": [
+            "sharad"
+        ],
+        "time_of_day": "evening",
+        "duration": "15 minutes",
+        "variables": {
+            "pitta": -2,
+            "stress": -1
+        },
+        "instructions": "Take a calm walk during cool evening hours to balance residual heat.",
+        "contraindications": [
+            "extreme weather"
+        ],
+        "tags": [
+            "seasonal"
+        ],
+        "is_premium": true
     }
 ]

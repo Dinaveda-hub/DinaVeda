@@ -1,20 +1,13 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Leaf, BrainCircuit, Heart, Sparkles, ArrowLeft } from "lucide-react";
+import { Leaf, BrainCircuit, Heart, Sparkles, ArrowLeft, ShieldCheck, Database, Zap, Activity } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 
 export default function AboutPage() {
-    const containerVariants: Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-        }
-    };
-
+    // Animation Variants - Only used for key sections to minimize layout work
     const itemVariants: Variants = {
         hidden: { opacity: 0, y: 20 },
         visible: {
@@ -44,107 +37,180 @@ export default function AboutPage() {
             </nav>
 
             <main className="max-w-4xl mx-auto px-6 pt-20 pb-32 relative z-10 text-slate-800">
-                <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={containerVariants}
-                    className="space-y-20"
-                >
+                <div className="space-y-32">
+                    
                     {/* Hero Section */}
-                    <motion.section variants={itemVariants} className="text-center space-y-8">
+                    <motion.section 
+                        initial="hidden"
+                        animate="visible"
+                        variants={itemVariants}
+                        className="text-center space-y-8"
+                    >
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-[10px] font-black uppercase tracking-[0.3em] text-forest/80">
                             <Sparkles className="w-4 h-4 text-gold/60" /> Our Mission
                         </div>
                         <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter leading-[0.85]">
-                            Ancient Secrets. <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest via-emerald-600 to-gold">Neural Intelligence.</span>
+                            Ancient Medicine. <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest via-emerald-600 to-gold">Personalized Health.</span>
                         </h1>
-                        <p className="text-lg md:text-xl font-bold text-slate-600 max-w-2xl mx-auto leading-relaxed uppercase tracking-wide">
-                            We are building the bridge between 5,000 years of Ayurvedic wisdom and the future of hyper-personalized neural health.
+                        <p className="text-lg md:text-xl font-bold text-slate-600 max-w-2xl mx-auto leading-relaxed tracking-tight">
+                            We are building the bridge between 5,000 years of Ayurvedic medicine and the future of hyper-personalized computational health.
                         </p>
                     </motion.section>
 
-                    {/* Philosophy Section */}
-                    <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="glass p-10 rounded-[3rem] border border-white">
-                            <div className="w-14 h-14 rounded-2xl bg-forest/5 flex items-center justify-center text-forest mb-8">
-                                <Leaf className="w-7 h-7" />
-                            </div>
-                            <h3 className="text-2xl font-black text-forest mb-4">The Veda Tradition</h3>
-                            <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-wide">
-                                Ayurveda teaches us that health is not a destination, but a state of continuous alignment. Everything—the sun, the seasons, the food we eat—interacts with our unique biological blueprint.
+                    {/* How Dinaveda Works */}
+                    <section className="space-y-12">
+                        <div className="text-center space-y-4">
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">The Process</h2>
+                            <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter">How Dinaveda Works</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {[
+                                { title: "Signal Collection", desc: "Daily check-ins capture sleep, digestion, mood, and activity patterns.", icon: Activity },
+                                { title: "Physiology Engine", desc: "Signals are processed into dynamic Ayurvedic and biological scores.", icon: BrainCircuit },
+                                { title: "Protocol Selection", desc: "Deterministic rules select personalized Ayurvedic routines for your current state.", icon: Zap },
+                                { title: "AI Refinement", desc: "AI Health Coaches convert protocols into structured, actionable daily routines.", icon: Sparkles }
+                            ].map((step, idx) => (
+                                <div key={idx} className="glass p-8 rounded-[2.5rem] border border-white flex gap-6 items-start">
+                                    <div className="w-12 h-12 rounded-2xl bg-forest/5 flex-shrink-0 flex items-center justify-center text-forest">
+                                        <step.icon className="w-6 h-6" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h4 className="font-black text-forest uppercase tracking-widest text-sm">{step.title}</h4>
+                                        <p className="text-sm text-slate-500 font-bold leading-relaxed">{step.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Scientific Model Section */}
+                    <motion.section 
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={itemVariants}
+                        className="space-y-12 bg-white/40 p-12 rounded-[4rem] border border-slate-100"
+                    >
+                        <div className="text-center">
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">
+                                Scientific Model
+                            </h2>
+                            <h3 className="text-4xl font-black text-forest tracking-tighter">
+                                The Physiology Intelligence Engine
+                            </h3>
+                            <p className="text-slate-500 font-bold text-sm max-w-xl mx-auto mt-6 leading-relaxed">
+                                Dinaveda converts everyday lifestyle signals into measurable variables, allowing principles such as Dosha balance, Agni strength, and Circadian alignment to be quantified and tracked over time.
                             </p>
                         </div>
-                        <div className="glass p-10 rounded-[3rem] border border-white">
-                            <div className="w-14 h-14 rounded-2xl bg-gold/5 flex items-center justify-center text-gold mb-8">
-                                <BrainCircuit className="w-7 h-7" />
-                            </div>
-                            <h3 className="text-2xl font-black text-forest mb-4">The Neural Engine</h3>
-                            <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-wide">
-                                Dinaveda's proprietary AI translates subjective ayurvedic qualitative signals into precise, quantitative physiological scores, ensuring your daily rituals are backed by temporal data.
-                            </p>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            {[
+                                { label: "20+", detail: "Biological Variables" },
+                                { label: "100%", detail: "Personalized" },
+                                { label: "5k Yrs", detail: "Clinical Wisdom" },
+                                { label: "AI", detail: "Neural Insights" }
+                            ].map((stat, idx) => (
+                                <div key={idx} className="text-center space-y-2">
+                                    <div className="text-3xl font-black text-forest">{stat.label}</div>
+                                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">{stat.detail}</div>
+                                </div>
+                            ))}
                         </div>
                     </motion.section>
 
                     {/* Expert Guidance Section */}
-                    <motion.section variants={itemVariants} className="space-y-12">
+                    <motion.section 
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={itemVariants} 
+                        className="space-y-12"
+                    >
                         <div className="text-center">
-                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">Expert Guidance</h2>
+                            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-4">Clinical Authority</h2>
                             <h3 className="text-4xl font-black text-forest tracking-tighter">The Visionary Behind Dinaveda</h3>
                         </div>
-                        <div className="glass p-1 split-glass flex flex-col md:flex-row items-center gap-10 rounded-[4rem] border border-white max-w-3xl mx-auto">
-                            <div className="w-full md:w-1/3 aspect-square relative rounded-[3rem] overflow-hidden bg-forest/5">
+                        <div className="glass p-2 flex flex-col md:flex-row items-stretch gap-2 rounded-[3.5rem] border border-white max-w-4xl mx-auto overflow-hidden">
+                            <div className="w-full md:w-2/5 relative rounded-[3rem] overflow-hidden bg-forest/5 min-h-[300px]">
                                 <Image
-                                    src="/logo.png"
+                                    src="/rahul.jpg"
                                     alt="Dr Rahul K R"
                                     fill
-                                    className="object-contain p-8 opacity-40 grayscale group-hover:grayscale-0 transition-all"
+                                    className="object-cover transition-all duration-700 hover:scale-105"
+                                    placeholder="blur"
+                                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
                                 />
                             </div>
-                            <div className="flex-1 p-8 md:pr-12 md:pl-0 space-y-4">
+                            <div className="flex-1 p-10 md:p-12 flex flex-col justify-center space-y-6">
                                 <div className="space-y-1">
-                                    <h4 className="text-3xl font-black text-forest tracking-tight leading-none">Dr Rahul K R</h4>
-                                    <p className="text-gold font-bold text-sm uppercase tracking-widest">Ayurvedic Doctor & Founder</p>
+                                    <h4 className="text-4xl font-black text-forest tracking-tight leading-none">Dr Rahul K R</h4>
+                                    <p className="text-gold font-black text-[10px] uppercase tracking-[0.3em]">Ayurvedic Physician & Founder</p>
                                 </div>
-                                <p className="text-slate-500 font-bold leading-relaxed text-sm uppercase tracking-wide">
-                                    With deep roots in traditional Ayurvedic practice and a vision for digital health, Dr Rahul K R directs the scientific core of Dinaveda, ensuring every neural protocol is anchored in authentic medical wisdom.
+                                <p className="text-slate-600 font-bold leading-relaxed text-sm">
+                                    Dr Rahul K R is an Ayurvedic physician specializing in preventive lifestyle medicine and circadian health. Through Dinaveda, he is translating clinical Ayurvedic principles into modern computational health models, ensuring every digital routine is anchored in authentic clinical wisdom.
                                 </p>
+                                <div className="flex gap-4 items-center pt-4 opacity-50">
+                                    <div className="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-slate-200">Lifestyle Medicine</div>
+                                    <div className="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-slate-200">Circadian Health</div>
+                                </div>
                             </div>
                         </div>
                     </motion.section>
 
-                    {/* Values */}
-                    <motion.section variants={itemVariants} className="bg-forest p-12 md:p-20 rounded-[4rem] text-white relative overflow-hidden group">
+                    {/* Differentiation Section */}
+                    <section className="bg-forest p-12 md:p-20 rounded-[4rem] text-white relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[100px] opacity-20 -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000" />
-                        <div className="relative z-10 space-y-12">
-                            <div className="max-w-lg">
-                                <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6">Built for Balance.</h2>
-                                <p className="text-emerald-100/70 font-bold text-sm uppercase tracking-[0.2em] leading-relaxed">
-                                    Dinaveda was born from the need to simplify profound health sciences for the modern world. We believe your health profile should be as unique as your DNA.
+                        <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+                            <div className="space-y-8">
+                                <h4 className="text-4xl md:text-6xl font-black tracking-tighter leading-none">Why Dinaveda?</h4>
+                                <p className="text-emerald-100/70 font-bold text-sm leading-relaxed max-w-md">
+                                    Most wellness apps offer generic advice. Dinaveda analyzes your daily physiological state and generates adaptive routines based on Dosha balance, digestion strength, and stress load. Every recommendation evolves with you.
                                 </p>
                             </div>
-                            <div className="grid grid-cols-2 gap-8 pt-8">
+                            <div className="grid grid-cols-2 gap-8">
                                 <div>
-                                    <div className="text-3xl font-black mb-2 tracking-tighter">100%</div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-200/50">Data Sovereignty</p>
+                                    <div className="text-3xl font-black mb-2 tracking-tighter flex items-center gap-2">1:1 <Zap className="w-5 h-5 text-gold" /></div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-200/50 leading-relaxed">Biological Tuning</p>
                                 </div>
                                 <div>
-                                    <div className="text-3xl font-black mb-2 tracking-tighter">24/7</div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-200/50">Biological Tuning</p>
+                                    <div className="text-3xl font-black mb-2 tracking-tighter flex items-center gap-2">∞ <Database className="w-5 h-5 text-emerald-400" /></div>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-emerald-200/50 leading-relaxed">Data Sovereignty</p>
                                 </div>
                             </div>
                         </div>
-                    </motion.section>
+                    </section>
+
+                    {/* Trust Signals Section */}
+                    <section className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { title: "Privacy First", desc: "Your health data is encrypted end-to-end and never sold to third parties.", icon: ShieldCheck },
+                            { title: "Clinical Wisdom", desc: "Protocols are anchored in physician-led Ayurvedic medical research.", icon: Leaf },
+                            { title: "Health Platform", desc: "Providing wellness guidance for prevention — not medical diagnosis.", icon: Heart }
+                        ].map((item, idx) => (
+                            <div key={idx} className="p-8 rounded-[2rem] bg-slate-50/50 border border-slate-100 flex flex-col items-center text-center space-y-4">
+                                <item.icon className="w-5 h-5 text-forest/40" />
+                                <h5 className="font-black text-forest uppercase tracking-widest text-[10px]">{item.title}</h5>
+                                <p className="text-xs text-slate-400 font-bold leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </section>
 
                     {/* Final CTA */}
-                    <motion.section variants={itemVariants} className="text-center py-10">
-                        <Heart className="w-12 h-12 text-rose-400 mx-auto mb-8 animate-pulse" />
-                        <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Rhythm is Wellness</h4>
-                        <Link href="/welcome" className="inline-flex items-center gap-3 bg-forest text-white px-10 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all">
-                            Initialize Your Journey
+                    <motion.section 
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={itemVariants}
+                        className="text-center py-10"
+                    >
+                        <Heart className="w-12 h-12 text-rose-400 mx-auto mb-8 animate-pulse shadow-rose-200" />
+                        <h4 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Physiology is Wellness</h4>
+                        <Link href="/welcome" className="inline-flex items-center gap-3 bg-forest text-white px-10 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] shadow-xl shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all">
+                            Discover Your Ayurvedic Blueprint
                         </Link>
                     </motion.section>
-                </motion.div>
+                </div>
             </main>
 
             <Footer />

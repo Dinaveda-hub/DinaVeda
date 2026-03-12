@@ -1,34 +1,23 @@
 import { VedaState } from './stateModel';
-import { IMBALANCE_PRESSURE_WEIGHTS } from '../config/scoringWeights';
-
-export class ImbalancePressureEngine {
-    /**
-     * Calculates the "Imbalance Pressure" — a metric of how much the physiological
-     * system is being pushed away from its Prakriti baseline.
-     */
-    public calculateImbalancePressure(state: VedaState, driftIndex: number): number {
-        return computeIPI(state, driftIndex);
-    }
-}
+import { clamp } from '../utils/clamp';
 
 /**
  * Functional version of Imbalance Pressure Index (IPI) calculation.
+ * Tracks acute load + dosha drift.
  */
 export function computeIPI(state: VedaState, driftIndex: number): number {
-    // High drift + High Signal impact = High Pressure
+    const stress = state.stress ?? 50;
+    const sleep = state.sleep ?? 50;
+    const agni = state.agni ?? 50;
+    const drift_index = driftIndex ?? 0;
 
-    // 1. Base pressure from drift (0-100)
-    const driftPressure = Math.min(100, driftIndex * 2);
+    const sleep_debt = 100 - sleep;
+    let acuteLoad = (stress + sleep_debt + (100 - agni)) / 3;
 
-    // 2. Added pressure from acute variables (stress, sleep debt, agni weakness)
-    const acuteLoad = (
-        state.stress_load +
-        state.sleep_debt +
-        (100 - state.agni_strength)
-    ) / 3;
+    // Stabilization Guard: Prevent tiny fluctuations from raising IPI
+    if (acuteLoad < 10) acuteLoad = 0;
 
-    const pressure = (driftPressure * (IMBALANCE_PRESSURE_WEIGHTS.DOSHA_DRIFT || 0.6)) +
-        (acuteLoad * (IMBALANCE_PRESSURE_WEIGHTS.SIGNAL_LOAD || 0.4));
+    const IPI = (drift_index * 0.6) + (acuteLoad * 0.4);
 
-    return Math.round(pressure);
+    return Math.round(clamp(IPI, 0, 100));
 }

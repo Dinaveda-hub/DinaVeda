@@ -7,19 +7,18 @@ export interface SensitivityProfile {
 }
 
 export const variableSensitivity: Record<string, number> = {
-    vata_state: 0.9,
-    pitta_state: 0.9,
-    kapha_state: 0.9,
+    vata: 0.9,
+    pitta: 0.9,
+    kapha: 0.9,
 
-    agni_strength: 1.0,
-    agni_stability: 0.9,
+    agni: 1.0,
     ama_risk: 0.8,
 
     ojas_score: 1.2,
     ojas_recovery: 1.0,
 
-    circadian_alignment: 1.1,
-    sleep_debt: 1.0,
+    circadian: 1.1,
+    sleep: 1.0,
     light_exposure: 1.0,
 
     appetite_quality: 1.0,
@@ -31,7 +30,7 @@ export const variableSensitivity: Record<string, number> = {
     mental_clarity: 1.0,
     screen_exposure: 1.0,
 
-    movement_level: 1.0,
+    movement: 1.0,
     hydration_status: 1.0,
     meal_timing: 1.0
 };

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Activity, BrainCircuit, Sunrise, Sun, Moon, Info } from "lucide-react";
+import { Activity, BrainCircuit, Sunrise, Sun, Moon, Info, LucideIcon } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface PathyaPlanProps {
     observation: string;
@@ -24,13 +25,21 @@ const InsightPills = ({ breakdown, score }: { breakdown: any; score: number }) =
 
     const pills = [];
 
-    if (score >= 80) pills.push({ label: "Optimal Ojas", color: "bg-[#E3F2ED] text-[#2D7A5C] border-emerald-100" });
-    else if (score >= 60) pills.push({ label: "Moderate Balance", color: "bg-blue-50 text-blue-700 border-blue-100" });
-    else pills.push({ label: "Low Ojas", color: "bg-rose-50 text-rose-700 border-rose-100" });
+    if (typeof score === "number") {
+        if (score >= 80) pills.push({ label: "Optimal Ojas", color: "bg-[#E3F2ED] text-[#2D7A5C] border-emerald-100" });
+        else if (score >= 60) pills.push({ label: "Moderate Balance", color: "bg-blue-50 text-blue-700 border-blue-100" });
+        else pills.push({ label: "Low Ojas", color: "bg-rose-50 text-rose-700 border-rose-100" });
+    }
 
-    if (breakdown.Nidra < 15) pills.push({ label: "Sleep Architecture Risk", color: "bg-slate-100 text-slate-700 border-slate-200" });
-    if (breakdown.Ahara < 15) pills.push({ label: "Agni Disturbance", color: "bg-orange-50 text-orange-700 border-orange-100" });
-    else if (breakdown.Ahara >= 20) pills.push({ label: "Strong Agni", color: "bg-[#E3F2ED] text-[#2D7A5C] border-emerald-100" });
+    if (breakdown?.Nidra !== undefined && breakdown.Nidra < 15) pills.push({ label: "Sleep Architecture Risk", color: "bg-slate-100 text-slate-700 border-slate-200" });
+    
+    if (breakdown?.Ahara !== undefined) {
+        if (breakdown.Ahara < 15) pills.push({ label: "Agni Disturbance", color: "bg-orange-50 text-orange-700 border-orange-100" });
+        else if (breakdown.Ahara >= 20) pills.push({ label: "Strong Agni", color: "bg-[#E3F2ED] text-[#2D7A5C] border-emerald-100" });
+    }
+
+    if (breakdown?.Vyayama !== undefined && breakdown.Vyayama < 10) pills.push({ label: "Movement Deficit", color: "bg-amber-50 text-amber-700 border-amber-100" });
+    if (breakdown?.Jala !== undefined && breakdown.Jala < 10) pills.push({ label: "Hydration Deficit", color: "bg-cyan-50 text-cyan-700 border-cyan-100" });
 
     return (
         <div className="flex flex-wrap gap-2 mb-4">
@@ -83,7 +92,7 @@ const TimelineCard = ({
 }: {
     title: string;
     content: string;
-    icon: any;
+    icon: LucideIcon;
     colorClass: string
 }) => (
     <div className="bg-white p-8 rounded-[2.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-50 flex flex-col h-full transition-all hover:shadow-xl hover:shadow-slate-200/50 group">
@@ -94,7 +103,7 @@ const TimelineCard = ({
             <h4 className="text-xl font-black text-slate-800 tracking-tight">{title}</h4>
         </div>
         <div className="prose prose-slate prose-sm max-w-none text-slate-600 leading-relaxed font-semibold">
-            <ReactMarkdown>{content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml>{content}</ReactMarkdown>
         </div>
     </div>
 );
@@ -102,12 +111,22 @@ const TimelineCard = ({
 export default function PathyaPlanDisplay({ observation, principle, timeline, score, breakdown, rituInfo }: PathyaPlanProps) {
     const isError = !observation && !principle && !timeline;
 
+    if (isError) {
+        return (
+            <div className="p-8 bg-orange-50/50 border border-orange-100 rounded-[2rem] text-center shadow-sm">
+                <Activity className="w-10 h-10 text-orange-400 mx-auto mb-4" />
+                <h3 className="text-lg font-black text-slate-700 mb-2">Unable to generate protocol today</h3>
+                <p className="text-sm font-bold text-slate-500">The Neural Core encountered turbulence analyzing your log. Try reanalyzing your data.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-8">
             {rituInfo && (
-                <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-[#F0FDF4] to-[#ECFCCB] border border-emerald-100 flex items-center justify-between shadow-sm">
+                <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-[#F0FDF4] to-[#ECFCCB] border border-emerald-100 flex flex-col md:flex-row md:items-center justify-between shadow-sm gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-[1.25rem] bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                        <div className="w-10 h-10 rounded-[1.25rem] bg-emerald-500/10 flex items-center justify-center text-emerald-600 shrink-0">
                             <Sun className="w-5 h-5" />
                         </div>
                         <div>
@@ -116,9 +135,15 @@ export default function PathyaPlanDisplay({ observation, principle, timeline, sc
                         </div>
                     </div>
                     {rituInfo.is_transition && (
-                        <div className="px-3 py-1.5 rounded-full bg-orange-100/50 border border-orange-200 text-xs font-black uppercase tracking-widest text-orange-600 flex items-center gap-1.5">
-                            <Activity className="w-3 h-3" />
-                            Transitioning to {rituInfo.transition_to}
+                        <div className="flex flex-col md:items-end gap-2">
+                            <div className="px-3 py-1.5 rounded-full bg-orange-100/50 border border-orange-200 text-xs font-black uppercase tracking-widest text-orange-600 flex items-center gap-1.5 w-fit">
+                                <Activity className="w-3 h-3" />
+                                Transitioning to {rituInfo.transition_to}
+                            </div>
+                            <p className="text-xs font-bold text-orange-700/80 md:text-right">
+                                Seasonal transition increases Vata variability.<br/>
+                                Stabilize routine and digestion.
+                            </p>
                         </div>
                     )}
                 </div>
@@ -142,7 +167,7 @@ export default function PathyaPlanDisplay({ observation, principle, timeline, sc
                     </h3>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <TimelineCard
                         title="Morning"
                         content={timeline?.morning || "Maintain a steady morning routine based on your Prakriti."}

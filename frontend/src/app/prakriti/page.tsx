@@ -1,25 +1,70 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, CloudSun, Leaf, Wind, Flame, Droplets, Target, Compass } from "lucide-react";
+import { ShieldCheck, CloudSun, Wind, Flame, Droplets, Target, Compass } from "lucide-react";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
-import { VikritiEngine } from "@/engine/vikritiEngine";
+import { computeVikriti } from "@/engine/vikritiEngine";
+import { getCurrentRitu } from "@/data/moduleRegistry";
+
+// ─────────────────────────────────────────────────────────
+// Drift Severity Tiers (Fix #6)
+// ─────────────────────────────────────────────────────────
+
+function driftSeverity(index: number): { label: string; color: string } {
+    if (index < 10) return { label: "Stable", color: "text-emerald-600" };
+    if (index < 20) return { label: "Mild Drift", color: "text-amber-600" };
+    if (index < 35) return { label: "Moderate Drift", color: "text-orange-600" };
+    return { label: "Severe Drift", color: "text-red-600" };
+}
+
+// ─────────────────────────────────────────────────────────
+// Dosha Descriptions (Fix #10)
+// ─────────────────────────────────────────────────────────
+
+const DOSHA_DESCRIPTIONS: Record<string, string> = {
+    Vata: "Movement & nervous system",
+    Pitta: "Metabolism & heat regulation",
+    Kapha: "Structure & lubrication",
+};
 
 export default function PrakritiPage() {
-    const [prakriti, setPrakriti] = useState<any>(null);
     const { state, isLoaded } = usePhysiologyState();
-    const vikritiEngine = new VikritiEngine();
-    const vikriti = isLoaded ? vikritiEngine.calculateMetrics(state) : null;
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
+    // Fix #2: Memoize Vikriti computation to prevent re-instantiation every render
+    const vikriti = useMemo(() => {
+        if (!isLoaded) return null;
+        return computeVikriti(state);
+    }, [state, isLoaded]);
+
+    // Fix #5: Dynamic season from engine
+    const ritu = getCurrentRitu();
+
+    // Fix #3: Read Prakriti from global physiology state (single source of truth)
+    // instead of localStorage, which can desync across devices.
+    const prakriti = useMemo(() => {
+        if (!isLoaded || !state.is_onboarded) return null;
+        return {
+            type: `${state.prakriti_vata > state.prakriti_pitta && state.prakriti_vata > state.prakriti_kapha ? "Vata"
+                : state.prakriti_pitta > state.prakriti_kapha ? "Pitta" : "Kapha"}-Dominant`,
+            prakriti_vata: state.prakriti_vata,
+            prakriti_pitta: state.prakriti_pitta,
+            prakriti_kapha: state.prakriti_kapha,
+        };
+    }, [state, isLoaded]);
+
+    // Also try to use the stored type string if available (from onboarding)
+    const prakritiTypeLabel = useMemo(() => {
+        if (typeof window === "undefined") return prakriti?.type || "";
+        try {
             const stored = localStorage.getItem("prakriti_result");
             if (stored) {
-                setPrakriti(JSON.parse(stored));
+                const parsed = JSON.parse(stored);
+                if (parsed?.type) return parsed.type;
             }
-        }
-    }, []);
+        } catch { /* noop */ }
+        return prakriti?.type || "";
+    }, [prakriti]);
 
     const getDoshaIcon = (dosha: string) => {
         if (dosha === "Vata") return <Wind className="w-5 h-5 text-air" />;
@@ -33,25 +78,30 @@ export default function PrakritiPage() {
         return "bg-earth text-forest shadow-premium border border-white/20";
     };
 
+    // Fix #1: Use prakriti_vata/pitta/kapha directly (matches stored structure)
     const getPrakritiBars = () => {
-        if (!prakriti?.scores) return null;
-        const total = prakriti.scores.vata + prakriti.scores.pitta + prakriti.scores.kapha || 1;
+        if (!prakriti) return null;
+        const total = prakriti.prakriti_vata + prakriti.prakriti_pitta + prakriti.prakriti_kapha || 1;
         return [
-            { id: "Vata", value: prakriti.scores.vata, pct: (prakriti.scores.vata / total) * 100, color: "bg-air" },
-            { id: "Pitta", value: prakriti.scores.pitta, pct: (prakriti.scores.pitta / total) * 100, color: "bg-fire" },
-            { id: "Kapha", value: prakriti.scores.kapha, pct: (prakriti.scores.kapha / total) * 100, color: "bg-water" }
+            { id: "Vata", value: prakriti.prakriti_vata, pct: (prakriti.prakriti_vata / total) * 100, color: "bg-air" },
+            { id: "Pitta", value: prakriti.prakriti_pitta, pct: (prakriti.prakriti_pitta / total) * 100, color: "bg-fire" },
+            { id: "Kapha", value: prakriti.prakriti_kapha, pct: (prakriti.prakriti_kapha / total) * 100, color: "bg-water" }
         ];
     };
 
+    // Fix #4: Remove artificial 100 floor from max — normalize purely against actual values
     const getVikritiBars = () => {
         if (!isLoaded) return [];
-        const max = Math.max(state.vata_state, state.pitta_state, state.kapha_state, 100);
+        const max = Math.max(state.vata, state.pitta, state.kapha) || 1;
         return [
-            { id: "Vata", value: state.vata_state, pct: (state.vata_state / max) * 100, color: "bg-air" },
-            { id: "Pitta", value: state.pitta_state, pct: (state.pitta_state / max) * 100, color: "bg-fire" },
-            { id: "Kapha", value: state.kapha_state, pct: (state.kapha_state / max) * 100, color: "bg-water" }
+            { id: "Vata", value: state.vata, pct: (state.vata / max) * 100, color: "bg-air" },
+            { id: "Pitta", value: state.pitta, pct: (state.pitta / max) * 100, color: "bg-fire" },
+            { id: "Kapha", value: state.kapha, pct: (state.kapha / max) * 100, color: "bg-water" }
         ];
     };
+
+    const driftIndex = vikriti?.drift_index || 0;
+    const severity = driftSeverity(driftIndex);
 
     return (
         <div className="flex flex-col min-h-screen bg-background relative overflow-hidden pb-40">
@@ -80,7 +130,7 @@ export default function PrakritiPage() {
 
                         {prakriti ? (
                             <>
-                                <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4">{prakriti.type}</h3>
+                                <h3 className="text-3xl md:text-5xl font-black text-forest tracking-tighter mb-4">{prakritiTypeLabel}</h3>
                                 <p className="text-sm md:text-base font-bold text-slate-500 max-w-md leading-relaxed mb-10">
                                     Your primal constitution is the permanent physiological frame determined at conception. It represents your absolute state of balance.
                                 </p>
@@ -89,7 +139,10 @@ export default function PrakritiPage() {
                                     {getPrakritiBars()?.map((bar) => (
                                         <div key={bar.id}>
                                             <div className="flex justify-between text-xs font-black uppercase tracking-widest text-slate-500 mb-3">
-                                                <span>{bar.id} Essence</span>
+                                                <span className="flex items-center gap-2">
+                                                    {bar.id} Essence
+                                                    <span className="text-[9px] font-bold text-slate-400 normal-case tracking-normal">{DOSHA_DESCRIPTIONS[bar.id]}</span>
+                                                </span>
                                                 <span className="text-forest">{bar.value}</span>
                                             </div>
                                             <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
@@ -179,22 +232,26 @@ export default function PrakritiPage() {
                             <div>
                                 <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Correlation</h4>
                                 <p className="text-sm font-bold text-slate-600 leading-relaxed text-balance">
-                                    Your core constitution is <strong className="text-forest">{prakriti.type}</strong>.
+                                    Your core constitution is <strong className="text-forest">{prakritiTypeLabel}</strong>.
                                     Currently, your <strong className="text-orange-600">{vikriti?.dominant_dosha}</strong> is accumulating.
-                                    Since it is {process.env.NEXT_PUBLIC_SEASON || 'Spring (Vasanta)'},
-                                    the environmental backdrop naturally pushes Kapha and Pitta upward.
+                                    Since it is <strong className="text-forest">{ritu.name}</strong>,
+                                    the environmental backdrop carries <strong>{ritu.doshaRisk}</strong> risk.
                                 </p>
                             </div>
                             <div>
                                 <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Drift Severity</h4>
-                                <div className="flex items-baseline gap-2 mb-2">
-                                    <span className="text-5xl font-black text-forest">{Math.round(vikriti?.drift_index || 0)}%</span>
-                                    <span className="text-base font-black text-slate-400">Deviation</span>
+                                <div className="flex items-baseline gap-3 mb-2">
+                                    <span className="text-5xl font-black text-forest">{Math.round(driftIndex)}%</span>
+                                    <span className={`text-sm font-black uppercase tracking-widest ${severity.color}`}>{severity.label}</span>
                                 </div>
                                 <p className="text-xs font-bold text-slate-500 leading-relaxed">
-                                    {vikriti?.drift_index && vikriti.drift_index > 20
-                                        ? "This is a notable drift. Focus on the Pathya Plan recommended in the Ayurveda Home interface to stabilize."
-                                        : "Your drift is minimal. You are largely aligned with your natural constitution."}
+                                    {driftIndex >= 35
+                                        ? "Critical deviation detected. Immediate protocol adjustments recommended — focus on the Pathya Plan in the Dashboard."
+                                        : driftIndex >= 20
+                                            ? "Notable drift. Focus on the Pathya Plan recommended in the Dashboard to stabilize."
+                                            : driftIndex >= 10
+                                                ? "Minor fluctuation. Continue your current rituals to prevent escalation."
+                                                : "Your drift is minimal. You are largely aligned with your natural constitution."}
                                 </p>
                             </div>
                         </div>

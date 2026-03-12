@@ -68,35 +68,28 @@ function toItem(protocol: Protocol): CompiledProtocolItem {
  *  - Optionally merges prediction protocol names as priority additions.
  */
 export function compileDailyProtocols(
-    protocols: Protocol[],
-    predictionProtocolNames: string[] = []
+    rankedProtocols: Protocol[]
 ): CompiledDailyPlan {
-    // 1. Sort so prediction-triggered protocols surface first (highest priority)
-    const sorted = [...protocols].sort((a, b) => {
-        const aIsPrediction = predictionProtocolNames.includes(a.name) ? 0 : 1;
-        const bIsPrediction = predictionProtocolNames.includes(b.name) ? 0 : 1;
-        return aIsPrediction - bIsPrediction;
-    });
-
     const seen = new Set<string>();
     const morning: CompiledProtocolItem[] = [];
     const midday: CompiledProtocolItem[] = [];
     const evening: CompiledProtocolItem[] = [];
 
-    for (const p of sorted) {
-        // 2. Deduplicate by name
+    // The input rankedProtocols is already sorted by Score (Drift + Prediction + Decay)
+    for (const p of rankedProtocols) {
+        // 1. Deduplicate by name
         if (seen.has(p.name)) continue;
         seen.add(p.name);
 
         const tod = p.time_of_day.toLowerCase();
 
-        // 3. Route to correct bucket with cap enforcement
-        if (MORNING_TAGS.has(tod) && morning.length < 3) {
-            morning.push(toItem(p));
-        } else if (MIDDAY_TAGS.has(tod) && midday.length < 2) {
-            midday.push(toItem(p));
-        } else if (EVENING_TAGS.has(tod) && evening.length < 3) {
-            evening.push(toItem(p));
+        // 2. Route to correct bucket with cap enforcement (Morning: 3, Midday: 2, Evening: 3)
+        if (MORNING_TAGS.has(tod)) {
+            if (morning.length < 3) morning.push(toItem(p));
+        } else if (MIDDAY_TAGS.has(tod)) {
+            if (midday.length < 2) midday.push(toItem(p));
+        } else if (EVENING_TAGS.has(tod)) {
+            if (evening.length < 3) evening.push(toItem(p));
         }
     }
 

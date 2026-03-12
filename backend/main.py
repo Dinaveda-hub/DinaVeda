@@ -12,7 +12,13 @@ from dotenv import load_dotenv
 sys.path.append(str(Path(__file__).parent))
 
 from wellness_engine import VedaEngine
-from ai.supervisor_agent import SupervisorAgent
+from ai.ai_service import generate_module_plan
+from ai.insight_agent import generate_daily_insight
+from billing.routes import router as billing_router
+from billing.subscription_guard import require_premium
+from analysis.pattern_routes import router as pattern_router
+from analysis.pattern_engine import get_user_patterns
+from fastapi import Depends
 
 load_dotenv()
 
@@ -41,7 +47,9 @@ app.add_middleware(
 )
 
 engine = VedaEngine()
-supervisor = SupervisorAgent()
+
+app.include_router(billing_router, prefix="/api/billing", tags=["billing"])
+app.include_router(pattern_router, prefix="/api", tags=["patterns"])
 
 
 # ─────────────────────────────────────────────
@@ -73,17 +81,16 @@ class DailyLogPayload(BaseModel):
 
     # Constitution
     prakriti: str = "Unknown"
-    vikriti: str = "Unknown"
+    user_id: str
+    items: list[str]
 
-    # Custom User Input
-    custom_note: str = ""
-
-
-class ChatPayload(BaseModel):
-    message: str
-    prakriti: str = "Unknown"
-
-
+class ProtocolExplanationRequest(BaseModel):
+    protocol: str
+    state: dict
+    
+class HealthInsightRequest(BaseModel):
+    state: dict
+    
 class PhysiologyRequest(BaseModel):
     """
     POST /state or POST /protocols
@@ -99,6 +106,12 @@ class PersonalizeRequest(BaseModel):
     season: str = "spring"
     health_goal: str = "general_wellness"
     is_premium: bool = False
+
+
+class ChatPayload(BaseModel):
+    message: str
+    context: dict = {} # User's current physiological state
+    prakriti: str = "Unknown"
 
 
 class NotifyRequest(BaseModel):
@@ -129,14 +142,84 @@ def analyze_log(payload: DailyLogPayload):
 @app.post("/api/chat")
 def chat_with_veda(payload: ChatPayload):
     try:
-        result = engine.process_chat_nlu(payload.message)
+        # 1. Provide structured reasoning context for better grounding
+        user_state_context = payload.context or {}
+        reasoning = generate_reasoning_context(user_state_context)
+        
+        system_injection = f"""
+You are an Ayurvedic health reasoning system, functioning as a deterministic clinical guide.
+Never output vague pleasantries. Base answers strictly on these physiological metrics:
+- Agni: {user_state_context.get('agni', 'Unknown')}
+- Vata: {user_state_context.get('vata', 'Unknown')}
+- Pitta: {user_state_context.get('pitta', 'Unknown')}
+- Kapha: {user_state_context.get('kapha', 'Unknown')}
+
+The analytical engine observes this primary imbalance: {reasoning.get("primary_imbalance")}
+Likely causing vectors: {", ".join(reasoning.get("likely_causes", ["Unknown"]))}.
+
+You MUST structure your response with these exact markdown headings, providing ONE sentence per section:
+Observed Signals
+Physiological Interpretation
+Dosha Impact
+Correction
+
+Avoid diagnosing disease. Answer the user query: "{payload.message}"
+"""
+        
+        # 2. Call existing LLM through engine
+        result = engine.process_chat_nlu(system_injection)
+        
+        # 3. Validate structural safety
+        if not validate_clinical_response(result.get("reply", "")):
+             result["reply"] = format_fallback_response(user_state_context)
+             
         return result
     except Exception as e:
         print(f"Chat error: {e}")
         return {
-            "reply": "I'm currently resting my neural core to process the universe's rhythms. Please breathe deeply and share your thoughts in a few minutes.",
+            "reply": format_fallback_response(payload.context or {}),
             "signals": []
         }
+
+@app.post("/ai/protocol-explanation")
+def get_protocol_explanation(payload: ProtocolExplanationRequest, user_id: str = Depends(require_premium)):
+    """Premium-tier feature: Clinically explains why a recommended protocol was selected."""
+    reasoning = generate_reasoning_context(payload.state)
+    
+    prompt = f"""
+You are the Dinaveda Ayurvedic clinical reasoning system.
+Explain why the protocol "{payload.protocol.replace('_', ' ')}" is recommended for a user with:
+- Primary Imbalance: {reasoning.get("primary_imbalance")}
+- Agni Level: {payload.state.get('agni', 'Unknown')}
+- Likely systemic causes: {", ".join(reasoning.get("likely_causes", []))}
+
+Explain in simple language. Focus on cause -> effect -> correction. Limit response to exactly 4 sentences.
+Do NOT use markdown headers, just return exactly four clean, clinical sentences.
+"""
+    result = engine.process_chat_nlu(prompt)
+    return {"explanation_text": result.get("reply", "")}
+
+@app.post("/ai/health-insight")
+def get_daily_insight(payload: HealthInsightRequest, user_id: str = Depends(require_premium)):
+    """Premium-tier feature: Scans biological state to determine highest priority systemic risk."""
+    reasoning = generate_reasoning_context(payload.state)
+    
+    # Fetch user's detected behavioral patterns for personalized insight
+    user_patterns = []
+    try:
+        user_patterns = get_user_patterns(user_id)
+    except Exception:
+        pass  # Graceful degradation — insights work without patterns
+    
+    insight_text = generate_daily_insight(
+        state=payload.state,
+        previous_state={},
+        logs=[],
+        engine=engine,
+        patterns=user_patterns
+    )
+    
+    return {"insight": insight_text}
 
 
 @app.get("/api/state")
@@ -172,19 +255,16 @@ def get_protocols(payload: PhysiologyRequest):
 
 
 @app.post("/api/personalize")
-async def personalize_module(payload: PersonalizeRequest):
+async def personalize_module(payload: PersonalizeRequest, user_id: str = Depends(require_premium)):
     """
-    AI Personalization — Orchestrated by SupervisorAgent.
-    Now available to all users.
+    AI Personalization — Orchestrated by the Prompt Router supervisor.
     """
-    # 2. Dispatch to supervisor
     try:
-        content = await supervisor.dispatch(
+        content = generate_module_plan(
             module=payload.module,
             state=payload.state,
             protocols=payload.protocols,
-            season=payload.season,
-            health_goal=payload.health_goal
+            engine=engine
         )
         return {
             "content": content,

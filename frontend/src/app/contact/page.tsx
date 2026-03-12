@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Mail, Globe, Sparkles, ArrowLeft, Heart } from "lucide-react";
+import { Mail, Globe, Sparkles, ArrowLeft, Heart, HelpCircle, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer";
@@ -34,52 +34,82 @@ export default function ContactPage() {
             </nav>
 
             <main className="max-w-4xl mx-auto px-6 pt-24 pb-32 relative z-10 text-center">
-                <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.05 } } }} className="space-y-12">
-                    <motion.div variants={itemVariants} className="space-y-4">
-                        <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter leading-none">Reach the Core</h1>
-                        <p className="text-lg md:text-xl font-bold text-slate-600 max-w-lg mx-auto leading-relaxed uppercase tracking-wide pt-4">
-                            Experiencing a neural drift? Our stewards are ready to help you find your rhythmic baseline.
+                <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }} className="space-y-16">
+                    <motion.div variants={itemVariants} className="space-y-6">
+                        <Heart className="w-10 h-10 text-rose-400 mx-auto mb-6 animate-pulse" />
+                        <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter leading-none">Get in Touch</h1>
+                        <p className="text-lg md:text-xl font-bold text-slate-600 max-w-lg mx-auto leading-relaxed pt-2">
+                            Need help or have a question? Our team is here to support your physiological journey.
                         </p>
                     </motion.div>
 
-                    <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left pt-10">
+                    <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left pt-6">
+                        {/* Support Card */}
                         <div className="glass p-10 rounded-[3rem] border border-white shadow-premium group hover:border-forest/30 transition-all duration-500">
                             <div className="w-16 h-16 bg-forest/5 text-forest rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
                                 <Mail className="w-8 h-8" />
                             </div>
-                            <h3 className="text-2xl font-black text-forest mb-4">Email Sanctuary</h3>
-                            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-10 leading-relaxed">
-                                Our stewards typically achieve synchronization with your inquiry within 24 to 48 dimensional hours.
+                            <h3 className="text-2xl font-black text-forest mb-4">Direct Support</h3>
+                            <p className="text-slate-500 font-medium text-sm mb-10 leading-relaxed">
+                                Our support team typically responds to inquiries within 24–48 hours. We are here to help with access, data, or technical issues.
                             </p>
                             <a href="mailto:support@dinaveda.com" className="inline-flex items-center gap-3 bg-forest text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-forest/20 hover:scale-[1.02] active:scale-95 transition-all">
                                 support@dinaveda.com
                             </a>
                         </div>
 
-                        <div className="glass p-10 rounded-[3rem] border border-white shadow-premium group hover:border-gold/30 transition-all duration-500">
+                        {/* FAQ Card */}
+                        <Link href="/faq" className="glass p-10 rounded-[3rem] border border-white shadow-premium group hover:border-gold/30 transition-all duration-500">
                             <div className="w-16 h-16 bg-gold/5 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
-                                <Globe className="w-8 h-8" />
+                                <HelpCircle className="w-8 h-8" />
                             </div>
-                            <h3 className="text-2xl font-black text-forest mb-4">Remote Sync</h3>
-                            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-10 leading-relaxed">
-                                We operate as a borderless entity, merging ancient scholars from the East with modern technologists from the West.
+                            <h3 className="text-2xl font-black text-forest mb-4">Quick Help</h3>
+                            <p className="text-slate-500 font-medium text-sm mb-10 leading-relaxed">
+                                Frequently asked questions about login, magic links, subscriptions, and health insights.
                             </p>
-                            <div className="inline-flex items-center gap-3 text-slate-400 font-black uppercase text-xs tracking-[0.3em] bg-slate-50 px-6 py-4 rounded-full border border-slate-200">
-                                Distributed Core
+                            <div className="inline-flex items-center gap-3 text-gold font-black uppercase text-[10px] tracking-[0.3em] bg-gold/5 px-6 py-4 rounded-full border border-gold/10 group-hover:bg-gold group-hover:text-white transition-all">
+                                Browse FAQ
                             </div>
-                        </div>
+                        </Link>
                     </motion.div>
 
-                    <motion.section variants={itemVariants} className="pt-20">
-                        <div className="glass p-12 rounded-[4rem] border border-white max-w-2xl mx-auto space-y-8">
-                            <Sparkles className="w-8 h-8 text-gold/60 mx-auto" />
-                            <h3 className="text-3xl font-black text-forest tracking-tighter">Collaborations</h3>
-                            <p className="text-slate-500 font-bold text-sm uppercase tracking-widest leading-relaxed">
-                                Are you an Ayurvedic researcher or neural engine specialist? We are always looking to expand our rhythmic algorithms.
+                    {/* Secondary Tiers */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                        <motion.div variants={itemVariants} className="text-left glass p-8 rounded-[2.5rem] border border-white/60">
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="w-10 h-10 rounded-xl bg-forest/5 flex items-center justify-center text-forest">
+                                    <Globe className="w-5 h-5" />
+                                </div>
+                                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-forest">Partnerships</h4>
+                            </div>
+                            <p className="text-slate-500 font-medium text-sm leading-relaxed mb-6">
+                                For brand integrations or strategic health partnerships.
                             </p>
-                            <a href="mailto:support@dinaveda.com" className="font-black text-forest hover:opacity-70 transition-opacity tracking-widest text-sm uppercase">stewardship@dinaveda.com</a>
-                        </div>
-                    </motion.section>
+                            <a href="mailto:support@dinaveda.com" className="font-black text-forest hover:opacity-70 transition-opacity tracking-widest text-[10px] uppercase">
+                                support@dinaveda.com
+                            </a>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="text-left glass p-8 rounded-[2.5rem] border border-white/60">
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="w-10 h-10 rounded-xl bg-gold/5 flex items-center justify-center text-gold">
+                                    <Sparkles className="w-5 h-5" />
+                                </div>
+                                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-forest">Research</h4>
+                            </div>
+                            <p className="text-slate-500 font-medium text-sm leading-relaxed mb-6">
+                                For Ayurvedic research labs or data science inquiries.
+                            </p>
+                            <a href="mailto:support@dinaveda.com" className="font-black text-forest hover:opacity-70 transition-opacity tracking-widest text-[10px] uppercase">
+                                support@dinaveda.com
+                            </a>
+                        </motion.div>
+                    </div>
+
+                    <motion.div variants={itemVariants} className="pt-20 text-[10px] font-medium text-slate-400 max-w-md mx-auto leading-relaxed">
+                        Dinaveda provides wellness guidance and educational insights. 
+                        It does not replace professional medical advice.
+                    </motion.div>
                 </motion.div>
             </main>
 

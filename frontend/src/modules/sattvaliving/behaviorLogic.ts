@@ -6,7 +6,7 @@ export function filterSattvalivingProtocols(protocols: Protocol[]): Protocol[] {
 }
 
 export function getBehaviorInsight(state: VedaState): string {
-    if (state.screen_exposure > 70) return "Digital overload. Implement a 2-hour digital fast before sleep.";
-    if (state.stress_load > 50) return "High behavioral friction. Focus on Achara Rasayana (social and ethical rejuvenation).";
+    if (state.circadian < 30) return "Digital overload. Implement a 2-hour digital fast before sleep.";
+    if (state.stress > 50) return "High behavioral friction. Focus on Achara Rasayana (social and ethical rejuvenation)";
     return "Behavioral harmony active. Your lifestyle aligns with your physiological needs.";
 }

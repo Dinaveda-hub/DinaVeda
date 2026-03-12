@@ -1,33 +1,14 @@
-import seasonalData from '../data/physiology/seasonal_multipliers.json';
-
 export interface SeasonalMultipliers {
-    vata_multiplier: number;
-    pitta_multiplier: number;
-    kapha_multiplier: number;
+    vata: number;
+    pitta: number;
+    kapha: number;
 }
 
-export function getSeasonalMultipliers(season: string): SeasonalMultipliers {
-    const s = season.toLowerCase();
+export function getSeasonalMultipliers(rutu_index: number): SeasonalMultipliers {
+    // Bounded linear interpolation for smoother transitions (0.85 - 1.15 range)
+    const vata = 0.9 + (rutu_index / 100) * 0.2;
+    const pitta = 1.1 - (rutu_index / 100) * 0.2;
+    const kapha = 1.0 + Math.sin((rutu_index / 100) * Math.PI) * 0.15;
 
-    // Default baseline
-    const baseline: SeasonalMultipliers = {
-        vata_multiplier: 1.0,
-        pitta_multiplier: 1.0,
-        kapha_multiplier: 1.0
-    };
-
-    if (s.includes('spring') || s.includes('vasanta')) {
-        return { ...baseline, ...seasonalData.spring };
-    }
-    if (s.includes('summer') || s.includes('grishma')) {
-        return { ...baseline, ...seasonalData.summer };
-    }
-    if (s.includes('autumn') || s.includes('fall') || s.includes('sharad')) {
-        return { ...baseline, ...seasonalData.autumn };
-    }
-    if (s.includes('winter') || s.includes('hemanta') || s.includes('shishira')) {
-        return { ...baseline, ...seasonalData.winter };
-    }
-
-    return baseline;
+    return { vata, pitta, kapha };
 }

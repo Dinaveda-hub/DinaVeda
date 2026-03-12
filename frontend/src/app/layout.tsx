@@ -1,28 +1,33 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalNav from "@/components/GlobalNav";
+import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
+import SystemController from "@/components/system/SystemController";
+import Script from "next/script";
+import GlobalRegistration from "@/components/GlobalRegistration";
+import OneSignalInitializer from "@/components/OneSignalInitializer";
+import NotificationMonitor from "@/components/NotificationMonitor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
-import OneSignalInitializer from "@/components/OneSignalInitializer";
-import NotificationMonitor from "@/components/NotificationMonitor";
-import GlobalRegistration from "@/components/GlobalRegistration";
-import PwaInstallBanner from "@/components/PwaInstallBanner";
-import { PhysiologyProvider } from "@/contexts/PhysiologyContext";
-import Script from "next/script";
-
 export const metadata: Metadata = {
-  title: "Dinaveda | Personalized Ayurvedic AI",
-  description: "Your daily guide to holistic wellness, aligning ancient Ayurvedic wisdom with your unique constitution and real-world circadian rhythms.",
+  title: {
+    default: "Dinaveda | Personalized Ayurvedic AI",
+    template: "%s | Dinaveda",
+  },
+  description:
+    "Your daily guide to holistic wellness combining Ayurvedic wisdom with circadian health.",
   icons: {
     icon: [
       { url: "/favicon.png" },
@@ -40,7 +45,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json?v=4",
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#1B5E43",
   width: "device-width",
   initialScale: 1,
@@ -49,50 +54,37 @@ export const viewport = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}
-        suppressHydrationWarning
-      >
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
+        <link rel="preconnect" href="https://cdn.onesignal.com" />
+
+        {/* OneSignal CDN — must load before SystemController initializes it */}
         <Script
           src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
+        
+        <OneSignalInitializer />
+        <GlobalRegistration />
+        <NotificationMonitor />
+
         <PhysiologyProvider>
-          <OneSignalInitializer />
-          <GlobalRegistration />
-          <NotificationMonitor />
-          <PwaInstallBanner />
-          <div className="flex flex-col md:flex-row min-h-screen">
+          {/* Unified system lifecycle: SW, OneSignal, auth registration, notifications, PWA prompt */}
+          <SystemController />
+
+          <div className="flex flex-col md:flex-row min-h-dvh">
             <GlobalNav />
-            <main className="flex-1 flex flex-col min-h-screen">
+
+            <main className="flex-1 flex flex-col min-h-dvh">
               {children}
             </main>
           </div>
         </PhysiologyProvider>
-        <Script id="register-sw" strategy="afterInteractive">
-          {`
-            if ('serviceWorker' in navigator) {
-              const register = () => {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, function(err) {
-                  console.log('ServiceWorker registration failed: ', err);
-                });
-              };
-              
-              if (document.readyState === 'complete') {
-                register();
-              } else {
-                window.addEventListener('load', register);
-              }
-            }
-          `}
-        </Script>
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       </body>
     </html>
   );

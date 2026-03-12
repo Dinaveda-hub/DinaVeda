@@ -1,21 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import {
-    ChevronLeft, BrainCircuit, Activity, Moon, Utensils,
-    Zap, CloudSun, Leaf, CheckCircle2,
-    ListChecks, Clock, Wind, Flame, Sparkles, Lock
-} from "lucide-react";
+import React, { useState, useEffect, useMemo, use } from "react";
+import { ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { createClient } from "@/utils/supabase/client";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
 import { computeVikriti } from "@/engine/vikritiEngine";
-import { selectProtocols, filterProtocols } from "@/engine/protocolSelectionEngine";
-import { humanizeProtocolName } from "@/utils/stringUtils";
+import { selectProtocols, filterProtocols, Protocol } from "@/engine/protocolSelectionEngine";
+import { getProtocolsForModule, ModuleName } from "@/engine/moduleEngine";
+import { formatProtocolName } from "@/utils/stringUtils";
+import { fetchUserProtocolWeights, ProtocolWeights } from "@/utils/userWeightsService";
 import ModuleHistory from "@/components/ModuleHistory";
+import { MODULE_MAP } from "@/data/moduleRegistry";
 
-// Domain Module Pages
+// Domain Module Pages — static imports for dynamic component rendering
 import NutrivedaPage from "@/modules/nutriveda/NutrivedaPage";
 import AyufitPage from "@/modules/ayufit/AyufitPage";
 import ManasayurPage from "@/modules/manasayur/ManasayurPage";
@@ -23,89 +22,20 @@ import SomasleepPage from "@/modules/somasleep/SomasleepPage";
 import SattvalivingPage from "@/modules/sattvaliving/SattvalivingPage";
 import DinavedaPage from "@/modules/dinaveda/DinavedaPage";
 import RutuvedaPage from "@/modules/rutuveda/RutuvedaPage";
+import ProtocolExplanation from "@/components/modules/ProtocolExplanation"; // New import
 
 // ─────────────────────────────────────────────────────────
-// Module Data Registry
+// Dynamic Component Map (replaces conditional slug checks)
 // ─────────────────────────────────────────────────────────
 
-const moduleData: Record<string, any> = {
-    somasleep: {
-        title: "Somasleep",
-        subtitle: "Nidra & Sleep Architecture",
-        icon: Moon,
-        principles: "Nidra is the natural state of restoration. Proper Sleep provides strength, immunity, and cognitive clarity.",
-        vedaInsight: "The Charaka Samhita defines Nidra as one of the 'Trayopastambha' (Three Pillars of Life). It is essential for the nourishment of Ojas.",
-        stats: [
-            { label: "Circadian Sync", getValue: (s: any) => `${Math.round(s.circadian_alignment)}%` },
-            { label: "Sleep Quality", getValue: (s: any) => s.circadian_alignment > 80 ? "Restorative" : "Disrupted" }
-        ]
-    },
-    nutriveda: {
-        title: "Nutriveda",
-        subtitle: "Ahara & Food Medicine",
-        icon: Utensils,
-        principles: "Ahara is the primary source of biological fuel. When diet is correct, medicine is of no need.",
-        vedaInsight: "Ahara dictates the quality of all seven Dhatus (tissues).",
-        stats: [
-            { label: "Agni Strength", getValue: (s: any) => `${Math.round(s.agni_strength)}/100` },
-            { label: "Metabolic State", getValue: (s: any) => s.agni_strength > 75 ? "Teekshna (Sharp)" : s.agni_strength > 50 ? "Sama (Balanced)" : "Manda (Dull)" }
-        ]
-    },
-    dinaveda: {
-        title: "Dinaveda",
-        subtitle: "Dinacharya & Daily Rituals",
-        icon: Activity,
-        principles: "Mastery over the self begins with mastery over the day. Daily rhythm establishes the biological clock.",
-        vedaInsight: "Dinacharya aligns your individual biological rhythm with the cosmic solar cycle to prevent chronic imbalances.",
-        stats: [
-            { label: "Ojas Core", getValue: (s: any) => `${Math.round(s.ojas_score)}` },
-            { label: "Vitality State", getValue: (s: any) => s.ojas_score > 85 ? "Excellent" : "Stable" }
-        ]
-    },
-    rutuveda: {
-        title: "Rutuveda",
-        subtitle: "Ritucharya & Seasonality",
-        icon: CloudSun,
-        principles: "As the universe shifts, so must the inner biological fire. Harmony with seasons prevents disease.",
-        vedaInsight: "Each Ritu (season) requires specific shifts in Ahara and Vihara. Kapha accumulates in winter and melts in spring.",
-        stats: [
-            { label: "Current Ritu", getValue: (_s: any) => "Vasanta (Spring)" },
-            { label: "Dosha Risk", getValue: (_s: any, v: any) => v.dominant_dosha }
-        ]
-    },
-    ayufit: {
-        title: "Ayufit",
-        subtitle: "Vyayama & Movement",
-        icon: Zap,
-        principles: "Movement should provide lightness and strength without exhaustion. Exercise to half capacity.",
-        vedaInsight: "Vyayama brings 'Laghava' (lightness) to the body. Excessive exercise generates Vata.",
-        stats: [
-            { label: "Physical Strain", getValue: (s: any) => s.vata_state > 15 ? "High Vata" : "Balanced" },
-            { label: "Movement Pulse", getValue: (_s: any) => "Stable" }
-        ]
-    },
-    manasayur: {
-        title: "Manasayur",
-        subtitle: "Sadvritta & Mental Flow",
-        icon: BrainCircuit,
-        principles: "The mind follows the body, and the body follows the mind. Cognitive clarity is the ultimate Ojas.",
-        vedaInsight: "Mental hygiene prevents Pragyaparadha (crimes against wisdom).",
-        stats: [
-            { label: "Mental Clarity", getValue: (s: any) => s.vata_state < 10 ? "Clear (Sattvic)" : "Active (Rajasic)" },
-            { label: "Stress Load", getValue: (s: any) => s.ojas_score < 70 ? "Elevated" : "Low" }
-        ]
-    },
-    sattvaliving: {
-        title: "Sattvaliving",
-        subtitle: "Ethical & Harmonious Life",
-        icon: Leaf,
-        principles: "Sattva is the quality of clarity, harmony, and balance. Daily behavioral rituals cultivate inner purity.",
-        vedaInsight: "Sadvritta (ethical conduct) and daily behavioral hygiene prevent Pragyaparadha and maintain Ojas over time.",
-        stats: [
-            { label: "Stress Load", getValue: (s: any) => `${Math.round(s.stress_load)}/100` },
-            { label: "Mental Clarity", getValue: (s: any) => s.mental_clarity > 60 ? "Clear (Sattvic)" : "Clouded (Tamasic)" }
-        ]
-    },
+const MODULE_COMPONENTS: Record<string, React.ComponentType<any>> = {
+    nutriveda: NutrivedaPage,
+    ayufit: AyufitPage,
+    manasayur: ManasayurPage,
+    somasleep: SomasleepPage,
+    sattvaliving: SattvalivingPage,
+    dinaveda: DinavedaPage,
+    rutuveda: RutuvedaPage,
 };
 
 // ─────────────────────────────────────────────────────────
@@ -113,11 +43,7 @@ const moduleData: Record<string, any> = {
 // ─────────────────────────────────────────────────────────
 
 /**
- * Formats a snake_case slug into Title Case.
- */
-
-/**
- * Renders the AI routine text with basic formatting:
+ * Renders the AI routine text with basic formatting.
  */
 function RoutineText({ content }: { content: string }) {
     const lines = content.split('\n');
@@ -126,7 +52,6 @@ function RoutineText({ content }: { content: string }) {
             {lines.map((line, i) => {
                 const trimmed = line.trim();
                 if (!trimmed) return <div key={i} className="h-2" />;
-                // Section header: ends with ":" or is all-caps-ish and short
                 if (trimmed.endsWith(':') || /^[A-Z][A-Za-z\s]+:$/.test(trimmed)) {
                     return (
                         <p key={i} className="font-black text-forest text-xs uppercase tracking-[0.2em] mt-4 first:mt-0">
@@ -134,7 +59,6 @@ function RoutineText({ content }: { content: string }) {
                         </p>
                     );
                 }
-                // Bullet items
                 if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
                     return (
                         <p key={i} className="pl-3 text-slate-600 font-medium">
@@ -156,50 +80,87 @@ function RoutineText({ content }: { content: string }) {
 // Page Component
 // ─────────────────────────────────────────────────────────
 
-export default function ModuleDetail({ params }: { params: any }) {
-    const [slug, setSlug] = useState<string>("");
+export default function ModuleDetail({ params }: { params: Promise<{ slug: string }> }) {
+    // Fix #3: Use React.use() to unwrap the async params promise.
+    const { slug } = use(params);
 
     // Engine & Data State
-    const { state, isLoaded } = usePhysiologyState();
+    const { state, isLoaded, subscriptionStatus, userId } = usePhysiologyState();
     const [logs, setLogs] = useState<any[]>([]);
+    const [userWeights, setUserWeights] = useState<ProtocolWeights>({});
 
-    const supabase = createClient();
-
-    async function fetchLogs() {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-            const { data } = await supabase
-                .from("pulse_logs")
-                .select("*")
-                .eq("user_id", session.user.id)
-                .order("created_at", { ascending: false });
-            if (data) setLogs(data);
-        }
-    }
-
+    // Fix #9: Run data fetches once when auth is ready, not on every isLoaded change
     useEffect(() => {
-        fetchLogs();
+        if (!isLoaded) return;
+
+        let cancelled = false;
+
+        const init = async () => {
+            const supabase = createClient();
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (cancelled) return;
+
+            if (session) {
+                // Fix #10: Select only needed columns and limit to 50
+                const { data } = await supabase
+                    .from("pulse_logs")
+                    .select("id, created_at, ojas_score, agni, ama, mood, detailed_analysis, routines")
+                    .eq("user_id", session.user.id)
+                    .order("created_at", { ascending: false })
+                    .limit(50);
+
+                if (!cancelled && data) setLogs(data);
+            }
+
+            // Fetch user weights for protocol scoring
+            const weights = await fetchUserProtocolWeights();
+            if (!cancelled) setUserWeights(weights);
+        };
+
+        init();
+
+        return () => { cancelled = true; };
     }, [isLoaded]);
 
-    // ── Resolve slug from async params ──────────────────
-    useEffect(() => {
-        params.then((p: any) => {
-            setSlug(p.slug);
-        });
-    }, [params]);
+    // Fix #4 & #5: Memoize engine computations
+    const vikriti = useMemo(() => {
+        if (!isLoaded) return null;
+        return computeVikriti(state);
+    }, [state, isLoaded]);
 
-    if (!slug || !isLoaded) return null;
+    // Fix #6: Pass healthGoal and userWeights to selectProtocols
+    const healthGoal = typeof window !== 'undefined'
+        ? localStorage.getItem("health_goal") || "general_wellness"
+        : "general_wellness";
 
-    const mod = moduleData[slug] || moduleData.dinaveda;
+    const allProtocols = useMemo(() => {
+        if (!isLoaded) return [];
+        return selectProtocols(state, userWeights, healthGoal);
+    }, [state, userWeights, healthGoal, isLoaded]);
+
+    const moduleRecs = useMemo(() => {
+        const filtered = getProtocolsForModule(allProtocols, slug.toLowerCase() as ModuleName);
+        return filtered.slice(0, 4); // Show only top 4 to prevent user fatigue
+    }, [allProtocols, slug]);
+
+    const dailyProtocols = useMemo(() => {
+        if (slug !== 'dinaveda') return undefined;
+        // Enforce Module Isolation for Dinacharya view as well
+        const moduleSpecific = getProtocolsForModule(allProtocols, 'dinaveda');
+        // Still cap total protocols to 4 per rule
+        return filterProtocols(moduleSpecific.slice(0, 4));
+    }, [allProtocols, slug]);
+
+    if (!isLoaded || !vikriti) return null;
+
+    // Resolve module definition from shared registry
+    const mod = MODULE_MAP.get(slug) || MODULE_MAP.get("dinaveda")!;
     const Icon = mod.icon;
 
-    // ── Deterministic engine computes recommendations ────
-    const vikriti = computeVikriti(state);
-    const allProtocols = selectProtocols(state);
-    const moduleRecs = allProtocols.filter(p => p.module.toLowerCase() === (slug as string).toLowerCase());
-    const dailyProtocols = filterProtocols(allProtocols);
+    // Fix #8: Dynamic component lookup
+    const DomainComponent = MODULE_COMPONENTS[slug];
 
-    // ── Placeholder for domain-specific views ───────────
     return (
         <div className="bg-[#F8FAF9] min-h-screen font-sans pb-40 relative overflow-x-hidden">
             {/* Ambient background glows */}
@@ -224,59 +185,37 @@ export default function ModuleDetail({ params }: { params: any }) {
 
             {/* Main Content: Delegated to Domain Modules */}
             <main className="px-6 -mt-24 relative z-20 space-y-8 max-w-4xl mx-auto">
-                {slug === 'nutriveda' && (
-                    <NutrivedaPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
+                {DomainComponent ? (
+                    <DomainComponent
+                        state={state}
+                        vikriti={vikriti}
+                        protocols={moduleRecs}
+                        subscriptionStatus={subscriptionStatus}
+                        userId={userId}
+                        {...(slug === 'dinaveda' ? { dailyProtocols } : {})}
                     />
-                )}
-                {slug === 'ayufit' && (
-                    <AyufitPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
-                    />
-                )}
-                {slug === 'manasayur' && (
-                    <ManasayurPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
-                    />
-                )}
-                {slug === 'somasleep' && (
-                    <SomasleepPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
-                    />
-                )}
-                {slug === 'dinaveda' && (
-                    <DinavedaPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs} dailyProtocols={dailyProtocols}
-                    />
-                )}
-                {slug === 'rutuveda' && (
-                    <RutuvedaPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
-                    />
-                )}
-                {slug === 'sattvaliving' && (
-                    <SattvalivingPage
-                        state={state} vikriti={vikriti} protocols={moduleRecs}
-                    />
-                )}
-
-                {/* Module-Specific History */}
-                <ModuleHistory moduleSlug={slug} logs={logs} />
-
-                {/* Default/Fallback for non-personalized modules */}
-                {!['nutriveda', 'ayufit', 'manasayur', 'somasleep', 'sattvaliving', 'dinaveda', 'rutuveda'].includes(slug) && (
+                ) : (
+                    /* Fallback for non-personalized / future modules */
                     <section className="glass rounded-[3rem] p-10 md:p-12 shadow-premium border border-white">
                         <p className="text-xl font-bold text-slate-700">Detailed insights for this module are coming soon.</p>
                         <div className="mt-8 space-y-4">
                             {moduleRecs.map((p, i) => (
-                                <div key={i} className="bg-white/60 p-6 rounded-2xl border border-slate-100 flex justify-between">
-                                    <span className="font-bold text-forest">{humanizeProtocolName(p.name)}</span>
-                                    <span className="text-xs text-slate-400 font-bold uppercase">{p.time_of_day}</span>
+                                <div key={i} className="bg-white/60 p-6 rounded-2xl border border-slate-100 flex flex-col">
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-bold text-forest">
+                                            {p.display_name || formatProtocolName(p.name)}
+                                        </span>
+                                        <span className="text-xs text-slate-400 font-bold uppercase">{p.time_of_day}</span>
+                                    </div>
+                                    <ProtocolExplanation protocolName={p.name} />
                                 </div>
                             ))}
                         </div>
                     </section>
                 )}
+
+                {/* Module-Specific History */}
+                <ModuleHistory moduleSlug={slug} logs={logs} />
             </main>
         </div>
     );

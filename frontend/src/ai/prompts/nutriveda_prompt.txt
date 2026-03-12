@@ -22,12 +22,12 @@ Follow Ayurvedic principles:
 INPUT
 
 Physiology state:
-Vata_state: {{vata_state}}
-Pitta_state: {{pitta_state}}
-Kapha_state: {{kapha_state}}
+Vata_state: {{vata}}
+Pitta_state: {{pitta}}
+Kapha_state: {{kapha}}
 
-Agni_strength: {{agni_strength}}
-Agni_stability: {{agni_stability}}
+Agni: {{agni}}
+
 
 Season: {{season}}
 

@@ -1,12 +1,12 @@
 import { VedaState } from './stateModel';
+import { clamp } from '../utils/clamp';
 
 export interface VikritiMetrics {
-    vikriti_vata: number;
-    vikriti_pitta: number;
-    vikriti_kapha: number;
-    drift: number;
+    vata_diff: number;
+    pitta_diff: number;
+    kapha_diff: number;
     drift_index: number;
-    dominant_dosha: 'Vata' | 'Pitta' | 'Kapha' | 'Tridoshic';
+    dominant_dosha: string;
 }
 
 export class VikritiEngine {
@@ -17,36 +17,47 @@ export class VikritiEngine {
 
 /**
  * Functional version of Vikriti calculation for engine pipelining.
+ * Dual-Baseline Model:
+ * 1. Vikriti (Diffs) = Measured against individual Prakriti.
+ * 2. Drift (Stability) = Measured against neutral 50.
  */
 export function computeVikriti(state: VedaState): VikritiMetrics {
-    const vata_diff = state.vata_state - state.prakriti_vata;
-    const pitta_diff = state.pitta_state - state.prakriti_pitta;
-    const kapha_diff = state.kapha_state - state.prakriti_kapha;
+    // 1. Vikriti Calculation (Current - Individual Prakriti)
+    const vata_diff = state.vata - (state.prakriti_vata || 50);
+    const pitta_diff = state.pitta - (state.prakriti_pitta || 50);
+    const kapha_diff = state.kapha - (state.prakriti_kapha || 50);
 
-    const drift = (Math.abs(vata_diff) + Math.abs(pitta_diff) + Math.abs(kapha_diff)) / 3;
-    const drift_index = Math.min(100, drift * 2);
+    // 2. Drift Index (Current - Neutral 50)
+    // Tracks absolute system instability regardless of constitution.
+    const drift = (
+        Math.abs(state.vata - 50) +
+        Math.abs(state.pitta - 50) +
+        Math.abs(state.kapha - 50)
+    ) / 3;
+    const drift_index = clamp(drift, 0, 100);
 
-    let dominant_dosha: 'Vata' | 'Pitta' | 'Kapha' | 'Tridoshic' = 'Tridoshic';
+    // 3. Dominant Dosha (Largest absolute deviation from Prakriti)
     const absVata = Math.abs(vata_diff);
     const absPitta = Math.abs(pitta_diff);
     const absKapha = Math.abs(kapha_diff);
     const maxDev = Math.max(absVata, absPitta, absKapha);
 
+    let dominant_dosha = 'Balanced';
+
     if (maxDev < 5) {
-        dominant_dosha = 'Tridoshic';
-    } else if (maxDev === absVata) {
-        dominant_dosha = 'Vata';
-    } else if (maxDev === absPitta) {
-        dominant_dosha = 'Pitta';
-    } else if (maxDev === absKapha) {
-        dominant_dosha = 'Kapha';
+        dominant_dosha = 'Balanced';
+    } else {
+        const dominants: string[] = [];
+        if (absVata === maxDev) dominants.push('Vata');
+        if (absPitta === maxDev) dominants.push('Pitta');
+        if (absKapha === maxDev) dominants.push('Kapha');
+        dominant_dosha = dominants.join('-');
     }
 
     return {
-        vikriti_vata: vata_diff,
-        vikriti_pitta: pitta_diff,
-        vikriti_kapha: kapha_diff,
-        drift,
+        vata_diff,
+        pitta_diff,
+        kapha_diff,
         drift_index,
         dominant_dosha
     };

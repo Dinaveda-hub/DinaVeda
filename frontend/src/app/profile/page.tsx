@@ -53,7 +53,7 @@ export default function SettingsPage() {
     });
 
     const router = useRouter();
-    const { state } = usePhysiologyState();
+    const { state, subscriptionStatus } = usePhysiologyState();
 
     useEffect(() => {
         // Load notification settings
@@ -64,7 +64,8 @@ export default function SettingsPage() {
             const supabase = createClient();
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
-                setUserName(user.user_metadata?.full_name || user.email || "Seeker");
+                // Prefer email for identity trust, fallback to name, then Seeker
+                setUserName(user.email || user.user_metadata?.full_name || "Seeker");
             }
         };
         initProfile();
@@ -130,6 +131,17 @@ export default function SettingsPage() {
                             </div>
                         )
                     })
+                }
+            ]
+        },
+        {
+            title: "Premium",
+            items: [
+                {
+                    name: subscriptionStatus === "active" ? "Dinaveda Premium Active" : "Upgrade to Dinaveda Premium",
+                    icon: Zap,
+                    detail: subscriptionStatus === "active" ? "Full access to advanced AI insights" : "Unlock AI routines & advanced insights",
+                    link: "/pricing"
                 }
             ]
         },
@@ -381,11 +393,33 @@ export default function SettingsPage() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/5 to-transparent pointer-events-none -z-10 -ml-60 -mb-60" />
 
             <div className="max-w-2xl mx-auto relative z-10">
-                <header className="mb-16 md:mb-20">
+                <header className="mb-12 md:mb-16">
                     <div className="w-12 h-1 bg-forest/20 mb-6 rounded-full" />
                     <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter leading-none mb-5 md:mb-6">Settings</h1>
                     <p className="text-[10px] md:text-sm text-slate-400 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">Customize your Veda experience</p>
                 </header>
+
+                <div className="mb-12">
+                    <h2 className="text-xs font-black text-forest uppercase tracking-[0.3em] mb-6 ml-2">Current Biological Pulse</h2>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-6 glass rounded-[2.5rem] border border-white/40 shadow-premium">
+                        <div className="text-center p-4">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 block mb-1">Ojas</span>
+                            <span className="text-3xl font-black text-forest">{Math.round(state.ojas)}</span>
+                        </div>
+                        <div className="text-center p-4 border-l border-forest/5">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-orange-600 block mb-1">Agni</span>
+                            <span className="text-3xl font-black text-slate-700">{Math.round(state.agni)}</span>
+                        </div>
+                        <div className="text-center p-4 lg:border-l border-forest/5">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 block mb-1">Circadian</span>
+                            <span className="text-3xl font-black text-slate-700">{Math.round(state.circadian)}</span>
+                        </div>
+                        <div className="text-center p-4 border-l border-forest/5">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-rose-500 block mb-1">Drift</span>
+                            <span className="text-3xl font-black text-slate-700">{Math.round(state.stress)}</span>
+                        </div>
+                    </div>
+                </div>
 
                 <div className="space-y-12">
                     {sections.map((section, idx) => (

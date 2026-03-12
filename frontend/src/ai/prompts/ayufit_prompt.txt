@@ -12,12 +12,12 @@ RULES
 INPUT
 
 Dosha state:
-Vata_state: {{vata_state}}
-Pitta_state: {{pitta_state}}
-Kapha_state: {{kapha_state}}
+Vata_state: {{vata}}
+Pitta_state: {{pitta}}
+Kapha_state: {{kapha}}
 
 Energy and movement level:
-movement_level: {{movement_level}}
+movement: {{movement}}
 
 Selected protocols:
 {{protocol_list}}

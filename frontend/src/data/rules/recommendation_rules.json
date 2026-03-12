@@ -1,10 +1,12 @@
 [
     {
-        "condition": "vata_state > 60",
+        "variable": "vata",
+        "operator": ">",
+        "threshold": 35,
         "protocols": [
             "abhyanga",
             "padabhyanga",
-            "warm_nourishing_meals",
+            "warm_soup_meal",
             "grounding_yoga",
             "slow_breathing"
         ],
@@ -12,7 +14,9 @@
         "priority": 1
     },
     {
-        "condition": "vata_state > 75",
+        "variable": "vata",
+        "operator": ">",
+        "threshold": 50,
         "protocols": [
             "abhyanga",
             "padabhyanga",
@@ -24,18 +28,22 @@
         "priority": 1
     },
     {
-        "condition": "pitta_state > 60",
+        "variable": "pitta",
+        "operator": ">",
+        "threshold": 35,
         "protocols": [
             "cooling_pranayama",
-            "coriander_infusion",
-            "shaded_walk",
+            "herbal_coriander_water",
+            "shade_walk",
             "calming_meditation"
         ],
         "module": "manasayur",
         "priority": 1
     },
     {
-        "condition": "kapha_state > 60",
+        "variable": "kapha",
+        "operator": ">",
+        "threshold": 35,
         "protocols": [
             "brisk_walk",
             "vigorous_exercise",
@@ -46,10 +54,12 @@
         "priority": 1
     },
     {
-        "condition": "agni_strength < 40",
+        "variable": "agni",
+        "operator": "<",
+        "threshold": 60,
         "protocols": [
             "ginger_before_meal",
-            "warm_water",
+            "warm_water_morning",
             "digestive_walk",
             "warming_spices"
         ],
@@ -57,7 +67,9 @@
         "priority": 1
     },
     {
-        "condition": "agni_stability < 40",
+        "variable": "agni",
+        "operator": "<",
+        "threshold": 60,
         "protocols": [
             "regular_meals",
             "mindful_chewing",
@@ -67,38 +79,50 @@
         "priority": 2
     },
     {
-        "condition": "ama_risk > 50",
+        "variable": "ama",
+        "operator": ">",
+        "threshold": 30,
         "protocols": [
             "light_dinner",
             "ginger_before_meal",
-            "digestive_walk"
+            "digestive_walk",
+            "warm_water_morning",
+            "digestive_spice_mix"
         ],
         "module": "nutriveda",
         "priority": 1
     },
     {
-        "condition": "circadian_alignment < 50",
+        "variable": "circadian",
+        "operator": "<",
+        "threshold": 70,
         "protocols": [
             "early_wake",
             "morning_sunlight",
             "digital_detox",
-            "sleep_ritual"
+            "sleep_ritual",
+            "evening_wind_down"
         ],
         "module": "somasleep",
         "priority": 1
     },
     {
-        "condition": "sleep_debt > 50",
+        "variable": "sleep",
+        "operator": "<",
+        "threshold": 70,
         "protocols": [
             "padabhyanga",
             "calming_music",
-            "sleep_ritual"
+            "sleep_ritual",
+            "evening_wind_down"
         ],
         "module": "somasleep",
         "priority": 1
     },
     {
-        "condition": "bloating_level > 40",
+        "variable": "bloating",
+        "operator": ">",
+        "threshold": 25,
         "protocols": [
             "digestive_walk",
             "ginger_before_meal",
@@ -108,7 +132,9 @@
         "priority": 1
     },
     {
-        "condition": "digestion_comfort < 40",
+        "variable": "digestion",
+        "operator": "<",
+        "threshold": 70,
         "protocols": [
             "mindful_chewing",
             "meal_spacing",
@@ -118,17 +144,22 @@
         "priority": 2
     },
     {
-        "condition": "stress_load > 60",
+        "variable": "stress",
+        "operator": ">",
+        "threshold": 35,
         "protocols": [
             "meditation",
             "breathing_practice",
-            "nature_exposure"
+            "nature_exposure",
+            "grounding_yoga"
         ],
         "module": "manasayur",
         "priority": 1
     },
     {
-        "condition": "mental_clarity < 40",
+        "variable": "mental_clarity",
+        "operator": "<",
+        "threshold": 70,
         "protocols": [
             "morning_sunlight",
             "breathing_pause_break",
@@ -138,7 +169,9 @@
         "priority": 2
     },
     {
-        "condition": "movement_level < 30",
+        "variable": "movement",
+        "operator": "<",
+        "threshold": 50,
         "protocols": [
             "brisk_walk",
             "grounding_yoga",
@@ -148,7 +181,9 @@
         "priority": 1
     },
     {
-        "condition": "hydration_status < 40",
+        "variable": "hydration",
+        "operator": "<",
+        "threshold": 70,
         "protocols": [
             "afternoon_hydration",
             "morning_hydration"
@@ -157,7 +192,9 @@
         "priority": 2
     },
     {
-        "condition": "meal_timing < 40",
+        "variable": "circadian",
+        "operator": "<",
+        "threshold": 70,
         "protocols": [
             "regular_meal_timing",
             "midday_main_meal",
@@ -167,7 +204,9 @@
         "priority": 1
     },
     {
-        "condition": "ojas_recovery < 40",
+        "variable": "ojas",
+        "operator": "<",
+        "threshold": 60,
         "protocols": [
             "meditation",
             "gratitude_journaling",
@@ -175,5 +214,17 @@
         ],
         "module": "sattvaliving",
         "priority": 1
+    },
+    {
+        "variable": "is_onboarded",
+        "operator": "==",
+        "threshold": true,
+        "protocols": [
+            "sunlight_exposure",
+            "mindful_eating",
+            "digital_detox_evening"
+        ],
+        "module": "dinaveda",
+        "priority": 10
     }
 ]

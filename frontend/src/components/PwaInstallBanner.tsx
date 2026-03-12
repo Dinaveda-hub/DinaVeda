@@ -4,12 +4,22 @@ import { useState, useEffect } from "react";
 import { Download, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface BeforeInstallPromptEvent extends Event {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
 export default function PwaInstallBanner() {
-    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const handleBeforeInstallPrompt = (e: any) => {
+        // Prevent showing if already dismissed in this browser
+        if (typeof window !== "undefined" && localStorage.getItem("pwa-install-dismissed") === "true") {
+            return;
+        }
+
+        const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
             // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
             // Stash the event so it can be triggered later.
@@ -17,7 +27,13 @@ export default function PwaInstallBanner() {
             setIsVisible(true);
         };
 
-        window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+        const handleAppInstalled = () => {
+            setIsVisible(false);
+            setDeferredPrompt(null);
+        };
+
+        window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt as any);
+        window.addEventListener("appinstalled", handleAppInstalled);
 
         // Check if app is already installed
         if (window.matchMedia("(display-mode: standalone)").matches) {
@@ -25,7 +41,8 @@ export default function PwaInstallBanner() {
         }
 
         return () => {
-            window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+            window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt as any);
+            window.removeEventListener("appinstalled", handleAppInstalled);
         };
     }, []);
 
@@ -33,7 +50,7 @@ export default function PwaInstallBanner() {
         if (!deferredPrompt) return;
 
         // Show the install prompt
-        deferredPrompt.prompt();
+        await deferredPrompt.prompt();
 
         // Wait for the user to respond to the prompt
         const { outcome } = await deferredPrompt.userChoice;
@@ -41,6 +58,11 @@ export default function PwaInstallBanner() {
 
         // We've used the prompt, and can't use it again, throw it away
         setDeferredPrompt(null);
+        setIsVisible(false);
+    };
+
+    const handleDismiss = () => {
+        localStorage.setItem("pwa-install-dismissed", "true");
         setIsVisible(false);
     };
 
@@ -60,7 +82,7 @@ export default function PwaInstallBanner() {
                             </div>
                             <div>
                                 <h3 className="text-sm font-black text-forest leading-none mb-1">Install Dinaveda</h3>
-                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Better offline experience</p>
+                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Track physiology offline</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -71,8 +93,9 @@ export default function PwaInstallBanner() {
                                 Install
                             </button>
                             <button
-                                onClick={() => setIsVisible(false)}
+                                onClick={handleDismiss}
                                 className="p-2 text-slate-400 hover:text-forest transition-colors"
+                                aria-label="Dismiss install banner"
                             >
                                 <X className="w-5 h-5" />
                             </button>

@@ -1,10 +1,18 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { FileText, AlertCircle, Scale, ArrowLeft, Heart } from "lucide-react";
+import { AlertCircle, Scale, ArrowLeft, ShieldCheck, CreditCard, BrainCircuit, Users, BookOpen, AlertTriangle, XCircle, Gavel, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer";
+
+// Metadata cannot be in client components, but included here for move to layout/meta file.
+/*
+export const metadata = {
+  title: "Terms of Service – Dinaveda",
+  description: "Terms governing the use of the Dinaveda wellness platform."
+}
+*/
 
 export default function TermsPage() {
     const itemVariants: Variants = {
@@ -16,8 +24,66 @@ export default function TermsPage() {
         }
     };
 
+    const sections = [
+        {
+            title: "1. Acceptance of Terms",
+            icon: ShieldCheck,
+            content: "By accessing or using Dinaveda, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you should discontinue use of the service immediately."
+        },
+        {
+            title: "2. Service Description",
+            icon: BookOpen,
+            content: "Dinaveda is a digital wellness platform providing insights based on Ayurvedic principles and user-provided lifestyle signals. Our goal is to support your health journey through personalized information and rhythmic patterns."
+        },
+        {
+            title: "3. User Accounts",
+            icon: Users,
+            content: "You are responsible for maintaining the confidentiality of your account credentials. You agree to provide accurate, complete, and updated information. Inaccurate biological data may lead to inaccurate wellness guidance."
+        },
+        {
+            title: "4. Subscriptions and Payments",
+            icon: CreditCard,
+            content: "Certain features require a paid subscription, processed securely via Razorpay. Subscriptions are billed according to your selected cycle. You may cancel at any time; access continues until the current billing period concludes."
+        },
+        {
+            title: "5. AI Content Disclaimer",
+            icon: BrainCircuit,
+            content: "AI-generated routines and recommendations are informational tools designed to support wellness habits. These are generated via computational models and are not clinical, therapeutic, or diagnostic instructions."
+        },
+        {
+            title: "6. User Responsibilities",
+            icon: Scale,
+            content: "You agree not to use the service for any unlawful purpose. You are solely responsible for actions taken using your account and for ensuring that your use of the service complies with local regulations."
+        },
+        {
+            title: "7. Intellectual Property",
+            icon: BookOpen,
+            content: "The service, its original content, features, proprietary algorithms, and architectural designs are the exclusive property of Dinaveda and are protected by international copyright and intellectual property laws."
+        },
+        {
+            title: "8. Limitation of Liability",
+            icon: AlertTriangle,
+            content: "Dinaveda, its directors, and employees shall not be liable for any indirect, incidental, or consequential damages arising from your use of the service or any reliance on health-related information provided."
+        },
+        {
+            title: "9. Termination",
+            icon: XCircle,
+            content: "We reserve the right to suspend or terminate your account without notice if we determine you have violated these terms or engaged in behavior that puts the platform or its users at risk."
+        },
+        {
+            title: "10. Governing Law",
+            icon: Gavel,
+            content: "These Terms shall be governed and construed in accordance with the laws of India, without regard to its conflict of law provisions."
+        },
+        {
+            title: "11. Contact Information",
+            icon: Mail,
+            content: "For legal inquiries or clarifications regarding these terms, please reach out to our legal steward at support@dinaveda.com."
+        }
+    ];
+
     return (
-        <div className="min-h-screen bg-[#F8FAF9] selection:bg-forest/20 selection:text-forest overflow-x-hidden text-slate-800">
+        <div className="min-h-screen bg-[#F8FAF9] selection:bg-forest/20 selection:text-forest overflow-x-hidden text-slate-800 font-sans">
             {/* Ambient Background */}
             <div className="fixed top-0 left-0 w-[600px] h-[600px] bg-gold/5 rounded-full -ml-40 -mt-40 blur-[120px] pointer-events-none" />
 
@@ -36,8 +102,8 @@ export default function TermsPage() {
             <main className="max-w-3xl mx-auto px-6 pt-24 pb-32 relative z-10">
                 <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.05 } } }} className="space-y-12">
                     <motion.div variants={itemVariants} className="space-y-4">
-                        <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none">Terms of Harmony</h1>
-                        <p className="text-xs font-black text-slate-400 uppercase tracking-[0.4em]">Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+                        <h1 className="text-5xl md:text-7xl font-black text-forest tracking-tighter leading-none">Terms of Service</h1>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Last Updated: March 2026</p>
                     </motion.div>
 
                     {/* CRITICAL MEDICAL DISCLAIMER */}
@@ -47,50 +113,42 @@ export default function TermsPage() {
                             <AlertCircle className="w-6 h-6" />
                             <h2 className="text-sm font-black uppercase tracking-[0.2em]">Medical Disclaimer (Critical)</h2>
                         </div>
-                        <p className="text-sm font-bold text-orange-900 leading-relaxed uppercase tracking-tighter">
-                            Dinaveda is an educational wellness and lifestyle tool. It is NOT a substitute for professional medical advice, clinical diagnosis, or treatment.
+                        <p className="text-sm font-bold text-orange-900 leading-relaxed">
+                            Dinaveda is an educational wellness tool. It is NOT a substitute for professional medical advice, clinical diagnosis, or treatment.
                         </p>
-                        <p className="text-xs font-bold text-orange-800/80 leading-relaxed uppercase tracking-wide">
-                            The AI-generated insights, Prakriti assessments, and daily rituals provided are for informational purposes only. Never disregard professional medical advice or delay seeking it because of something you have read on Dinaveda. Always consult with a qualified healthcare provider before making significant behavioral lifestyle adjustments.
+                        <p className="text-sm font-medium text-orange-800/80 leading-relaxed">
+                            The AI-generated insights, Prakriti assessments, and daily rituals provided are for informational purposes only. Never disregard professional medical advice or delay seeking it because of something you have read on Dinaveda. If you have a medical emergency, you should discontinue use of the service and consult with a medical professional.
                         </p>
                     </motion.div>
 
                     <div className="space-y-16 pt-10">
-                        <motion.section variants={itemVariants} className="space-y-6">
-                            <h2 className="text-2xl font-black text-forest tracking-tight flex items-center gap-3">
-                                <span className="w-2 h-8 bg-forest/20 rounded-full" /> 1. Acceptance of Terms
-                            </h2>
-                            <p className="font-bold text-slate-600 leading-relaxed uppercase tracking-tight text-sm">
-                                By accessing or using the Service, you agree to be bound by these Terms of Harmony. If you disagree with any part of these terms, you should gracefully exit the sanctuary and cease all usage.
-                            </p>
-                        </motion.section>
-
-                        <motion.section variants={itemVariants} className="space-y-6">
-                            <h2 className="text-2xl font-black text-forest tracking-tight flex items-center gap-3">
-                                <span className="w-2 h-8 bg-forest/20 rounded-full" /> 2. User Guardianship
-                            </h2>
-                            <p className="font-bold text-slate-600 leading-relaxed uppercase tracking-tight text-sm">
-                                You are the guardian of your account credentials. You understand that providing inaccurate biological data will result in sub-optimal rhythmic guidance from the neural core.
-                            </p>
-                        </motion.section>
-
-                        <motion.section variants={itemVariants} className="space-y-6">
-                            <h2 className="text-2xl font-black text-forest tracking-tight flex items-center gap-3">
-                                <span className="w-2 h-8 bg-forest/20 rounded-full" /> 3. Algorithmic Integrity
-                            </h2>
-                            <p className="font-bold text-slate-600 leading-relaxed uppercase tracking-tight text-sm">
-                                The Service's designs, proprietary algorithms, and brand essence are protected under intellectual property laws. Unauthorized replication of our neural architecture is strictly prohibited.
-                            </p>
-                        </motion.section>
+                        {sections.map((section, idx) => (
+                            <motion.section key={idx} variants={itemVariants} className="space-y-6">
+                                <h2 className="text-xl md:text-2xl font-black text-forest tracking-tight flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-forest shrink-0 shadow-sm">
+                                        <section.icon className="w-5 h-5" />
+                                    </div>
+                                    {section.title}
+                                </h2>
+                                <p className="font-medium text-slate-600 leading-relaxed text-sm md:text-base">
+                                    {section.content}
+                                </p>
+                            </motion.section>
+                        ))}
                     </div>
 
                     <motion.section variants={itemVariants} className="pt-20 border-t border-slate-100 flex flex-col items-center text-center">
-                        <div className="w-16 h-16 rounded-full bg-forest/5 flex items-center justify-center text-forest mb-6">
+                        <div className="w-16 h-16 rounded-3xl bg-forest/5 flex items-center justify-center text-forest mb-6">
                             <Scale className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-black text-forest mb-4">Legal Clarity</h3>
-                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-8">Synchronize with our legal stewards</p>
-                        <a href="mailto:support@dinaveda.com" className="font-black text-forest hover:opacity-70 transition-opacity tracking-widest text-sm uppercase">support@dinaveda.com</a>
+                        <h3 className="text-xl font-black text-forest mb-4 tracking-tight">Legal Clarity Questions?</h3>
+                        <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-8">Direct Access to Our Legal Steward</p>
+                        <a 
+                            href="mailto:support@dinaveda.com" 
+                            className="inline-flex items-center gap-3 bg-forest text-white px-8 py-4 rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-forest/20 hover:scale-[1.05] active:scale-95 transition-all"
+                        >
+                            <Mail className="w-4 h-4" /> support@dinaveda.com
+                        </a>
                     </motion.section>
                 </motion.div>
             </main>

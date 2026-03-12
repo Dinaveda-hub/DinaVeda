@@ -1,0 +1,32 @@
+{
+    "conflicts": [
+        [
+            "poor_sleep",
+            "deep_sleep"
+        ],
+        [
+            "late_sleep",
+            "deep_sleep"
+        ],
+        [
+            "late_dinner",
+            "skipped_meal"
+        ],
+        [
+            "high_stress",
+            "nature_walk"
+        ],
+        [
+            "caffeine_crash",
+            "nature_walk"
+        ],
+        [
+            "heartburn",
+            "skipped_meal"
+        ],
+        [
+            "bloating_after_meal",
+            "nature_walk"
+        ]
+    ]
+}

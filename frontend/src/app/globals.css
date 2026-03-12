@@ -22,9 +22,10 @@
   /* Signature Forest */
   --color-accent: #059669;
   /* Emerald UI */
-  --color-gold: #B8860B;
+  --gold: #B8860B;
   /* Antique gold */
   --color-error: #E53E3E;
+  --color-petal: #FDE2E4;
 
   --color-glass-white: rgba(255, 255, 255, 0.8);
   --radius-app: 2.5rem;
@@ -38,7 +39,7 @@
   --font-mono: var(--font-geist-mono);
 
   --color-forest: var(--color-primary);
-  --color-gold: var(--color-gold);
+  --color-gold: var(--gold);
 
   /* Tailwind-accessible elements */
   --color-air: var(--color-air);
@@ -55,12 +56,8 @@
   --shadow-glass: 0 4px 24px -1px rgba(0, 0, 0, 0.02);
 }
 
-/* Force light mode for clinical consistency */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #FFFFFF;
-    --foreground: #0F1713;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
@@ -71,12 +68,21 @@ body {
   -webkit-tap-highlight-color: transparent;
   line-height: 1.6;
   letter-spacing: -0.01em;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  transition-property: color, background-color, border-color, transform, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
 }
 
 .glass {
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1.5px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 12px 40px 0 rgba(0, 30, 20, 0.04);
 }
@@ -87,6 +93,7 @@ body {
     radial-gradient(at 0% 0%, hsla(158, 64%, 91%, 1) 0, transparent 50%),
     radial-gradient(at 50% 0%, hsla(43, 76%, 94%, 1) 0, transparent 50%),
     radial-gradient(at 100% 0%, hsla(199, 84%, 94%, 1) 0, transparent 50%);
+  filter: blur(40px);
 }
 
 .shadow-premium {
@@ -97,11 +104,6 @@ body {
   text-wrap: balance;
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
-}
-
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -109,4 +111,12 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
 }

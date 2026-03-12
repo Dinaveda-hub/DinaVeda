@@ -2,12 +2,15 @@ import React from 'react';
 import { CloudSun, Wind, Snowflake, Sun, Droplets, Thermometer, ShieldCheck, Clock, CheckCircle2 } from 'lucide-react';
 import { VedaState } from '@/engine/stateModel';
 import { Protocol } from '@/engine/protocolSelectionEngine';
-import { humanizeProtocolName } from '@/utils/stringUtils';
+import { formatProtocolName } from '@/utils/stringUtils';
+import ProtocolCard from '@/components/modules/ProtocolCard';
 
 interface RutuvedaPageProps {
     state: VedaState;
     vikriti: any;
     protocols: Protocol[];
+    subscriptionStatus: string;
+    userId: string | null;
 }
 
 
@@ -15,6 +18,8 @@ export default function RutuvedaPage({
     state,
     vikriti,
     protocols,
+    subscriptionStatus,
+    userId
 }: RutuvedaPageProps) {
     const currentSeason = process.env.NEXT_PUBLIC_SEASON || "Spring (Vasanta)";
 
@@ -57,19 +62,14 @@ export default function RutuvedaPage({
                     </div>
                     <h2 className="text-sm font-black text-forest uppercase tracking-[0.2em]">Seasonal Recalibrations</h2>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-6">
                     {protocols.map((p, i) => (
-                        <div key={i} className="bg-white/60 p-6 md:p-8 rounded-[2rem] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-100 hover:bg-white transition-all group">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-600 shrink-0 mt-1 transition-transform group-hover:scale-110">
-                                    <CheckCircle2 className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-xl text-forest tracking-tighter mb-1">{humanizeProtocolName(p.name)}</h4>
-                                    <p className="text-sm font-bold text-slate-500 leading-relaxed max-w-lg">{p.instructions}</p>
-                                </div>
-                            </div>
-                        </div>
+                        <ProtocolCard
+                            key={i}
+                            protocol={p}
+                            subscriptionStatus={subscriptionStatus}
+                            userId={userId}
+                        />
                     ))}
                     {protocols.length === 0 && (
                         <p className="text-xs font-bold text-slate-400 text-center py-10 italic">Your internal climate is currently stable against the seasonal backdrop.</p>

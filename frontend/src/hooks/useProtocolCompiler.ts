@@ -23,7 +23,7 @@ export function useProtocolCompiler(healthGoal: string = "general_wellness") {
         const predictionProtocolNames = predictionEngine.getPredictionProtocols(stateHistory);
 
         const recommendations = recEngine.getRecommendations(state, vikriti, healthGoal);
-        return compileDailyProtocols(recommendations, predictionProtocolNames);
+        return compileDailyProtocols(recommendations);
     }, [state, isLoaded, healthGoal]);
 
     return dailyPlan;
