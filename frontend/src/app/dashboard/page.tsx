@@ -26,6 +26,7 @@ import protocolsRaw from "@/data/protocols.json";
 import GoalSelector from "@/components/GoalSelector";
 import ProtocolCard from "@/components/modules/ProtocolCard";
 import SeasonalPulseCard from "@/components/dashboard/SeasonalPulseCard";
+import PhysiologicalSummaryCard from "@/components/dashboard/PhysiologicalSummaryCard";
 import PhysiologyMap from "@/components/pressure-map/PhysiologyMap";
 import SystemMessage from "@/components/pressure-map/SystemMessage";
 import DoshaTriangle from "@/components/pressure-map/DoshaTriangle";
@@ -218,6 +219,18 @@ export default function Dashboard() {
         {/* 2. Seasonal Pulse Card (Top) */}
         <motion.section variants={itemVariants}>
             <SeasonalPulseCard />
+        </motion.section>
+
+        {/* 2.5 Physiology Summary Cluster */}
+        <motion.section variants={itemVariants}>
+            <PhysiologicalSummaryCard
+                ojasScore={ojasBalance ?? 0}
+                strain={pressureIndex ?? 0}
+                agniState={state.agni > 70 ? "Strong" : "Weak"}
+                circadian={Math.round(state.circadian)}
+                drift={Math.round(vikriti?.drift_index || 0)}
+                driftType={vikriti?.dominant_dosha}
+            />
         </motion.section>
 
         {/* 3. Physiology Map & System Message */}

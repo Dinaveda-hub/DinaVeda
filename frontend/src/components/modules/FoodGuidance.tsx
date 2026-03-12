@@ -12,7 +12,7 @@ export default function FoodGuidance({ recommended, avoid }: FoodGuidanceProps) 
   return (
     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Recommended */}
-      {recommended && recommended.length > 0 && (
+      {Array.isArray(recommended) && recommended.length > 0 && (
         <div className="bg-emerald-50 p-5 rounded-2xl border border-emerald-100">
           <div className="flex items-center gap-2 mb-3 text-emerald-700">
             <ArrowUpCircle className="w-4 h-4" />
@@ -35,7 +35,7 @@ export default function FoodGuidance({ recommended, avoid }: FoodGuidanceProps) 
       )}
 
       {/* Avoid */}
-      {avoid && avoid.length > 0 && (
+      {Array.isArray(avoid) && avoid.length > 0 && (
         <div className="bg-rose-50 p-5 rounded-2xl border border-rose-100">
           <div className="flex items-center gap-2 mb-3 text-rose-700">
             <Ban className="w-4 h-4" />

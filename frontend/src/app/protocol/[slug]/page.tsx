@@ -1,9 +1,10 @@
 import { PROTOCOL_GUIDES, PROTOCOL_MAP } from "@/data";
 import { notFound } from "next/navigation";
 import ProtocolClient from "./ProtocolClient";
+import { formatProtocolName } from "@/utils/stringUtils";
 
-export default async function ProtocolPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function ProtocolPage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
   
   // Try to find in manual bundles first
   const bundle = (slug in PROTOCOL_GUIDES) ? (PROTOCOL_GUIDES as any)[slug] : undefined;
@@ -14,7 +15,7 @@ export default async function ProtocolPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const name = bundle?.name || (raw?.name.split('_').map((s: string) => s.charAt(0).toUpperCase() + s.slice(1)).join(' '));
+  const name = bundle?.name || formatProtocolName(raw?.name || "");
   const mechanism = bundle?.mechanism || raw?.instructions;
   const duration = bundle?.duration || raw?.duration || "Self-paced";
   const indications = bundle?.indications || raw?.tags || [];
@@ -34,8 +35,10 @@ export default async function ProtocolPage({ params }: { params: Promise<{ slug:
 }
 
 export async function generateStaticParams() {
-  const manualSlugs = Object.keys(PROTOCOL_GUIDES).map((slug) => ({ slug }));
-  const rawSlugs = Object.keys(PROTOCOL_MAP).map((slug) => ({ slug }));
+  const slugs = new Set([
+    ...Object.keys(PROTOCOL_GUIDES),
+    ...Object.keys(PROTOCOL_MAP)
+  ]);
   
-  return [...manualSlugs, ...rawSlugs];
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
