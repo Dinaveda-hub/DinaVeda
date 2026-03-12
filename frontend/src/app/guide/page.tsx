@@ -16,6 +16,13 @@ const TERMINOLOGY = [
   { term: "Agni", definition: "Biological fire. It governs digestion, metabolism, and the transformation of food into energy and consciousness." },
   { term: "Ama", definition: "Undigested food and metabolic waste. Accumulation of Ama is considered the root cause of most imbalances." },
   { term: "Ojas", definition: "The essence of vitality, immunity, and spiritual strength. It is the end product of perfect digestion." },
+  { term: "Tejas", definition: "The subtle essence of Agni. It governs intelligence, discernment, and the radiance of the body." },
+  { term: "Tanmatras", definition: "The five subtle elements or sensory potentials: Sound, Touch, Sight, Taste, and Smell." },
+  { term: "Shad Ritu", definition: "The six seasons of the Ayurvedic calendar: Shishira, Vasanta, Grishma, Varsha, Sharad, and Hemanta." },
+  { term: "Malas", definition: "The waste products of the body (urine, feces, sweat). Efficient elimination of Malas is vital for health." },
+  { term: "Abhyanga", definition: "The practice of self-oil massage. A fundamental protocol for calming Vata and lubricating the tissues." },
+  { term: "Sadhana", definition: "Disciplined practice. In Ayurveda, this refers to the daily spiritual and physical habits that sustain health." },
+  { term: "Pathya", definition: "That which is suitable for the channels. It refers to the correct diet and lifestyle protocols for your state." },
 ];
 
 export default function GuidePage() {
