@@ -1,6 +1,7 @@
 
 import { applySignals } from '../src/engine/stateUpdater';
 import { defaultState, VedaState } from '../src/engine/stateModel';
+import { ProtocolWeights } from '../src/utils/userWeightsService';
 
 async function runTest() {
     console.log("=== Signal Pipeline & Goal Integration Verification ===");
@@ -17,7 +18,7 @@ async function runTest() {
     // Goal: "stress_reduction"
     const testSignals = ["high_stress"];
     const healthGoal = "stress_reduction";
-    const userWeights = { "abhyanga": 1.5 }; // Personal preference for oil massage
+    const userWeights: ProtocolWeights = { "abhyanga": { "stress": 1.5 } }; // Personal preference for oil massage
 
     console.log(`\n1. Applying Signals: ${testSignals} with Goal: ${healthGoal}`);
     

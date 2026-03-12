@@ -1,6 +1,6 @@
-
 import { runPhysiologyCycle } from '../src/engine/physiologyOrchestrator';
 import { defaultState, VedaState } from '../src/engine/stateModel';
+import { ProtocolWeights } from '../src/utils/userWeightsService';
 
 async function runTest() {
     console.log("=== Architectural Harmonization & Orchestration Verification ===");
@@ -23,7 +23,7 @@ async function runTest() {
         sleep: 40   // Poor sleep
     };
 
-    const userWeights = {};
+    const userWeights: ProtocolWeights = {};
     const healthGoal = "stress_reduction"; // Goal: Stress Reduction
 
     console.log("\n1. Running Full Physiology Cycle...");
