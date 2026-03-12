@@ -8,6 +8,8 @@ import SystemController from "@/components/system/SystemController";
 import UpgradeModal from "@/components/billing/UpgradeModal";
 import Script from "next/script";
 
+import { createClient } from "@/utils/supabase/server";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -51,11 +53,15 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const isLoggedIn = !!user;
+
   return (
     <html lang="en">
       <head>
@@ -69,12 +75,14 @@ export default function RootLayout({
         ` }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
-        {/* Start cookieyes banner */}
-        <Script
-          id="cookieyes"
-          src="https://cdn-cookieyes.com/client_data/3ed2a749e0e980e4777bb45b4c4f9a26/script.js"
-          strategy="beforeInteractive"
-        />
+        {/* Start cookieyes banner - Only show for guests to avoid obstructing dashboard nav */}
+        {!isLoggedIn && (
+            <Script
+                id="cookieyes"
+                src="https://cdn-cookieyes.com/client_data/3ed2a749e0e980e4777bb45b4c4f9a26/script.js"
+                strategy="beforeInteractive"
+            />
+        )}
         {/* End cookieyes banner */}
 
         <link rel="preconnect" href="https://cdn.onesignal.com" />
