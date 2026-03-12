@@ -58,12 +58,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google tag (gtag.js) */}
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5QD4DQ6KM"></script>
         <script dangerouslySetInnerHTML={{ __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+          gtag('config', 'G-P5QD4DQ6KM');
         ` }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
