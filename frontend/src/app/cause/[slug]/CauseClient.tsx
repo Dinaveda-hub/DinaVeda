@@ -1,32 +1,52 @@
 "use client";
 
-import { use } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Flame, Shield, Wind, Layers, Info, Activity, Sparkles, BookOpen } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Activity, Sparkles, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import { CAUSES, PROTOCOLS } from "@/data/health-content";
 import Footer from "@/components/Footer";
 import TopicHubFooter from "@/components/TopicHubFooter";
 import { notFound } from "next/navigation";
 
-export default function CausePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+interface CauseClientProps {
+  slug: string;
+}
+
+export default function CauseClient({ slug }: CauseClientProps) {
   const cause = CAUSES[slug];
-
-  if (!cause) {
-    notFound();
-  }
-
+  if (!cause) { return null; }
   const protocol = PROTOCOLS[cause.recommendedProtocol];
 
   const JSON_LD = {
     "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
-    "name": cause.name,
-    "description": cause.mechanism,
-    "about": [
-      { "@type": "Thing", "name": "Ayurvedic Pathophysiology" },
-      { "@type": "Thing", "name": "Health Mechanisms" }
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "name": cause.name,
+        "description": cause.mechanism,
+        "about": [
+          { "@type": "Thing", "name": "Ayurvedic Pathophysiology" },
+          { "@type": "Thing", "name": "Health Mechanisms" }
+        ]
+      },
+      {
+        "@type": "MedicalCondition",
+        "name": cause.name,
+        "description": cause.mechanism,
+        "associatedAnatomy": { "@type": "AnatomicStructure", "name": "Systemic" },
+        "possibleTreatment": {
+          "@type": "MedicalCode",
+          "name": protocol?.name || "Ayurvedic Protocol"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Dinaveda", "item": "https://dinaveda.com" },
+          { "@type": "ListItem", "position": 2, "name": "Health", "item": "https://dinaveda.com/health" },
+          { "@type": "ListItem", "position": 3, "name": cause.name }
+        ]
+      }
     ]
   };
 
@@ -164,10 +184,4 @@ export default function CausePage({ params }: { params: Promise<{ slug: string }
       <Footer />
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return Object.keys(CAUSES).map((slug) => ({
-    slug,
-  }));
 }
