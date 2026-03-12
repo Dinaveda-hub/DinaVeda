@@ -5,7 +5,7 @@ import HealthClient from "./HealthClient";
 export default async function DynamicHealthPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  if (!COMBINATIONS[slug]) {
+  if (!(slug in COMBINATIONS)) {
     notFound();
   }
 

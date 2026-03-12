@@ -5,7 +5,7 @@ import RoutineClient from "./RoutineClient";
 export default async function RoutinePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  const manualExists = !!ROUTINES[slug];
+  const manualExists = slug in ROUTINES;
   const clinicalExists = slug.endsWith("-clinical") && ["morning", "midday", "evening"].includes(slug.split("-")[0]);
   
   if (!manualExists && !clinicalExists) {

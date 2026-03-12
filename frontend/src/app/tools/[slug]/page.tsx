@@ -1,15 +1,15 @@
-import { CALCULATORS } from "@/data/calculators";
+import { CALCULATORS, CalculatorId } from "@/data/calculators";
 import ToolClient from "./ToolClient";
 import { notFound } from "next/navigation";
 
 export default async function DynamicToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  if (!CALCULATORS[slug]) {
+  if (!(slug in CALCULATORS)) {
     notFound();
   }
 
-  return <ToolClient slug={slug} />;
+  return <ToolClient slug={slug as CalculatorId} />;
 }
 
 export async function generateStaticParams() {

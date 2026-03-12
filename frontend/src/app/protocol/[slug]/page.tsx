@@ -6,9 +6,9 @@ export default async function ProtocolPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   
   // Try to find in manual bundles first
-  const bundle = PROTOCOL_GUIDES[slug];
+  const bundle = (slug in PROTOCOL_GUIDES) ? (PROTOCOL_GUIDES as any)[slug] : undefined;
   // Then try in the raw clinical dataset
-  const raw = PROTOCOL_MAP[slug];
+  const raw = (slug in PROTOCOL_MAP) ? (PROTOCOL_MAP as any)[slug] : undefined;
 
   if (!bundle && !raw) {
     notFound();

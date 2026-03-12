@@ -5,7 +5,7 @@ import CauseClient from "./CauseClient";
 export default async function CausePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  if (!CAUSES[slug]) {
+  if (!(slug in CAUSES)) {
     notFound();
   }
 
