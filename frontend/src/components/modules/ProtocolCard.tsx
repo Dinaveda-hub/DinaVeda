@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Lock, Sparkles, CheckCircle2, Square, Crown } from "lucide-react";
 import { CompiledProtocolItem } from "@/engine/protocolCompiler";
+import { Protocol } from "@/engine/protocolSelectionEngine";
 import { formatProtocolName } from "@/utils/stringUtils";
 
 interface ProtocolCardProps {
-    protocol: CompiledProtocolItem;
+    protocol: CompiledProtocolItem | Protocol;
     isChecked?: boolean;
     onToggle?: () => void;
     isSectionDone?: boolean;
@@ -65,7 +66,7 @@ export default function ProtocolCard({
                         <h4 className={`font-black tracking-tight text-lg transition-all ${
                             isChecked || isLocked ? 'text-slate-400' : 'text-forest'
                         } ${isChecked ? 'line-through' : ''}`}>
-                            {protocol.title || formatProtocolName(protocol.name)}
+                            {'title' in protocol ? protocol.title : (protocol.display_name || formatProtocolName(protocol.name))}
                         </h4>
                         {isLocked && <Lock className="w-3 h-3 text-slate-400" />}
                     </div>
@@ -73,7 +74,7 @@ export default function ProtocolCard({
                     <p className={`text-xs font-bold leading-relaxed ${
                         isChecked || isLocked ? 'text-slate-400' : 'text-slate-600'
                     }`}>
-                        {protocol.description}
+                        {'description' in protocol ? protocol.description : protocol.instructions}
                     </p>
 
                     {/* Predicted Shift Section (Always visible on tap or just visible metadata) */}
