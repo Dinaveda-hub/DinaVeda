@@ -5,6 +5,7 @@ import { ArrowRight, ShieldCheck, Activity, BrainCircuit, CheckCircle2, ChevronD
 import PhysiologyPreview from "@/components/PhysiologyPreview";
 import DailyInsightTimeline from "@/components/DailyInsightTimeline";
 import SampleInsightCard from "@/components/SampleInsightCard";
+import Footer from "@/components/layout/Footer";
 import { useState } from "react";
 import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 
@@ -353,6 +354,8 @@ export default function LandingPage() {
                     </motion.div>
                 </div>
             </section>
+            
+            <Footer />
         </div>
         </LazyMotion>
     );

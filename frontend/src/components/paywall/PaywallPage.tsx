@@ -10,6 +10,7 @@ import PricingCards from "./PricingCards";
 import TrustSection from "./TrustSection";
 import PaywallCTA from "./PaywallCTA";
 import StickyUpgradeBar from "./StickyUpgradeBar";
+import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
@@ -40,6 +41,7 @@ export default function PaywallPage() {
             <TrustSection />
             <PaywallCTA />
         </div>
+        <Footer />
     </div>
   );
 }
