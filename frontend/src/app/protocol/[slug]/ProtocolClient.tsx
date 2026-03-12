@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ShieldCheck, Clock, AlertTriangle, Bookmark, Heart, Info, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShieldCheck, Clock, AlertTriangle, Bookmark, Heart, Info, Sparkles, Activity } from "lucide-react";
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import TopicHubFooter from "@/components/TopicHubFooter";
@@ -104,10 +104,39 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
                    </div>
                 </div>
 
+                {/* Metabolic Teasing Section */}
+                <div className="bg-white p-10 rounded-[3.5rem] border border-slate-100 shadow-sm relative overflow-hidden">
+                   <h3 className="text-lg font-black text-forest mb-6 flex items-center gap-2">
+                     <Activity className="w-5 h-5 text-orange-500" />
+                     Metabolic Pulse Impact
+                   </h3>
+                   
+                   <div className="grid grid-cols-2 gap-4">
+                      <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100">
+                         <span className="block text-[10px] font-black text-slate-400 uppercase mb-2">Agni Ignite</span>
+                         <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full bg-orange-400 opacity-30 w-[60%]" />
+                         </div>
+                         <span className="mt-2 block text-[10px] font-bold text-slate-500 italic">Locked in Personalizer</span>
+                      </div>
+                      <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100">
+                         <span className="block text-[10px] font-black text-slate-400 uppercase mb-2">Ama Scraping</span>
+                         <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-full bg-slate-400 opacity-30 w-[40%]" />
+                         </div>
+                         <span className="mt-2 block text-[10px] font-bold text-slate-500 italic">Calculated per State</span>
+                      </div>
+                   </div>
+
+                   <p className="mt-6 text-xs text-slate-500 font-medium leading-relaxed">
+                      The specific biological delta of {name} fluctuates based on your current imbalance levels. Tracking these signals in real-time prevents 'biological burnout' from static routine application.
+                   </p>
+                </div>
+
                 <div className="bg-emerald-50/50 p-8 rounded-[3rem] border border-emerald-100/50">
-                   <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-4">Personalization Warning</h4>
+                   <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-4">Precision Warning</h4>
                    <p className="text-xs text-emerald-800/70 font-bold leading-relaxed">
-                     This is a generalized clinical protocol. To ensure biological safety and efficacy, the Dinaveda engine must adjust the intensity and timing of this action based on your real-time Agni (digestive fire) and Ojas (vitality) markers.
+                     This is a generalized clinical baseline. To ensure biological safety, the Dinaveda engine must calibrate the intensity and timing of this action based on your detected circadian drift and metabolic momentum.
                    </p>
                 </div>
              </div>
@@ -139,7 +168,7 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
 
           {bundle ? (
             <div className="space-y-8">
-              <h2 className="text-2xl font-black text-forest tracking-tight">Structured Steps</h2>
+              <h2 className="text-2xl font-black text-forest tracking-tight">Structured Phase Flow</h2>
               <div className="grid grid-cols-1 gap-4">
                 {bundle.steps.map((step: any, idx: number) => (
                   <div key={idx} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 flex gap-6 items-start hover:shadow-lg transition-all border-l-4 border-l-forest">
@@ -155,10 +184,10 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
           ) : (
             <div className="bg-white p-12 rounded-[4rem] border border-slate-100 text-center space-y-8 shadow-premium overflow-hidden relative">
               <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16" />
-              <Info className="w-12 h-12 text-forest/20 mx-auto" />
-              <h2 className="text-2xl font-black text-forest text-balance">Why a Manual Approach Fails</h2>
+              <Sparkles className="w-12 h-12 text-forest/20 mx-auto" />
+              <h2 className="text-2xl font-black text-forest text-balance">Static Baselines are Limited</h2>
               <p className="text-slate-500 font-medium leading-relaxed max-w-xl mx-auto">
-                While {name} is a vital clinical component, applying it without considering your current metabolic state can lead to biological resistance. Static protocols are merely points of interest; dynamic tracking is the medicine.
+                While {name} is a validated clinical protocol, applying it without considering your real-time physiology can lead to biological resistance. Static protocols are merely maps; dynamic tracking is the territory.
               </p>
               <div className="flex justify-center gap-2">
                  {raw?.tags?.slice(0, 3).map((tag: string) => (
@@ -174,7 +203,7 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
                  <AlertTriangle className="w-6 h-6 text-orange-500" />
                  <h3 className="text-xl font-black text-orange-700">Safety Precautions</h3>
               </div>
-              <p className="text-sm text-orange-700/70 font-bold mb-6">These are general guidelines. Professional assessment is recommended if you have:</p>
+              <p className="text-sm text-orange-700/70 font-bold mb-6">Strict adherence to safety filters is required. Professional assessment is mandatory if you have:</p>
               <div className="flex flex-wrap gap-3">
                 {contraindications.map((c: string) => (
                   <span key={c} className="px-4 py-2 bg-white rounded-full text-xs font-black text-orange-600 border border-orange-100 shadow-sm">{c.replace('_', ' ')}</span>
@@ -185,17 +214,18 @@ export default function ProtocolClient({ name, mechanism, duration, indications,
 
           <div className="bg-forest p-12 md:p-16 rounded-[4rem] text-white text-center relative overflow-hidden shadow-3xl shadow-forest/20">
              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[100px] opacity-10 pointer-events-none -mr-20" />
-             <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-8 italic">Don't Guess. <br /> Measure Your Pulse.</h3>
+             <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-8 italic">Activate Your <br /> Metabolic Pulse</h3>
              <p className="text-emerald-100/70 font-bold mb-12 uppercase tracking-widest text-xs max-w-sm mx-auto leading-loose">
-               Join 5,000+ users tracking 40+ biological signals for a 100% personalized health OS.
+               Stop following general advice. Get a health OS that tracks 40+ biological signals in real-time.
              </p>
              <Link 
                href="/login" 
                className="inline-flex items-center gap-3 bg-white text-forest px-12 py-5 rounded-full font-black text-sm uppercase tracking-widest shadow-xl transition-all hover:scale-105 active:scale-95"
              >
-               Start Personalization <ArrowRight className="w-5 h-5" />
+               Start Tracking <ArrowRight className="w-5 h-5" />
              </Link>
           </div>
+
         </section>
       </main>
 

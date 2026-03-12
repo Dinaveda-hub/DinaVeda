@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Repeat, Zap, Utensils, Activity, Wind as WindIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShieldCheck, Clock, AlertTriangle, Bookmark, Heart, Info, Sparkles, Activity, Repeat, Zap, Utensils, Wind as WindIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTINES, RAW_PROTOCOLS } from "@/data/health-content";
 import Footer from "@/components/Footer";
@@ -121,21 +121,22 @@ export default function RoutineClient({ slug }: RoutineClientProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12">
             <div className="space-y-6">
-              <h3 className="text-2xl font-black text-forest">The Static Baseline Trap</h3>
+              <h3 className="text-2xl font-black text-forest">The "Time Drift" Cost</h3>
               <p className="text-slate-600 font-medium leading-relaxed">
-                Most health sites give you a fixed schedule. But your biology isn't fixed. On a high-Vata day, your routine needs more warmth; on a high-Kapha day, it needs more fire. Following a static routine can be as harmful as having none.
+                Most health sites give you a fixed schedule. But your biology isn't fixed. On a high-Vata day, your routine needs more warmth; on a high-Kapha day, it needs more fire. Following a static routine at the wrong time creates "Circadian Drift"—a state where your hormones are trying to accelerate while your digestion is trying to brake.
               </p>
               <div className="flex gap-4">
                  <Link href="/guide/dinacharya" className="text-xs font-black text-forest uppercase tracking-widest underline decoration-emerald-200 underline-offset-8 decoration-2 hover:decoration-forest transition-all">Read Guide →</Link>
+                 <Link href="/how-it-works" className="text-xs font-black text-forest uppercase tracking-widest underline decoration-emerald-200 underline-offset-8 decoration-2 hover:decoration-forest transition-all">How Drift is Measured →</Link>
               </div>
             </div>
             <div className="bg-emerald-50 p-10 rounded-[3rem] border border-emerald-100 space-y-6">
-               <Zap className="w-10 h-10 text-emerald-600" />
-               <h4 className="text-xl font-black text-emerald-900">AI-Adjusted Flow</h4>
+               <Activity className="w-10 h-10 text-emerald-600" />
+               <h4 className="text-xl font-black text-emerald-900">Measure Your Window</h4>
                <p className="text-sm text-emerald-800/60 font-medium leading-relaxed">
                  {isClinical 
-                  ? "This data-driven sequence is just an architectural baseline. The Dinaveda Personalizer refines these windows down to the minute based on your detected circadian drift."
-                  : "Traditional routines are fixed, but your Dinaveda app adjusts these windows based on your real-time fatigue levels and metabolic data."
+                  ? "This clinical sequence represents a biological ideal. The Dinaveda Circadian Tracker identifies exactly when your specific windows open and close today, preventing metabolic friction."
+                  : "Traditional routines are fixed, but your Dinaveda app adjusts these windows based on your real-time fatigue levels and detected solar drag."
                  }
                </p>
             </div>
