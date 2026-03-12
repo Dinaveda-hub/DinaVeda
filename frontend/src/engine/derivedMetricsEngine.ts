@@ -36,8 +36,8 @@ export function computeDerivedMetrics(state: VedaState): VedaState {
     nextState.elimination = clamp((100 - vata) * 0.5 + (agni * 0.5));
     
     // --- Vitality & Circadian ---
-    // Circadian tightly coupled with sleep and regularity
-    nextState.circadian = nextState.sleep;
+    // Circadian tightly coupled with sleep and regularity, penalized by TOD drag
+    nextState.circadian = clamp(nextState.sleep - (state.daily_circadian_drag || 0));
 
     // Standardized Ojas Formula: Driven by digestion, sleep, stress balance, and circadian alignment
     // (100 - stress) is used to represent the positive vitality aspect of the stress axis

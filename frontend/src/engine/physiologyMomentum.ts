@@ -60,13 +60,16 @@ const CORE_AXES: (keyof VedaState)[] = ['vata_axis', 'pitta_axis', 'kapha_axis',
         const previousValue = previousState[numKey] || 50; 
         const newValue = newState[numKey] as number;
 
-        // 1. Calculate Base Momentum
-        let momentum = MOMENTUM_MAPPING[numKey] || DEFAULT_MOMENTUM;
+        // 1. Map axis key to its category for momentum lookup
+        // e.g. 'vata_axis' -> 'vata'
+        const baseKey = numKey.replace('_axis', '');
+        let momentum = MOMENTUM_MAPPING[baseKey] || DEFAULT_MOMENTUM;
 
         // 2. Incorporate Age-Driven Momentum Scaling
-        // Older physiology resists change more strongly.
-        const ageDamping = 1 - (newState.age_factor / 200);
-        momentum *= ageDamping;
+        // Older physiology resists change more strongly (Higher Momentum).
+        // age_factor 0 -> momentum * 1.0, age_factor 100 -> momentum * 1.15
+        const ageResistance = 1 + (newState.age_factor / 666); // Subtle but real scaling
+        momentum = Math.min(0.98, momentum * ageResistance);
 
         // 3. Apply Exponential Smoothing
         let smoothedValue = (previousValue * momentum) + (newValue * (1 - momentum));

@@ -260,7 +260,7 @@ export function applyEffects(
     // 2. Apply Raw Deltas (clamped 0-100)
     // Only evolve the 5 core axes directly. 
     // Any derived variables in the signal vector are currently ignored (or should be mapped).
-    const CORE_AXES: (keyof VedaState)[] = ['vata_axis', 'pitta_axis', 'kapha_axis', 'agni_axis', 'ojas_axis'];
+    const CORE_AXES: (keyof VedaState)[] = ['vata_axis', 'pitta_axis', 'kapha_axis', 'agni_axis', 'ojas_axis', 'circadian'];
     
     for (const variable of CORE_AXES) {
         const numKey = variable as NumericKeys;
