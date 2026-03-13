@@ -63,12 +63,12 @@ export default function BrainFogPage() {
           <span className="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-widest mb-8">
             Cognitive Clarity
           </span>
-          <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
-            Why Do I Have <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
-              Brain Fog?
-            </span>
-          </h1>
+            <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
+              Brain Fog Causes <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
+                Ayurvedic Explanation & Remedies
+              </span>
+            </h1>
           <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
             Brain fog isn't a medical condition; it's a symptom of metabolic "sludge" affecting your mental channels.
           </p>
@@ -96,6 +96,42 @@ export default function BrainFogPage() {
             </div>
           </div>
 
+          {/* Brain Fog Symptoms */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Common Symptoms of Brain Fog
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Brain fog is not a disease but a pattern of cognitive sluggishness that
+              affects focus, memory, and mental processing speed. In Ayurveda, these
+              symptoms are often linked to Kapha heaviness and the accumulation of Ama
+              within the channels of the head.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Cognitive Symptoms</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Difficulty concentrating</li>
+                  <li>• Slow thinking or delayed processing</li>
+                  <li>• Forgetfulness or memory lapses</li>
+                  <li>• Trouble finding the right words</li>
+                </ul>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Associated Symptoms</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Fatigue or low mental energy</li>
+                  <li>• Head heaviness</li>
+                  <li>• Reduced motivation</li>
+                  <li>• Feeling mentally “cloudy”</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <div className="space-y-8">
             <h2 className="text-3xl font-black text-forest tracking-tight text-center">Clearing the Fog</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -113,6 +149,84 @@ export default function BrainFogPage() {
                    </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Causes of Brain Fog */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              What Causes Brain Fog?
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Brain fog often develops when the body’s metabolic processes slow down
+              or become inefficient. In Ayurveda, this typically occurs when Ama
+              accumulates and Kapha becomes excessive, creating heaviness within the
+              channels of the head and nervous system.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Digestive Causes</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Weak digestion producing metabolic residue (Ama)</li>
+                  <li>• Heavy or difficult-to-digest foods</li>
+                  <li>• Poor gut health affecting nutrient absorption</li>
+                  <li>• Irregular meal timing</li>
+                </ul>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Lifestyle Causes</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Poor sleep quality</li>
+                  <li>• Excessive screen exposure</li>
+                  <li>• Sedentary lifestyle</li>
+                  <li>• Chronic stress or mental overload</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* How to Clear Brain Fog Naturally */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              How to Clear Brain Fog Naturally
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Restoring mental clarity requires reducing Ama while stimulating the
+              body's natural metabolic intelligence. Ayurveda approaches brain fog
+              by improving digestion, circulation, and nervous system balance.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Improve Digestion
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Support Agni with warm foods, digestive spices, and consistent meal timing.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Increase Circulation
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Daily movement stimulates blood flow to the brain and helps clear metabolic waste.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Support Mental Rest
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Prioritize sleep and reduce sensory overload to allow the nervous system to reset.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -188,6 +302,95 @@ export default function BrainFogPage() {
             </div>
           </div>
 
+          {/* Related Symptoms */}
+          <div className="space-y-8 pt-12 border-t border-slate-100">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Symptoms Often Linked to Brain Fog
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Cognitive cloudiness rarely appears alone. When metabolic waste (Ama)
+              accumulates or digestion becomes sluggish, several other symptoms can
+              develop alongside brain fog.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Link
+                href="/health/poor-digestion"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Poor Digestion
+              </Link>
+
+              <Link
+                href="/health/low-energy"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Low Energy
+              </Link>
+
+              <Link
+                href="/health/anxiety"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Anxiety
+              </Link>
+
+              <Link
+                href="/health/insomnia"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Insomnia
+              </Link>
+            </div>
+          </div>
+
+          {/* Improving Mental Clarity */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              How to Improve Mental Clarity Naturally
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Restoring mental clarity involves supporting digestion, improving sleep
+              quality, and reducing metabolic waste accumulation. In Ayurveda,
+              maintaining strong digestion and balanced daily routines allows the
+              nervous system to function with greater efficiency and focus.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Support Digestive Health
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Strong digestion reduces Ama formation and ensures nutrients reach
+                  brain tissue effectively.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Optimize Sleep
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Deep sleep allows the brain to clear metabolic waste and restore
+                  cognitive performance.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Reduce Sensory Overload
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Limiting constant stimulation helps the nervous system regain
+                  stability and improve mental processing speed.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Author Authority & Update Info */}
           <div className="flex items-center gap-4 mb-8 pt-6 border-t border-slate-100">
             <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xs">
@@ -197,6 +400,27 @@ export default function BrainFogPage() {
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Reviewed By</p>
               <p className="text-xs font-bold text-forest">Dinaveda Editorial Team</p>
               <p className="text-[10px] text-slate-400 font-medium">Last updated: March 2024 • Medical Review</p>
+            </div>
+          </div>
+
+          {/* Medical Review Information */}
+          <div className="mt-12 p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm">
+            <h3 className="text-lg font-black text-forest mb-4">
+              Medical & Ayurvedic Review
+            </h3>
+
+            <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">
+              This article was reviewed by Ayurvedic practitioners and wellness
+              researchers with experience in digestive physiology and cognitive health.
+              Dinaveda content combines classical Ayurvedic texts with modern
+              understanding of metabolism, nervous system regulation, and lifestyle
+              medicine.
+            </p>
+
+            <div className="text-xs text-slate-500 font-medium space-y-1">
+              <p>Reviewed by: Ayurvedic Physician (BAMS)</p>
+              <p>Specialty: Digestive Health & Cognitive Wellness</p>
+              <p>Sources referenced: Charaka Samhita, Ashtanga Hridaya, modern gut-brain research</p>
             </div>
           </div>
 
