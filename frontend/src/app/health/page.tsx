@@ -11,56 +11,56 @@ const SYMPTOMS = [
     slug: "bloating", 
     icon: Wind, 
     color: "text-blue-500", 
-    desc: "Why do you feel tight and gaseous after eating? Map the root cause.",
-    pattern: "Vata + Agni Imbalance"
+    desc: "Abdominal distention or gas following meals may indicate impaired digestive function. In Ayurvedic physiology, bloating is commonly associated with irregular digestion (Vishama Agni) and increased Vata activity within the gastrointestinal tract.",
+    pattern: "Vata imbalance and irregular digestive function"
   },
   { 
     name: "Low Energy", 
     slug: "low-energy", 
     icon: Zap, 
     color: "text-orange-500", 
-    desc: "Chronic fatigue vs. sporadic energy crashes. Identify the sludge.",
-    pattern: "Ojas Depletion / Ama"
+    desc: "Persistent fatigue may arise from inefficient metabolic processes, insufficient nutrient assimilation, or accumulation of metabolic residue (Ama). Ayurveda evaluates fatigue by assessing digestive strength and tissue nourishment.",
+    pattern: "Reduced metabolic vitality or Ama accumulation"
   },
   { 
     name: "Poor Digestion", 
     slug: "poor-digestion", 
     icon: Thermometer, 
     color: "text-emerald-500", 
-    desc: "Heaviness, acidity, or irregular bowel movements clarified.",
-    pattern: "Agni Dysfunction"
+    desc: "Symptoms such as heaviness after meals, acid reflux, irregular bowel movements, or reduced appetite may indicate impaired digestive fire (Agni). Digestive imbalance is considered a primary contributor to many chronic health complaints in Ayurveda.",
+    pattern: "Impaired digestive function (Agni dysfunction)"
   },
   { 
     name: "Brain Fog", 
     slug: "brain-fog", 
     icon: Brain, 
     color: "text-indigo-500", 
-    desc: "Mental cloudiness and lack of focus translated into biology.",
-    pattern: "Kapha + High Ama"
+    desc: "Cognitive sluggishness, reduced concentration, and mental fatigue may occur when metabolic residue (Ama) affects neurological function. Digestive imbalance and Kapha accumulation are commonly implicated.",
+    pattern: "Kapha accumulation and Ama influence"
   },
   { 
     name: "Anxiety", 
     slug: "anxiety", 
     icon: Activity, 
     color: "text-indigo-600", 
-    desc: "Nervous energy and restlessness mapped to your nervous system.",
-    pattern: "Vata Aggravation"
+    desc: "Restlessness, excessive worry, or heightened nervous system activity may reflect Vata imbalance affecting neurological regulation and stress response mechanisms.",
+    pattern: "Vata imbalance affecting the nervous system"
   },
   { 
     name: "Insomnia", 
     slug: "insomnia", 
     icon: Shield, 
     color: "text-slate-600", 
-    desc: "Difficulty falling or staying asleep. Reset your biological clock.",
-    pattern: "Vata / Circadian Drift"
+    desc: "Difficulty initiating or maintaining sleep may occur when circadian rhythm regulation and nervous system stability are disrupted. Ayurveda frequently associates insomnia with aggravated Vata activity.",
+    pattern: "Vata disturbance and circadian disruption"
   },
   { 
     name: "Weight Gain", 
     slug: "weight-gain", 
     icon: Sparkles, 
     color: "text-amber-700", 
-    desc: "Stubborn weight and metabolic slows explained through elements.",
-    pattern: "Kapha / Low Agni"
+    desc: "Unintended weight gain can occur when metabolic rate slows and digestion becomes inefficient. In Ayurvedic physiology this pattern is commonly associated with Kapha predominance and reduced digestive fire.",
+    pattern: "Kapha predominance with reduced metabolic activity"
   }
 ];
 
@@ -146,17 +146,17 @@ export default function HealthHubPage() {
             transition={{ duration: 0.6 }}
           >
             <span className="block text-xs font-black text-forest/90 uppercase tracking-[0.4em] mb-6">
-              Symptom Hub
+              Ayurvedic Symptom Reference
             </span>
             <h1 className="text-3xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
-              Translate Your <br />
+              Understanding Health Symptoms <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-500">
-                Body's Signals
+                Through Ayurvedic Physiology
               </span>
             </h1>
             <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
-              Modern symptoms are often ancient signals of physiological imbalance. 
-              Identify the patterns behind your discomfort.
+              Many common symptoms such as fatigue, digestive discomfort, anxiety, and cognitive slowing are early indicators of physiological imbalance.  
+              Ayurveda interprets these symptoms by evaluating digestive function (Agni), metabolic residue (Ama), and the balance of the three regulatory systems known as Doshas: Vata, Pitta, and Kapha.
             </p>
           </motion.div>
         </header>
@@ -202,11 +202,11 @@ export default function HealthHubPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400 blur-[120px] opacity-10 pointer-events-none -mr-40" />
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-2xl md:text-5xl font-black tracking-tighter">Why Symptoms Persist</h2>
+              <h2 className="text-2xl md:text-5xl font-black tracking-tighter">Why Symptoms Often Recur</h2>
               <p className="text-emerald-100/70 text-lg leading-relaxed">
-                Most health protocols target the <strong>symptom</strong> (Vikriti). 
-                Dinaveda targets the <strong>source code</strong> (Prakriti and Agni). 
-                When you understand the elemental cause, the symptom naturally clears.
+                Many conventional health approaches focus primarily on suppressing symptoms.  
+                Ayurvedic medicine instead examines the underlying physiological imbalance that produces those symptoms.  
+                Key factors include digestive function (Agni), metabolic residue (Ama), and the balance between Vata, Pitta, and Kapha.
               </p>
               <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest">
                 <Link href="/guide/agni" className="flex items-center gap-2 hover:text-emerald-300 transition-colors">
@@ -219,14 +219,14 @@ export default function HealthHubPage() {
                 <AlertCircle className="w-8 h-8 text-orange-400 shrink-0" />
                 <div>
                   <h4 className="text-xl font-bold mb-2">The Signal Trap</h4>
-                  <p className="text-sm text-slate-300">Ignoring symptoms like bloating or fatigue leads to chronic accumulation (Ama), which eventually manifest as disease.</p>
+                  <p className="text-sm text-slate-300">When digestive function remains impaired over time, metabolic residue (Ama) may accumulate within physiological channels (Srotas). This accumulation is believed to contribute to chronic symptoms and systemic imbalance.</p>
                 </div>
               </div>
               <div className="flex gap-6 items-start">
                 <Sparkles className="w-8 h-8 text-emerald-400 shrink-0" />
                 <div>
                   <h4 className="text-xl font-bold mb-2">The Dynamic Recovery</h4>
-                  <p className="text-sm text-slate-300">By adjusting daily protocol based on raw signals, you restore biological balance before it becomes structural debt.</p>
+                  <p className="text-sm text-slate-300">Early recognition of physiological signals allows targeted dietary and lifestyle adjustments that support digestion, metabolic efficiency, and neurological balance.</p>
                 </div>
               </div>
             </div>
@@ -237,45 +237,35 @@ export default function HealthHubPage() {
         <section className="max-w-4xl mx-auto py-20 md:py-32 px-6 space-y-16">
           <div className="space-y-8">
             <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tight">
-              Understanding Symptoms Through Ayurveda
+              Physiological Interpretation of Symptoms in Ayurveda
             </h2>
             <div className="space-y-6 text-slate-600 leading-relaxed font-medium text-base md:text-lg">
               <p>
-                In Ayurvedic physiology, symptoms are not isolated problems to be suppressed. 
-                They are the body's primary language—signals that your internal biological systems 
-                are drifting away from their natural equilibrium (Prakriti).
+                Ayurvedic medicine views symptoms as indicators of underlying physiological imbalance rather than isolated disease entities.  
               </p>
               <p>
-                For example, digestive discomfort like bloating is rarely just about the food you ate. 
-                In Ayurveda, we look at the interaction between the <strong>Vata</strong> (Air) element 
-                and your <strong>Agni</strong> (Metabolic Fire). If the wind is too high, the fire 
-                flickers and food ferments instead of transforming into energy.
+                Many early health disturbances arise from impaired digestive capacity (Agni), accumulation of metabolic residue (Ama), or dysregulation of the three Doshas.  
               </p>
               <p>
-                By identifying these elemental patterns early, we can use diet, herbs, and routine 
-                to ground the excess elements before they create deep-seated physiological changes. 
-                This shift from "fighting symptoms" to "restoring balance" is the core of Ayurvedic health.
+                By identifying these patterns early, dietary modifications, lifestyle adjustments, and herbal interventions can be used to restore physiological equilibrium.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-6">
-              <h3 className="text-2xl font-black text-forest tracking-tight">The Role of Digestion (Agni)</h3>
+              <h3 className="text-2xl font-black text-forest tracking-tight">Digestive Function (Agni) in Ayurvedic Physiology</h3>
               <p className="text-slate-600 leading-relaxed font-medium">
-                Every symptom you experience has a root in your digestive integrity. When Agni is weak, 
-                it creates a sticky metabolic byproduct called <strong>Ama</strong>. Ama clogs the 
-                subtle channels (Srotas), preventing nutrients from reaching your cells and 
-                leading to brain fog, fatigue, and weight gain.
+                Digestive efficiency is central to Ayurvedic health theory.  
+                When digestion functions efficiently, nutrients are properly absorbed and tissues are nourished.  
+                When digestion weakens, incomplete metabolism produces Ama, which may obstruct physiological channels and contribute to fatigue, cognitive slowing, digestive discomfort, and metabolic imbalance.
               </p>
             </div>
             <div className="space-y-6">
-              <h3 className="text-2xl font-black text-forest tracking-tight">Biological Intelligence</h3>
+              <h3 className="text-2xl font-black text-forest tracking-tight">Physiological Regulation and Symptom Signaling</h3>
               <p className="text-slate-600 leading-relaxed font-medium">
-                Your body possesses a profound biological intelligence. Symptoms are the way 
-                this intelligence alerts you to a breach in your natural state. By listening 
-                to these signals, you move from passive healthcare to active, conscious 
-                biological management.
+                Symptoms are physiological signals indicating that regulatory systems require adjustment.  
+                Understanding these signals enables earlier intervention and may prevent progression into more complex health conditions.
               </p>
             </div>
           </div>
@@ -337,7 +327,7 @@ export default function HealthHubPage() {
         <section className="bg-slate-50 py-20 md:py-32 px-6 text-balance">
           <div className="max-w-4xl mx-auto space-y-16">
             <div className="text-center space-y-4">
-              <h2 className="text-2xl md:text-5xl font-black text-forest tracking-tight">Common Questions</h2>
+              <h2 className="text-2xl md:text-5xl font-black text-forest tracking-tight">Frequently Asked Questions</h2>
               <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Ayurvedic Health Insights</p>
             </div>
             
@@ -373,10 +363,10 @@ export default function HealthHubPage() {
         <section className="py-24 px-6 text-center relative z-10">
           <div className="max-w-4xl mx-auto overflow-hidden bg-white p-12 md:p-24 rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-premium">
             <h2 className="text-3xl md:text-5xl font-[1000] tracking-tighter text-forest mb-8 italic uppercase text-balance">
-              Identify Your Pattern
+              Assess Your Physiological Pattern
             </h2>
             <p className="text-slate-500 font-bold mb-12 uppercase tracking-widest text-sm max-w-md mx-auto">
-              Our Physiology Engine analyzes 20+ signals to detect the root cause of your symptoms.
+              Dinaveda analyzes multiple physiological indicators related to digestion, energy metabolism, sleep quality, and nervous system balance to identify potential patterns of imbalance.
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link

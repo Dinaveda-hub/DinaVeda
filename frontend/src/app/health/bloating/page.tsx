@@ -66,16 +66,17 @@ export default function BloatingPage() {
           className="text-center mb-24"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-8">
-            Digestive Health
+            Digestive Physiology
           </span>
           <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
-            Bloating After Eating <br />
+            Bloating After Meals: <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
-              Ayurvedic Causes & Natural Fix
+              An Ayurvedic Digestive Perspective
             </span>
           </h1>
           <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
-            Chronic bloating isn't just "part of getting older." It's a signal that your biological fire is struggling with the air element.
+            Bloating refers to abdominal fullness, pressure, or visible distention following meals.  <br />
+            In Ayurvedic physiology, this symptom is commonly associated with impaired digestive function (Agni imbalance) and increased Vata activity within the gastrointestinal tract.
           </p>
         </motion.header>
 
@@ -83,40 +84,43 @@ export default function BloatingPage() {
           {/* Section 1: Modern Context */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="space-y-6">
-              <h2 className="text-3xl font-black text-forest tracking-tight">The Modern Perspective</h2>
+              <h2 className="text-3xl font-black text-forest tracking-tight">How Bloating Is Interpreted in Modern Medicine</h2>
               <p className="text-slate-600 leading-relaxed font-medium">
-                Modern medicine often labels bloating as IBS or food sensitivity. While accurate, it focuses on the <strong>what</strong>—the reaction to food—rather than the <strong>why</strong>—the state of the digestive environment.
+                In modern clinical practice, bloating may be associated with functional gastrointestinal disorders such as irritable bowel syndrome (IBS), food intolerance, altered gut motility, or excessive intestinal gas production.  <br />
+                While these classifications describe the symptom pattern, they often do not evaluate the overall digestive efficiency or metabolic environment of the gastrointestinal tract.
               </p>
               <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
                 <h4 className="font-black text-forest mb-2 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-orange-400" /> Common Triggers
+                  <AlertTriangle className="w-4 h-4 text-orange-400" /> Factors Commonly Associated With Bloating
                 </h4>
                 <ul className="text-sm font-bold text-slate-500 space-y-2">
-                  <li>• Refined sugar and processed flour</li>
-                  <li>• High-stress eating (Cortisol spikes)</li>
-                  <li>• Excessive cold liquids during meals</li>
+                  <li>• High intake of refined carbohydrates or sugars</li>
+                  <li>• Eating quickly or under psychological stress</li>
+                  <li>• Excessive intake of cold beverages during meals</li>
+                  <li>• Irregular meal timing or overeating</li>
                 </ul>
               </div>
             </div>
             <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-premium relative">
               <Wind className="w-12 h-12 text-blue-500 mb-6" />
-              <h3 className="text-xl font-black text-forest mb-4">The Vata Imbalance</h3>
+              <h3 className="text-xl font-black text-forest mb-4">Ayurvedic Interpretation</h3>
               <p className="text-sm text-slate-500 leading-relaxed">
-                In Ayurveda, bloating is almost always a result of <strong>Vata</strong> (the air/ether element) displacing your digestive fire. When Vata is high, digestion becomes irregular—creating gas, distention, and discomfort.
+                Ayurveda interprets bloating primarily as a disturbance of Vata Dosha affecting digestive processes.  <br />
+                When Vata becomes aggravated, digestive activity may become irregular, resulting in incomplete breakdown of food and excessive gas formation within the intestines.
               </p>
             </div>
           </div>
 
           {/* Section 2: Ayurvedic Explanation */}
           <div className="bg-white p-12 rounded-[4rem] border border-slate-100 shadow-sm">
-            <h2 className="text-3xl font-black text-forest tracking-tight text-center mb-12">The Root Cause: Agni & Vata</h2>
+            <h2 className="text-3xl font-black text-forest tracking-tight text-center mb-12">Digestive Mechanisms Involved in Bloating</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               <div className="text-center space-y-4">
                 <div className="w-16 h-16 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Flame className="w-8 h-8" />
                 </div>
                 <h4 className="font-black text-forest">Weak Agni</h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">Your metabolic fire is too low to "cook" the food properly, leading to fermentation.</p>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">Reduced digestive capacity (Mandagni) may result in incomplete digestion and slower movement of food through the gastrointestinal tract.</p>
                 <Link href="/guide/agni" className="text-[10px] font-black text-forest uppercase tracking-widest block pt-2">Explore Agni →</Link>
               </div>
               <div className="text-center space-y-4">
@@ -124,7 +128,7 @@ export default function BloatingPage() {
                   <Wind className="w-8 h-8" />
                 </div>
                 <h4 className="font-black text-forest">High Vata</h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">Internal "air" creates pressure and wind in the GI tract when not grounded by routine.</p>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">Elevated Vata activity within the gastrointestinal tract may increase intestinal gas formation and irregular gut motility.</p>
                 <Link href="/guide/doshas" className="text-[10px] font-black text-forest uppercase tracking-widest block pt-2">Explore Doshas →</Link>
               </div>
               <div className="text-center space-y-4">
@@ -132,7 +136,7 @@ export default function BloatingPage() {
                   <Shield className="w-8 h-8" />
                 </div>
                 <h4 className="font-black text-forest">Ama Build-up</h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">Undigested residue clogs the channels, preventing the natural flow of energy.</p>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">Incomplete digestion may produce metabolic residue known as Ama. Accumulation of Ama is believed to interfere with normal digestive and metabolic processes.</p>
                 <Link href="/guide/ama" className="text-[10px] font-black text-forest uppercase tracking-widest block pt-2">Explore Ama →</Link>
               </div>
             </div>
@@ -212,40 +216,33 @@ export default function BloatingPage() {
           {/* New Educational Content */}
           <div className="space-y-12 py-12">
             <div className="space-y-6">
-              <h2 className="text-3xl font-black text-forest tracking-tight">Understanding Digestive Fermentation</h2>
+              <h2 className="text-3xl font-black text-forest tracking-tight">Digestive Fermentation and Gas Formation</h2>
               <div className="space-y-4 text-slate-600 leading-relaxed font-medium">
                 <p>
-                  In Ayurveda, bloating is the primary sign of <strong>Mandagni</strong> (slow digestion) 
-                  or <strong>Vishamagni</strong> (irregular digestion). When your digestive fire is 
-                  insufficient to transform the chemistry of your food, it begins to ferment in the 
-                  warm, moist environment of the small and large intestines.
+                  When digestive function becomes inefficient, food may remain in the gastrointestinal tract longer than expected.  <br />
+                  During this time, intestinal bacteria ferment partially digested nutrients, producing gases such as hydrogen, methane, and carbon dioxide.
                 </p>
                 <p>
-                  This fermentation releases "air" (Vata) into the abdominal cavity, creating pressure, 
-                  distention, and discomfort. If left unaddressed, this gas can move into the 
-                  bloodstream and eventually affect the nervous system, leading to fatigue and brain fog.
+                  From an Ayurvedic perspective, this process reflects impaired Agni combined with increased Vata activity.  <br />
+                  Restoring digestive efficiency is therefore a primary focus of treatment strategies.
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-6">
-                <h3 className="text-2xl font-black text-forest tracking-tight">The Anti-Bloat Diet</h3>
+                <h3 className="text-2xl font-black text-forest tracking-tight">Dietary Considerations for Digestive Balance</h3>
                 <p className="text-sm text-slate-600 font-medium leading-relaxed">
-                  Focus on warm, well-cooked, and lightly spiced foods. Root vegetables, basmati rice, 
-                  and kitchari are ideally suited for calming Vata-driven gas. Avoid raw cruciferous 
-                  vegetables (kale, broccoli, cauliflower), cold smoothies, and large amounts of 
-                  beans unless prepared with plenty of digestive spices like hing (asafoetida) 
-                  and cumin.
+                  Ayurvedic dietary guidance often recommends warm, freshly prepared meals that are easy to digest.  <br />
+                  Foods such as well-cooked grains, lightly spiced vegetables, and simple soups may support digestive efficiency. <br />
+                  Cold foods, highly processed products, and very large meals may place additional stress on digestion and increase the likelihood of bloating.
                 </p>
               </div>
               <div className="space-y-6">
-                <h3 className="text-2xl font-black text-forest tracking-tight">Mindful Movement</h3>
+                <h3 className="text-2xl font-black text-forest tracking-tight">Post-Meal Activity and Digestion</h3>
                 <p className="text-sm text-slate-600 font-medium leading-relaxed">
-                  Gentle movement after a meal, such as a 100-step stroll, helps catalyze the 
-                  downward movement of energy (Apana Vayu), which is essential for healthy 
-                  elimination and gas clearance. Additionally, yoga poses like "Apanasana" 
-                  (Knees-to-Chest) specifically help evacuate excess abdominal pressure.
+                  Light physical activity after meals may support gastrointestinal motility and assist the downward movement of gas through the digestive tract.  <br />
+                  Traditional Ayurvedic guidance often recommends a brief walk after eating to support digestive function.
                 </p>
               </div>
             </div>
@@ -254,25 +251,32 @@ export default function BloatingPage() {
           {/* New FAQ/Safety Segment */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-slate-100">
             <div className="p-10 rounded-[3.5rem] bg-blue-50/50 border border-blue-100 space-y-6">
-              <h3 className="text-2xl font-black text-forest tracking-tight">When to See a Doctor</h3>
+              <h3 className="text-2xl font-black text-forest tracking-tight">When Medical Evaluation Is Recommended</h3>
               <p className="text-sm text-slate-600 font-medium leading-relaxed">
-                Bloating is common, but it can occasionally signal more serious gastrointestinal issues.
+                Occasional bloating is common and often related to dietary or digestive factors.  <br />
+                However, persistent or severe bloating should be evaluated by a qualified healthcare professional.
               </p>
-              <p className="text-sm text-slate-600 font-bold leading-relaxed underline underline-offset-4 decoration-blue-200">
-                Please seek medical evaluation if bloating is accompanied by sudden weight loss, 
-                persistent severe pain, blood in stool, or if it becomes progressively worse over several weeks.
-              </p>
+              <div className="text-sm text-slate-600 font-bold leading-relaxed underline underline-offset-4 decoration-blue-200 space-y-4">
+                <p>Medical evaluation is recommended if bloating occurs together with:</p>
+                <ul className="list-disc pl-5 no-underline">
+                  <li>Unexplained weight loss</li>
+                  <li>Persistent abdominal pain</li>
+                  <li>Blood in stool</li>
+                  <li>Chronic vomiting or severe nausea</li>
+                  <li>Progressive worsening of symptoms</li>
+                </ul>
+              </div>
             </div>
             <div className="space-y-6">
-              <h3 className="text-2xl font-black text-forest tracking-tight">Common Questions</h3>
+              <h3 className="text-2xl font-black text-forest tracking-tight">Frequently Asked Questions</h3>
               <div className="space-y-4">
                 <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                  <h4 className="text-sm font-black text-forest mb-2">Can stress cause bloating?</h4>
-                  <p className="text-xs text-slate-500 font-medium">Absolutely. Stress activates the 'fight-or-flight' response, which pulls blood flow away from the gut, effectively shutting down your digestive fire (Agni).</p>
+                  <h4 className="text-sm font-black text-forest mb-2">Can psychological stress affect digestion?</h4>
+                  <p className="text-xs text-slate-500 font-medium">Yes. Stress can alter gastrointestinal motility and digestive secretions, which may contribute to symptoms such as bloating, abdominal discomfort, and irregular bowel habits.</p>
                 </div>
                 <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                  <h4 className="text-sm font-black text-forest mb-2">Is it normal to be bloated?</h4>
-                  <p className="text-xs text-slate-500 font-medium"> Occasional bloating after a very large meal can happen, but frequent bloating is a sign of physiological imbalance that should be addressed.</p>
+                  <h4 className="text-sm font-black text-forest mb-2">Is occasional bloating normal?</h4>
+                  <p className="text-xs text-slate-500 font-medium">Occasional bloating may occur after large meals or certain foods.  <br /> Frequent or persistent bloating, however, may indicate an underlying digestive imbalance that requires evaluation.</p>
                 </div>
               </div>
             </div>
@@ -280,13 +284,13 @@ export default function BloatingPage() {
 
           {/* Section 3: Actionable Corrections */}
           <div className="space-y-8">
-            <h2 className="text-3xl font-black text-forest tracking-tight">Simple Ayurvedic Corrections</h2>
+            <h2 className="text-3xl font-black text-forest tracking-tight">Lifestyle Strategies for Digestive Support</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { title: "Warm Over Cold", desc: "Sip warm water or ginger tea with meals. Cold liquids extinguish your digestive fire (Agni)." },
-                { title: "The Power of Spices", desc: "Cumin, Coriander, and Fennel (CCF tea) act as internal 'fans' for your digestive fire." },
-                { title: "Timed Eating", desc: "Eat your largest meal during Pitta time (10AM - 2PM) when the sun and your Agni are at peak." },
-                { title: "Mindful Chewing", desc: "Digestion begins in the mouth. Vata is calmed by focus; eating while working increases gas." }
+                { title: "Warm Over Cold", desc: "Warm beverages may support digestive enzyme activity and gastric motility. Cold drinks consumed during meals may slow digestive processes." },
+                { title: "The Power of Spices", desc: "Traditional digestive spices such as ginger, cumin, and fennel are commonly used in Ayurveda to support digestive efficiency." },
+                { title: "Timed Eating", desc: "Consistent meal timing may support metabolic rhythm and digestive enzyme regulation." },
+                { title: "Mindful Chewing", desc: "Thorough chewing assists mechanical digestion and prepares food for efficient breakdown in the stomach and intestines." }
               ].map((item, i) => (
                 <div key={i} className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 flex gap-6 items-start">
                    <CheckCircle2 className="w-6 h-6 text-forest shrink-0 mt-1" />
@@ -383,10 +387,10 @@ export default function BloatingPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               className="text-3xl md:text-5xl font-black tracking-tighter mb-8"
             >
-              Discover Your <br /> Digestive Pattern
+              Evaluate Your <br /> Digestive Function
             </motion.h3>
             <p className="text-emerald-100/70 font-bold mb-12 uppercase tracking-widest text-xs max-w-md mx-auto">
-              Identify if your bloating is Vata-driven or Ama-driven. Get a custom protocol in 2 minutes.
+              Dinaveda analyzes digestive signals such as meal timing, energy patterns, and symptom history to help identify possible digestive imbalance patterns.
             </p>
             <Link 
               href="/login" 
