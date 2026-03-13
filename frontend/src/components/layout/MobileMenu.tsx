@@ -138,7 +138,7 @@ export default function MobileMenu() {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("assessments")}
-                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
@@ -179,7 +179,7 @@ export default function MobileMenu() {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("health")}
-                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <HeartPulse className="w-3.5 h-3.5" />
@@ -209,7 +209,7 @@ export default function MobileMenu() {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("protocols")}
-                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
@@ -239,7 +239,7 @@ export default function MobileMenu() {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("routines")}
-                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
@@ -269,7 +269,7 @@ export default function MobileMenu() {
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("education")}
-                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <BookOpen className="w-3.5 h-3.5" />
