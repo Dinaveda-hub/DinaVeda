@@ -119,6 +119,102 @@ export default function AnxietyPage() {
             </div>
           </div>
 
+          {/* Vata Anxiety Symptoms */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Common Symptoms of Vata Anxiety
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              When anxiety is driven by Vata imbalance, the nervous system becomes
+              overstimulated and irregular. These symptoms often appear together and
+              fluctuate depending on sleep quality, stress levels, and digestive
+              stability.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Mental Symptoms</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Racing thoughts or mental overactivity</li>
+                  <li>• Difficulty concentrating</li>
+                  <li>• Excessive worry about future events</li>
+                  <li>• Sudden mood shifts</li>
+                </ul>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Physical Symptoms</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Restless sleep or insomnia</li>
+                  <li>• Cold hands and feet</li>
+                  <li>• Digestive irregularity</li>
+                  <li>• Muscle tension or tremors</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Long-tail SEO Section */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Why Does Vata Cause Anxiety?
+            </h2>
+
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
+              <p>
+                In Ayurveda, anxiety is most commonly associated with an aggravation of
+                the <strong>Vata dosha</strong>, the biological principle responsible for
+                movement, nerve impulses, and mental activity. When Vata becomes excessive,
+                the mind begins to move faster than the body's ability to stabilize it.
+              </p>
+
+              <p>
+                This imbalance can manifest as racing thoughts, restlessness, sleep
+                disturbance, and heightened sensitivity to stress. Factors such as
+                irregular meals, excessive screen time, chronic stress, and poor sleep
+                rhythm can further amplify Vata activity in the nervous system.
+              </p>
+
+              <p>
+                Ayurvedic management focuses on restoring rhythm, warmth, and grounding
+                influences through diet, routine, breathwork, and calming herbal
+                preparations that help stabilize the nervous system.
+              </p>
+            </div>
+          </div>
+
+          {/* Clinical Interpretation */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Ayurvedic Interpretation of Anxiety
+            </h2>
+
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
+              <p>
+                In classical Ayurvedic physiology, anxiety is interpreted as a functional
+                disturbance in the regulatory principle known as <strong>Vata dosha</strong>.
+                Vata governs movement in the body, including nerve impulses, breathing
+                rhythm, circulation, and mental activity.
+              </p>
+
+              <p>
+                When Vata becomes excessive or unstable, neural signaling becomes
+                irregular. This can produce sensations of restlessness, racing thoughts,
+                heightened alertness, and emotional volatility. Ayurveda therefore
+                approaches anxiety not as an isolated psychological condition, but as a
+                systemic imbalance affecting the nervous system.
+              </p>
+
+              <p>
+                The therapeutic approach focuses on restoring stability through warmth,
+                nourishment, and consistent daily rhythm. Practices such as warm oil
+                massage, grounding foods, regular sleep cycles, and breathing practices
+                are used to counteract the excessive mobility associated with Vata.
+              </p>
+            </div>
+          </div>
+
           {/* New Educational Content */}
           <div className="space-y-12 py-12">
             <div className="space-y-6">
@@ -185,6 +281,64 @@ export default function AnxietyPage() {
                   <p className="text-xs text-slate-500 font-medium">Dietary grounding can show results in 48-72 hours, while nervous system stabilization takes consistent practice over 3-4 weeks.</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Related Symptoms Section */}
+          <div className="space-y-10 pt-8 border-t border-slate-100">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Symptoms Often Connected With Anxiety
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              In Ayurvedic physiology, anxiety rarely appears alone. When Vata becomes
+              unstable, several other signals may arise across sleep, digestion, and
+              cognitive function. Recognizing these related patterns helps identify
+              deeper nervous system imbalance.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <Link
+                href="/health/insomnia"
+                className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+              >
+                Insomnia
+              </Link>
+
+              <Link
+                href="/health/brain-fog"
+                className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+              >
+                Brain Fog
+              </Link>
+
+              <Link
+                href="/health/low-energy"
+                className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+              >
+                Low Energy
+              </Link>
+
+              <Link
+                href="/health/bloating"
+                className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+              >
+                Digestive Bloating
+              </Link>
+
+              <Link
+                href="/health/poor-digestion"
+                className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+              >
+                Poor Digestion
+              </Link>
+
+              <Link
+                href="/guide/doshas"
+                className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+              >
+                Vata Dosha Guide
+              </Link>
             </div>
           </div>
 

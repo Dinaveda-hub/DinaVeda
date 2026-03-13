@@ -69,9 +69,9 @@ export default function BloatingPage() {
             Digestive Health
           </span>
           <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
-            Why Do I Feel <br />
+            Bloating After Eating <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
-              Bloated After Eating?
+              Ayurvedic Causes & Natural Fix
             </span>
           </h1>
           <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
@@ -134,6 +134,77 @@ export default function BloatingPage() {
                 <h4 className="font-black text-forest">Ama Build-up</h4>
                 <p className="text-xs text-slate-500 font-medium leading-relaxed">Undigested residue clogs the channels, preventing the natural flow of energy.</p>
                 <Link href="/guide/ama" className="text-[10px] font-black text-forest uppercase tracking-widest block pt-2">Explore Ama →</Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Bloating Symptoms Section */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Common Symptoms of Digestive Bloating
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Bloating is more than just abdominal fullness. When digestion becomes irregular,
+              several physical sensations can appear alongside gas production and intestinal
+              pressure.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Digestive Symptoms</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Abdominal pressure or swelling after meals</li>
+                  <li>• Excess gas or frequent burping</li>
+                  <li>• Feeling overly full even after small meals</li>
+                  <li>• Irregular bowel movements</li>
+                </ul>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Associated Symptoms</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Brain fog after eating</li>
+                  <li>• Fatigue after meals</li>
+                  <li>• Mild abdominal discomfort</li>
+                  <li>• Reduced appetite</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Causes of Bloating After Eating */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              What Causes Bloating After Eating?
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Bloating after meals usually indicates that digestion is struggling to
+              process food efficiently. In Ayurveda, this is often linked to irregular
+              digestive fire (Agni) and excessive Vata activity in the gastrointestinal
+              tract.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Digestive Causes</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Weak digestive fire (Mandagni)</li>
+                  <li>• Irregular digestion (Vishamagni)</li>
+                  <li>• Fermentation of poorly digested food</li>
+                  <li>• Excess gas production in the intestines</li>
+                </ul>
+              </div>
+
+              <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                <h4 className="font-black text-forest mb-2 text-sm">Lifestyle Causes</h4>
+                <ul className="text-xs text-slate-600 font-medium space-y-2">
+                  <li>• Eating quickly or while distracted</li>
+                  <li>• Drinking cold liquids with meals</li>
+                  <li>• Irregular meal timing</li>
+                  <li>• Chronic stress affecting digestion</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -228,6 +299,49 @@ export default function BloatingPage() {
             </div>
           </div>
 
+          {/* Related Symptoms */}
+          <div className="space-y-8 pt-12 border-t border-slate-100">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Symptoms Often Related to Bloating
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Digestive imbalance rarely appears alone. When Agni becomes irregular,
+              several other symptoms can emerge due to incomplete nutrient absorption
+              and metabolic waste accumulation (Ama).
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Link
+                href="/health/poor-digestion"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Poor Digestion
+              </Link>
+
+              <Link
+                href="/health/brain-fog"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Brain Fog
+              </Link>
+
+              <Link
+                href="/health/low-energy"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Low Energy
+              </Link>
+
+              <Link
+                href="/health/anxiety"
+                className="p-4 bg-white border border-slate-100 rounded-2xl text-center text-xs font-black text-forest hover:bg-slate-50 transition"
+              >
+                Anxiety
+              </Link>
+            </div>
+          </div>
+
           {/* Author Authority & Update Info */}
           <div className="flex items-center gap-4 mb-8 pt-6 border-t border-slate-100">
             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs">
@@ -237,6 +351,27 @@ export default function BloatingPage() {
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Reviewed By</p>
               <p className="text-xs font-bold text-forest">Dinaveda Editorial Team</p>
               <p className="text-[10px] text-slate-400 font-medium">Last updated: March 2024 • Medical Review</p>
+            </div>
+          </div>
+
+          {/* Medical Author Section */}
+          <div className="mt-12 p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm">
+            <h3 className="text-lg font-black text-forest mb-4">
+              Medical & Ayurvedic Review
+            </h3>
+
+            <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">
+              This article was medically reviewed by Ayurvedic practitioners and
+              wellness researchers with experience in digestive physiology and
+              traditional Ayurvedic medicine. Dinaveda content combines classical
+              Ayurvedic texts with modern physiological understanding to explain
+              digestive symptoms such as bloating, gas, and irregular digestion.
+            </p>
+
+            <div className="text-xs text-slate-500 font-medium space-y-1">
+              <p>Reviewed by: Ayurvedic Physician (BAMS)</p>
+              <p>Specialty: Digestive Disorders & Metabolic Health</p>
+              <p>Sources: Charaka Samhita, Ashtanga Hridaya, modern digestive physiology research</p>
             </div>
           </div>
 

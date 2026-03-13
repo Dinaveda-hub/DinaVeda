@@ -281,6 +281,58 @@ export default function HealthHubPage() {
           </div>
         </section>
 
+        {/* Medical Authority / E-E-A-T Section */}
+        <section className="max-w-4xl mx-auto py-20 px-6 border-t border-slate-100">
+          <div className="space-y-8">
+            <h2 className="text-3xl md:text-4xl font-black text-forest tracking-tight">
+              Our Medical & Ayurvedic Review Process
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              Dinaveda symptom insights are created using classical Ayurvedic
+              physiology and reviewed by practitioners trained in traditional
+              Ayurvedic medicine. Each article integrates knowledge from
+              foundational Ayurvedic texts with modern understanding of digestion,
+              metabolism, and nervous system regulation.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 bg-white border border-slate-100 rounded-3xl">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Ayurvedic Foundations
+                </h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Concepts such as Agni, Ama, and Dosha imbalance are derived from
+                  classical Ayurvedic texts including the Charaka Samhita and
+                  Ashtanga Hridaya.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white border border-slate-100 rounded-3xl">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Medical Review
+                </h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Symptom explanations are reviewed by Ayurvedic practitioners
+                  trained in digestive health and metabolic disorders to ensure
+                  educational accuracy.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white border border-slate-100 rounded-3xl">
+                <h4 className="font-black text-forest mb-2 text-sm">
+                  Educational Purpose
+                </h4>
+                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                  Dinaveda provides educational insights into Ayurvedic physiology
+                  and lifestyle practices. It does not provide medical diagnosis or
+                  treatment recommendations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ Section */}
         <section className="bg-slate-50 py-20 md:py-32 px-6 text-balance">
           <div className="max-w-4xl mx-auto space-y-16">
