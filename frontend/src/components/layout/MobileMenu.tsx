@@ -16,30 +16,15 @@ export default function MobileMenu() {
     setIsOpen(false);
   }, [pathname]);
 
-  // Robust scroll lock for mobile
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100vw';
-      document.body.style.overflowY = 'scroll'; // Prevent layout shift from scrollbar disappearing
+      document.body.style.overflow = "hidden";
     } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflowY = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
+      document.body.style.overflow = "";
     }
 
     return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflowY = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -112,7 +97,7 @@ export default function MobileMenu() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={toggleMenu}
-              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] touch-none"
+              className="fixed inset-0 bg-slate-900/50 backdrop-blur-md z-[9998]"
             />
 
             {/* Menu Panel */}
@@ -124,7 +109,7 @@ export default function MobileMenu() {
               initial="closed"
               animate="opened"
               exit="closed"
-              className="fixed top-0 right-0 bottom-0 w-[88%] max-w-[360px] bg-white z-[101] shadow-2xl flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[88%] max-w-[360px] bg-white z-[9999] shadow-2xl flex flex-col"
             >
               {/* Header */}
               <div className="p-6 flex justify-between items-center border-b border-slate-50">
@@ -147,16 +132,27 @@ export default function MobileMenu() {
                        <Activity className="w-3.5 h-3.5" /> Biological Assessments
                     </p>
                     <div className="grid grid-cols-1 gap-2">
-                      {TOPIC_GROUPS.tools.map((item) => (
-                        <Link 
-                          key={item.slug} 
-                          href={`/assessments/${item.slug}`}
-                          onClick={toggleMenu}
-                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
+                      {(TOPIC_GROUPS.tools ?? []).length > 0 ? (
+                        TOPIC_GROUPS.tools.map((item) => (
+                          <Link
+                            key={item.slug}
+                            href={`/assessments/${item.slug}`}
+                            onClick={toggleMenu}
+                            className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                          >
+                            {item.name}
+                          </Link>
+                        ))
+                      ) : (
+                        <>
+                          <Link href="/tools" onClick={toggleMenu} className="text-base font-bold text-forest">
+                            Analysis Tools
+                          </Link>
+                          <Link href="/login" onClick={toggleMenu} className="text-base font-bold text-forest">
+                            Start Assessment
+                          </Link>
+                        </>
+                      )}
                     </div>
                   </motion.div>
 
