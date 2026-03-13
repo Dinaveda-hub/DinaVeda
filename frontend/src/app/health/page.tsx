@@ -139,7 +139,7 @@ export default function HealthHubPage() {
 
       <main>
         {/* Hero Section */}
-        <header className="pt-20 pb-16 px-6 max-w-7xl mx-auto text-center relative z-10">
+        <header className="pt-14 md:pt-20 pb-10 md:pb-16 px-6 max-w-7xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,13 +148,13 @@ export default function HealthHubPage() {
             <span className="block text-xs font-black text-forest/90 uppercase tracking-[0.4em] mb-6">
               Symptom Hub
             </span>
-            <h1 className="text-4xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
+            <h1 className="text-3xl md:text-7xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
               Translate Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-500">
                 Body's Signals
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
+            <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
               Modern symptoms are often ancient signals of physiological imbalance. 
               Identify the patterns behind your discomfort.
             </p>
@@ -162,7 +162,7 @@ export default function HealthHubPage() {
         </header>
 
         {/* Symptoms Grid */}
-        <section className="py-20 px-6 max-w-7xl mx-auto relative z-10">
+        <section className="py-14 md:py-20 px-6 max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SYMPTOMS.map((symptom, i) => (
               <Link key={symptom.slug} href={`/health/${symptom.slug}`}>
@@ -172,13 +172,13 @@ export default function HealthHubPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -10 }}
-                  className="p-10 rounded-[3.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all h-full flex flex-col group"
+                  className="p-8 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all h-full flex flex-col group"
                 >
                   <div className={`w-16 h-16 rounded-2xl bg-slate-50 ${symptom.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
                     <symptom.icon className="w-8 h-8" />
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-3xl font-black text-forest mb-2 flex items-center gap-2">
+                    <h2 className="text-2xl md:text-3xl font-black text-forest mb-2 flex items-center gap-2">
                       {symptom.name} <ArrowRight className="w-5 h-5 opacity-20 group-hover:opacity-100 transition-all" />
                     </h2>
                     <p className="text-[10px] font-black uppercase text-slate-600 tracking-[0.2em] mb-6">{symptom.pattern}</p>
@@ -198,11 +198,11 @@ export default function HealthHubPage() {
         </section>
 
         {/* Logic Section */}
-        <section className="py-32 px-6 bg-forest text-white relative overflow-hidden">
+        <section className="py-20 md:py-32 px-6 bg-forest text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400 blur-[120px] opacity-10 pointer-events-none -mr-40" />
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tighter">Why Symptoms Persist</h2>
+              <h2 className="text-2xl md:text-5xl font-black tracking-tighter">Why Symptoms Persist</h2>
               <p className="text-emerald-100/70 text-lg leading-relaxed">
                 Most health protocols target the <strong>symptom</strong> (Vikriti). 
                 Dinaveda targets the <strong>source code</strong> (Prakriti and Agni). 
@@ -214,7 +214,7 @@ export default function HealthHubPage() {
                 </Link>
               </div>
             </div>
-            <div className="bg-white/5 backdrop-blur-md p-10 rounded-[4rem] border border-white/10 space-y-8">
+            <div className="bg-white/5 backdrop-blur-md p-8 md:p-10 rounded-[2.5rem] md:rounded-[4rem] border border-white/10 space-y-8">
               <div className="flex gap-6 items-start">
                 <AlertCircle className="w-8 h-8 text-orange-400 shrink-0" />
                 <div>
@@ -234,12 +234,12 @@ export default function HealthHubPage() {
         </section>
 
         {/* Pillar Content Section */}
-        <section className="max-w-4xl mx-auto py-32 px-6 space-y-16">
+        <section className="max-w-4xl mx-auto py-20 md:py-32 px-6 space-y-16">
           <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tight">
               Understanding Symptoms Through Ayurveda
             </h2>
-            <div className="space-y-6 text-slate-600 leading-relaxed font-medium text-lg">
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium text-base md:text-lg">
               <p>
                 In Ayurvedic physiology, symptoms are not isolated problems to be suppressed. 
                 They are the body's primary language—signals that your internal biological systems 
@@ -282,10 +282,10 @@ export default function HealthHubPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="bg-slate-50 py-32 px-6">
+        <section className="bg-slate-50 py-20 md:py-32 px-6 text-balance">
           <div className="max-w-4xl mx-auto space-y-16">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tight">Common Questions</h2>
+              <h2 className="text-2xl md:text-5xl font-black text-forest tracking-tight">Common Questions</h2>
               <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Ayurvedic Health Insights</p>
             </div>
             
@@ -308,7 +308,7 @@ export default function HealthHubPage() {
                   a: "While symptoms can begin to shift in 3-7 days of correct protocol, structural balance typically takes one full metabolic cycle (approximately 30 days)."
                 }
               ].map((faq, i) => (
-                <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
+                <div key={i} className="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
                   <h4 className="text-lg font-black text-forest leading-tight">{faq.q}</h4>
                   <p className="text-slate-600 font-medium leading-relaxed text-sm">{faq.a}</p>
                 </div>
@@ -319,8 +319,8 @@ export default function HealthHubPage() {
 
         {/* Final CTA */}
         <section className="py-24 px-6 text-center relative z-10">
-          <div className="max-w-4xl mx-auto overflow-hidden bg-white p-16 md:p-24 rounded-[4rem] border border-slate-100 shadow-premium">
-            <h2 className="text-4xl md:text-5xl font-[1000] tracking-tighter text-forest mb-8 italic uppercase text-balance">
+          <div className="max-w-4xl mx-auto overflow-hidden bg-white p-12 md:p-24 rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-premium">
+            <h2 className="text-3xl md:text-5xl font-[1000] tracking-tighter text-forest mb-8 italic uppercase text-balance">
               Identify Your Pattern
             </h2>
             <p className="text-slate-500 font-bold mb-12 uppercase tracking-widest text-sm max-w-md mx-auto">

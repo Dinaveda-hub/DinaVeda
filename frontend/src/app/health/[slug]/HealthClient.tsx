@@ -89,7 +89,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
         </Link>
       </nav>
 
-      <article className="max-w-4xl mx-auto px-6 py-20">
+      <article className="max-w-4xl mx-auto px-5 md:px-6 py-14 md:py-20">
         <motion.header 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,16 +109,16 @@ export default function HealthClient({ slug }: HealthClientProps) {
               {combo.title.split(":")[1] || ""}
             </span>
           </h1>
-          <p className="text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
             {combo.intro}
           </p>
         </motion.header>
 
-        <section className="space-y-20">
+        <section className="space-y-14 md:space-y-20">
           {/* Section 1: Perspectives */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div className="space-y-6">
-              <h2 className="text-3xl font-black text-forest tracking-tight">The Modern View</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">The Modern View</h2>
               <p className="text-slate-600 leading-relaxed font-medium">
                 {symptom?.modernDesc}
               </p>
@@ -129,7 +129,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
                 </p>
               </div>
             </div>
-            <div className={`p-10 rounded-[4rem] bg-white border border-slate-100 shadow-sm space-y-6`}>
+            <div className={`p-8 md:p-10 rounded-[2.5rem] md:rounded-[4rem] bg-white border border-slate-100 shadow-sm space-y-6`}>
               <div className={`w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center ${symptom?.color}`}>
                 {symptom && <symptom.icon className="w-8 h-8" />}
               </div>
@@ -147,12 +147,12 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
           {/* Section: The Root Cause Bridge */}
           {symptom?.relatedCause && (
-            <div className="bg-slate-900 rounded-[3.5rem] p-10 md:p-14 text-white overflow-hidden relative">
+            <div className="bg-slate-900 rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-14 text-white overflow-hidden relative">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500 blur-[120px] opacity-20 pointer-events-none" />
               <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
                 <div className="flex-1 space-y-6 text-center md:text-left">
                   <span className="text-xs font-black uppercase tracking-[0.3em] text-emerald-400">The Mechanical Source</span>
-                  <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
+                  <h3 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">
                     {symptom.name} is a branch. <br />
                     The root is <span className="text-emerald-400 underline underline-offset-8 decoration-emerald-400/30">biological instability.</span>
                   </h3>
@@ -178,8 +178,8 @@ export default function HealthClient({ slug }: HealthClientProps) {
           )}
 
           {/* Section 2: Signs */}
-          <div className="bg-white p-12 rounded-[4rem] border border-slate-100 shadow-sm">
-            <h2 className="text-3xl font-black text-forest tracking-tight text-center mb-12">Is this your pattern?</h2>
+          <div className="bg-white p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-sm">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight text-center mb-12">Is this your pattern?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {combo.signs.map((sign, i) => (
                 <div key={i} className="flex gap-4 items-start">
@@ -194,7 +194,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
           {/* New Section: Causes & Mechanism */}
           <div className="space-y-8">
-            <h2 className="text-3xl font-black text-forest tracking-tight">What causes {symptom?.name} in {dosha?.name} types?</h2>
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">What causes {symptom?.name} in {dosha?.name} types?</h2>
             <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
               <p>
                 In Ayurvedic physiology, {symptom?.name} is not viewed as a random occurrence, but as a specific 
@@ -268,9 +268,73 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
           <div className="border-t border-slate-100 pt-12" />
 
+          {/* Long-Tail SEO Section */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              How to Reduce {symptom?.name} Caused by {dosha?.name}
+            </h2>
+
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
+              <p>
+                Reducing {symptom?.name} associated with {dosha?.name} imbalance requires
+                restoring equilibrium to the qualities that have become excessive in the body.
+                Ayurveda approaches this by introducing opposite qualities through diet,
+                lifestyle rhythms, and digestive regulation.
+              </p>
+
+              <p>
+                For example, when {dosha?.name} accumulates it can disturb digestive stability,
+                circulation, or nervous system balance. This disturbance may manifest as
+                patterns like {combo.signs.slice(0,2).join(" and ")}. Correcting the imbalance
+                focuses on strengthening metabolic function (Agni) and clearing accumulated
+                metabolic waste (Ama).
+              </p>
+
+              <p>
+                In many cases, symptoms begin improving when daily habits align with
+                circadian rhythms — regular meal times, adequate sleep, warm and digestible
+                foods, and stress regulation practices such as breathing exercises or
+                mindful movement.
+              </p>
+            </div>
+          </div>
+
+          {/* Clinical Explanation Section */}
+          <div className="space-y-8">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Ayurvedic Interpretation of {symptom?.name}
+            </h2>
+
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
+              <p>
+                Classical Ayurvedic physiology interprets {symptom?.name} as a functional
+                signal rather than an isolated disorder. The symptom emerges when the
+                balance between the three regulatory principles — Vata, Pitta, and Kapha —
+                shifts away from an individual's natural constitution (Prakriti).
+              </p>
+
+              <p>
+                In the case of {dosha?.name} imbalance, the dominant qualities associated
+                with this dosha begin to influence systemic processes such as digestion,
+                tissue nourishment, and neural signaling. These shifts can manifest
+                through patterns including {combo.signs.slice(0,2).join(" and ")}.
+              </p>
+
+              <p>
+                From a physiological perspective, these symptoms often reflect changes in
+                digestive efficiency (Agni), metabolic by-product accumulation (Ama),
+                and regulatory instability across body systems. Addressing these root
+                patterns through diet, lifestyle rhythm, and digestive correction is
+                the foundational therapeutic principle in Ayurveda.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 pt-12" />
+
           {/* Section 3: Protocol */}
           <div className="space-y-8">
-            <h2 className="text-3xl font-black text-forest tracking-tight">Recommended Protocol</h2>
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">Recommended Protocol</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {combo.protocol.map((item, i) => (
                 <div key={i} className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 flex flex-col items-center text-center">
@@ -286,7 +350,7 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
           {/* New Section: Safety & FAQ */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12">
-            <div className="p-10 rounded-[3.5rem] bg-orange-50/50 border border-orange-100 space-y-6">
+            <div className="p-8 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] bg-orange-50/50 border border-orange-100 space-y-6">
               <h3 className="text-2xl font-black text-forest tracking-tight">Medical Guidance</h3>
               <p className="text-sm text-slate-600 font-medium leading-relaxed">
                 While Ayurvedic insights provide powerful support for wellness, they do not replace 
@@ -302,18 +366,76 @@ export default function HealthClient({ slug }: HealthClientProps) {
               </ul>
             </div>
 
+            {/* FAQ Section */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-black text-forest tracking-tight">Common Questions</h3>
+              <h3 className="text-2xl font-black text-forest tracking-tight">
+                Frequently Asked Questions
+              </h3>
+
               <div className="space-y-4">
                 <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                  <h4 className="text-sm font-black text-forest mb-2">Is {symptom?.name} permanent?</h4>
-                  <p className="text-xs text-slate-500 font-medium">In the Ayurvedic view, symptoms are dynamic. Once the underlying {dosha?.name} imbalance is corrected, the signal typically subsides.</p>
+                  <h4 className="text-sm font-black text-forest mb-2">
+                    What causes {symptom?.name} in {dosha?.name} types?
+                  </h4>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                    In Ayurveda, {symptom?.name} commonly appears when {dosha?.name}
+                    becomes aggravated and disturbs the body's natural physiological balance.
+                    This imbalance affects processes like digestion, nervous regulation,
+                    or metabolic stability.
+                  </p>
                 </div>
+
                 <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                  <h4 className="text-sm font-black text-forest mb-2">Can I use herbs and medicine?</h4>
-                  <p className="text-xs text-slate-500 font-medium">Ayurvedic herbs support the body, but should be integrated carefully with any existing modern medical treatments.</p>
+                  <h4 className="text-sm font-black text-forest mb-2">
+                    Can {symptom?.name} improve naturally with Ayurvedic lifestyle changes?
+                  </h4>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                    Yes. Ayurveda focuses on restoring balance through diet, daily routine,
+                    and digestion regulation. When these factors improve, symptoms like
+                    {symptom?.name} often reduce gradually.
+                  </p>
+                </div>
+
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">
+                    How long does it take to balance {dosha?.name}?
+                  </h4>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                    Initial improvements may appear within a few days of consistent
+                    lifestyle adjustments. However, deeper physiological balance
+                    generally develops over one metabolic cycle of approximately
+                    30 days.
+                  </p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Related Symptoms Section */}
+          <div className="space-y-10">
+            <h2 className="text-2xl md:text-3xl font-black text-forest tracking-tight">
+              Related Symptoms of {dosha?.name} Imbalance
+            </h2>
+
+            <p className="text-slate-600 font-medium leading-relaxed">
+              In Ayurveda, symptoms rarely appear in isolation. When {dosha?.name} becomes aggravated,
+              multiple signals may emerge across digestion, energy, mood, and sleep cycles.
+              Recognizing these associated patterns helps identify the deeper physiological imbalance.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {Object.values(SYMPTOMS)
+                .filter((s) => s.name !== symptom?.name)
+                .slice(0, 6)
+                .map((s) => (
+                  <Link
+                    key={s.id}
+                    href={`/health/${s.id}-${doshaKey}`}
+                    className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+                  >
+                    {s.name}
+                  </Link>
+                ))}
             </div>
           </div>
 
@@ -331,12 +453,12 @@ export default function HealthClient({ slug }: HealthClientProps) {
           </div>
 
           {/* Dinaveda CTA */}
-          <div className="bg-forest p-12 md:p-16 rounded-[4rem] text-white text-center relative overflow-hidden">
+          <div className="bg-forest p-10 md:p-16 rounded-[2.5rem] md:rounded-[4rem] text-white text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400 blur-[100px] opacity-10 pointer-events-none -mr-20" />
             <motion.h3 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              className="text-3xl md:text-5xl font-black tracking-tighter mb-8"
+              className="text-2xl md:text-5xl font-black tracking-tighter mb-8"
             >
               Analyze Your <br /> Metabolic Code
             </motion.h3>
