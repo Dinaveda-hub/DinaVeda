@@ -10,7 +10,7 @@ import { TOPIC_GROUPS } from "@/data/navigation";
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const [openSection, setOpenSection] = useState<string | null>(null);
+  const [openSection, setOpenSection] = useState<string | null>("assessments");
 
   const toggleSection = (section: string) => {
     setOpenSection(prev => (prev === section ? null : section));
