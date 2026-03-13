@@ -205,6 +205,66 @@ export default function MobileMenu() {
 
                   <div className="border-t border-slate-100 pt-6" />
 
+                  {/* Protocols */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <button
+                      onClick={() => toggleSection("protocols")}
+                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Activity className="w-3.5 h-3.5" />
+                        Protocols
+                      </span>
+                      <span>{openSection === "protocols" ? "−" : "+"}</span>
+                    </button>
+
+                    {openSection === "protocols" && (
+                      <div className="grid grid-cols-1 gap-2">
+                        <Link href="/protocol/dinacharya-reset" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                          Dinacharya Reset
+                        </Link>
+                        <Link href="/protocol/agni-reboot" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                          Agni Reboot
+                        </Link>
+                        <Link href="/protocol/ama-cleanse" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                          Ama Cleanse
+                        </Link>
+                      </div>
+                    )}
+                  </motion.div>
+
+                  <div className="border-t border-slate-100 pt-6" />
+
+                  {/* Routines */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <button
+                      onClick={() => toggleSection("routines")}
+                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Activity className="w-3.5 h-3.5" />
+                        Routines
+                      </span>
+                      <span>{openSection === "routines" ? "−" : "+"}</span>
+                    </button>
+
+                    {openSection === "routines" && (
+                      <div className="grid grid-cols-1 gap-2">
+                        <Link href="/routine/morning" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                          Morning Routine
+                        </Link>
+                        <Link href="/routine/evening" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                          Evening Routine
+                        </Link>
+                        <Link href="/routine/sleep-reset" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                          Sleep Reset
+                        </Link>
+                      </div>
+                    )}
+                  </motion.div>
+
+                  <div className="border-t border-slate-100 pt-6" />
+
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
