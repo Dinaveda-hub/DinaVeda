@@ -10,6 +10,11 @@ import { TOPIC_GROUPS } from "@/data/navigation";
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setOpenSection(prev => (prev === section ? null : section));
+  };
 
   // Close menu when route changes
   useEffect(() => {
@@ -131,9 +136,17 @@ export default function MobileMenu() {
                   
                   {/* Tools / Assessments */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2 mb-3">
-                       <Activity className="w-3.5 h-3.5" /> Biological Assessments
-                    </p>
+                    <button
+                      onClick={() => toggleSection("assessments")}
+                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                    >
+                      <span className="flex items-center gap-2">
+                        <Activity className="w-3.5 h-3.5" />
+                        Biological Assessments
+                      </span>
+                      <span>{openSection === "assessments" ? "−" : "+"}</span>
+                    </button>
+                    {openSection === "assessments" && (
                     <div className="grid grid-cols-1 gap-2">
                       {(TOPIC_GROUPS.tools ?? []).length > 0 ? (
                         TOPIC_GROUPS.tools.map((item) => (
@@ -157,15 +170,24 @@ export default function MobileMenu() {
                         </>
                       )}
                     </div>
+                    )}
                   </motion.div>
 
                   <div className="border-t border-slate-100 pt-6" />
 
                   {/* Symptoms / Health Hub */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2 mb-3">
-                       <HeartPulse className="w-3.5 h-3.5" /> Health Hub
-                    </p>
+                    <button
+                      onClick={() => toggleSection("health")}
+                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                    >
+                      <span className="flex items-center gap-2">
+                        <HeartPulse className="w-3.5 h-3.5" />
+                        Health Hub
+                      </span>
+                      <span>{openSection === "health" ? "−" : "+"}</span>
+                    </button>
+                    {openSection === "health" && (
                     <div className="grid grid-cols-1 gap-2">
                       {TOPIC_GROUPS.symptoms.map((item) => (
                         <Link 
@@ -178,15 +200,24 @@ export default function MobileMenu() {
                         </Link>
                       ))}
                     </div>
+                    )}
                   </motion.div>
 
                   <div className="border-t border-slate-100 pt-6" />
 
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2 mb-3">
-                       <BookOpen className="w-3.5 h-3.5" /> Education
-                    </p>
+                    <button
+                      onClick={() => toggleSection("education")}
+                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                    >
+                      <span className="flex items-center gap-2">
+                        <BookOpen className="w-3.5 h-3.5" />
+                        Education
+                      </span>
+                      <span>{openSection === "education" ? "−" : "+"}</span>
+                    </button>
+                    {openSection === "education" && (
                     <div className="grid grid-cols-1 gap-2">
                       {TOPIC_GROUPS.education.map((item) => (
                         <Link 
@@ -199,6 +230,7 @@ export default function MobileMenu() {
                         </Link>
                       ))}
                     </div>
+                    )}
                   </motion.div>
 
                 </motion.div>
