@@ -109,7 +109,7 @@ export default function MobileMenu() {
               initial="closed"
               animate="opened"
               exit="closed"
-              className="fixed top-[72px] right-0 h-[calc(100vh-72px)] w-[92%] max-w-[420px] bg-white z-[9999] shadow-2xl flex flex-col rounded-l-3xl"
+              className="fixed top-0 right-0 h-screen w-[85%] max-w-[380px] bg-white z-[9999] shadow-2xl flex flex-col"
             >
               {/* Header */}
               <div className="p-6 flex justify-between items-center border-b border-slate-50">
