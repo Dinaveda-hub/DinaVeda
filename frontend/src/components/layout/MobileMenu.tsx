@@ -132,39 +132,42 @@ export default function MobileMenu() {
 
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto overscroll-contain p-5 space-y-6">
-                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-6">
+                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-0">
                   
                   {/* Tools / Assessments */}
-                  <motion.div variants={itemVariants} className="space-y-4">
+                  <motion.div variants={itemVariants} className="space-y-0">
                     <button
                       onClick={() => toggleSection("assessments")}
-                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
+                      className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-2">
-                        <Activity className="w-3.5 h-3.5" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
+                        <Activity className="w-4 h-4 text-slate-500" />
                         Biological Assessments
                       </span>
-                      <span>{openSection === "assessments" ? "−" : "+"}</span>
+
+                      <span className="text-slate-400 text-lg font-light">
+                        {openSection === "assessments" ? "−" : "+"}
+                      </span>
                     </button>
                     {openSection === "assessments" && (
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="pl-7 py-3 space-y-3">
                       {(TOPIC_GROUPS.tools ?? []).length > 0 ? (
                         TOPIC_GROUPS.tools.map((item) => (
                           <Link
                             key={item.slug}
                             href={`/assessments/${item.slug}`}
                             onClick={toggleMenu}
-                            className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform"
+                            className="block text-[17px] font-semibold text-forest"
                           >
                             {item.name}
                           </Link>
                         ))
                       ) : (
                         <>
-                          <Link href="/tools" onClick={toggleMenu} className="text-lg font-semibold text-forest">
+                          <Link href="/tools" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                             Analysis Tools
                           </Link>
-                          <Link href="/login" onClick={toggleMenu} className="text-lg font-semibold text-forest">
+                          <Link href="/login" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                             Start Assessment
                           </Link>
                         </>
@@ -176,25 +179,28 @@ export default function MobileMenu() {
                   <div className="border-t border-slate-100 pt-4" />
 
                   {/* Symptoms / Health Hub */}
-                  <motion.div variants={itemVariants} className="space-y-4">
+                  <motion.div variants={itemVariants} className="space-y-0">
                     <button
                       onClick={() => toggleSection("health")}
-                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
+                      className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-2">
-                        <HeartPulse className="w-3.5 h-3.5" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
+                        <HeartPulse className="w-4 h-4 text-slate-500" />
                         Health Hub
                       </span>
-                      <span>{openSection === "health" ? "−" : "+"}</span>
+
+                      <span className="text-slate-400 text-lg font-light">
+                        {openSection === "health" ? "−" : "+"}
+                      </span>
                     </button>
                     {openSection === "health" && (
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="pl-7 py-3 space-y-3">
                       {TOPIC_GROUPS.symptoms.map((item) => (
                         <Link 
                           key={item.slug} 
                           href={`/health/${item.slug}`}
                           onClick={toggleMenu}
-                          className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform"
+                          className="block text-[17px] font-semibold text-forest"
                         >
                           {item.name}
                         </Link>
@@ -206,27 +212,30 @@ export default function MobileMenu() {
                   <div className="border-t border-slate-100 pt-4" />
 
                   {/* Protocols */}
-                  <motion.div variants={itemVariants} className="space-y-4">
+                  <motion.div variants={itemVariants} className="space-y-0">
                     <button
                       onClick={() => toggleSection("protocols")}
-                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
+                      className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-2">
-                        <Activity className="w-3.5 h-3.5" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
+                        <Activity className="w-4 h-4 text-slate-500" />
                         Protocols
                       </span>
-                      <span>{openSection === "protocols" ? "−" : "+"}</span>
+
+                      <span className="text-slate-400 text-lg font-light">
+                        {openSection === "protocols" ? "−" : "+"}
+                      </span>
                     </button>
 
                     {openSection === "protocols" && (
-                      <div className="grid grid-cols-1 gap-2">
-                        <Link href="/protocol/dinacharya-reset" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                      <div className="pl-7 py-3 space-y-3">
+                        <Link href="/protocol/dinacharya-reset" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                           Dinacharya Reset
                         </Link>
-                        <Link href="/protocol/agni-reboot" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                        <Link href="/protocol/agni-reboot" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                           Agni Reboot
                         </Link>
-                        <Link href="/protocol/ama-cleanse" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                        <Link href="/protocol/ama-cleanse" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                           Ama Cleanse
                         </Link>
                       </div>
@@ -236,27 +245,30 @@ export default function MobileMenu() {
                   <div className="border-t border-slate-100 pt-4" />
 
                   {/* Routines */}
-                  <motion.div variants={itemVariants} className="space-y-4">
+                  <motion.div variants={itemVariants} className="space-y-0">
                     <button
                       onClick={() => toggleSection("routines")}
-                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
+                      className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-2">
-                        <Activity className="w-3.5 h-3.5" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
+                        <Activity className="w-4 h-4 text-slate-500" />
                         Routines
                       </span>
-                      <span>{openSection === "routines" ? "−" : "+"}</span>
+
+                      <span className="text-slate-400 text-lg font-light">
+                        {openSection === "routines" ? "−" : "+"}
+                      </span>
                     </button>
 
                     {openSection === "routines" && (
-                      <div className="grid grid-cols-1 gap-2">
-                        <Link href="/routine/morning" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                      <div className="pl-7 py-3 space-y-3">
+                        <Link href="/routine/morning" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                           Morning Routine
                         </Link>
-                        <Link href="/routine/evening" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                        <Link href="/routine/evening" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                           Evening Routine
                         </Link>
-                        <Link href="/routine/sleep-reset" onClick={toggleMenu} className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform">
+                        <Link href="/routine/sleep-reset" onClick={toggleMenu} className="block text-[17px] font-semibold text-forest">
                           Sleep Reset
                         </Link>
                       </div>
@@ -266,25 +278,28 @@ export default function MobileMenu() {
                   <div className="border-t border-slate-100 pt-4" />
 
                   {/* Education */}
-                  <motion.div variants={itemVariants} className="space-y-4">
+                  <motion.div variants={itemVariants} className="space-y-0">
                     <button
                       onClick={() => toggleSection("education")}
-                      className="w-full text-left text-sm font-bold uppercase tracking-[0.12em] text-slate-600 flex items-center justify-between mb-3"
+                      className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-2">
-                        <BookOpen className="w-3.5 h-3.5" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
+                        <BookOpen className="w-4 h-4 text-slate-500" />
                         Education
                       </span>
-                      <span>{openSection === "education" ? "−" : "+"}</span>
+
+                      <span className="text-slate-400 text-lg font-light">
+                        {openSection === "education" ? "−" : "+"}
+                      </span>
                     </button>
                     {openSection === "education" && (
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="pl-7 py-3 space-y-3">
                       {TOPIC_GROUPS.education.map((item) => (
                         <Link 
                           key={item.slug} 
                           href={item.slug === "index" ? "/guide" : `/guide/${item.slug}`}
                           onClick={toggleMenu}
-                          className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform"
+                          className="block text-[17px] font-semibold text-forest"
                         >
                           {item.name}
                         </Link>
