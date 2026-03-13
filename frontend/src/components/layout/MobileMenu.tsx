@@ -140,12 +140,12 @@ export default function MobileMenu() {
                       onClick={() => toggleSection("assessments")}
                       className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
-                        <Activity className="w-4 h-4 text-slate-500" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-900">
+                        <Activity className="w-4 h-4 text-slate-700" />
                         Biological Assessments
                       </span>
 
-                      <span className="text-slate-400 text-lg font-light">
+                      <span className="text-slate-600 text-lg font-light">
                         {openSection === "assessments" ? "−" : "+"}
                       </span>
                     </button>
@@ -182,12 +182,12 @@ export default function MobileMenu() {
                       onClick={() => toggleSection("health")}
                       className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
-                        <HeartPulse className="w-4 h-4 text-slate-500" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-900">
+                        <HeartPulse className="w-4 h-4 text-slate-700" />
                         Health Hub
                       </span>
 
-                      <span className="text-slate-400 text-lg font-light">
+                      <span className="text-slate-600 text-lg font-light">
                         {openSection === "health" ? "−" : "+"}
                       </span>
                     </button>
@@ -213,12 +213,12 @@ export default function MobileMenu() {
                       onClick={() => toggleSection("protocols")}
                       className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
-                        <Activity className="w-4 h-4 text-slate-500" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-900">
+                        <Activity className="w-4 h-4 text-slate-700" />
                         Protocols
                       </span>
 
-                      <span className="text-slate-400 text-lg font-light">
+                      <span className="text-slate-600 text-lg font-light">
                         {openSection === "protocols" ? "−" : "+"}
                       </span>
                     </button>
@@ -244,12 +244,12 @@ export default function MobileMenu() {
                       onClick={() => toggleSection("routines")}
                       className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
-                        <Activity className="w-4 h-4 text-slate-500" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-900">
+                        <Activity className="w-4 h-4 text-slate-700" />
                         Routines
                       </span>
 
-                      <span className="text-slate-400 text-lg font-light">
+                      <span className="text-slate-600 text-lg font-light">
                         {openSection === "routines" ? "−" : "+"}
                       </span>
                     </button>
@@ -275,12 +275,12 @@ export default function MobileMenu() {
                       onClick={() => toggleSection("education")}
                       className="w-full flex items-center justify-between py-4 border-b border-slate-100"
                     >
-                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-600">
-                        <BookOpen className="w-4 h-4 text-slate-500" />
+                      <span className="flex items-center gap-3 text-[13px] font-semibold tracking-[0.12em] uppercase text-slate-900">
+                        <BookOpen className="w-4 h-4 text-slate-700" />
                         Education
                       </span>
 
-                      <span className="text-slate-400 text-lg font-light">
+                      <span className="text-slate-600 text-lg font-light">
                         {openSection === "education" ? "−" : "+"}
                       </span>
                     </button>
