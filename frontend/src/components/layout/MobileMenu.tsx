@@ -18,12 +18,15 @@ export default function MobileMenu() {
 
   useEffect(() => {
     if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     }
 
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [isOpen]);
@@ -123,7 +126,7 @@ export default function MobileMenu() {
               </div>
 
               {/* Scrollable Content */}
-              <div className="flex-1 overflow-y-auto px-7 py-8 space-y-14">
+              <div className="flex-1 overflow-y-auto overscroll-contain px-7 py-8 space-y-14">
                 <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-12">
                   
                   {/* Tools / Assessments */}
