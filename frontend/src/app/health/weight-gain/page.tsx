@@ -14,7 +14,28 @@ const JSON_LD = {
     { "@type": "Thing", "name": "Weight Gain" },
     { "@type": "Thing", "name": "Kapha" },
     { "@type": "Thing", "name": "Ayurveda" }
-  ]
+  ],
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is it harder for some people to lose weight according to Ayurveda?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each person has a unique metabolic constitution. Those with a 'Kapha' dominance naturally have a slower metabolism ('Manda Agni') and more robust storage capacity. Weight management for these types requires stoking the internal fire rather than just reducing calories."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can spices actually help with weight loss?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Pungent spices like black pepper, ginger, and chili help 'liquify' the heavy Earth and Water elements (Kapha) and increase the rate of fat metabolism by stimulating 'Agni'."
+        }
+      }
+    ]
+  }
 };
 
 export default function WeightGainPage() {
@@ -92,6 +113,96 @@ export default function WeightGainPage() {
             </div>
           </div>
 
+          {/* New Educational Content */}
+          <div className="space-y-12 py-12">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-black text-forest tracking-tight">The Physiology of Accumulation (Meda Dhatu)</h2>
+              <div className="space-y-4 text-slate-600 leading-relaxed font-medium">
+                <p>
+                  In the Ayurvedic biological map, fat is known as <strong>Meda Dhatu</strong>. 
+                  Healthy fat provides insulation, protection, and endurance. However, when 
+                  your metabolic fire (Agni) is weak, the nourishment from your food is 
+                  converted into poor-quality Meda Dhatu that accumulates excessively, 
+                  especially in the abdominal and limb regions.
+                </p>
+                <p>
+                  This weight is often "sticky"—held in place by <strong>Ama</strong> (unprocessed 
+                  waste). To lose weight effectively and permanently, you must not only 
+                  reduce intake but also "scrape" (Lekhana) the toxins and sluggishness 
+                  from the tissues.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-forest tracking-tight">Waking Up the Fire</h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  For persistent weight gain, the focus must be on introducing "Hot" 
+                  and "Dry" qualities. Morning movement is critical because it 
+                  liquidizes the stagnant Kapha element after the night's rest. 
+                  Consuming bitter greens at the start of meals acts as a 
+                  physiological signal to the liver to begin the 'burning' 
+                  cycle rather than the 'storage' cycle.
+                </p>
+              </div>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-forest tracking-tight">The Water Principle</h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  Contrary to modern advice, excessive cold water can actually 
+                  increase weight gain in Kapha-dominant individuals by 
+                  extinguishing the metabolic fire. Sipping warm water or 
+                  herb tea throughout the day helps mobilize lymph and 
+                  prevents the "water retention" that contributes to a 
+                  feeling of overall heaviness.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* New FAQ/Safety Segment */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-slate-100">
+            <div className="p-10 rounded-[3.5rem] bg-amber-50/50 border border-amber-100 space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Metabolic Guidance</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Ayurvedic weight management focuses on biological rhythm. 
+                Sudden or extreme changes in weight can be signs of more 
+                complex medical conditions.
+              </p>
+              <p className="text-sm text-slate-600 font-bold leading-relaxed underline underline-offset-4 decoration-amber-200">
+                You should consult a healthcare professional for sudden 
+                unexplained weight gain, signs of edema (swelling) in the 
+                lower limbs, or if you suspect hormonal imbalances like 
+                PCOS or Thyroid dysfunction.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Common Questions</h3>
+              <div className="space-y-4">
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Can oil massage help lose weight?</h4>
+                  <p className="text-xs text-slate-500 font-medium">Yes, but only if using specialized 'dry' powders (Udvartana) or light oils. This stimulates lymphatic drainage and breaks down stagnant Kapha underneath the skin.</p>
+                </div>
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Should I skip breakfast?</h4>
+                  <p className="text-xs text-slate-500 font-medium">For Kapha-dominant weight gain, skipping a heavy breakfast and waiting until your fire is truly peaked (around 11 AM) is often very beneficial.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Author Authority & Update Info */}
+          <div className="flex items-center gap-4 mb-8 pt-6 border-t border-slate-100">
+            <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 font-bold text-xs">
+              DA
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Reviewed By</p>
+              <p className="text-xs font-bold text-forest">Dinaveda Editorial Team</p>
+              <p className="text-[10px] text-slate-400 font-medium">Last updated: March 2024 • Medical Review</p>
+            </div>
+          </div>
+
           <div className="bg-forest p-12 md:p-16 rounded-[4rem] text-white text-center relative overflow-hidden">
             <motion.h3 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -109,6 +220,11 @@ export default function WeightGainPage() {
             >
               Start My Reset <Activity className="w-5 h-5" />
             </Link>
+
+            {/* Medical Disclaimer */}
+            <div className="mt-16 pt-8 border-t border-white/10 uppercase tracking-widest text-[9px] font-bold text-emerald-100/30 text-center">
+              Disclaimer: Ayurvedic educational insights. Not a medical weight loss program. Consult a doctor for hormonal or metabolic disorders.
+            </div>
           </div>
         </section>
       </article>

@@ -14,7 +14,28 @@ const JSON_LD = {
     { "@type": "Thing", "name": "Insomnia" },
     { "@type": "Thing", "name": "Sleep" },
     { "@type": "Thing", "name": "Ayurveda" }
-  ]
+  ],
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do I wake up at 3 AM according to Ayurveda?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Waking between 2 AM and 6 AM is typically a Vata-type disturbance. The nervous system becomes too 'light' or overactive, often due to stress, a late-night heavy meal, or lack of grounding during the day."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does early dinner help with sleep?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Eating early allows your Agni (digestive fire) to complete its work before you sleep. If you digest while sleeping, the body's energy is diverted from cellular repair and Ama clearance, leading to restless sleep."
+        }
+      }
+    ]
+  }
 };
 
 export default function InsomniaPage() {
@@ -95,6 +116,93 @@ export default function InsomniaPage() {
             </div>
           </div>
 
+          {/* New Educational Content */}
+          <div className="space-y-12 py-12">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-black text-forest tracking-tight">The Three Pillars of Sleep (Nidra)</h2>
+              <div className="space-y-4 text-slate-600 leading-relaxed font-medium">
+                <p>
+                  In the classic Ayurvedic texts, Sleep (Nidra) is listed as one of the three 
+                  essential pillars of life, alongside food and energy management. It is not 
+                  merely "downtime" for the body; it is the specific physiological state required 
+                  for <strong>Ojas</strong> (immunity and vitality) to be manufactured.
+                </p>
+                <p>
+                  When you sleep, your body performs a "metabolic rinse." During the Pitta 
+                  time of night (10PM - 2AM), your internal heat is diverted to the liver 
+                  and digestive tract to process the toxins (Ama) accumulated during the day. 
+                  If you are awake during this window, this heat becomes mental activity, 
+                  resulting in a "second wind" that leads to morning exhaustion.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-forest tracking-tight">Calming the Racing Mind</h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  Insomnia characterized by difficulty falling asleep (racing thoughts, 
+                  anxiety) is almost always a <strong>Vata</strong> disturbance. To correct 
+                  this, you must introduce "heavy" and "oily" qualities before bed. 
+                  A glass of warm milk with a pinch of nutmeg—a natural Ayurvedic 
+                  sedative—helps settle the nervous system and anchor the mobile 
+                  mind into the body.
+                </p>
+              </div>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-forest tracking-tight">Managing Interrupted Sleep</h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  If you fall asleep easily but wake up around midnight feeling "hot" or 
+                  alert, this is often a <strong>Pitta</strong> imbalance. Your internal 
+                  fire is peaking, and your liver may be overloaded. Cooling rituals, 
+                  like sleeping in a ventilated room and avoiding spicy dinners, 
+                  can help prevent these midnight awakenings.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* New FAQ/Safety Segment */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-slate-100">
+            <div className="p-10 rounded-[3.5rem] bg-slate-100 border border-slate-200 space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Clinical Sleep Support</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Ayurvedic patterns can reveal why your sleep is shifting, but it is 
+                important to distinguish lifestyle insomnia from underlying medical conditions.
+              </p>
+              <p className="text-sm text-slate-600 font-bold leading-relaxed underline underline-offset-4 decoration-slate-300">
+                You should seek formal medical evaluation if you experience chronic 
+                snoring, gasping for air during sleep, or if you feel severe 
+                uncontrollable daytime sleepiness.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Common Questions</h3>
+              <div className="space-y-4">
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Can I catch up on sleep on weekends?</h4>
+                  <p className="text-xs text-slate-500 font-medium">Ayurveda suggests this actually worsens the problem by further confusing your biological clock. Consistency (Rhythm) is more important than total hours.</p>
+                </div>
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Are sleeping pills okay?</h4>
+                  <p className="text-xs text-slate-500 font-medium">While sometimes necessary, they often mask the signal rather than treating the underlying Vata or Pitta imbalance that caused the wakefulness.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Author Authority & Update Info */}
+          <div className="flex items-center gap-4 mb-8 pt-6 border-t border-slate-100">
+            <div className="w-10 h-10 rounded-full bg-slate-800/10 flex items-center justify-center text-slate-800 font-bold text-xs">
+              DA
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Reviewed By</p>
+              <p className="text-xs font-bold text-forest">Dinaveda Editorial Team</p>
+              <p className="text-[10px] text-slate-400 font-medium">Last updated: March 2024 • Medical Review</p>
+            </div>
+          </div>
+
           <div className="bg-[#1a1a1a] p-12 md:p-16 rounded-[4rem] text-white text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 blur-[100px] opacity-10 pointer-events-none -mr-20" />
             <motion.h3 
@@ -113,6 +221,11 @@ export default function InsomniaPage() {
             >
               Fix My Sleep <Activity className="w-5 h-5" />
             </Link>
+
+            {/* Medical Disclaimer */}
+            <div className="mt-16 pt-8 border-t border-white/10 uppercase tracking-widest text-[9px] font-bold text-slate-500 text-center">
+              Disclaimer: Ayurvedic educational insights. Not a substitute for clinical sleep medicine. Consult a professional for sleep apnea or chronic insomnia.
+            </div>
           </div>
         </section>
       </article>

@@ -13,7 +13,7 @@ import { PhysiologyPattern, fetchPatterns } from '../services/patternService';
 
 interface PhysiologyContextType {
     state: VedaState;
-    updateState: (newState: VedaState) => void;
+    updateState: (input: VedaState | ((prev: VedaState) => VedaState)) => void;
     isLoaded: boolean;
     userWeights: ProtocolWeights;
     userId: string | null;
@@ -159,12 +159,14 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
         return () => window.removeEventListener('storage', handleStorageChange);
     }, []);
 
-    const updateState = async (newState: VedaState) => {
+    const updateState = async (input: VedaState | ((prev: VedaState) => VedaState)) => {
+        const nextState = typeof input === 'function' ? input(state) : input;
+        
         // ── Physiology Orchestration ───────────────────────────────────────
         // Execute the full 21-subsystem pipeline via the central orchestrator.
         const { state: stabilized, notifications } = runPhysiologyCycle(
             state,
-            newState,
+            nextState,
             userWeights,
             healthGoal,
             patterns

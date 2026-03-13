@@ -2,23 +2,61 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight, BookOpen, Activity, HeartPulse } from "lucide-react";
 import { TOPIC_GROUPS } from "@/data/navigation";
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
-  // Prevent scrolling when menu is open
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Robust scroll lock for mobile
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100vw';
+      document.body.style.overflowY = 'scroll'; // Prevent layout shift from scrollbar disappearing
     } else {
-      document.body.style.overflow = "unset";
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflowY = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
+
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflowY = '';
+    };
   }, [isOpen]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  // Escape key support
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleEscape);
+    }
+    
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
+
+  const toggleMenu = () => setIsOpen(prev => !prev);
 
   const menuVariants = {
     closed: {
@@ -26,7 +64,7 @@ export default function MobileMenu() {
       transition: {
         type: "spring" as const,
         stiffness: 300,
-        damping: 30
+        damping: 26
       }
     },
     opened: {
@@ -34,7 +72,7 @@ export default function MobileMenu() {
       transition: {
         type: "spring" as const,
         stiffness: 300,
-        damping: 30
+        damping: 26
       }
     }
   };
@@ -53,12 +91,14 @@ export default function MobileMenu() {
   };
 
   return (
-    <div className="md:hidden">
+    <div className="md:hidden relative z-[110]">
       {/* Trigger */}
       <button 
         onClick={toggleMenu}
         className="p-2 text-forest hover:bg-forest/5 rounded-xl transition-colors"
         aria-label="Open menu"
+        aria-expanded={isOpen}
+        aria-controls="mobile-menu"
       >
         <Menu className="w-6 h-6" />
       </button>
@@ -72,16 +112,19 @@ export default function MobileMenu() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={toggleMenu}
-              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100]"
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] touch-none"
             />
 
             {/* Menu Panel */}
             <motion.div 
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
               variants={menuVariants}
               initial="closed"
               animate="opened"
               exit="closed"
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-[101] shadow-2xl flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[88%] max-w-[360px] bg-white z-[101] shadow-2xl flex flex-col"
             >
               {/* Header */}
               <div className="p-6 flex justify-between items-center border-b border-slate-50">
@@ -95,9 +138,51 @@ export default function MobileMenu() {
               </div>
 
               {/* Scrollable Content */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-10">
-                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-10">
+              <div className="flex-1 overflow-y-auto p-6 space-y-12">
+                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-12">
                   
+                  {/* Tools / Assessments */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
+                       <Activity className="w-3.5 h-3.5" /> Biological Assessments
+                    </p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {TOPIC_GROUPS.tools.map((item) => (
+                        <Link 
+                          key={item.slug} 
+                          href={`/assessments/${item.slug}`}
+                          onClick={toggleMenu}
+                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  <div className="border-t border-slate-100 pt-6" />
+
+                  {/* Symptoms / Health Hub */}
+                  <motion.div variants={itemVariants} className="space-y-4">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
+                       <HeartPulse className="w-3.5 h-3.5" /> Health Hub
+                    </p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {TOPIC_GROUPS.symptoms.map((item) => (
+                        <Link 
+                          key={item.slug} 
+                          href={`/health/${item.slug}`}
+                          onClick={toggleMenu}
+                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  <div className="border-t border-slate-100 pt-6" />
+
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-4">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
@@ -108,44 +193,6 @@ export default function MobileMenu() {
                         <Link 
                           key={item.slug} 
                           href={item.slug === "index" ? "/guide" : `/guide/${item.slug}`}
-                          onClick={toggleMenu}
-                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  {/* Tools */}
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
-                       <Activity className="w-3.5 h-3.5" /> Diagnostic Tools
-                    </p>
-                    <div className="grid grid-cols-1 gap-2">
-                      {TOPIC_GROUPS.tools.map((item) => (
-                        <Link 
-                          key={item.slug} 
-                          href={`/tools/${item.slug}`}
-                          onClick={toggleMenu}
-                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  {/* Symptoms */}
-                  <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
-                       <HeartPulse className="w-3.5 h-3.5" /> Health Hub
-                    </p>
-                    <div className="grid grid-cols-1 gap-2">
-                      {TOPIC_GROUPS.symptoms.map((item) => (
-                        <Link 
-                          key={item.slug} 
-                          href={`/health/${item.slug}`}
                           onClick={toggleMenu}
                           className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
                         >

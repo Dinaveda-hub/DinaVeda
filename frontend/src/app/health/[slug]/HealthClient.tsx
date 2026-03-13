@@ -18,12 +18,44 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
   const JSON_LD = {
     "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
+    "@type": "MedicalCondition",
     "name": combo.title,
     "description": combo.intro,
-    "about": [
-      { "@type": "Thing", "name": symptom?.name || "Health" },
-      { "@type": "Thing", "name": dosha?.name || "Ayurveda" }
+    "associatedAnatomy": {
+      "@type": "AnatomicalSystem",
+      "name": symptom?.name === "Brain Fog" ? "Nervous System" : "Digestive System"
+    },
+    "status": "Psychological/Physiological Imbalance",
+    "relevantSpecialty": {
+      "@type": "MedicalSpecialty",
+      "name": "Ayurveda"
+    },
+    "mainEntityOfPage": {
+      "@type": "MedicalWebPage",
+      "@id": `https://dinaveda.ai/health/${slug}`
+    }
+  };
+
+  const FAQ_JSON_LD = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `Is ${symptom?.name} related to ${dosha?.name} imbalance?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `Yes, in Ayurveda, ${symptom?.name} is often a direct result of ${dosha?.name} imbalance affecting the body's natural rhythms and digestive fire.`
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `How long does it take to balance ${dosha?.name}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "While initial shifts can be felt within 3-7 days of correct dietary and lifestyle adjustments, deep balance typically requires a full metabolic cycle of 30 days."
+        }
+      }
     ]
   };
 
@@ -33,12 +65,22 @@ export default function HealthClient({ slug }: HealthClientProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
 
       {/* Navigation */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-[70] border-b border-slate-50">
-        <Link href="/health" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
-          <ArrowLeft className="w-4 h-4" /> Symptom Hub
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/health" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-forest transition-all">
+            Hub
+          </Link>
+          <span className="text-slate-200">/</span>
+          <Link href={`/health/${symptomKey}`} className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
+            {symptom?.name}
+          </Link>
+        </div>
         <Link href="/" className="font-black text-forest text-xl tracking-tighter">
           Dinaveda
         </Link>
@@ -150,6 +192,82 @@ export default function HealthClient({ slug }: HealthClientProps) {
             </div>
           </div>
 
+          {/* New Section: Causes & Mechanism */}
+          <div className="space-y-8">
+            <h2 className="text-3xl font-black text-forest tracking-tight">What causes {symptom?.name} in {dosha?.name} types?</h2>
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium">
+              <p>
+                In Ayurvedic physiology, {symptom?.name} is not viewed as a random occurrence, but as a specific 
+                sign that {dosha?.name} has become aggravated within your system. This imbalance disrupts 
+                normal physiological functions—such as digestion, circulation, or nervous system stability.
+              </p>
+              <p>
+                When {dosha?.name} accumulates, it creates certain "gunas" (qualities) in the body. For a 
+                {dosha?.name} type, these typically manifest as {dosha?.elements} influences that interfere 
+                with your body's stability. For example, you may experience patterns such as {combo.signs.slice(0, 2).join(" and ")}.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 pt-12" />
+
+          {/* New Section: Diet & Lifestyle */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div className="space-y-8">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Dietary Recommendations</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Food is your primary medicine. To counter {dosha?.name} imbalance, you must introduce the 
+                opposite qualities through your diet.
+              </p>
+              <div className="space-y-4">
+                <div className="p-6 bg-emerald-50 rounded-3xl border border-emerald-100">
+                  <h4 className="font-black text-forest mb-3 flex items-center gap-2 text-sm uppercase tracking-widest">
+                    Foods to Favor
+                  </h4>
+                  <ul className="text-sm font-bold text-forest/70 space-y-2">
+                    <li>• Warm, cooked meals (soups, stews)</li>
+                    <li>• Warming spices: Ginger, Cumin, Black Pepper</li>
+                    <li>• Healthy fats: Ghee or Virgin Coconut Oil</li>
+                  </ul>
+                </div>
+                <div className="p-6 bg-orange-50 rounded-3xl border border-orange-100">
+                  <h4 className="font-black text-forest mb-3 flex items-center gap-2 text-sm uppercase tracking-widest">
+                    Foods to Limit
+                  </h4>
+                  <ul className="text-sm font-bold text-orange-700/70 space-y-2">
+                    <li>• Excess raw or cold foods</li>
+                    <li>• Highly processed sugars and flours</li>
+                    <li>• Iced drinks during or after meals</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Daily Lifestyle Tips</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Small, consistent routine changes signal safety and rhythm to your biology, reducing the 
+                intensity of {symptom?.name}.
+              </p>
+              <div className="space-y-6">
+                {[
+                  "Maintain regular sleep and wake timings (Dinacharya).",
+                  "Practice 5 minutes of mindful breathing before your largest meal.",
+                  "Avoid heavy or late-night dinners to allow the body to clear Ama."
+                ].map((tip, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <div className="w-5 h-5 rounded-full bg-forest text-white flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold">
+                      {i + 1}
+                    </div>
+                    <p className="text-sm text-slate-600 font-bold leading-relaxed">{tip}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 pt-12" />
+
           {/* Section 3: Protocol */}
           <div className="space-y-8">
             <h2 className="text-3xl font-black text-forest tracking-tight">Recommended Protocol</h2>
@@ -163,6 +281,39 @@ export default function HealthClient({ slug }: HealthClientProps) {
                    <p className="text-xs text-slate-500 font-medium leading-relaxed">{item.desc}</p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* New Section: Safety & FAQ */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12">
+            <div className="p-10 rounded-[3.5rem] bg-orange-50/50 border border-orange-100 space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Medical Guidance</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                While Ayurvedic insights provide powerful support for wellness, they do not replace 
+                professional medical care. 
+              </p>
+              <p className="text-sm text-slate-600 font-bold leading-relaxed">
+                You should consult a healthcare professional if:
+              </p>
+              <ul className="text-xs font-bold text-slate-500 space-y-2">
+                <li>• Symptoms are severe, sudden, or persistent</li>
+                <li>• You experience unexplained pain or high fever</li>
+                <li>• You are pregnant, nursing, or on medication</li>
+              </ul>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Common Questions</h3>
+              <div className="space-y-4">
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Is {symptom?.name} permanent?</h4>
+                  <p className="text-xs text-slate-500 font-medium">In the Ayurvedic view, symptoms are dynamic. Once the underlying {dosha?.name} imbalance is corrected, the signal typically subsides.</p>
+                </div>
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Can I use herbs and medicine?</h4>
+                  <p className="text-xs text-slate-500 font-medium">Ayurvedic herbs support the body, but should be integrated carefully with any existing modern medical treatments.</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -199,6 +350,27 @@ export default function HealthClient({ slug }: HealthClientProps) {
               Start Analysis <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
+
+          {/* Footer Metadata */}
+          <footer className="mt-20 pt-12 border-t border-slate-100 flex flex-col items-center gap-6 text-center">
+            <div className="flex gap-4 items-center">
+              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5 text-forest" />
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">Reviewed By</p>
+                <p className="text-xs font-bold text-forest">Ayurvedic Physician & Physiology Team</p>
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">Updated March 2026</p>
+            
+            <div className="max-w-xl mx-auto mt-8 p-6 bg-slate-50 rounded-3xl">
+              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                Medical Disclaimer: This information is for educational purposes and does not replace professional medical advice. 
+                Consult a qualified healthcare professional for diagnosis or treatment of medical conditions.
+              </p>
+            </div>
+          </footer>
         </section>
       </article>
     </div>

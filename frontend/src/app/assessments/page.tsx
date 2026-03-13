@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Flame, Wind, Droplets, Activity, Sparkles, ShieldCheck, Target, HeartPulse } from "lucide-react";
 import { CALCULATORS } from "@/data/calculators";
 
-export default function ToolsHubPage() {
+export default function AssessmentsHubPage() {
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -51,9 +51,9 @@ export default function ToolsHubPage() {
              <Sparkles className="w-3.5 h-3.5 inline-block mr-2" /> Interactive Diagnostics
           </span>
           <h1 className="text-5xl md:text-8xl font-black text-forest tracking-tighter mb-8 leading-[1.05]">
-            Biological <br />
+              Biological <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest to-emerald-500">
-              Analysis Tools
+              Assessments
             </span>
           </h1>
           <p className="text-xl text-slate-500 font-medium leading-relaxed italic">
@@ -69,7 +69,7 @@ export default function ToolsHubPage() {
         >
           {Object.values(CALCULATORS).map((calc) => (
             <motion.div key={calc.id} variants={item}>
-              <Link href={`/tools/${calc.id}`} className="group block h-full">
+              <Link href={`/assessments/${calc.id}`} className="group block h-full">
                 <div className="bg-white p-10 md:p-14 rounded-[4rem] border border-slate-100 shadow-premium group-hover:border-forest/20 transition-all group-hover:shadow-2xl relative overflow-hidden h-full flex flex-col">
                   {/* Background Accent */}
                   <div className={`absolute top-0 right-0 w-32 h-32 ${calc.color} opacity-5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700`} />

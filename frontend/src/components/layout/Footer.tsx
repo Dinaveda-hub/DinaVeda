@@ -47,7 +47,7 @@ export default function Footer() {
             "name": "Main Navigation",
             "hasPart": [
               ...TOPIC_GROUPS.education.map(t => ({ "@type": "SiteNavigationElement", "name": t.name, "url": `https://dinaveda.com/guide/${t.slug === 'index' ? '' : t.slug}` })),
-              ...TOPIC_GROUPS.tools.map(t => ({ "@type": "SiteNavigationElement", "name": t.name, "url": `https://dinaveda.com/tools/${t.slug}` })),
+              ...TOPIC_GROUPS.tools.map(t => ({ "@type": "SiteNavigationElement", "name": t.name, "url": `https://dinaveda.com/assessments/${t.slug}` })),
               ...TOPIC_GROUPS.symptoms.map(t => ({ "@type": "SiteNavigationElement", "name": t.name, "url": `https://dinaveda.com/health/${t.slug}` }))
             ]
           })

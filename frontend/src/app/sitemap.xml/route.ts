@@ -16,10 +16,10 @@ export async function GET() {
     '/privacy',
     '/prakriti',
     '/terms',
-    '/tools',
+    '/assessments',
   ];
 
-  const toolRoutes = Object.keys(CALCULATORS).map(slug => `/tools/${slug}`);
+  const toolRoutes = Object.keys(CALCULATORS).map(slug => `/assessments/${slug}`);
   const causeRoutes = Object.keys(CAUSES).map(slug => `/cause/${slug}`);
   const healthRoutes = Object.keys(COMBINATIONS).map(slug => `/health/${slug}`);
   const protocolRoutes = [

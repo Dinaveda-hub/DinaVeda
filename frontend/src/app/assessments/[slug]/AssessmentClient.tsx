@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, RefreshCw, Sparkles, ShieldCheck, Info, CheckCircle2, Layout, Zap, Flame, Wind } from "lucide-react";
 import { CALCULATORS, CalculatorId } from "@/data/calculators";
 import RhythmClock from "@/components/RhythmClock";
-import { computeCalculatorResult } from "@/engine/calculatorEngine";
-import { bridgeCalculatorToState } from "@/engine/calculatorBridge";
+import { runAssessment, mapAssessmentToState } from "@/engine/assessmentEngine";
 import { usePhysiologyState } from "@/hooks/usePhysiologyState";
+import { VedaState } from "@/engine/stateModel";
 
-interface ToolClientProps {
+interface AssessmentClientProps {
   slug: string;
 }
 
@@ -22,7 +22,7 @@ const COLOR_MAP = {
   space: "bg-indigo-600"
 };
 
-export default function ToolClient({ slug }: ToolClientProps) {
+export default function AssessmentClient({ slug }: AssessmentClientProps) {
   const config = CALCULATORS[slug as CalculatorId];
   const { state, updateState, isLoaded } = usePhysiologyState();
   
@@ -32,43 +32,54 @@ export default function ToolClient({ slug }: ToolClientProps) {
   const [showResult, setShowResult] = useState(false);
 
   const totalSteps = config.questions.length;
-  const progress = ((currentStep) / totalSteps) * 100;
+  // Fix: progress math should reflect current completion including the item just answered
+  const progress = ((currentStep + 1) / totalSteps) * 100;
 
   const handleOptionSelect = (optionIndex: number) => {
-    const newAnswers = [...answers, optionIndex];
+    // Fix: Prevent array growth issues by setting specific index
+    const newAnswers = [...answers];
+    newAnswers[currentStep] = optionIndex;
     setAnswers(newAnswers);
 
     if (currentStep < totalSteps - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
       setIsFinishing(true);
+      // Fix: Reduced delay for snappier feel
       setTimeout(() => {
         setIsFinishing(false);
         setShowResult(true);
-      }, 1500);
+      }, 800);
     }
   };
 
-  const { score, result, dominantDosha } = useMemo(() => {
-    if (!showResult || answers.length < totalSteps) return { score: null, result: null, dominantDosha: null };
-    return computeCalculatorResult(config, answers);
+  const assessmentResult = useMemo(() => {
+    if (!showResult || answers.length < totalSteps) return null;
+    return runAssessment(config, answers);
   }, [showResult, answers, config, totalSteps]);
 
-  // Sync with Physiology Engine
+  const { score, result, dominantDosha } = assessmentResult || { score: null, result: null, dominantDosha: null };
+
+  // Fix: Sync with Physiology Engine (Avoiding infinite loops and stale state)
   useEffect(() => {
-    if (showResult && score && isLoaded) {
-      const updates = bridgeCalculatorToState(state, config.id, { score, result: result!, dominantDosha: dominantDosha! });
+    if (showResult && assessmentResult && isLoaded) {
+      const updates = mapAssessmentToState(state, config, assessmentResult);
       if (Object.keys(updates).length > 0) {
-        updateState({ ...state, ...updates });
+        // Use functional update to ensure we have latest state
+        updateState((prev: VedaState) => ({ ...prev, ...updates }));
       }
     }
-  }, [showResult, score, isLoaded, config.id]);
+  }, [showResult, assessmentResult, isLoaded, config, updateState]);
 
   const JSON_LD = {
     "@context": "https://schema.org",
     "@type": "Quiz",
     "name": config.title,
     "description": config.description,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://dinaveda.com/assessments/${slug}`
+    },
     "hasPart": config.questions.map(q => ({
       "@type": "Question",
       "name": q.text,
@@ -88,10 +99,10 @@ export default function ToolClient({ slug }: ToolClientProps) {
       <div className="bg-[#FAFBFB] text-slate-800 min-h-screen relative font-sans">
         <nav className="p-6 border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-[70]">
            <div className="max-w-7xl mx-auto flex justify-between items-center">
-              <Link href="/tools" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
-                <ArrowLeft className="w-4 h-4" /> All Tools
+              <Link href="/assessments" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-all">
+                <ArrowLeft className="w-4 h-4" /> All Assessments
               </Link>
-              <span className="font-black text-forest text-xl tracking-tighter italic">Dinaveda Tools</span>
+              <span className="font-black text-forest text-xl tracking-tighter italic">Dinaveda Intelligence</span>
               <div className="w-20" />
            </div>
         </nav>
@@ -106,7 +117,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
               <div className="flex flex-col md:flex-row gap-12 items-center">
                 <div className="flex-1 space-y-6">
                   <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-widest">
-                    Analysis Result
+                    Assessment Result
                   </span>
                   <h1 className="text-4xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
                     {isDosha ? `${dominantDosha} Type` : result.title}
@@ -118,7 +129,6 @@ export default function ToolClient({ slug }: ToolClientProps) {
                 {isRhythm && (
                   <div className="w-64 md:w-80 shrink-0">
                     {(() => {
-                      // Map array indices to the hours used for the clock
                       const sleepIdx = answers[0] ?? 1;
                       const wakeIdx = answers[1] ?? 1;
                       const mealIdx = answers[3] ?? 0;
@@ -166,7 +176,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                   <div className="space-y-6">
                     <h3 className="text-xl font-black text-forest flex items-center gap-3">
                       <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                      Clinical Recommendations
+                      Protocol Recommendations
                     </h3>
                     <ul className="space-y-4">
                       {result.recommendations.map((rec, i) => (
@@ -177,11 +187,11 @@ export default function ToolClient({ slug }: ToolClientProps) {
                       ))}
                       {result.recommendedProtocol && (
                         <li className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 mt-6 group">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-700 mb-2">Recommended System Protocol</p>
-                          <Link href={`/protocol/${result.recommendedProtocol}`} className="flex items-center justify-between group-hover:underline">
+                           <p className="text-[10px] font-black uppercase tracking-widest text-emerald-700 mb-2">Targeted Protocol</p>
+                           <Link href={`/protocol/${result.recommendedProtocol}`} className="flex items-center justify-between group-hover:underline">
                             <span className="text-sm font-black text-forest">{result.recommendedProtocol.replace(/-/g, ' ').toUpperCase()}</span>
                             <ArrowRight className="w-4 h-4 text-emerald-700 transition-transform group-hover:translate-x-1" />
-                          </Link>
+                           </Link>
                         </li>
                       )}
                     </ul>
@@ -190,10 +200,10 @@ export default function ToolClient({ slug }: ToolClientProps) {
 
                {/* Lead Gen CTA */}
                <div className="bg-slate-900 rounded-[4rem] p-12 md:p-20 text-white text-center relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 blur-[150px] opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000" />
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 blur-[80px] opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000" />
                   <Sparkles className="w-12 h-12 text-emerald-400 mx-auto mb-8" />
                   <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic italic">Identity is Time.</h3>
-                  <p className="text-slate-600 font-medium mb-12 max-w-lg mx-auto text-base leading-relaxed">
+                  <p className="text-slate-500 font-medium mb-12 max-w-lg mx-auto text-base leading-relaxed">
                     This analysis is a static baseline. The Dinaveda health OS measures your specific pulse, sleep depth, and digestive fire in real-time to generate a protocol that breathes with you.
                   </p>
                   <Link 
@@ -212,7 +222,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                  }}
                  className="w-full py-6 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:text-forest transition-all"
                >
-                 <RefreshCw className="w-4 h-4" /> Recalculate Your Rhythm
+                 <RefreshCw className="w-4 h-4" /> Reset Assessment
                </button>
             </div>
           </motion.div>
@@ -230,17 +240,18 @@ export default function ToolClient({ slug }: ToolClientProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
       />
       
+      {/* Performance Optimization: Reduced blur intensity */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-forest/[0.03] rounded-full -mr-40 -mt-40 blur-[150px]" />
-         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gold/[0.02] rounded-full blur-[120px] -ml-40" />
+         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-forest/[0.03] rounded-full -mr-40 -mt-40 blur-[80px]" />
+         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gold/[0.02] rounded-full blur-[80px] -ml-40" />
       </div>
 
       <nav className="p-6 border-b border-white sticky top-0 bg-white/40 backdrop-blur-md z-[70]">
          <div className="max-w-7xl mx-auto flex justify-between items-center text-xs font-black uppercase tracking-widest">
-            <Link href="/tools" className="flex items-center gap-2 text-slate-600 hover:text-forest transition-all">
-              <ArrowLeft className="w-4 h-4" /> Exit Test
+            <Link href="/assessments" className="flex items-center gap-2 text-slate-600 hover:text-forest transition-all">
+              <ArrowLeft className="w-4 h-4" /> Cancel Assessment
             </Link>
-            <div className="flex items-center gap-4 text-slate-300">
+            <div className="flex items-center gap-4 text-slate-400">
                <span>Step {currentStep + 1} of {totalSteps}</span>
                <div className="w-32 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                   <motion.div animate={{ width: `${progress}%` }} className="h-full bg-forest" />
@@ -284,6 +295,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
                   <button
                     key={idx}
                     onClick={() => handleOptionSelect(idx)}
+                    aria-label={`Select option: ${option.label}`}
                     className="p-8 rounded-[2.5rem] bg-white border-2 border-slate-50 text-left hover:border-forest hover:bg-forest hover:text-white transition-all duration-300 group shadow-sm hover:shadow-xl"
                   >
                     <div className="flex justify-between items-center ring-0">
@@ -303,7 +315,7 @@ export default function ToolClient({ slug }: ToolClientProps) {
       <div className="max-w-2xl mx-auto px-6 pb-24 text-center">
          <div className="flex items-center justify-center gap-8 opacity-40">
            <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-500">
-             <ShieldCheck className="w-3 h-3" /> Anonymous Test
+             <ShieldCheck className="w-3 h-3" /> Anonymous Assessment
            </div>
            <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-widest text-slate-500">
              <Info className="w-3 h-3" /> External Reference Only

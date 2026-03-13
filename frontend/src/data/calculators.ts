@@ -46,6 +46,8 @@ export interface CalculatorResult {
   ayuPerspective: string;
   recommendations: string[];
   recommendedProtocol?: string;
+  minScore?: number; // declarative selection for threshold-based results
+  resultUpdates?: Record<string, number | { type: "add" | "set"; value: number }>; // Specific state side-effects
 }
 
 export interface CalculatorConfig {
@@ -56,6 +58,8 @@ export interface CalculatorConfig {
   color: "air" | "fire" | "water" | "earth" | "space";
   questions: CalculatorQuestion[];
   results: CalculatorResult[];
+  stateMapping?: Record<string, string>; // Maps weight keys to VedaState keys
+  scalingFactor?: number; // To normalize scores (e.g., 30 -> 100)
 }
 
 export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
@@ -128,7 +132,12 @@ export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
         ayuPerspective: "Kapha provides structure and stability. Balance it with movement and light foods.",
         recommendations: ["Eat light, spicy, and bitter foods", "Engage in daily vigorous exercise", "Avoid daytime napping"]
       }
-    ]
+    ],
+    stateMapping: {
+      vata: "prakriti_vata",
+      pitta: "prakriti_pitta",
+      kapha: "prakriti_kapha"
+    }
   },
   "agni-test": {
     id: "agni-test",
@@ -170,28 +179,35 @@ export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
         id: "sama-agni",
         title: "Sama Agni (Balanced Fire)",
         type: "agni_state",
+        minScore: 25,
         explanation: "Your metabolic fire is burning perfectly. This is the goal of all Ayurvedic habits.",
         ayuPerspective: "Sama Agni ensures no Ama is formed and Ojas is maximized.",
         recommendations: ["Maintain your current routine", "Eat seasonally", "Practice mindful eating"]
       },
       {
-        id: "manda-agni",
-        title: "Manda Agni (Low Fire)",
-        type: "agni_state",
-        explanation: "Your metabolic fire is currently burning low, leading to heaviness and slow digestion.",
-        ayuPerspective: "Manda Agni is often caused by Kapha accumulation. It leads to the formation of Ama (toxins).",
-        recommendations: ["Sip hot water with ginger", "Avoid cold drinks with meals", "Walk for 15 minutes after eating"],
-        recommendedProtocol: "digestion-reset"
-      },
-      {
         id: "tikshna-agni",
         title: "Tikshna Agni (Sharp Fire)",
         type: "agni_state",
+        minScore: 15,
         explanation: "Your metabolic fire is intense and can burn through food too quickly, often leading to acidity.",
         ayuPerspective: "Tikshna Agni is linked to high Pitta. It can lead to irritation and inflammation.",
-        recommendations: ["Favor cooling foods like cucumber and coconut", "Avoid spicy/acidic foods", "Don't skip meals"]
+        recommendations: ["Favor cooling foods like cucumber and coconut", "Avoid spicy/acidic foods", "Don't skip meals"],
+        resultUpdates: { pitta: { type: "add", value: 15 } }
+      },
+      {
+        id: "manda-agni",
+        title: "Manda Agni (Low Fire)",
+        type: "agni_state",
+        minScore: 0,
+        explanation: "Your metabolic fire is currently burning low, leading to heaviness and slow digestion.",
+        ayuPerspective: "Manda Agni is often caused by Kapha accumulation. It leads to the formation of Ama (toxins).",
+        recommendations: ["Sip hot water with ginger", "Avoid cold drinks with meals", "Walk for 15 minutes after eating"],
+        recommendedProtocol: "digestion-reset",
+        resultUpdates: { ama: { type: "add", value: 10 }, kapha: { type: "add", value: 5 } }
       }
-    ]
+    ],
+    stateMapping: { agni: "agni" },
+    scalingFactor: 3.33 // 30 -> 100
   },
   "ama-checker": {
     id: "ama-checker",
@@ -233,6 +249,7 @@ export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
         id: "low-ama",
         title: "Minimal Ama Accumulation",
         type: "ama_level",
+        minScore: 0,
         explanation: "Your system appears relatively clear of metabolic waste. Your Agni is likely efficient.",
         ayuPerspective: "Low Ama is the prerequisite for high Ojas (vitality) and immune strength.",
         recommendations: ["Continue tongue scraping", "Periodic warm water sipping", "Light, seasonal diet"]
@@ -241,12 +258,16 @@ export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
         id: "high-ama",
         title: "High Ama Accumulation",
         type: "ama_level",
+        minScore: 16,
         explanation: "There are significant signs of undigested metabolic waste in your system.",
         ayuPerspective: "Ama is the root of most biological imbalances. It clogs the Srotas (channels).",
         recommendations: ["Gentle fasting or liquid diet for a day", "Spiced teas (cumin, coriander, fennel)", "Tongue scraping daily"],
-        recommendedProtocol: "detox-protocol"
+        recommendedProtocol: "detox-protocol",
+        resultUpdates: { ojas: { type: "add", value: -10 }, energy: { type: "add", value: -10 } }
       }
-    ]
+    ],
+    stateMapping: { ama: "ama" },
+    scalingFactor: 3.33 // 30 -> 100
   },
   "daily-rhythm-analyzer": {
     id: "daily-rhythm-analyzer",
@@ -315,6 +336,7 @@ export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
         id: "high-alignment",
         title: "Chronobiological Alignment",
         type: "circadian_alignment",
+        minScore: 41,
         explanation: "Your daily rhythm is excellently synced with the Ayurvedic 24-hour cycle.",
         ayuPerspective: "Aligned living (Dinacharya) creates Ojas and minimizes Ama formation.",
         recommendations: ["Maintain current sleep windows", "Optimize seasonal meal shifts", "Deepen Ojas practices"]
@@ -323,11 +345,15 @@ export const CALCULATORS: Record<CalculatorId, CalculatorConfig> = {
         id: "moderate-drift",
         title: "Circadian Drift Detected",
         type: "circadian_alignment",
+        minScore: 0,
         explanation: "Your habits are slightly out of phase with natural solar cycles.",
         ayuPerspective: "Sleeping after 11 PM enters the Pitta phase which can disrupt biological repair.",
         recommendations: ["Shift dinner to 6:30 PM", "Remove blue light after 9 PM", "Morning movement during Kapha time"],
-        recommendedProtocol: "circadian-reset"
+        recommendedProtocol: "circadian-reset",
+        resultUpdates: { stress: { type: "add", value: 10 }, daily_circadian_drag: { type: "set", value: 10 } }
       }
-    ]
+    ],
+    stateMapping: { circadian: "circadian" },
+    scalingFactor: 1.66 // 60 -> 100
   }
 };

@@ -14,7 +14,28 @@ const JSON_LD = {
     { "@type": "Thing", "name": "Bloating" },
     { "@type": "Thing", "name": "Ayurveda" },
     { "@type": "Thing", "name": "Agni" }
-  ]
+  ],
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the primary cause of bloating in Ayurveda?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The primary cause is typically 'Vishama Agni' (irregular digestion) driven by excess Vata (Air/Ether). This causes food to ferment in the GI tract instead of being properly transformed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does warm water help with bloating?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Sipping warm water or ginger tea stimulates digestive fire (Agni) and helps ground the Vata element, reducing gas production and intestinal tension."
+        }
+      }
+    ]
+  }
 };
 
 export default function BloatingPage() {
@@ -117,6 +138,75 @@ export default function BloatingPage() {
             </div>
           </div>
 
+          {/* New Educational Content */}
+          <div className="space-y-12 py-12">
+            <div className="space-y-6">
+              <h2 className="text-3xl font-black text-forest tracking-tight">Understanding Digestive Fermentation</h2>
+              <div className="space-y-4 text-slate-600 leading-relaxed font-medium">
+                <p>
+                  In Ayurveda, bloating is the primary sign of <strong>Mandagni</strong> (slow digestion) 
+                  or <strong>Vishamagni</strong> (irregular digestion). When your digestive fire is 
+                  insufficient to transform the chemistry of your food, it begins to ferment in the 
+                  warm, moist environment of the small and large intestines.
+                </p>
+                <p>
+                  This fermentation releases "air" (Vata) into the abdominal cavity, creating pressure, 
+                  distention, and discomfort. If left unaddressed, this gas can move into the 
+                  bloodstream and eventually affect the nervous system, leading to fatigue and brain fog.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-forest tracking-tight">The Anti-Bloat Diet</h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  Focus on warm, well-cooked, and lightly spiced foods. Root vegetables, basmati rice, 
+                  and kitchari are ideally suited for calming Vata-driven gas. Avoid raw cruciferous 
+                  vegetables (kale, broccoli, cauliflower), cold smoothies, and large amounts of 
+                  beans unless prepared with plenty of digestive spices like hing (asafoetida) 
+                  and cumin.
+                </p>
+              </div>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-forest tracking-tight">Mindful Movement</h3>
+                <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                  Gentle movement after a meal, such as a 100-step stroll, helps catalyze the 
+                  downward movement of energy (Apana Vayu), which is essential for healthy 
+                  elimination and gas clearance. Additionally, yoga poses like "Apanasana" 
+                  (Knees-to-Chest) specifically help evacuate excess abdominal pressure.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* New FAQ/Safety Segment */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-slate-100">
+            <div className="p-10 rounded-[3.5rem] bg-blue-50/50 border border-blue-100 space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">When to See a Doctor</h3>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Bloating is common, but it can occasionally signal more serious gastrointestinal issues.
+              </p>
+              <p className="text-sm text-slate-600 font-bold leading-relaxed underline underline-offset-4 decoration-blue-200">
+                Please seek medical evaluation if bloating is accompanied by sudden weight loss, 
+                persistent severe pain, blood in stool, or if it becomes progressively worse over several weeks.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Common Questions</h3>
+              <div className="space-y-4">
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Can stress cause bloating?</h4>
+                  <p className="text-xs text-slate-500 font-medium">Absolutely. Stress activates the 'fight-or-flight' response, which pulls blood flow away from the gut, effectively shutting down your digestive fire (Agni).</p>
+                </div>
+                <div className="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
+                  <h4 className="text-sm font-black text-forest mb-2">Is it normal to be bloated?</h4>
+                  <p className="text-xs text-slate-500 font-medium"> Occasional bloating after a very large meal can happen, but frequent bloating is a sign of physiological imbalance that should be addressed.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Section 3: Actionable Corrections */}
           <div className="space-y-8">
             <h2 className="text-3xl font-black text-forest tracking-tight">Simple Ayurvedic Corrections</h2>
@@ -135,6 +225,18 @@ export default function BloatingPage() {
                    </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Author Authority & Update Info */}
+          <div className="flex items-center gap-4 mb-8 pt-6 border-t border-slate-100">
+            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs">
+              DA
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Reviewed By</p>
+              <p className="text-xs font-bold text-forest">Dinaveda Editorial Team</p>
+              <p className="text-[10px] text-slate-400 font-medium">Last updated: March 2024 • Medical Review</p>
             </div>
           </div>
 
@@ -157,6 +259,11 @@ export default function BloatingPage() {
             >
               Analyze My Digestion <ArrowRight className="w-5 h-5" />
             </Link>
+
+            {/* Medical Disclaimer */}
+            <div className="mt-16 pt-8 border-t border-white/10 uppercase tracking-widest text-[9px] font-bold text-emerald-100/30 text-center">
+              Disclaimer: Ayurvedic educational insights. Not a medical diagnosis. Consult a professional for health concerns.
+            </div>
           </div>
         </section>
       </article>

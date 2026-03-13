@@ -73,7 +73,36 @@ const HEALTH_JSON_LD = {
     { "@type": "Thing", "name": "Health Symptoms" },
     { "@type": "Thing", "name": "Ayurveda" },
     { "@type": "Thing", "name": "Digestion" }
-  ]
+  ],
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do symptoms like bloating or fatigue keep returning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Recurring symptoms often indicate an underlying imbalance in digestion, metabolism, or nervous system regulation. Ayurveda treats the root cause (dosha imbalance) rather than just masking the signal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Ayurveda identify the cause of symptoms?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ayurveda evaluates patterns related to the three doshas: Vata (air/ether), Pitta (fire/water), and Kapha (earth/water), alongside the strength of your digestive fire (Agni)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can symptoms be caused by multiple doshas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. While one dosha is often dominant, many conditions arise from combined imbalances. A personalized analysis is required to determine the specific interaction of elements in your body."
+        }
+      }
+    ]
+  }
 };
 
 export default function HealthHubPage() {
@@ -180,7 +209,7 @@ export default function HealthHubPage() {
                 When you understand the elemental cause, the symptom naturally clears.
               </p>
               <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest">
-                <Link href="/guide" className="flex items-center gap-2 hover:text-emerald-300 transition-colors">
+                <Link href="/guide/agni" className="flex items-center gap-2 hover:text-emerald-300 transition-colors">
                   Learn about Agni <Compass className="w-4 h-4" />
                 </Link>
               </div>
@@ -204,10 +233,94 @@ export default function HealthHubPage() {
           </div>
         </section>
 
+        {/* Pillar Content Section */}
+        <section className="max-w-4xl mx-auto py-32 px-6 space-y-16">
+          <div className="space-y-8">
+            <h2 className="text-4xl md:text-5xl font-black text-forest tracking-tight">
+              Understanding Symptoms Through Ayurveda
+            </h2>
+            <div className="space-y-6 text-slate-600 leading-relaxed font-medium text-lg">
+              <p>
+                In Ayurvedic physiology, symptoms are not isolated problems to be suppressed. 
+                They are the body's primary language—signals that your internal biological systems 
+                are drifting away from their natural equilibrium (Prakriti).
+              </p>
+              <p>
+                For example, digestive discomfort like bloating is rarely just about the food you ate. 
+                In Ayurveda, we look at the interaction between the <strong>Vata</strong> (Air) element 
+                and your <strong>Agni</strong> (Metabolic Fire). If the wind is too high, the fire 
+                flickers and food ferments instead of transforming into energy.
+              </p>
+              <p>
+                By identifying these elemental patterns early, we can use diet, herbs, and routine 
+                to ground the excess elements before they create deep-seated physiological changes. 
+                This shift from "fighting symptoms" to "restoring balance" is the core of Ayurvedic health.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">The Role of Digestion (Agni)</h3>
+              <p className="text-slate-600 leading-relaxed font-medium">
+                Every symptom you experience has a root in your digestive integrity. When Agni is weak, 
+                it creates a sticky metabolic byproduct called <strong>Ama</strong>. Ama clogs the 
+                subtle channels (Srotas), preventing nutrients from reaching your cells and 
+                leading to brain fog, fatigue, and weight gain.
+              </p>
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-black text-forest tracking-tight">Biological Intelligence</h3>
+              <p className="text-slate-600 leading-relaxed font-medium">
+                Your body possesses a profound biological intelligence. Symptoms are the way 
+                this intelligence alerts you to a breach in your natural state. By listening 
+                to these signals, you move from passive healthcare to active, conscious 
+                biological management.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="bg-slate-50 py-32 px-6">
+          <div className="max-w-4xl mx-auto space-y-16">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-5xl font-black text-forest tracking-tight">Common Questions</h2>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Ayurvedic Health Insights</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                {
+                  q: "Why do symptoms like bloating or fatigue keep returning?",
+                  a: "Recurring symptoms often indicate an underlying imbalance in digestion, metabolism, or nervous system regulation. Ayurveda treats the root cause rather than just masking the signal."
+                },
+                {
+                  q: "How does Ayurveda identify the cause of symptoms?",
+                  a: "Ayurveda evaluates patterns related to the three doshas: Vata (air/ether), Pitta (fire/water), and Kapha (earth/water), alongside the strength of your Agni."
+                },
+                {
+                  q: "Can symptoms be caused by multiple doshas?",
+                  a: "Yes. While one dosha is often dominant, many conditions arise from combined imbalances, requiring personalized analysis."
+                },
+                {
+                  q: "How long does it take to see results?",
+                  a: "While symptoms can begin to shift in 3-7 days of correct protocol, structural balance typically takes one full metabolic cycle (approximately 30 days)."
+                }
+              ].map((faq, i) => (
+                <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-4">
+                  <h4 className="text-lg font-black text-forest leading-tight">{faq.q}</h4>
+                  <p className="text-slate-600 font-medium leading-relaxed text-sm">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section className="py-24 px-6 text-center relative z-10">
           <div className="max-w-4xl mx-auto overflow-hidden bg-white p-16 md:p-24 rounded-[4rem] border border-slate-100 shadow-premium">
-            <h2 className="text-4xl md:text-5xl font-[1000] tracking-tighter text-forest mb-8 italic uppercase">
+            <h2 className="text-4xl md:text-5xl font-[1000] tracking-tighter text-forest mb-8 italic uppercase text-balance">
               Identify Your Pattern
             </h2>
             <p className="text-slate-500 font-bold mb-12 uppercase tracking-widest text-sm max-w-md mx-auto">
@@ -221,6 +334,14 @@ export default function HealthHubPage() {
                     Start Analysis <Activity className="w-5 h-5 ml-1" />
                 </Link>
             </motion.div>
+
+            {/* Medical Disclaimer */}
+            <div className="mt-20 pt-8 border-t border-slate-50">
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] max-w-xl mx-auto leading-relaxed">
+                Dinaveda provides Ayurvedic educational insights. Our engine does not provide medical diagnosis or treatment. 
+                Always consult a qualified healthcare professional for medical concerns.
+              </p>
+            </div>
           </div>
         </section>
       </main>

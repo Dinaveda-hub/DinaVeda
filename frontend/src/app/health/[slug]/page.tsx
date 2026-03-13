@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import HealthClient from "./HealthClient";
 import { use } from "react";
 
-export default function DynamicHealthPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default async function DynamicHealthPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   
   if (!(slug in COMBINATIONS)) {
     notFound();
