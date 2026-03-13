@@ -202,7 +202,7 @@ export default function MobileMenu() {
               </div>
 
               {/* Footer / CTA */}
-              <div className="px-7 py-6 border-t border-slate-100 space-y-4 bg-slate-50/40">
+              <div className="px-7 pt-6 pb-10 border-t border-slate-100 space-y-4 bg-slate-50/40">
                 <Link 
                   href="/login" 
                   onClick={toggleMenu}
