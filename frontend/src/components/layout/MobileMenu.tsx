@@ -109,7 +109,7 @@ export default function MobileMenu() {
               initial="closed"
               animate="opened"
               exit="closed"
-              className="fixed top-[72px] right-0 h-[calc(100vh-72px)] w-[88%] max-w-[360px] bg-white z-[9999] shadow-2xl flex flex-col"
+              className="fixed top-[72px] right-0 h-[calc(100vh-72px)] w-[92%] max-w-[420px] bg-white z-[9999] shadow-2xl flex flex-col rounded-l-3xl"
             >
               {/* Header */}
               <div className="p-6 flex justify-between items-center border-b border-slate-50">
@@ -123,12 +123,12 @@ export default function MobileMenu() {
               </div>
 
               {/* Scrollable Content */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-12">
+              <div className="flex-1 overflow-y-auto px-7 py-8 space-y-14">
                 <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-12">
                   
                   {/* Tools / Assessments */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
+                    <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2 mb-3">
                        <Activity className="w-3.5 h-3.5" /> Biological Assessments
                     </p>
                     <div className="grid grid-cols-1 gap-2">
@@ -138,7 +138,7 @@ export default function MobileMenu() {
                             key={item.slug}
                             href={`/assessments/${item.slug}`}
                             onClick={toggleMenu}
-                            className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                            className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform"
                           >
                             {item.name}
                           </Link>
@@ -160,7 +160,7 @@ export default function MobileMenu() {
 
                   {/* Symptoms / Health Hub */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
+                    <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2 mb-3">
                        <HeartPulse className="w-3.5 h-3.5" /> Health Hub
                     </p>
                     <div className="grid grid-cols-1 gap-2">
@@ -169,7 +169,7 @@ export default function MobileMenu() {
                           key={item.slug} 
                           href={`/health/${item.slug}`}
                           onClick={toggleMenu}
-                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                          className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform"
                         >
                           {item.name}
                         </Link>
@@ -181,7 +181,7 @@ export default function MobileMenu() {
 
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 flex items-center gap-2">
+                    <p className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center gap-2 mb-3">
                        <BookOpen className="w-3.5 h-3.5" /> Education
                     </p>
                     <div className="grid grid-cols-1 gap-2">
@@ -190,7 +190,7 @@ export default function MobileMenu() {
                           key={item.slug} 
                           href={item.slug === "index" ? "/guide" : `/guide/${item.slug}`}
                           onClick={toggleMenu}
-                          className="text-base font-bold text-forest hover:translate-x-1 transition-transform"
+                          className="text-lg font-semibold text-forest py-1.5 hover:translate-x-1 transition-transform"
                         >
                           {item.name}
                         </Link>
@@ -202,7 +202,7 @@ export default function MobileMenu() {
               </div>
 
               {/* Footer / CTA */}
-              <div className="p-6 border-t border-slate-50 space-y-4">
+              <div className="px-7 py-6 border-t border-slate-100 space-y-4 bg-slate-50/40">
                 <Link 
                   href="/login" 
                   onClick={toggleMenu}
