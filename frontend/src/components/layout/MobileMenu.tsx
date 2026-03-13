@@ -305,7 +305,7 @@ export default function MobileMenu() {
                 >
                   Start Assessment <ArrowRight className="w-4 h-4" />
                 </Link>
-                <p className="text-[10px] text-center font-bold text-slate-600 uppercase tracking-widest">
+                <p className="text-xs text-center font-bold text-slate-600 uppercase tracking-[0.12em]">
                    © 2026 Dinaveda AI
                 </p>
               </div>
