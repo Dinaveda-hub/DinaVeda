@@ -67,42 +67,37 @@ const SYMPTOMS = [
 const HEALTH_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "MedicalWebPage",
-  "name": "Health Symptom Hub: An Ayurvedic Perspective",
-  "description": "Understand your symptoms through the lens of Ayurvedic physiology. Bloating, fatigue, brain fog, and more explained.",
+  "name": "Ayurvedic Symptom Hub",
+  "description": "Understand common health symptoms through Ayurvedic physiology including bloating, fatigue, anxiety, brain fog, and insomnia.",
   "about": [
-    { "@type": "Thing", "name": "Health Symptoms" },
-    { "@type": "Thing", "name": "Ayurveda" },
-    { "@type": "Thing", "name": "Digestion" }
+    { "@type": "MedicalCondition", "name": "Bloating" },
+    { "@type": "MedicalCondition", "name": "Fatigue" },
+    { "@type": "MedicalCondition", "name": "Brain Fog" },
+    { "@type": "MedicalCondition", "name": "Insomnia" },
+    { "@type": "MedicalCondition", "name": "Anxiety" }
   ],
   "mainEntity": {
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Why do symptoms like bloating or fatigue keep returning?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Recurring symptoms often indicate an underlying imbalance in digestion, metabolism, or nervous system regulation. Ayurveda treats the root cause (dosha imbalance) rather than just masking the signal."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does Ayurveda identify the cause of symptoms?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ayurveda evaluates patterns related to the three doshas: Vata (air/ether), Pitta (fire/water), and Kapha (earth/water), alongside the strength of your digestive fire (Agni)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can symptoms be caused by multiple doshas?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. While one dosha is often dominant, many conditions arise from combined imbalances. A personalized analysis is required to determine the specific interaction of elements in your body."
-        }
-      }
-    ]
+    "@type": "ItemList",
+    "itemListElement": SYMPTOMS.map((s, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": s.name,
+      "url": `https://dinaveda.com/health/${s.slug}`
+    }))
   }
+};
+
+const BREADCRUMB_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Health Hub",
+      "item": "https://dinaveda.com/health"
+    }
+  ]
 };
 
 export default function HealthHubPage() {
@@ -111,6 +106,10 @@ export default function HealthHubPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(HEALTH_JSON_LD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_JSON_LD) }}
       />
 
       {/* Top Navigation */}
@@ -165,34 +164,45 @@ export default function HealthHubPage() {
         <section className="py-14 md:py-20 px-6 max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SYMPTOMS.map((symptom, i) => (
-              <Link key={symptom.slug} href={`/health/${symptom.slug}`}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  whileHover={{ y: -10 }}
-                  className="p-8 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all h-full flex flex-col group"
-                >
-                  <div className={`w-16 h-16 rounded-2xl bg-slate-50 ${symptom.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
-                    <symptom.icon className="w-8 h-8" />
+              <motion.div
+                key={symptom.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -10 }}
+                className="p-8 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all h-full flex flex-col group"
+              >
+                <div className={`w-16 h-16 rounded-2xl bg-slate-50 ${symptom.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
+                  <symptom.icon className="w-8 h-8" />
+                </div>
+                
+                <div className="flex-1 space-y-4">
+                  <div className="space-y-1">
+                    <Link href={`/health/${symptom.slug}`} className="block group/title">
+                      <h2 className="text-2xl md:text-3xl font-black text-forest flex items-center gap-2 group-hover/title:text-emerald-600 transition-colors">
+                        {symptom.name} <ArrowRight className="w-5 h-5 opacity-20 group-hover/title:opacity-100 transition-all" />
+                      </h2>
+                    </Link>
+                    <Link href={`/health/${symptom.slug}`} className="text-[10px] font-black uppercase text-emerald-600 tracking-widest hover:underline">
+                      View Clinical Overview
+                    </Link>
                   </div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl md:text-3xl font-black text-forest mb-2 flex items-center gap-2">
-                      {symptom.name} <ArrowRight className="w-5 h-5 opacity-20 group-hover:opacity-100 transition-all" />
-                    </h2>
-                    <p className="text-[10px] font-black uppercase text-slate-600 tracking-[0.2em] mb-6">{symptom.pattern}</p>
-                    <p className="text-slate-600 font-medium leading-relaxed">{symptom.desc}</p>
-                    
-                    {/* Programmatic Shortcuts */}
-                    <div className="mt-8 pt-6 border-t border-slate-50 flex flex-wrap gap-2">
-                      <Link href={`/health/${symptom.slug}-vata`} className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Vata</Link>
-                      <Link href={`/health/${symptom.slug}-pitta`} className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Pitta</Link>
-                      <Link href={`/health/${symptom.slug}-kapha`} className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest transition-colors">Kapha</Link>
-                    </div>
+
+                  <p className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">{symptom.pattern}</p>
+                  <p className="text-slate-600 font-medium leading-relaxed text-sm">{symptom.desc}</p>
+                </div>
+
+                {/* Programmatic Shortcuts */}
+                <div className="mt-8 pt-6 border-t border-slate-50">
+                  <span className="block text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Therapeutic Variations</span>
+                  <div className="flex flex-wrap gap-2">
+                    <Link href={`/health/${symptom.slug}-vata`} className="px-4 py-1.5 rounded-full bg-slate-50 text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-emerald-50 transition-all border border-transparent hover:border-emerald-100">Vata Type</Link>
+                    <Link href={`/health/${symptom.slug}-pitta`} className="px-4 py-1.5 rounded-full bg-slate-50 text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-emerald-50 transition-all border border-transparent hover:border-emerald-100">Pitta Type</Link>
+                    <Link href={`/health/${symptom.slug}-kapha`} className="px-4 py-1.5 rounded-full bg-slate-50 text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-forest hover:bg-emerald-50 transition-all border border-transparent hover:border-emerald-100">Kapha Type</Link>
                   </div>
-                </motion.div>
-              </Link>
+                </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -271,6 +281,27 @@ export default function HealthHubPage() {
           </div>
         </section>
 
+        {/* Early Warning Signs Section */}
+        <section className="max-w-4xl mx-auto py-20 px-6 space-y-8">
+          <h3 className="text-2xl font-black text-forest tracking-tight">
+            Early Warning Signs of Physiological Imbalance
+          </h3>
+
+          <p className="text-slate-600 font-medium leading-relaxed">
+            Early symptoms such as fatigue, digestive discomfort,
+            brain fog, irregular sleep patterns, and unexplained
+            weight changes may indicate an underlying physiological
+            imbalance.
+          </p>
+
+          <p className="text-slate-600 font-medium leading-relaxed">
+            In Ayurvedic physiology these signals often arise when
+            digestion (Agni) becomes inefficient or when metabolic
+            residue (Ama) begins to accumulate within physiological
+            channels.
+          </p>
+        </section>
+
         {/* Medical Authority / E-E-A-T Section */}
         <section className="max-w-4xl mx-auto py-20 px-6 border-t border-slate-100">
           <div className="space-y-8">
@@ -320,6 +351,23 @@ export default function HealthHubPage() {
                 </p>
               </div>
             </div>
+
+            {/* Doctor Reviewer Section */}
+            <div className="flex items-center gap-4 mt-16">
+              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold">
+                DR
+              </div>
+
+              <div>
+                <p className="text-xs font-bold text-forest">
+                  Reviewed by Dr. Rahul K R, BAMS
+                </p>
+
+                <p className="text-[10px] text-slate-400">
+                  Ayurvedic Physician
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -363,7 +411,7 @@ export default function HealthHubPage() {
         <section className="py-24 px-6 text-center relative z-10">
           <div className="max-w-4xl mx-auto overflow-hidden bg-white p-12 md:p-24 rounded-[2.5rem] md:rounded-[4rem] border border-slate-100 shadow-premium">
             <h2 className="text-3xl md:text-5xl font-[1000] tracking-tighter text-forest mb-8 italic uppercase text-balance">
-              Assess Your Physiological Pattern
+              Identify Your Ayurvedic Health Pattern
             </h2>
             <p className="text-slate-500 font-bold mb-12 uppercase tracking-widest text-sm max-w-md mx-auto">
               Dinaveda analyzes multiple physiological indicators related to digestion, energy metabolism, sleep quality, and nervous system balance to identify potential patterns of imbalance.

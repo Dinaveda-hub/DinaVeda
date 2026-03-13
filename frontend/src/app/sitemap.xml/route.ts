@@ -17,6 +17,14 @@ export async function GET() {
     '/prakriti',
     '/terms',
     '/assessments',
+    '/health',
+    '/health/bloating',
+    '/health/low-energy',
+    '/health/poor-digestion',
+    '/health/brain-fog',
+    '/health/anxiety',
+    '/health/insomnia',
+    '/health/weight-gain',
   ];
 
   const toolRoutes = Object.keys(CALCULATORS).map(slug => `/assessments/${slug}`);
