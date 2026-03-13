@@ -161,10 +161,10 @@ export default function MobileMenu() {
                         ))
                       ) : (
                         <>
-                          <Link href="/tools" onClick={toggleMenu} className="text-base font-bold text-forest">
+                          <Link href="/tools" onClick={toggleMenu} className="text-lg font-semibold text-forest">
                             Analysis Tools
                           </Link>
-                          <Link href="/login" onClick={toggleMenu} className="text-base font-bold text-forest">
+                          <Link href="/login" onClick={toggleMenu} className="text-lg font-semibold text-forest">
                             Start Assessment
                           </Link>
                         </>
