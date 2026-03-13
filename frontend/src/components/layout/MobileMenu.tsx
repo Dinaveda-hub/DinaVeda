@@ -176,8 +176,6 @@ export default function MobileMenu() {
                     )}
                   </motion.div>
 
-                  <div className="border-t border-slate-100 pt-4" />
-
                   {/* Symptoms / Health Hub */}
                   <motion.div variants={itemVariants} className="space-y-0">
                     <button
@@ -208,8 +206,6 @@ export default function MobileMenu() {
                     </div>
                     )}
                   </motion.div>
-
-                  <div className="border-t border-slate-100 pt-4" />
 
                   {/* Protocols */}
                   <motion.div variants={itemVariants} className="space-y-0">
@@ -242,8 +238,6 @@ export default function MobileMenu() {
                     )}
                   </motion.div>
 
-                  <div className="border-t border-slate-100 pt-4" />
-
                   {/* Routines */}
                   <motion.div variants={itemVariants} className="space-y-0">
                     <button
@@ -274,8 +268,6 @@ export default function MobileMenu() {
                       </div>
                     )}
                   </motion.div>
-
-                  <div className="border-t border-slate-100 pt-4" />
 
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-0">
