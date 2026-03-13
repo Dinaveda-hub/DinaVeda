@@ -131,14 +131,14 @@ export default function MobileMenu() {
               </div>
 
               {/* Scrollable Content */}
-              <div className="flex-1 overflow-y-auto overscroll-contain px-7 py-8 space-y-14">
-                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-12">
+              <div className="flex-1 overflow-y-auto overscroll-contain p-5 space-y-6">
+                <motion.div variants={containerVariants} initial="closed" animate="opened" className="space-y-6">
                   
                   {/* Tools / Assessments */}
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("assessments")}
-                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
@@ -173,13 +173,13 @@ export default function MobileMenu() {
                     )}
                   </motion.div>
 
-                  <div className="border-t border-slate-100 pt-6" />
+                  <div className="border-t border-slate-100 pt-4" />
 
                   {/* Symptoms / Health Hub */}
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("health")}
-                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <HeartPulse className="w-3.5 h-3.5" />
@@ -203,13 +203,13 @@ export default function MobileMenu() {
                     )}
                   </motion.div>
 
-                  <div className="border-t border-slate-100 pt-6" />
+                  <div className="border-t border-slate-100 pt-4" />
 
                   {/* Protocols */}
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("protocols")}
-                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
@@ -233,13 +233,13 @@ export default function MobileMenu() {
                     )}
                   </motion.div>
 
-                  <div className="border-t border-slate-100 pt-6" />
+                  <div className="border-t border-slate-100 pt-4" />
 
                   {/* Routines */}
                   <motion.div variants={itemVariants} className="space-y-4">
                     <button
                       onClick={() => toggleSection("routines")}
-                      className="w-full text-left text-[11px] font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
+                      className="w-full text-left text-xs font-black uppercase tracking-[0.25em] text-slate-500 flex items-center justify-between mb-3"
                     >
                       <span className="flex items-center gap-2">
                         <Activity className="w-3.5 h-3.5" />
@@ -263,7 +263,7 @@ export default function MobileMenu() {
                     )}
                   </motion.div>
 
-                  <div className="border-t border-slate-100 pt-6" />
+                  <div className="border-t border-slate-100 pt-4" />
 
                   {/* Education */}
                   <motion.div variants={itemVariants} className="space-y-4">
@@ -297,7 +297,7 @@ export default function MobileMenu() {
               </div>
 
               {/* Footer / CTA */}
-              <div className="px-7 pt-6 pb-10 border-t border-slate-100 space-y-4 bg-slate-50/40">
+              <div className="px-7 pt-4 pb-10 border-t border-slate-100 space-y-4 bg-slate-50/40">
                 <Link 
                   href="/login" 
                   onClick={toggleMenu}
