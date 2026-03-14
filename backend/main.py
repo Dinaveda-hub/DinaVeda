@@ -19,6 +19,8 @@ from billing.subscription_guard import require_premium
 from analysis.pattern_routes import router as pattern_router
 from analysis.pattern_engine import get_user_patterns
 from fastapi import Depends
+from ai.reasoning_engine import generate_reasoning_context
+from ai.response_validator import validate_clinical_response, format_fallback_response
 
 load_dotenv()
 
@@ -110,7 +112,7 @@ class PersonalizeRequest(BaseModel):
 
 class ChatPayload(BaseModel):
     message: str
-    context: dict = {} # User's current physiological state
+    context: dict | None = {} # User's current physiological state
     prakriti: str = "Unknown"
 
 
