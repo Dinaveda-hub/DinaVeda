@@ -15,13 +15,10 @@ Architecture rule:
 
 from __future__ import annotations
 import os
-from typing import Optional
-
 
 # Gemini model fallback — fastest first
 GEMINI_MODELS = ["gemini-2.5-flash", "gemini-2.0-flash"]
 GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
-
 
 class BaseModuleAgent:
     """
@@ -88,7 +85,7 @@ class BaseModuleAgent:
     # Gemini call with model fallback
     # ─────────────────────────────────────────────
 
-    async def _call_gemini(self, user_prompt: str) -> Optional[str]:
+    async def _call_gemini(self, user_prompt: str) -> str | None:
         import httpx
 
         api_key = os.getenv("GEMINI_API_KEY")
