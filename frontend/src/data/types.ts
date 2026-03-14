@@ -11,7 +11,11 @@ export interface SymptomData {
   icon: LucideIcon;
   color: ColorTheme;
   cluster: "digestive" | "mental" | "energy" | "skin" | "metabolism";
-  relatedCause?: string; // Will be typed as keyof typeof CAUSES in the specific files or via a generic
+  relatedCause?: string; 
+  signs?: string[];
+  dietarySupports?: { food: string; why: string }[];
+  dietaryAvoids?: { food: string; why: string }[];
+  lifestyleTips?: { title: string; desc: string }[];
 }
 
 export interface DoshaData {

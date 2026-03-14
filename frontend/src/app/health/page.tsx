@@ -2,65 +2,205 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Zap, Shield, Sparkles, AlertCircle, Compass, Activity, Thermometer, Brain, Wind } from "lucide-react";
+import { 
+  ArrowLeft, ArrowRight, Zap, Shield, Sparkles, AlertCircle, 
+  Compass, Activity, Thermometer, Brain, Wind, Lock, Flame, 
+  UtensilsCrossed, ZapOff, Moon, Hourglass, Target, Eye, 
+  Clock, Droplets, ThermometerSnowflake, UserMinus, ShieldAlert
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 const SYMPTOMS = [
+  // Digestive
   { 
     name: "Bloating", 
     slug: "bloating", 
     icon: Wind, 
     color: "text-blue-500", 
-    desc: "Abdominal distention or gas following meals may indicate impaired digestive function. In Ayurvedic physiology, bloating is commonly associated with irregular digestion (Vishama Agni) and increased Vata activity within the gastrointestinal tract.",
-    pattern: "Vata imbalance and irregular digestive function"
-  },
-  { 
-    name: "Low Energy", 
-    slug: "low-energy", 
-    icon: Zap, 
-    color: "text-orange-500", 
-    desc: "Persistent fatigue may arise from inefficient metabolic processes, insufficient nutrient assimilation, or accumulation of metabolic residue (Ama). Ayurveda evaluates fatigue by assessing digestive strength and tissue nourishment.",
-    pattern: "Reduced metabolic vitality or Ama accumulation"
+    desc: "Abdominal distention or gas following meals. Associated with irregular digestive fire (Vishama Agni).",
+    pattern: "Vata imbalance & Vishama Agni"
   },
   { 
     name: "Poor Digestion", 
     slug: "poor-digestion", 
     icon: Thermometer, 
     color: "text-emerald-500", 
-    desc: "Symptoms such as heaviness after meals, acid reflux, irregular bowel movements, or reduced appetite may indicate impaired digestive fire (Agni). Digestive imbalance is considered a primary contributor to many chronic health complaints in Ayurveda.",
-    pattern: "Impaired digestive function (Agni dysfunction)"
+    desc: "Heaviness, acid reflux, or reduced appetite indicating impaired metabolic capacity (Agni).",
+    pattern: "Agni Dysfunction"
   },
   { 
-    name: "Brain Fog", 
-    slug: "brain-fog", 
-    icon: Brain, 
-    color: "text-indigo-500", 
-    desc: "Cognitive sluggishness, reduced concentration, and mental fatigue may occur when metabolic residue (Ama) affects neurological function. Digestive imbalance and Kapha accumulation are commonly implicated.",
-    pattern: "Kapha accumulation and Ama influence"
+    name: "Constipation", 
+    slug: "constipation", 
+    icon: Lock, 
+    color: "text-blue-600", 
+    desc: "Dryness and downward energy blockage (Apana Vayu) halting natural waste movement.",
+    pattern: "Vata Dryness"
   },
   { 
-    name: "Anxiety", 
-    slug: "anxiety", 
-    icon: Activity, 
-    color: "text-indigo-600", 
-    desc: "Restlessness, excessive worry, or heightened nervous system activity may reflect Vata imbalance affecting neurological regulation and stress response mechanisms.",
-    pattern: "Vata imbalance affecting the nervous system"
+    name: "Acidity", 
+    slug: "acidity", 
+    icon: Flame, 
+    color: "text-rose-500", 
+    desc: "Excessive metabolic heat overflowing from the gut, involving liquid and hot Pitta qualities.",
+    pattern: "Pitta Heat"
   },
   { 
-    name: "Insomnia", 
-    slug: "insomnia", 
-    icon: Shield, 
-    color: "text-slate-600", 
-    desc: "Difficulty initiating or maintaining sleep may occur when circadian rhythm regulation and nervous system stability are disrupted. Ayurveda frequently associates insomnia with aggravated Vata activity.",
-    pattern: "Vata disturbance and circadian disruption"
+    name: "Excess Gas", 
+    slug: "gas", 
+    icon: Wind, 
+    color: "text-blue-400", 
+    desc: "Accumulation of air and fermentation products due to a flickering digestive flame.",
+    pattern: "Vishama Agni"
+  },
+  { 
+    name: "Nausea", 
+    slug: "nausea", 
+    icon: AlertCircle, 
+    color: "text-emerald-600", 
+    desc: "Reverse movement of energy due to heavy metabolic stagnation and high Ama.",
+    pattern: "Ama Stagnation"
+  },
+  { 
+    name: "Loss of Appetite", 
+    slug: "loss-of-appetite", 
+    icon: UtensilsCrossed, 
+    color: "text-orange-600", 
+    desc: "Diminished digestive desire indicating a coating (Ama) on the sensing channels.",
+    pattern: "Manda Agni"
+  },
+
+  // Energy & Metabolism
+  { 
+    name: "Fatigue", 
+    slug: "fatigue", 
+    icon: ZapOff, 
+    color: "text-slate-500", 
+    desc: "Deep-seated depletion of vital essence (Ojas) or deep blockage of channels by Ama.",
+    pattern: "Ojas Depletion / Ama"
+  },
+  { 
+    name: "Post-Meal Fatigue", 
+    slug: "post-meal-fatigue", 
+    icon: Moon, 
+    color: "text-amber-600", 
+    desc: "Lethargy following eating signifies that Agni is too weak to process the incoming load.",
+    pattern: "Low Digestive Fire"
+  },
+  { 
+    name: "Slow Metabolism", 
+    slug: "slow-metabolism", 
+    icon: Hourglass, 
+    color: "text-emerald-700", 
+    desc: "Sluggish transformation of food into energy; a Kapha-heavy state of cellular conversion.",
+    pattern: "Manda Agni / Kapha"
   },
   { 
     name: "Weight Gain", 
     slug: "weight-gain", 
     icon: Sparkles, 
     color: "text-amber-700", 
-    desc: "Unintended weight gain can occur when metabolic rate slows and digestion becomes inefficient. In Ayurvedic physiology this pattern is commonly associated with Kapha predominance and reduced digestive fire.",
-    pattern: "Kapha predominance with reduced metabolic activity"
+    desc: "Metabolic stagnation and accumulation of the earth element (Kapha).",
+    pattern: "Kapha Predominance"
+  },
+
+  // Mental & Sleep
+  { 
+    name: "Anxiety", 
+    slug: "anxiety", 
+    icon: Activity, 
+    color: "text-indigo-600", 
+    desc: "Excess Vata (air/ether) moving through the nervous tissue (Majja Dhatu).",
+    pattern: "Vata Aggravation"
+  },
+  { 
+    name: "Stress", 
+    slug: "stress", 
+    icon: Brain, 
+    color: "text-indigo-500", 
+    desc: "Sudden strain that depletes Ojas and forces Vata to move erraticly in the mind.",
+    pattern: "Prana Vata Drift"
+  },
+  { 
+    name: "Brain Fog", 
+    slug: "brain-fog", 
+    icon: Brain, 
+    color: "text-indigo-800", 
+    desc: "Mental Ama—heavy, sticky residue blocking the subtle channels of the mind.",
+    pattern: "Kapha-Ama Influence"
+  },
+  { 
+    name: "Poor Concentration", 
+    slug: "poor-concentration", 
+    icon: Target, 
+    color: "text-indigo-700", 
+    desc: "Unstable focus occurring when the clarity (Sattva) of the mind is clouded.",
+    pattern: "Rajas/Ama Clouding"
+  },
+  { 
+    name: "Insomnia", 
+    slug: "insomnia", 
+    icon: Shield, 
+    color: "text-slate-600", 
+    desc: "Vata-Pitta drift where the nervous system is too mobile to enter Kapha-rest.",
+    pattern: "Vata-Pitta Drift"
+  },
+  { 
+    name: "Night Waking", 
+    slug: "night-waking", 
+    icon: Eye, 
+    color: "text-slate-700", 
+    desc: "Interrupted sleep cycles, often specific to Vata (2-6 AM) or Pitta (10 PM-2 AM) peaks.",
+    pattern: "Circadian Dosha Peak"
+  },
+  { 
+    name: "Restless Sleep", 
+    slug: "restless-sleep", 
+    icon: Clock, 
+    color: "text-slate-800", 
+    desc: "Fragmented sleep indicating that the quality of stability (Tamoguna) is insufficient.",
+    pattern: "Vata Moving Quality"
+  },
+
+  // Skin & Fluid
+  { 
+    name: "Hair Loss", 
+    slug: "hair-loss", 
+    icon: UserMinus, 
+    color: "text-rose-600", 
+    desc: "Excess Pitta heat 'burning' the follicles or Bhrajaka Pitta imbalance.",
+    pattern: "Pitta Heat"
+  },
+  { 
+    name: "Dry Skin", 
+    slug: "dry-skin", 
+    icon: Droplets, 
+    color: "text-blue-500", 
+    desc: "Lack of lubrication (Snehana) and excess of the dry quality of Vata.",
+    pattern: "Vata Dryness"
+  },
+  { 
+    name: "Acne", 
+    slug: "acne", 
+    icon: ShieldAlert, 
+    color: "text-rose-500", 
+    desc: "Eruption of Pitta-heated blood (Rakta) and Ama in the skin pores.",
+    pattern: "Pitta-Rakta Heat"
+  },
+  { 
+    name: "Water Retention", 
+    slug: "water-retention", 
+    icon: Droplets, 
+    color: "text-emerald-500", 
+    desc: "Kapha-related accumulation of heavy water and earth elements in tissues.",
+    pattern: "Kapha Stagnation"
+  },
+  { 
+    name: "Cold Hands & Feet", 
+    slug: "cold-hands-feet", 
+    icon: ThermometerSnowflake, 
+    color: "text-blue-400", 
+    desc: "Reduced circulation indicating Agni is too weak to push warmth to periphery.",
+    pattern: "Weak Agni / Vata"
   }
 ];
 
