@@ -14,6 +14,7 @@ class VedaEngine:
         
         self.system_instructions = self._load_instructions()
         self.signal_library = self._load_signals()
+        self._valid_signal_keys = set(self.signal_library.keys())
         
         api_key = os.getenv("GEMINI_API_KEY")
         self.client = genai.Client(api_key=api_key) if api_key else None
@@ -87,8 +88,7 @@ class VedaEngine:
                     raise ValueError("No valid JSON found in response")
 
             # Validation: ensure signals exist in library
-            valid_keys = set(self.signal_library.keys())
-            data["signals"] = [s for s in data.get("signals", []) if s in valid_keys]
+            data["signals"] = [s for s in data.get("signals", []) if s in self._valid_signal_keys]
             return data
             
         except Exception as e:
