@@ -10,34 +10,15 @@ into the prompt for deeply personalized insights.
 def build_insight_prompt(state: dict, previous_state: dict, logs: list, patterns: list | None = None) -> str:
     """Constructs the prompt for the Insight Agent to explain physiological state changes."""
 
-    # Calculate simple trends from previous to current state
-    vata_delta = state.get("vata", 50) - previous_state.get("vata", 50)
-    agni_delta = state.get("agni", 50) - previous_state.get("agni", 50)
-    ojas_delta = state.get("ojas", 70) - previous_state.get("ojas", 70)
+    # Calculate trends
+    vata_trend = _calculate_trend(state.get("vata"), previous_state.get("vata"), 50)
+    agni_trend = _calculate_trend(state.get("agni"), previous_state.get("agni"), 50)
+    ojas_trend = _calculate_trend(state.get("ojas"), previous_state.get("ojas"), 70)
+
     sleep_val = state.get("sleep", 60)
     stress_val = state.get("stress", 40)
 
-    # Format trend strings
-    vata_trend = f"+{vata_delta}" if vata_delta > 0 else str(vata_delta)
-    agni_trend = f"+{agni_delta}" if agni_delta > 0 else str(agni_delta)
-    ojas_trend = f"+{ojas_delta}" if ojas_delta > 0 else str(ojas_delta)
-
-    # Build pattern context block
-    pattern_block = ""
-    if patterns and len(patterns) > 0:
-        pattern_lines = []
-        for p in patterns[:5]:  # Limit to top 5 patterns
-            conf = int(p.get("confidence", 0) * 100)
-            occ = p.get("occurrences", 0)
-            desc = p.get("description", "")
-            pattern_lines.append(f"- \"{desc}\" (confidence: {conf}%, seen {occ} times)")
-        pattern_block = f"""
-Behavioral Memory (detected long-term patterns for this user):
-{chr(10).join(pattern_lines)}
-
-Use these patterns to personalize your explanation. If today's state change matches
-a known pattern, reference it directly. This makes the insight feel deeply personal.
-"""
+    pattern_block = _build_pattern_block(patterns)
 
     prompt = f"""
 You are an Ayurvedic physiology interpreter for the Dinaveda health platform.
@@ -77,3 +58,32 @@ def generate_daily_insight(state: dict, previous_state: dict, logs: list, engine
 
     result = engine.process_chat_nlu(prompt)
     return result.get("reply", "Your biological indicators remain stable today.")
+
+
+def _calculate_trend(current: int | None, previous: int | None, default: int) -> str:
+    """Helper to calculate trend change and format as string (+X, -Y, or Z)."""
+    curr_val = current if current is not None else default
+    prev_val = previous if previous is not None else default
+    delta = curr_val - prev_val
+    return f"+{delta}" if delta > 0 else str(delta)
+
+
+def _build_pattern_block(patterns: list | None) -> str:
+    """Helper to build the memory pattern block string."""
+    if not patterns or len(patterns) == 0:
+        return ""
+
+    pattern_lines = []
+    for p in patterns[:5]:  # Limit to top 5 patterns
+        conf = int(p.get("confidence", 0) * 100)
+        occ = p.get("occurrences", 0)
+        desc = p.get("description", "")
+        pattern_lines.append(f"- \"{desc}\" (confidence: {conf}%, seen {occ} times)")
+
+    return f"""
+Behavioral Memory (detected long-term patterns for this user):
+{chr(10).join(pattern_lines)}
+
+Use these patterns to personalize your explanation. If today's state change matches
+a known pattern, reference it directly. This makes the insight feel deeply personal.
+"""
