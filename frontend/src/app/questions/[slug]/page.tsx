@@ -37,12 +37,13 @@ export async function generateMetadata({
   const symptomKey = findSymptom(slug);
   if (!symptomKey) return {};
 
+  const symptom = SYMPTOMS[symptomKey as keyof typeof SYMPTOMS];
   const questionTitle = slug.replaceAll("-", " ");
-  const capitalizedTitle = questionTitle.charAt(0).toUpperCase() + questionTitle.slice(1);
+  const capitalizedQuestion = questionTitle.charAt(0).toUpperCase() + questionTitle.slice(1) + "?";
 
   return {
-    title: `${capitalizedTitle} | Dinaveda`,
-    description: `Expert Ayurvedic perspective on ${questionTitle}. Understand the underlying causes and physiological patterns using classical principles.`,
+    title: `${capitalizedQuestion} Ayurvedic Perspective | Dinaveda`,
+    description: `Explore the Ayurvedic interpretation of ${symptom.name.toLowerCase()}. Learn about digestive fire (Agni), metabolic residue (Ama), and traditionally used lifestyle support patterns.`,
     alternates: {
       canonical: `https://www.dinaveda.com/questions/${slug}`,
     },
@@ -63,9 +64,70 @@ export default async function QuestionPage({
 
   const symptom = SYMPTOMS[symptomKey as keyof typeof SYMPTOMS];
   const questionTitle = slug.replaceAll("-", " ");
+  const capitalizedQuestion = questionTitle.charAt(0).toUpperCase() + questionTitle.slice(1) + "?";
+
+  const JSON_LD = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": `https://www.dinaveda.com/questions/${slug}#webpage`,
+        "url": `https://www.dinaveda.com/questions/${slug}`,
+        "name": `${capitalizedQuestion} Ayurvedic Perspective | Dinaveda`,
+        "description": `Ayurvedic interpretation and lifestyle support patterns for ${symptom.name.toLowerCase()}.`,
+        "lastReviewed": "2026-03-14",
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Rahul K R",
+          "jobTitle": "Ayurvedic Physician"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Dinaveda"
+        },
+        "breadcrumb": { "@id": `https://www.dinaveda.com/questions/${slug}#breadcrumb` }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `https://www.dinaveda.com/questions/${slug}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Health Hub",
+            "item": "https://www.dinaveda.com/health"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Q&A",
+            "item": `https://www.dinaveda.com/questions/${slug}`
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `https://www.dinaveda.com/questions/${slug}#faq`,
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": capitalizedQuestion,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `In Ayurvedic physiology, this is often interpreted as an imbalance in digestive fire (Agni) or the accumulation of metabolic residue (Ama). Lifestyle protocols are traditionally used to support internal balance.`
+            }
+          }
+        ]
+      }
+    ]
+  };
 
   return (
     <div className="bg-[#F8FAF9] min-h-screen font-sans selection:bg-forest/20 selection:text-forest">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
       {/* Navigation */}
       <nav className="p-6 bg-white border-b border-slate-50 flex justify-between items-center w-full sticky top-0 z-[70] backdrop-blur-md">
         <Link href="/health" className="font-black text-forest text-xl tracking-tighter">
@@ -116,19 +178,19 @@ export default async function QuestionPage({
           <ul className="space-y-4">
             <li className="flex items-start gap-3 text-slate-600 font-medium">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-2" />
-              <span>Irregular digestive function (Agni imbalance) due to inconsistent meal timing.</span>
+              <span>Irregular digestive fire (Agni imbalance) due to inconsistent nutrition or habits.</span>
             </li>
             <li className="flex items-start gap-3 text-slate-600 font-medium">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-2" />
-              <span>Accumulation of metabolic residue (Ama) obstructing physiological channels.</span>
+              <span>Accumulation of metabolic residue (Ama) that may obstruct physiological channels.</span>
             </li>
             <li className="flex items-start gap-3 text-slate-600 font-medium">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-2" />
-              <span>Chronic psychological stress affecting nervous system (Prana Vata) regulation.</span>
+              <span>Chronic psychological stress affecting nervous system (Vata) regulation.</span>
             </li>
             <li className="flex items-start gap-3 text-slate-600 font-medium">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-2" />
-              <span>Disruption of natural circadian rhythms (Dinacharya) and sleep quality.</span>
+              <span>Disruption of natural circadian cycles (Dinacharya) impacting sleep efficiency.</span>
             </li>
           </ul>
         </section>
@@ -139,12 +201,12 @@ export default async function QuestionPage({
             Ayurvedic Interpretation
           </h2>
           <p className="text-slate-600 leading-relaxed font-medium">
-            Ayurvedic physiology interprets symptoms as signals of systemic imbalance. When your digestive strength (Agni) weakens, the body cannot process food correctly, leading to the formation of 'Ama'. 
-            This residue manifests as {symptom.name.toLowerCase()}, fatigue, or cognitive slowing depending on which regulatory system (Dosha) is currently aggravated.
+            Ayurvedic physiology interprets symptoms as biological signals of systemic imbalance. In traditional clinical practice, when digestive fire (Agni) weakens, the body may accumulate metabolic residue (Ama). 
+            This residue often manifests as {symptom.name.toLowerCase()}, fatigue, or cognitive slowing. Ayurvedic lifestyle protocols are traditionally used to support internal balance and the body's natural regulatory capacity.
           </p>
-          <div className="p-6 bg-slate-900 rounded-[2rem] text-slate-300 text-sm leading-relaxed border border-white/5">
+          <div className="p-6 bg-slate-900 rounded-[2rem] text-slate-300 text-sm leading-relaxed border border-white/5 shadow-xl">
             <span className="text-emerald-400 font-black uppercase tracking-widest block mb-2">Internal Logic</span>
-            Identifying the specific constitutional variation of your symptoms—whether Vata, Pitta, or Kapha—is essential for determining the correct dietary and lifestyle adjustments.
+            Identifying whether your symptoms reflect Vata, Pitta, or Kapha dominance is essential for determining the most appropriate dietary and lifestyle support patterns.
           </div>
         </section>
 

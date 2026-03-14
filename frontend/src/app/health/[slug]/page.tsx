@@ -41,10 +41,14 @@ export async function generateMetadata({
 
   if (slug in COMBINATIONS) {
     const combo = COMBINATIONS[slug];
-    const symptomName = slug.split("-")[0].replace("-", " ");
+    const parts = slug.split("-");
+    const doshaName = parts.pop() || "";
+    const symptomName = parts.join(" ");
     const capitalizedSymptom = symptomName.charAt(0).toUpperCase() + symptomName.slice(1);
-    const title = `${combo.title} | Dinaveda`;
-    const description = `Understand ${capitalizedSymptom} through Ayurvedic physiology. Learn common causes, digestive patterns, and lifestyle approaches. Medically reviewed.`;
+    const capitalizedDosha = doshaName.charAt(0).toUpperCase() + doshaName.slice(1);
+    
+    const title = `${capitalizedSymptom} (${capitalizedDosha} Type): Ayurvedic Perspective | Dinaveda`;
+    const description = `Understand ${capitalizedSymptom} through the lens of ${capitalizedDosha} physiology. Explore traditionally used Ayurvedic lifestyle and dietary support patterns. Medically reviewed.`;
     
     return {
       title,
@@ -69,8 +73,8 @@ export async function generateMetadata({
 
   if (slug in SYMPTOMS) {
     const symptom = SYMPTOMS[slug];
-    const title = `${symptom.name}: Ayurvedic Explanation & Fixes | Dinaveda`;
-    const description = `${symptom.summary} Medically reviewed by Dr. Rahul K R.`;
+    const title = `${symptom.name}: Ayurvedic Explanation & Causes | Dinaveda`;
+    const description = `${symptom.summary} traditionally used in Ayurvedic physiology to support internal balance. Medically reviewed by Dr. Rahul K R.`;
 
     return {
       title,

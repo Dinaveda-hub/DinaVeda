@@ -12,7 +12,9 @@ interface HealthClientProps {
 export default function HealthClient({ slug }: HealthClientProps) {
   const combo = COMBINATIONS[slug];
   if (!combo) { return null; }
-  const [symptomKey, doshaKey] = slug.split("-");
+  const parts = slug.split("-");
+  const doshaKey = parts.pop() || "";
+  const symptomKey = parts.join("-");
   const symptom = SYMPTOMS[symptomKey];
   const dosha = DOSHAS[doshaKey];
 
@@ -23,71 +25,93 @@ export default function HealthClient({ slug }: HealthClientProps) {
 
   const JSON_LD = {
     "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
-    "name": combo.title,
-    "description": combo.intro,
-    "about": [
-      { "@type": "MedicalCondition", "name": symptom?.name },
-      { "@type": "MedicalEntity", "name": dosha?.name }
-    ],
-    "author": {
-      "@type": "Person",
-      "name": "Dr. Rahul K R",
-      "jobTitle": "Ayurvedic Physician"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Dinaveda"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://dinaveda.com/health/${slug}`
-    }
-  };
-
-  const FAQ_JSON_LD = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": `Is ${symptom?.name} related to ${dosha?.name} imbalance?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `Yes, in Ayurveda, ${symptom?.name} is often a direct result of ${dosha?.name} imbalance affecting the body's natural rhythms and digestive fire.`
+        "@type": "MedicalWebPage",
+        "@id": `https://www.dinaveda.com/health/${slug}#webpage`,
+        "url": `https://www.dinaveda.com/health/${slug}`,
+        "name": combo.title,
+        "description": combo.intro,
+        "lastReviewed": "2026-03-14",
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Rahul K R",
+          "jobTitle": "Ayurvedic Physician"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Dinaveda"
+        },
+        "breadcrumb": {
+          "@id": `https://www.dinaveda.com/health/${slug}#breadcrumb`
+        },
+        "mainEntity": {
+          "@id": `https://www.dinaveda.com/health/${slug}#condition`
         }
       },
       {
-        "@type": "Question",
-        "name": `How long does it take to balance ${dosha?.name}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "While initial shifts can be felt within 3-7 days of correct dietary and lifestyle adjustments, deep balance typically requires a full metabolic cycle of 30 days."
+        "@type": "MedicalCondition",
+        "@id": `https://www.dinaveda.com/health/${slug}#condition`,
+        "name": symptom?.name,
+        "description": symptom?.summary,
+        "associatedAnatomy": {
+          "@type": "AnatomicalSystem",
+          "name": "Digestive System"
         }
       },
       {
-        "@type": "Question",
-        "name": `What lifestyle habits worsen ${symptom?.name}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `For ${dosha?.name} patterns, ${symptom?.name} is often aggravated by irregular meal timing, cold or processed foods, chronic stress, and lack of consistent daily routine.`
-        }
+        "@type": "BreadcrumbList",
+        "@id": `https://www.dinaveda.com/health/${slug}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Health Hub",
+            "item": "https://www.dinaveda.com/health"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": symptom?.name,
+            "item": `https://www.dinaveda.com/health/${symptomKey}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": `${symptom?.name} (${dosha?.name} Type)`,
+            "item": `https://www.dinaveda.com/health/${slug}`
+          }
+        ]
       },
       {
-        "@type": "Question",
-        "name": `Can digestion affect ${symptom?.name}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `Absolutely. In Ayurvedic medicine, Agni (digestive fire) is the foundation of health. When Agni is compromised, it produces Ama (toxins) which can manifest as ${symptom?.name}.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `How long does it take to restore dosha balance?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Deep physiological recalibration usually follows a 30-day cycle, though noticeable symptomatic relief often occurs within the first 10-14 days of dedicated protocol adherence."
-        }
+        "@id": `https://www.dinaveda.com/health/${slug}#faq`,
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": `Is ${symptom?.name} related to ${dosha?.name} imbalance?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Yes, in Ayurveda, ${symptom?.name} is often a direct result of ${dosha?.name} imbalance affecting the body's natural rhythms and digestive fire.`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `How long does it take to balance ${dosha?.name}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "While initial shifts can be felt within 3-7 days of correct dietary and lifestyle adjustments, deep balance typically requires a full metabolic cycle of 30 days."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `What lifestyle habits worsen ${symptom?.name}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `For ${dosha?.name} patterns, ${symptom?.name} is often aggravated by irregular meal timing, cold or processed foods, chronic stress, and lack of consistent daily routine.`
+            }
+          }
+        ]
       }
     ]
   };
@@ -97,10 +121,6 @@ export default function HealthClient({ slug }: HealthClientProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
 
       {/* Navigation */}
@@ -143,18 +163,18 @@ export default function HealthClient({ slug }: HealthClientProps) {
             </span>
           </h1>
           <p className="text-base md:text-xl text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
-            {symptom?.name} may arise from multiple physiological factors including metabolic imbalance, digestive inefficiency, or nervous system dysregulation. In Ayurvedic physiology, this symptom is commonly associated with imbalance in the {dosha?.name} dosha.
+            <strong>{symptom?.name}</strong> may arise from various physiological factors including metabolic inefficiency, digestive irregularity, or nervous system overstimulation. In Ayurvedic physiology, this pattern is commonly associated with an imbalance in the <strong>{dosha?.name}</strong> regulatory principle (dosha).
           </p>
 
           {/* Clinical Observation Section */}
           <div className="mt-12 p-8 bg-emerald-50/50 rounded-[3rem] border border-emerald-100 max-w-3xl mx-auto text-left">
-            <h3 className="text-lg font-black text-forest uppercase tracking-widest mb-4">Clinical Observation</h3>
+            <h3 className="text-lg font-black text-forest uppercase tracking-widest mb-4">Clinical Perspective</h3>
             <div className="text-slate-600 leading-relaxed font-medium space-y-4">
               <p>
-                In Ayurvedic clinical practice, symptoms such as {symptom?.name} frequently occur alongside digestive imbalance, sleep disruption, or chronic stress.
+                In Ayurvedic clinical practice, physiological signals like {symptom?.name.toLowerCase()} are rarely isolated events. They often occur alongside patterns of irregular digestion, disrupted sleep, or chronic stress.
               </p>
               <p>
-                Identifying these patterns helps guide appropriate dietary and lifestyle adjustments to restore internal equilibrium.
+                Ayurvedic lifestyle protocols are traditionally used to support internal equilibrium and restore the body&apos;s natural regulatory capacity.
               </p>
             </div>
           </div>

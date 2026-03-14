@@ -21,40 +21,81 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
 
   const JSON_LD = {
     "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
-    "name": `${symptom.name}: Ayurvedic Explanation & Causes | Dinaveda`,
-    "description": symptom.summary,
-    "lastReviewed": "2026-03-14",
-    "author": {
-      "@type": "Person",
-      "name": "Dr. Rahul K R",
-      "jobTitle": "Ayurvedic Physician"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Dinaveda"
-    },
-    "mainEntity": {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": `Is ${symptom.name.toLowerCase()} always a sign of disease?`,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": `Not necessarily. In Ayurveda, temporary ${symptom.name.toLowerCase()} often occurs due to lifestyle factors such as irregular eating habits, high stress, or seasonal shifts.`
-          }
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": `https://www.dinaveda.com/health/${slug}#webpage`,
+        "url": `https://www.dinaveda.com/health/${slug}`,
+        "name": `${symptom.name}: Ayurvedic Explanation & Causes | Dinaveda`,
+        "description": symptom.summary,
+        "lastReviewed": "2026-03-14",
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Rahul K R",
+          "jobTitle": "Ayurvedic Physician"
         },
-        {
-          "@type": "Question",
-          "name": "How long does it take to see improvements?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Improvements depend on the underlying cause and the consistency of adjustments. Subtle shifts often begin within 3-7 days, with structural metabolic balance taking approximately 30 days."
-          }
+        "publisher": {
+          "@type": "Organization",
+          "name": "Dinaveda"
+        },
+        "breadcrumb": {
+          "@id": `https://www.dinaveda.com/health/${slug}#breadcrumb`
+        },
+        "mainEntity": {
+          "@id": `https://www.dinaveda.com/health/${slug}#condition`
         }
-      ]
-    }
+      },
+      {
+        "@type": "MedicalCondition",
+        "@id": `https://www.dinaveda.com/health/${slug}#condition`,
+        "name": symptom.name,
+        "description": symptom.summary,
+        "associatedAnatomy": {
+          "@type": "AnatomicalSystem",
+          "name": "Digestive System"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `https://www.dinaveda.com/health/${slug}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Health Hub",
+            "item": "https://www.dinaveda.com/health"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": symptom.name,
+            "item": `https://www.dinaveda.com/health/${slug}`
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `https://www.dinaveda.com/health/${slug}#faq`,
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": `Is ${symptom.name.toLowerCase()} always a sign of disease?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Not necessarily. In Ayurveda, temporary ${symptom.name.toLowerCase()} often occurs due to lifestyle factors such as irregular eating habits, high stress, or seasonal shifts.`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does it take to see improvements?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Improvements depend on the underlying cause and the consistency of adjustments. Subtle shifts often begin within 3-7 days, with structural metabolic balance taking approximately 30 days."
+            }
+          }
+        ]
+      }
+    ]
   };
 
   return (
@@ -109,7 +150,12 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
 
           <div className="mt-12 space-y-6">
             <p className="text-xl text-slate-600 font-medium leading-relaxed">
-              {symptom.name} is interpreted in Ayurveda as a physiological signal of internal imbalance. {symptom.summary}
+              <strong>{symptom.name}</strong> refers to a broad range of physiological signals often associated with metabolic or digestive inefficiency. 
+              In Ayurvedic clinical practice, this pattern is traditionally interpreted as a indicator of internal imbalance in 
+              digestive fire (Agni) or the accumulation of metabolic residue (Ama).
+            </p>
+            <p className="text-slate-500 leading-relaxed font-normal">
+              {symptom.summary} {symptom.modernDesc}
             </p>
           </div>
         </motion.header>
@@ -148,24 +194,23 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
             </div>
           </div>
 
-          {/* 3. Physiological Explanation (Agni/Ama/Dosha) */}
           <div className="bg-slate-900 p-12 md:p-20 rounded-[4rem] text-white relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 blur-[120px] opacity-20 pointer-events-none -mr-40" />
             <div className="max-w-3xl space-y-8">
               <h2 className="text-4xl font-black mb-8 tracking-tight italic">Physiological Explanation</h2>
               <div className="space-y-6 text-slate-300 leading-relaxed text-lg font-medium">
                 <p>
-                  In Ayurvedic physiology, symptoms are interpreted as indicators of imbalance in digestive function (Agni), metabolic residue (Ama), or the regulatory systems known as Doshas (Vata, Pitta, Kapha).
+                  In Ayurvedic physiology, symptoms are interpreted as indicators of imbalance in digestive fire (Agni), metabolic residue (Ama), or the regulatory principles known as Doshas (Vata, Pitta, Kapha).
                 </p>
                 <p>
-                  For <strong>{symptom.name}</strong>, {symptom.ayuDesc} Understanding these patterns helps identify possible contributing factors and guides appropriate adjustments.
+                  For <strong>{symptom.name}</strong>, {symptom.ayuDesc} Ayurvedic lifestyle practices are traditionally used to support internal equilibrium and the body's natural regulatory capacity.
                 </p>
                 <div className="pt-8 border-t border-white/10">
                    <p className="text-sm text-emerald-400 font-black uppercase tracking-widest mb-4 flex items-center gap-2">
                      <Layers className="w-4 h-4" /> Structural Hierarchy
                    </p>
                    <p className="text-sm text-slate-400 leading-relaxed">
-                     By identifying the qualities (Gunas) present in your current state, we can introduce opposite qualities to restore equilibrium and metabolic flow in the channels (Srotas).
+                     Classical Ayurvedic texts describe digestion as a central determinant of vitality. By identifying the qualities (Gunas) present in your current state, we can introduce opposite qualities to support metabolic flow.
                    </p>
                 </div>
               </div>
