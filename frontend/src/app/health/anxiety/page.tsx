@@ -334,55 +334,65 @@ export default function AnxietyPage() {
             </div>
           </div>
 
-          {/* 11. Related Topics */}
+          {/* 11. Related Topics & Clusters */}
           <div className="space-y-12 pt-12 border-t border-slate-100">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <h2 className="text-2xl font-black text-forest tracking-tight">Related symptoms</h2>
-                <div className="grid grid-cols-1 gap-4">
-                  <Link href="/health/brain-fog" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
-                      <p className="text-sm font-black text-forest group-hover:text-purple-600">Brain Fog</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-purple-600 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                  <Link href="/health/insomnia" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
-                      <p className="text-sm font-black text-forest group-hover:text-indigo-600">Insomnia</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-600 transition-transform group-hover:translate-x-1" />
-                  </Link>
+            <h2 className="text-3xl font-black text-forest tracking-tight">Related Symptoms</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Link href="/health/insomnia" className="p-8 bg-white border border-slate-100 rounded-[2.5rem] flex flex-col hover:bg-slate-50 transition group shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-500 mb-4 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                  <Moon className="w-5 h-5" />
                 </div>
-              </div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
+                <h4 className="text-lg font-black text-forest group-hover:text-indigo-600 transition-colors">Insomnia</h4>
+                <p className="text-xs text-slate-500 font-medium mt-2 leading-relaxed">Difficulties with sleep onset or quality often occur alongside anxiety.</p>
+              </Link>
+              <Link href="/health/brain-fog" className="p-8 bg-white border border-slate-100 rounded-[2.5rem] flex flex-col hover:bg-slate-50 transition group shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-500 mb-4 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
+                <h4 className="text-lg font-black text-forest group-hover:text-purple-600 transition-colors">Brain Fog</h4>
+                <p className="text-xs text-slate-500 font-medium mt-2 leading-relaxed">Mental clarity is often compromised when the nervous system is in overdrive.</p>
+              </Link>
+              <Link href="/health/poor-digestion" className="p-8 bg-white border border-slate-100 rounded-[2.5rem] flex flex-col hover:bg-slate-50 transition group shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500 mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                  <Activity className="w-5 h-5" />
+                </div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
+                <h4 className="text-lg font-black text-forest group-hover:text-emerald-600 transition-colors">Poor Digestion</h4>
+                <p className="text-xs text-slate-500 font-medium mt-2 leading-relaxed">The gut-brain axis means mental stress directly impacts digestive fire.</p>
+              </Link>
+            </div>
+          </div>
 
-              <div className="space-y-6">
-                <h2 className="text-2xl font-black text-forest tracking-tight">Ayurvedic Mechanisms</h2>
-                <div className="grid grid-cols-1 gap-4">
-                  <Link href="/guide/doshas" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Biological Theory</p>
-                      <p className="text-sm font-black text-forest group-hover:text-teal-600">The Three Doshas</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-teal-600 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                  <Link href="/guide/ojas" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Vital Essence</p>
-                      <p className="text-sm font-black text-forest group-hover:text-indigo-600">Building Ojas</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-600 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                  <Link href="/guide/dinacharya" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Circadian Rhythm</p>
-                      <p className="text-sm font-black text-forest group-hover:text-amber-600">Daily Routine</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-amber-600 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
+          {/* Deep Knowledge Links (Harmonized) */}
+          <div className="py-12 border-y border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-forest/5 rounded-2xl flex items-center justify-center text-forest">
+                <Shield className="w-6 h-6" />
               </div>
+              <div className="text-left">
+                <span className="block text-[10px] font-black text-forest uppercase tracking-widest">Connect to Wisdom</span>
+                <span className="text-xs text-slate-400 font-medium">Root Cause Guides & Biological Foundations</span>
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link href="/guide/ojas" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-indigo-600 transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-200 group-hover:bg-indigo-600" />
+                Building Ojas
+              </Link>
+              <Link href="/guide/dinacharya" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-amber-600 transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-200 group-hover:bg-amber-600" />
+                Daily Rhythms
+              </Link>
+              <Link href="/guide/doshas" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-teal-600 transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-200 group-hover:bg-teal-600" />
+                The Three Doshas
+              </Link>
+              <Link href="/guide/agni" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-orange-600 transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-200 group-hover:bg-orange-600" />
+                Agni Biology
+              </Link>
             </div>
           </div>
 

@@ -351,12 +351,19 @@ export default function PoorDigestionPage() {
                     </div>
                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 transition-transform group-hover:translate-x-1" />
                   </Link>
-                  <Link href="/health/low-energy" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
+                  <Link href="/health/stomach-ache" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
                     <div>
                       <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
-                      <p className="text-sm font-black text-forest group-hover:text-orange-600">Low Energy</p>
+                      <p className="text-sm font-black text-forest group-hover:text-orange-600">Stomach Ache</p>
                     </div>
                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-orange-600 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                  <Link href="/health/constipation" className="p-6 bg-white border border-slate-100 rounded-3xl flex items-center justify-between hover:bg-slate-50 transition group">
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Crossover</p>
+                      <p className="text-sm font-black text-forest group-hover:text-amber-600">Constipation</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-amber-600 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>

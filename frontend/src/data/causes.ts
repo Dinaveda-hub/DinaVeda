@@ -42,5 +42,15 @@ export const CAUSES: Record<string, CauseData> = {
     icon: Layers,
     color: "emerald",
     recommendedProtocol: "kapha-activation" as keyof typeof PROTOCOL_GUIDES
+  },
+  "pitta-imbalance": {
+    id: "pitta-imbalance",
+    name: "Pitta Imbalance",
+    symptoms: ["Acidity", "Acne", "Hair Loss"],
+    mechanism: "Excess fire and water elements lead to inflammation, heat accumulation, and tissue depletion.",
+    ayuView: "Pitta governs transformation and heat; when it overflows, it causes 'Vidagdha' (combustion) in the blood and digestive tract.",
+    icon: Flame,
+    color: "rose",
+    recommendedProtocol: "pitta-soothing" as keyof typeof PROTOCOL_GUIDES
   }
 };

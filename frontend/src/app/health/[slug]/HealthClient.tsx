@@ -16,6 +16,11 @@ export default function HealthClient({ slug }: HealthClientProps) {
   const symptom = SYMPTOMS[symptomKey];
   const dosha = DOSHAS[doshaKey];
 
+  // Find related symptoms in the same cluster
+  const relatedInCluster = Object.values(SYMPTOMS)
+    .filter(s => s.cluster === symptom?.cluster && s.id !== symptomKey)
+    .slice(0, 3);
+
   const JSON_LD = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
@@ -520,17 +525,20 @@ export default function HealthClient({ slug }: HealthClientProps) {
               Recognizing these associated patterns helps identify the deeper physiological imbalance.
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {Object.values(SYMPTOMS)
-                .filter((s) => s.name !== symptom?.name)
-                .slice(0, 6)
-                .map((s) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {relatedInCluster.map((s) => (
                   <Link
                     key={s.id}
                     href={`/health/${s.id}-${doshaKey}`}
-                    className="p-4 rounded-2xl border border-slate-100 bg-white hover:border-forest transition-all text-sm font-bold text-slate-600 hover:text-forest"
+                    className="p-6 rounded-2xl border border-slate-100 bg-white hover:border-forest hover:shadow-premium transition-all group"
                   >
-                    {s.name}
+                    <div className="flex items-center gap-3 mb-2">
+                       <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-forest transition-colors">
+                         <s.icon className="w-4 h-4" />
+                       </div>
+                       <span className="text-sm font-black text-slate-800">{s.name}</span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 font-medium leading-tight">{s.summary}</p>
                   </Link>
                 ))}
             </div>
@@ -557,12 +565,28 @@ export default function HealthClient({ slug }: HealthClientProps) {
           <div className="py-12 border-y border-slate-100 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-4">
               <Compass className="w-6 h-6 text-forest" />
-              <span className="text-sm font-black text-forest uppercase tracking-widest">Connect to Wisdom</span>
+              <div className="text-left">
+                <span className="block text-[10px] font-black text-forest uppercase tracking-widest">Connect to Wisdom</span>
+                <span className="text-xs text-slate-400 font-medium">Root Cause Guides & Biological Foundations</span>
+              </div>
             </div>
-            <div className="flex gap-8">
-              <Link href="/guide/agni" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors underline underline-offset-4">Agni Biology</Link>
-              <Link href="/guide/ama" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors underline underline-offset-4">Waste Clearance</Link>
-              <Link href="/guide/doshas" className="text-xs font-bold text-slate-600 hover:text-forest transition-colors underline underline-offset-4">Understanding Doshas</Link>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link href="/guide/agni" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-forest transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-forest" />
+                Agni Biology
+              </Link>
+              <Link href="/guide/ama" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-forest transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-forest" />
+                Waste Clearance
+              </Link>
+              <Link href="/guide/doshas" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-forest transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-forest" />
+                Understanding Doshas
+              </Link>
+              <Link href="/guide/dinacharya" className="group flex items-center gap-2 text-xs font-black text-slate-600 hover:text-forest transition-all">
+                <div className="w-1 h-1 rounded-full bg-slate-300 group-hover:bg-forest" />
+                Daily Rhythms
+              </Link>
             </div>
           </div>
 

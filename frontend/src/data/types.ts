@@ -10,6 +10,7 @@ export interface SymptomData {
   ayuDesc: string;
   icon: LucideIcon;
   color: ColorTheme;
+  cluster: "digestive" | "mental" | "energy" | "skin" | "metabolism";
   relatedCause?: string; // Will be typed as keyof typeof CAUSES in the specific files or via a generic
 }
 
