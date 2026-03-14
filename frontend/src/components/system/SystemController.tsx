@@ -49,7 +49,7 @@ export default function SystemController() {
             };
 
             const handleAppInstalled = () => {
-                setShowInstallBanner(false);
+                setTimeout(() => setShowInstallBanner(false), 0);
                 setDeferredPrompt(null);
             };
 
@@ -57,7 +57,7 @@ export default function SystemController() {
             window.addEventListener("appinstalled", handleAppInstalled);
 
             if (window.matchMedia("(display-mode: standalone)").matches) {
-                setShowInstallBanner(false);
+                setTimeout(() => setShowInstallBanner(false), 0);
             }
 
             return () => {
@@ -76,12 +76,12 @@ export default function SystemController() {
         const { outcome } = await deferredPrompt.userChoice;
         console.log("[PWA] Install prompt outcome:", outcome);
         setDeferredPrompt(null);
-        setShowInstallBanner(false);
+        setTimeout(() => setShowInstallBanner(false), 0);
     };
 
     const handleDismiss = () => {
         localStorage.setItem("pwa-install-dismissed", "true");
-        setShowInstallBanner(false);
+        setTimeout(() => setShowInstallBanner(false), 0);
     };
 
     // ─────────────────────────────────────────────────────

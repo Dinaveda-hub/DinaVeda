@@ -28,7 +28,7 @@ export default function PwaInstallBanner() {
         };
 
         const handleAppInstalled = () => {
-            setIsVisible(false);
+            setTimeout(() => setIsVisible(false), 0);
             setDeferredPrompt(null);
         };
 
@@ -37,7 +37,7 @@ export default function PwaInstallBanner() {
 
         // Check if app is already installed
         if (window.matchMedia("(display-mode: standalone)").matches) {
-            setIsVisible(false);
+            setTimeout(() => setIsVisible(false), 0);
         }
 
         return () => {
@@ -58,12 +58,12 @@ export default function PwaInstallBanner() {
 
         // We've used the prompt, and can't use it again, throw it away
         setDeferredPrompt(null);
-        setIsVisible(false);
+        setTimeout(() => setIsVisible(false), 0);
     };
 
     const handleDismiss = () => {
         localStorage.setItem("pwa-install-dismissed", "true");
-        setIsVisible(false);
+        setTimeout(() => setIsVisible(false), 0);
     };
 
     return (

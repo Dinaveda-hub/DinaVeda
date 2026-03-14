@@ -58,7 +58,7 @@ export default function SettingsPage() {
     useEffect(() => {
         // Load notification settings
         const saved = localStorage.getItem("veda_notifications");
-        if (saved) setNotifications(JSON.parse(saved));
+        if (saved) setTimeout(() => setNotifications(JSON.parse(saved)), 0);
 
         const initProfile = async () => {
             const supabase = createClient();

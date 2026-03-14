@@ -31,12 +31,10 @@ export default function FeedbackModal({ queue, currentState, onClose, onComplete
         return new Map((protocolsRaw as any[]).map(p => [p.name || p.id, p]));
     }, []);
 
-    if (queue.length === 0 || currentIndex >= queue.length) return null;
-
     const currentItem = queue[currentIndex];
+    const original = currentItem ? protocolMap.get(currentItem.name) : null;
 
     // Refined Primary Target Selection Logic
-    const original = protocolMap.get(currentItem.name);
     const primaryTarget = useMemo(() => {
         if (!original?.variables) return "balance";
         
@@ -47,6 +45,8 @@ export default function FeedbackModal({ queue, currentState, onClose, onComplete
         const [bestKey] = entries.sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0];
         return bestKey;
     }, [original]);
+
+    if (queue.length === 0 || currentIndex >= queue.length) return null;
 
     // Adaptive Question Wording
     const getQuestion = () => {
