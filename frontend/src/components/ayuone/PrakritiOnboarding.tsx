@@ -89,7 +89,6 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
             }
         };
         
-        // Critical fix: Await the sync before proceeding
         try {
             await syncPrakriti();
         } catch (error) {
