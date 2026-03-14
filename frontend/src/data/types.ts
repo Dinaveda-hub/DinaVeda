@@ -12,6 +12,8 @@ export interface SymptomData {
   color: ColorTheme;
   cluster: "digestive" | "mental" | "energy" | "skin" | "metabolism";
   relatedCause?: string; 
+  causes?: { title: string; items: string[] }[];
+  redFlags?: string[];
   signs?: string[];
   dietarySupports?: { food: string; why: string }[];
   dietaryAvoids?: { food: string; why: string }[];

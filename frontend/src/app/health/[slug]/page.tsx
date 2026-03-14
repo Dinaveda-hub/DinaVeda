@@ -36,24 +36,60 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   
+  const siteUrl = "https://www.dinaveda.com";
+  const canonical = `${siteUrl}/health/${slug}`;
+
   if (slug in COMBINATIONS) {
     const combo = COMBINATIONS[slug];
     const symptomName = slug.split("-")[0].replace("-", " ");
     const capitalizedSymptom = symptomName.charAt(0).toUpperCase() + symptomName.slice(1);
+    const title = `${combo.title} | Dinaveda`;
+    const description = `Understand ${capitalizedSymptom} through Ayurvedic physiology. Learn common causes, digestive patterns, and lifestyle approaches. Medically reviewed.`;
     
     return {
-      title: `${combo.title} | Dinaveda`,
-      description: `Understand ${capitalizedSymptom} through Ayurvedic physiology. Learn common causes, digestive patterns, and lifestyle approaches.`,
-      alternates: { canonical: `https://www.dinaveda.com/health/${slug}` }
+      title,
+      description,
+      alternates: { canonical },
+      openGraph: {
+        title,
+        description,
+        url: canonical,
+        siteName: "Dinaveda",
+        type: "article",
+        images: ["/og-health.png"]
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: ["/og-health.png"]
+      }
     };
   }
 
   if (slug in SYMPTOMS) {
     const symptom = SYMPTOMS[slug];
+    const title = `${symptom.name}: Ayurvedic Explanation & Fixes | Dinaveda`;
+    const description = `${symptom.summary} Medically reviewed by Dr. Rahul K R.`;
+
     return {
-      title: `${symptom.name}: Ayurvedic Explanation & Fixes | Dinaveda`,
-      description: symptom.summary,
-      alternates: { canonical: `https://www.dinaveda.com/health/${slug}` }
+      title,
+      description,
+      alternates: { canonical },
+      openGraph: {
+        title,
+        description,
+        url: canonical,
+        siteName: "Dinaveda",
+        type: "article",
+        images: ["/og-health.png"]
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: ["/og-health.png"]
+      }
     };
   }
 

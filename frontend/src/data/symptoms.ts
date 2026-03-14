@@ -20,11 +20,16 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: [
-      "Irregular appetite",
-      "Fatigue immediately after meals",
-      "Brain fog or cognitive slowing",
-      "Fluctuating bowel movements"
+      "Abdominal pressure after meals",
+      "Noticeable distention of the belly",
+      "Irregular bowel habits",
+      "Belching or gas release"
     ],
+    causes: [
+      { title: "Dietary Triggers", items: ["Excessive raw/cold salads", "Gaseous beans or Cruciferous vegetables", "Carbonated drinks while eating"] },
+      { title: "Functional Issues", items: ["Swallowing air while eating", "Weak digestive fire (Agni)", "Irregular meal times"] }
+    ],
+    redFlags: ["Severe abdominal pain", "Unexplained weight loss", "Change in bowel habits lasting > 2 weeks", "Fever or vomiting"],
     dietarySupports: [
       { food: "Warm cooked meals", why: "Lowers the metabolic energy needed for breakdown" },
       { food: "Ginger & Cumin", why: "Acts as 'Dipana' (appetizer) and 'Pachana' (digestant)" },
@@ -53,6 +58,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "energy",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Waking up tired", "Heaviness in limbs", "Mental sluggishness", "Cravings for stimulants"],
+    causes: [
+      { title: "Metabolic Issues", items: ["Accumulation of Ama (toxins)", "Weak digestive fire", "Poor nutrient absorption"] },
+      { title: "Lifestyle Drains", items: ["Inadequate sleep", "High stress levels", "Lack of physical movement"] }
+    ],
+    redFlags: ["Sudden profound exhaustion", "Unexplained fever", "Chest pain or shortness of breath", "Significant weight loss"],
     dietarySupports: [{ food: "Warm, light meals", why: "Prevents metabolic residue" }],
     dietaryAvoids: [{ food: "Heavy dairy/sugar", why: "Further clogs the channels" }]
   },
@@ -67,6 +77,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Inability to focus", "Feeling 'spaced out'", "Slowed speech/thoughts"],
+    causes: [
+      { title: "Gut-Brain Path", items: ["Ama traveling to the mind channels", "Heavy/Oily evening meals", "Poor elimination"] },
+      { title: "Sensory Overload", items: ["Chronic screen time", "Irregular sleep patterns", "Mental over-exertion"] }
+    ],
+    redFlags: ["Sudden confusion", "Difficulty speaking", "Loss of coordination", "Severe headache"],
     dietarySupports: [{ food: "Bitter greens", why: "Helps clear metabolic residue" }],
     dietaryAvoids: [{ food: "Cold/heavy grains", why: "Increases mental 'dampness'" }]
   },
@@ -81,6 +96,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Racing thoughts at night", "Light sleep", "Early waking"],
+    causes: [
+      { title: "Nervous Sensitivity", items: ["High Vata in the mind", "Late-night mental work", "Excessive stimulants"] },
+      { title: "Circadian Drift", items: ["Irregular sleep habits", "Exposure to blue light", "Skipping evening routine"] }
+    ],
+    redFlags: ["Daytime hallucinations", "Severe depression", "High risk for accidents due to fatigue"],
     dietarySupports: [{ food: "Warm milk with nutmeg", why: "Natural sedative for the nervous system" }],
     dietaryAvoids: [{ food: "Late-night caffeine", why: "Directly aggravates Vata/Pitta" }]
   },
@@ -100,6 +120,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
       "Irregular appetite",
       "Sensitivity to noise/light"
     ],
+    causes: [
+      { title: "Vata Agitators", items: ["Change in routine", "Traveling or high movement", "Exposure to cold/wind"] },
+      { title: "Dietary Influences", items: ["Excessive caffeine", "Skipping meals", "Cold/Dry food habits"] }
+    ],
+    redFlags: ["Panic attacks", "Thoughts of self-harm", "Inability to function in daily life", "Chest pain during stress"],
     dietarySupports: [
       { food: "Root Vegetables", why: "Provides the 'earth' element to stabilize the mind" },
       { food: "Healthy Fats (Ghee/Avocado)", why: "Insulates the nerves against Vata 'sparking'" },
@@ -124,7 +149,14 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Scale,
     color: "amber",
     cluster: "metabolism",
-    relatedCause: "kapha-congestion" as keyof typeof CAUSES
+    relatedCause: "kapha-congestion" as keyof typeof CAUSES,
+    causes: [
+      { title: "Metabolic Stagnation", items: ["Slow digestive fire (Manda Agni)", "High Ama levels", "Kapha-aggravating diet"] },
+      { title: "Sedentary Habits", items: ["Lack of vigorous movement", "Excessive sleep (especially daytime)", "Emotional eating"] }
+    ],
+    redFlags: ["Sudden unexplained weight gain (> 5kg/month)", "Extreme lethargy", "Severe joint pain"],
+    dietarySupports: [{ food: "Spiced beans/pulses", why: "Drying and stimulating for Kapha" }],
+    dietaryAvoids: [{ food: "Sweet/Heavy/Oily food", why: "Directly increases the earth element" }]
   },
   "poor-digestion": {
     id: "poor-digestion",
@@ -137,10 +169,23 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: [
-      "Heaviness after meals",
-      "Lack of genuine hunger",
-      "Coated tongue or unpleasant breath",
-      "Lethargy or brain fog"
+      "Heaviness in the stomach after even light meals",
+      "Lack of genuine hunger at breakfast or lunch",
+      "Coated tongue or unpleasant breath in the morning",
+      "Post-meal lethargy or brain fog"
+    ],
+    causes: [
+      { title: "Dietary Habits", items: ["Eating before the previous meal is digested", "Excessive cold/iced drinks", "Over-consumption of raw foods"] },
+      { title: "Environmental Drains", items: ["Chronic stress (High cortisol)", "Irregular work/sleep schedules", "Lack of movement"] },
+      { title: "Metabolic Loads", items: ["Late-night heavy meals", "Incompatible food pairings", "Suppression of natural urges"] }
+    ],
+    redFlags: [
+      "Persistent or severe abdominal pain",
+      "Unexplained or sudden weight loss",
+      "Difficulty or pain while swallowing",
+      "Visible blood in the stool",
+      "Persistent vomiting or fever",
+      "Jaundice (yellowing of eyes or skin)"
     ],
     dietarySupports: [
       { food: "Warm Water with Ginger", why: "Kinds the digestive fire (Agni)" },
@@ -150,6 +195,12 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     dietaryAvoids: [
       { food: "Iced Drinks during meals", why: "Stops digestion instantly" },
       { food: "Large portions of Red Meat", why: "Extremely heavy (Guru) to process" }
+    ],
+    lifestyleTips: [
+      { title: "Timed Eating", desc: "Eating at consistent times (8AM, 1PM, 7PM) trains your Agni to secrete acids predictably." },
+      { title: "Mindful Chewing", desc: "Digestion begins in the mouth. Chewing each bite 20-30 times reduces the mechanical load." },
+      { title: "Post-Meal Movement", desc: "A 10-minute walk (shatapada) after lunch assists the gravitational movement." },
+      { title: "Emotional Awareness", desc: "Avoid eating while angry or distracted. Stress shuts down the parasympathetic system." }
     ]
   },
   "constipation": {
@@ -163,6 +214,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Difficulty passing stool", "Dry/hard pellets", "Feeling of incomplete evacuation", "Gas and bloating"],
+    causes: [
+      { title: "Dietary Dryness", items: ["Insufficient healthy fats/ghee", "Inadequate hydration", "Over-consumption of dry/crispy foods"] },
+      { title: "Energy Blockage", items: ["Suppression of natural urges", "Lack of physical movement", "Sedentary work habits"] }
+    ],
+    redFlags: ["Persistent abdominal pain", "Blood in stool", "Sudden change in bowel habits", "Fever and vomiting"],
     dietarySupports: [{ food: "Soaked raisins/figs", why: "Natural laxative and hydrating" }, { food: "Warm water first thing", why: "Stimulates peristalsis" }],
     dietaryAvoids: [{ food: "Dry crackers/toast", why: "Increases bowel dryness" }]
   },
@@ -177,6 +233,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
     signs: ["Heartburn", "Sour burps", "Burning in chest/throat", "Sharp hunger pangs"],
+    causes: [
+      { title: "Heat Aggravators", items: ["Excessive spicy/sour foods", "Fried and fermented items", "Caffeine and alcohol"] },
+      { title: "Habitual Causes", items: ["Eating while angry or stressed", "Sleeping immediately after meals", "Skipping meals"] }
+    ],
+    redFlags: ["Difficulty swallowing", "Vomiting blood", "Black/tarry stools", "Persistent chest pain"],
     dietarySupports: [{ food: "Aloe vera juice", why: "Cools the blood and gut" }, { food: "Fennel seeds", why: "Soothing and alkalizing" }],
     dietaryAvoids: [{ food: "Chili/Spices", why: "Adds fire to the fire" }, { food: "Coffee", why: "Highly acidic and heating" }]
   },
@@ -191,6 +252,11 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["Flatulence", "Abdominal pressure", "Gurgling sounds in the gut"],
+    causes: [
+      { title: "Digestive Lag", items: ["Weak Agni (flickering fire)", "Eating too fast (swallowing air)", "Talking while eating"] },
+      { title: "Food Factors", items: ["Beans without spices (Asafetida)", "Raw vegetables", "Cold drinks"] }
+    ],
+    redFlags: ["Severe abdominal cramping", "High fever", "Inability to pass gas or stool (obstruction)"],
     dietarySupports: [{ food: "Asafetida (Hing)", why: "The premier gas-clearing spice" }, { food: "Warm cooked food", why: "Reduces air element" }],
     dietaryAvoids: [{ food: "Cold sandwiches", why: "Increases air and dryness" }]
   },
@@ -205,6 +271,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Feeling of sickness", "Increased salivation", "Total lack of interest in food"],
+    causes: [
+      { title: "Stagnation", items: ["Heavy Ama buildup", "Over-eating", "Weak hepatic (liver) function"] }
+    ],
+    redFlags: ["Severe vomiting", "Inability to keep liquids down", "Signs of dehydration", "High fever"],
     dietarySupports: [{ food: "Ginger tea", why: "Pushes energy downward" }],
     dietaryAvoids: [{ food: "Fried/Oily foods", why: "Heavy and increases Kapha" }]
   },
@@ -219,6 +289,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "digestive",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["No hunger signals", "Food tastes bland", "Feeling full with tiny amounts"],
+    causes: [
+      { title: "Channel Blockage", items: ["Heavy Ama coating", "Emotional stress/grief", "Low physical activity"] }
+    ],
+    redFlags: ["Unexplained rapid weight loss", "Jaundice", "Severely pale stool/dark urine"],
     dietarySupports: [{ food: "Ginger-lime-salt", why: "Classic 'tongue-cleansing' appetizer" }],
     dietaryAvoids: [{ food: "Heavy milk/cream", why: "Further coats the tongue" }]
   },
@@ -235,6 +309,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "energy",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Exhaustion after rest", "Lethargy", "Lack of motivation"],
+    causes: [
+      { title: "Energy Leaks", items: ["Chronic over-working", "Excessive sensory stimulation", "Nutrient malabsorption"] }
+    ],
+    redFlags: ["Sudden weight loss", "Shortness of breath", "Night sweats", "Swollen lymph nodes"],
     dietarySupports: [{ food: "Fresh fruit juice", why: "Quick metabolic fuel (Prana)" }],
     dietaryAvoids: [{ food: "Leftovers/Cold food", why: "Lacks Prana, increases Ama" }]
   },
@@ -249,6 +327,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "energy",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["Heavy head after eating", "Sudden need to nap", "Bloating accompanied by tiredness"],
+    causes: [
+      { title: "Digestive Load", items: ["Over-eating beyond 75% capacity", "Drinking too much cold water", "Eating heavy foods too often"] }
+    ],
+    redFlags: ["Extreme drowsiness after every meal", "Severe brain fog", "Fainting spells"],
     dietarySupports: [{ food: "Smaller portions", why: "Reduces the load on Agni" }],
     dietaryAvoids: [{ food: "Cold desserts after meals", why: "Extinguishes the remaining fire" }]
   },
@@ -263,6 +345,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "metabolism",
     relatedCause: "kapha-congestion" as keyof typeof CAUSES,
     signs: ["Weight gain despite low intake", "Feeling constantly cold", "Slow digestion"],
+    causes: [
+      { title: "Metabolic Dampness", items: ["Sedentary lifestyle", "Excessive sleep", "Heavy/Sweet diet"] }
+    ],
+    redFlags: ["Significant hair loss", "Constant cold intolerance", "Severe skin dryness"],
     dietarySupports: [{ food: "Pungent spices", why: "Ignites the metabolic fire" }],
     dietaryAvoids: [{ food: "Sweet/Salty heavy foods", why: "Further slows the metabolism" }]
   },
@@ -279,6 +365,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Shoulder tension", "Irritability", "Shallow breathing"],
+    causes: [
+      { title: "Mental Strain", items: ["Information overload", "Financial/Work pressure", "Lack of downtime"] }
+    ],
+    redFlags: ["Severe panic attacks", "Chest pain", "Persistent high blood pressure", "Thoughts of hopelessness"],
     dietarySupports: [{ food: "Almond milk", why: "Nourishes the nervous tissue (Majja)" }],
     dietaryAvoids: [{ food: "Caffeine", why: "Increases cortisol and Vata movement" }]
   },
@@ -293,6 +383,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Fidgeting", "Inability to sit still", "Constant desire for change"],
+    causes: [
+      { title: "Moving Qualities", items: ["Excessive travel", "High sensory input", "Irregular sleep"] }
+    ],
+    redFlags: ["Severe agitation", "Inability to focus on simple tasks", "Total lack of sleep for > 48 hours"],
     dietarySupports: [{ food: "Heavy, grounding grains", why: "Provides physical weight to the system" }],
     dietaryAvoids: [{ food: "Light snacks/Popcorn", why: "Increases the moving quality of Vata" }]
   },
@@ -307,6 +401,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Easily distracted", "Forgetfulness", "Difficulty completing tasks"],
+    causes: [
+      { title: "Mind Clutter", items: ["Multi-tasking", "Poor sleep", "High sugar/processed diet"] }
+    ],
+    redFlags: ["Sudden memory loss", "Difficulty performing familiar tasks", "Personality changes"],
     dietarySupports: [{ food: "Ghee", why: "The premier brain tonic in Ayurveda" }],
     dietaryAvoids: [{ food: "Junk food", why: "Creates 'mental Ama' that clouds focus" }]
   },
@@ -323,6 +421,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Waking at 3 AM", "Feeling alert but tired", "Difficulty returning to sleep"],
+    causes: [
+      { title: "Circadian Stress", items: ["Late-night screen use", "Evening caffeine", "Unresolved daytime stress"] }
+    ],
+    redFlags: ["Shortness of breath on waking", "Heart palpitations at night", "Hallucinations from sleep loss"],
     dietarySupports: [{ food: "Warm soup for dinner", why: "Easier to digest, prevents night-time sugar drops" }],
     dietaryAvoids: [{ food: "Alcohol", why: "Disrupts the deeper sleep cycles (Pitta aggravation)" }]
   },
@@ -337,6 +439,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "mental",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Tossing and turning", "Vivid stressful dreams", "Muscle twitches during sleep"],
+    causes: [
+      { title: "Nervous Mobility", items: ["Cold sleeping environment", "Digestive gas at night", "Anxious state of mind"] }
+    ],
+    redFlags: ["Acting out dreams (injury risk)", "Extreme daytime sleepiness", "Severe snoring/gasps for air"],
     dietarySupports: [{ food: "Nutmeg at bedtime", why: "Specific herb for grounding the sleep channels" }],
     dietaryAvoids: [{ food: "Electronic screens before bed", why: "Aggravates the moving quality of Vata" }]
   },
@@ -352,6 +458,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "skin",
     relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
     signs: ["Thinning at the crown", "Scalp heat or inflammation", "Premature graying"],
+    causes: [
+      { title: "Metabolic Heat", items: ["Excessive spicy/salty diet", "High stress/Anger", "Exposure to extreme heat"] }
+    ],
+    redFlags: ["Sudden patchy hair loss (Alopecia)", "Scalp infection/inflammation", "Complete loss of body hair"],
     dietarySupports: [{ food: "Cooling fruits (Amla)", why: "Reduces systemic Pitta heat" }],
     dietaryAvoids: [{ food: "Spicy/Sour food", why: "Increases blood heat and circulation speed" }]
   },
@@ -366,6 +476,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "skin",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Flaking", "Rough texture", "Itching exacerbated by cold/wind"],
+    causes: [
+      { title: "Drying Factors", items: ["Cold/Windy weather", "Lack of healthy fats in diet", "Dehydration"] }
+    ],
+    redFlags: ["Severe cracking or bleeding", "Signs of skin infection", "Intense itching preventing sleep"],
     dietarySupports: [{ food: "Healthy fats (Ghee/Nuts)", why: "Lubricates the skin from within" }],
     dietaryAvoids: [{ food: "Dry crackers/salads", why: "Disrupts the skin's lipid balance" }]
   },
@@ -380,6 +494,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "skin",
     relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
     signs: ["Red inflamed bumps", "Oily skin", "Worsened by humidity/heat"],
+    causes: [
+      { title: "Heated Stagnation", items: ["Fermented/Spicy foods", "Hormonal Pitta spikes", "Poor bowel elimination"] }
+    ],
+    redFlags: ["Deep cystic acne causing scarring", "Sudden severe breakout with fever", "Signs of systemic infection"],
     dietarySupports: [{ food: "Cooling cucumber/melon", why: "Clears blood heat" }],
     dietaryAvoids: [{ food: "Oily/Fried/Spicy", why: "Aggravates the Pitta-Rakta axis" }]
   },
@@ -396,6 +514,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "metabolism",
     relatedCause: "kapha-congestion" as keyof typeof CAUSES,
     signs: ["Puffy eyes in morning", "Swollen ankles", "Feeling heavy even without weight gain"],
+    causes: [
+      { title: "Fluid Stagnation", items: ["Excessive salt intake", "Sedentary habits", "Heavy/Sweet/Salty diet"] }
+    ],
+    redFlags: ["Sudden swelling in one leg only", "Shortness of breath with swelling", "High blood pressure", "Decreased urination"],
     dietarySupports: [{ food: "Coriander seed water", why: "Natural Ayurvedic diuretic" }],
     dietaryAvoids: [{ food: "Excessive salt", why: "Causes the body to hold on to Kapha elements" }]
   },
@@ -410,6 +532,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     cluster: "energy",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["Numbness in fingers", "Cold toes even in warm weather", "Pale skin at extremities"],
+    causes: [
+      { title: "Circulatory Lag", items: ["Weak digestive fire", "Low blood volume (anemia)", "High Vata (constriction)"] }
+    ],
+    redFlags: ["Fingers turning white/blue in cold", "Numbness or tingling", "Sores that do not heal"],
     dietarySupports: [{ food: "Cinnamon & Cloves", why: "Vasodilators that push heat outward" }],
     dietaryAvoids: [{ food: "Iced drinks", why: "Shuts down peripheral circulation" }]
   }

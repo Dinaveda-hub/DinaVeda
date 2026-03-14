@@ -293,9 +293,31 @@ export default function HealthHubPage() {
                 Through Ayurvedic Physiology
               </span>
             </h1>
-            <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed mb-12">
-              Many common symptoms such as fatigue, digestive discomfort, anxiety, and cognitive slowing are early indicators of physiological imbalance.  
-              Ayurveda interprets these symptoms by evaluating digestive function (Agni), metabolic residue (Ama), and the balance of the three regulatory systems known as Doshas: Vata, Pitta, and Kapha.
+
+            {/* Top Review Block */}
+            <div className="flex flex-col items-center gap-4 mt-8 mb-12">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-forest/10 border border-forest/20 flex items-center justify-center text-[10px] font-black text-forest">
+                  RK
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] font-black text-forest uppercase tracking-widest leading-none">
+                    Medically Reviewed by
+                  </p>
+                  <p className="text-xs font-bold text-slate-600">
+                    Dr. Rahul K R, BAMS * Ayurvedic Physician
+                  </p>
+                </div>
+              </div>
+              <div className="h-4 w-px bg-slate-200" />
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                Last Medical Review: March 2026
+              </p>
+            </div>
+
+            <p className="text-base md:text-xl text-slate-600 max-w-3xl mx-auto font-medium leading-relaxed mb-6">
+              In Ayurvedic clinical practice, physiological signals—often called symptoms—are interpreted as indicators of imbalance in
+              digestive function (Agni), metabolic residue (Ama), or regulatory systems.
             </p>
           </motion.div>
         </header>
@@ -421,11 +443,41 @@ export default function HealthHubPage() {
           </div>
         </section>
 
-        {/* Early Warning Signs Section */}
-        <section className="max-w-4xl mx-auto py-20 px-6 space-y-8">
-          <h3 className="text-2xl font-black text-forest tracking-tight">
-            Early Warning Signs of Physiological Imbalance
-          </h3>
+        {/* Early Warning Signs Section - Experience Signal */}
+        <section className="max-w-4xl mx-auto py-20 px-6 space-y-12 bg-white rounded-[4rem] border border-slate-100 mb-20 shadow-premium">
+          <div className="space-y-6 text-center md:text-left">
+            <h3 className="text-3xl md:text-4xl font-black text-forest tracking-tight">
+              Clinical Perspective: Early Warning Signs
+            </h3>
+            <p className="text-slate-600 font-medium leading-relaxed max-w-2xl text-lg">
+              In Ayurvedic clinical practice, patients presenting with chronic indicators often report associated patterns such as irregular digestion, 
+              poor sleep quality, or fluctuating energy levels. These are not isolated events but signals of systemic communication.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-8 bg-slate-50/50 rounded-[3rem] border border-slate-100">
+              <h4 className="font-black text-forest mb-6 text-xs uppercase tracking-widest leading-none">Metabolic Indicators</h4>
+              <ul className="space-y-4 text-xs font-bold text-slate-500">
+                <li className="flex items-center gap-2 italic mb-2 text-slate-400">Possible contributing factors:</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Irregular meal timing</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Impaired digestive function (Agni)</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Metabolic residue accumulation (Ama)</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> High intake of processed foods</li>
+              </ul>
+            </div>
+            <div className="p-8 bg-slate-50/50 rounded-[3rem] border border-slate-100">
+              <h4 className="font-black text-forest mb-6 text-xs uppercase tracking-widest leading-none">Nervous System Indicators</h4>
+              <ul className="space-y-4 text-xs font-bold text-slate-500">
+                <li className="flex items-center gap-2 italic mb-2 text-slate-400">Associated triggers:</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-indigo-400" /> Chronic psychological stress</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-indigo-400" /> Insufficient or fragmented sleep</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-indigo-400" /> Excessive sensory stimulation</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-indigo-400" /> Information overload</li>
+              </ul>
+            </div>
+          </div>
+        </section>
 
           <p className="text-slate-600 font-medium leading-relaxed">
             Early symptoms such as fatigue, digestive discomfort,
@@ -440,7 +492,7 @@ export default function HealthHubPage() {
             residue (Ama) begins to accumulate within physiological
             channels.
           </p>
-        </section>
+
 
         {/* Medical Authority / E-E-A-T Section */}
         <section className="max-w-4xl mx-auto py-20 px-6 border-t border-slate-100">
