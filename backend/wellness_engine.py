@@ -55,6 +55,17 @@ class VedaEngine:
         Gemini acts strictly as an NLU classifier mapping synonyms to signal keys.
         Returns extracted signals to the frontend for physiological update.
         """
+        try:
+            prompt = self._build_nlu_prompt(message)
+            response_text = self._call_llm(prompt)
+            data = self._extract_json_response(response_text)
+            validated_data = self._validate_extracted_signals(data)
+            return validated_data
+        except Exception as e:
+            print(f"NLU Fail: {e}")
+            return self._fallback_keyword_extraction(message)
+
+    def _build_nlu_prompt(self, message: str) -> str:
         # Inject only keys and synonyms to save tokens
         signal_map_for_nlu = {k: v.get("synonyms", []) for k, v in self.signal_library.items()}
         
@@ -70,38 +81,41 @@ class VedaEngine:
             f"5. Provide a warm, 1-sentence Ayurvedic reply.\n\n"
             f"User Message: '{message}'"
         )
+        return prompt
 
+    def _call_llm(self, prompt: str) -> str:
+        response = self.generate_with_fallback(prompt)
+        return response.text.strip()
+
+    def _extract_json_response(self, text: str) -> dict:
+        # Resilient JSON extraction
         try:
-            response = self.generate_with_fallback(prompt)
-            text = response.text.strip()
-            
-            # Resilient JSON extraction
-            try:
-                data = json.loads(text)
-            except json.JSONDecodeError:
-                start = text.find('{')
-                end = text.rfind('}') + 1
-                if start != -1 and end > start:
-                    data = json.loads(text[start:end])
-                else:
-                    raise ValueError("No valid JSON found in response")
+            data = json.loads(text)
+        except json.JSONDecodeError:
+            start = text.find('{')
+            end = text.rfind('}') + 1
+            if start != -1 and end > start:
+                data = json.loads(text[start:end])
+            else:
+                raise ValueError("No valid JSON found in response")
+        return data
 
-            # Validation: ensure signals exist in library
-            valid_keys = set(self.signal_library.keys())
-            data["signals"] = [s for s in data.get("signals", []) if s in valid_keys]
-            return data
-            
-        except Exception as e:
-            print(f"NLU Fail: {e}")
-            # Minimal keyword fallback using synonyms
-            extracted = []
-            msg_lower = message.lower()
-            for key, info in self.signal_library.items():
-                syns = info.get("synonyms", [])
-                if key.replace("_", " ") in msg_lower or any(syn.lower() in msg_lower for syn in syns):
-                    extracted.append(key)
-            
-            return {
-                "reply": "I have carefully noted your physiological signals and adjusted your biological pulse accordingly.",
-                "signals": extracted
-            }
+    def _validate_extracted_signals(self, data: dict) -> dict:
+        # Validation: ensure signals exist in library
+        valid_keys = set(self.signal_library.keys())
+        data["signals"] = [s for s in data.get("signals", []) if s in valid_keys]
+        return data
+
+    def _fallback_keyword_extraction(self, message: str) -> dict:
+        # Minimal keyword fallback using synonyms
+        extracted = []
+        msg_lower = message.lower()
+        for key, info in self.signal_library.items():
+            syns = info.get("synonyms", [])
+            if key.replace("_", " ") in msg_lower or any(syn.lower() in msg_lower for syn in syns):
+                extracted.append(key)
+
+        return {
+            "reply": "I have carefully noted your physiological signals and adjusted your biological pulse accordingly.",
+            "signals": extracted
+        }
