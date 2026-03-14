@@ -14,7 +14,6 @@ Architecture rule:
   AI is called EXACTLY ONCE per request.
 """
 
-from __future__ import annotations
 from ai.agents.nutriveda_agent import NutrivedaAgent
 from ai.agents.ayufit_agent import AyufitAgent
 from ai.agents.manasayur_agent import ManasayurAgent
