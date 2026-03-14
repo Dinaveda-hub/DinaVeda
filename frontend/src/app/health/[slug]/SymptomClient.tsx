@@ -100,17 +100,6 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Medically reviewed by</p>
               <h4 className="text-lg font-black text-forest leading-none">Dr. Rahul K R, BAMS</h4>
               <p className="text-xs font-bold text-emerald-600 italic">Ayurvedic Physician</p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
-                 <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                   <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Digestive disorders
-                 </p>
-                 <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                   <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Metabolic health
-                 </p>
-                 <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                   <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Lifestyle medicine
-                 </p>
-              </div>
             </div>
             <div className="pt-4 md:pt-0 md:pl-6 md:border-l border-slate-100">
                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Last medical review</p>
