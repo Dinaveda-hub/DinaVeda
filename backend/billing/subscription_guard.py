@@ -10,22 +10,32 @@ if supabase_url and supabase_key:
     supabase: Client = create_client(supabase_url, supabase_key)
 else:
     supabase = None
+
+async def get_user_id(authorization: str = Header(None)):
+    if not supabase:
+        raise HTTPException(status_code=500, detail="Authentication service not configured")
+
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Missing auth token")
+
+    token = authorization.split(" ", 1)[1]
     
-# In a real app we might use an auth dependency to extract the user_id securely 
-# from the header or token. For now, we'll expect x-user-id in the header.
-async def get_user_id(x_user_id: str = Header(None)):
-    if not x_user_id:
-        raise HTTPException(status_code=401, detail="User not authenticated")
-    return x_user_id
+    try:
+        user_response = supabase.auth.get_user(token)
+        if not user_response or not user_response.user:
+            raise HTTPException(status_code=401, detail="Invalid token")
+
+        return user_response.user.id
+    except Exception as e:
+        print(f"Auth error: {e}")
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 async def require_premium(user_id: str = Depends(get_user_id)):
     """
     Dependency to ensure the user has an active premium subscription.
     """
     if not supabase:
-        # Failsafe if db is not configured
-        print("Warning: Skipping premium check, db not configured.")
-        return user_id
+        raise HTTPException(status_code=500, detail="Database unconfigured")
         
     try:
         res = supabase.table("profiles").select("subscription_status").eq("id", user_id).execute()
