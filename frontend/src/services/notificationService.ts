@@ -8,7 +8,7 @@ import { getApiUrl } from "@/utils/api";
 
 export { getApiUrl };
 
-const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env.ONESIGNAL_APP_ID || "";
+
 import notificationRulesRaw from "@/data/notificationRules.json";
 
 const notificationRules = notificationRulesRaw as Record<string, { time: string, message: string }>;
