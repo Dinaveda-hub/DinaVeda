@@ -6,7 +6,15 @@ PROMPTS_DIR = os.path.join(os.path.dirname(__file__), "prompts")
 
 def load_prompt(module_name: str) -> str:
     """Loads the specific prompt template for the given module from the filesystem."""
-    file_path = os.path.join(PROMPTS_DIR, f"{module_name}_prompt.txt")
+    # Resolve the base directory and the target file path to their absolute, canonical forms
+    base_dir = os.path.realpath(PROMPTS_DIR)
+    file_path = os.path.realpath(os.path.join(base_dir, f"{module_name}_prompt.txt"))
+
+    # Security: Path Traversal Prevention
+    # Ensure the resolved path is still within the designated prompts directory
+    if os.path.commonpath([base_dir, file_path]) != base_dir:
+        raise ValueError(f"Security error: Invalid module name '{module_name}'")
+
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Prompt template for module '{module_name}' not found.")
     
