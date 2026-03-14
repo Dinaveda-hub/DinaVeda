@@ -15,7 +15,7 @@ export default function GlobalNav() {
   const pathname = usePathname();
   const { state, isLoaded } = usePhysiologyState();
 
-  if (!isLoaded) return null;
+
 
   if (
     HIDDEN_ROUTES.some(

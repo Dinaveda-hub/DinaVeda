@@ -47,69 +47,70 @@ export function PhysiologyProvider({ children }: { children: ReactNode }) {
         };
 
         const loadProfile = async (userId: string | null) => {
-            setIsLoaded(false);
             setUserId(userId);
+
+            // 1. Immediately load cached state to prevent UI freezing
+            const localStored = localStorage.getItem(STORAGE_KEY);
+            const localGoal = localStorage.getItem('veda_health_goal');
+            const localPrakritiStored = localStorage.getItem('prakriti_result');
+            const localOnboarded = !!localPrakritiStored;
+
+            if (localGoal) setHealthGoalInternal(localGoal);
+
+            if (localStored) {
+                try {
+                    const parsed = JSON.parse(localStored);
+                    if (validateState(parsed)) {
+                        setState({ ...parsed, is_onboarded: localOnboarded });
+                    }
+                } catch (e) {
+                    console.warn("Corrupted local state");
+                }
+            }
+
+            // Unblock the UI instantly if we have local state or if it's a guest
+            setIsLoaded(true);
+
             if (!userId) {
-                setState(defaultState);
-                setHealthGoalInternal('general_wellness');
-                setPatterns([]);
-                setIsLoaded(true);
+                if (!localStored) {
+                    setState(defaultState);
+                    setHealthGoalInternal('general_wellness');
+                    setPatterns([]);
+                }
                 return;
             }
 
-            const [{ data: profile }, weightsMap, patternsList] = await Promise.all([
-                supabase
-                    .from('profiles')
-                    .select('veda_health_state, is_onboarded, subscription_status, health_goal')
-                    .eq('id', userId)
-                    .single(),
-                fetchUserProtocolWeights(),
-                fetchPatterns(userId)
-            ]);
+            // 2. Fetch from DB in background
+            try {
+                const [{ data: profile }, weightsMap, patternsList] = await Promise.all([
+                    supabase
+                        .from('profiles')
+                        .select('veda_health_state, is_onboarded, subscription_status, health_goal')
+                        .eq('id', userId)
+                        .single(),
+                    fetchUserProtocolWeights(),
+                    fetchPatterns(userId)
+                ]);
 
-            setUserWeights(weightsMap);
-            setPatterns(patternsList);
+                setUserWeights(weightsMap);
+                setPatterns(patternsList);
 
-            if (profile) {
-                setSubscriptionStatus(profile.subscription_status || 'inactive');
-                setHealthGoalInternal(profile.health_goal || 'general_wellness');
-                
-                const dbState = (profile.veda_health_state as any) || {};
-                if (validateState(dbState)) {
-                    setState({
-                        ...defaultState,
-                        ...dbState,
-                        is_onboarded: profile.is_onboarded ?? dbState.is_onboarded ?? false
-                    });
-                } else {
-                    console.warn("Corrupted state in DB, resetting to default");
-                    setState({ ...defaultState, is_onboarded: profile.is_onboarded ?? false });
-                }
-            } else {
-                const localStored = localStorage.getItem(STORAGE_KEY);
-                const localGoal = localStorage.getItem('veda_health_goal');
-                const localPrakritiStored = localStorage.getItem('prakriti_result');
-                const localOnboarded = !!localPrakritiStored;
+                if (profile) {
+                    setSubscriptionStatus(profile.subscription_status || 'inactive');
+                    if (profile.health_goal) setHealthGoalInternal(profile.health_goal);
 
-                if (localGoal) setHealthGoalInternal(localGoal);
-
-                if (localStored) {
-                    try {
-                        const parsed = JSON.parse(localStored);
-                        if (validateState(parsed)) {
-                            setState({ ...parsed, is_onboarded: localOnboarded });
-                        } else {
-                            throw new Error("Invalid local state");
-                        }
-                    } catch (e) {
-                        console.warn("Corrupted local state, resetting to default");
-                        setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded }));
+                    const dbState = (profile.veda_health_state as any) || {};
+                    if (validateState(dbState)) {
+                        setState(prev => ({
+                            ...prev,
+                            ...dbState,
+                            is_onboarded: profile.is_onboarded ?? dbState.is_onboarded ?? prev.is_onboarded ?? false
+                        }));
                     }
-                } else {
-                    setState((prev: VedaState) => ({ ...prev, is_onboarded: localOnboarded }));
                 }
+            } catch (error) {
+                console.error("Failed to sync profile data:", error);
             }
-            setIsLoaded(true);
         };
 
         // Handle initial session

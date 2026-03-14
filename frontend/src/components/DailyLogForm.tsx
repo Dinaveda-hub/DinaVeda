@@ -124,7 +124,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
             if (session?.user) {
                 const { error: dbError } = await supabase.from('pulse_logs').insert({
                     user_id: session.user.id,
-                    ojas_score: data.ojas_score,
+                    ojas_score: data.ojas_score || 0,
                     sleep_hours: form.sleepHours,
                     sleep: form.sleepQuality,
                     mood: form.mood,
@@ -132,7 +132,7 @@ export default function DailyLogForm({ onResult, isLoading, setIsLoading }: Dail
                     ama: form.amaStatus,
                     movement: form.movement,
                     routines: form.routines,
-                    detailed_analysis: data.ai_response || data.analysis,
+                    detailed_analysis: data.ai_response || data.analysis || data.message || "Manual log entry.",
                     mala: form.bowelStatus,
                     mutra: form.micturitionStatus,
                     hydration: form.hydration,

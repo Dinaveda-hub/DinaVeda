@@ -11,6 +11,8 @@ from dotenv import load_dotenv
 # Ensure the backend directory is in the path for Vercel
 sys.path.append(str(Path(__file__).parent))
 
+from ai.response_validator import validate_clinical_response, format_fallback_response
+from ai.reasoning_engine import generate_reasoning_context
 from wellness_engine import VedaEngine
 from ai.ai_service import generate_module_plan
 from ai.insight_agent import generate_daily_insight
