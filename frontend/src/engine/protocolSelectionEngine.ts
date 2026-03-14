@@ -369,19 +369,30 @@ export function selectProtocols(
 
 /**
  * Filters the selected protocols into time-of-day slots with specific limits.
+ * Optimized to a single pass for performance.
  */
 export function filterProtocols(selectedProtocols: Protocol[]) {
-    const morning = selectedProtocols
-        .filter(p => p.time_of_day === "morning")
-        .slice(0, 5);
+    const morning: Protocol[] = [];
+    const midday: Protocol[] = [];
+    const evening: Protocol[] = [];
 
-    const midday = selectedProtocols
-        .filter(p => p.time_of_day === "midday" || p.time_of_day === "meal_time")
-        .slice(0, 4);
+    for (let i = 0; i < selectedProtocols.length; i++) {
+        const p = selectedProtocols[i];
+        const tod = p.time_of_day;
 
-    const evening = selectedProtocols
-        .filter(p => p.time_of_day === "evening" || p.time_of_day === "night")
-        .slice(0, 5);
+        if (tod === "morning") {
+            if (morning.length < 5) morning.push(p);
+        } else if (tod === "midday" || tod === "meal_time") {
+            if (midday.length < 4) midday.push(p);
+        } else if (tod === "evening" || tod === "night") {
+            if (evening.length < 5) evening.push(p);
+        }
+
+        // Early exit if all slots are filled
+        if (morning.length >= 5 && midday.length >= 4 && evening.length >= 5) {
+            break;
+        }
+    }
 
     return {
         morning,
