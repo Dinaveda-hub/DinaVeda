@@ -18,7 +18,7 @@ export default function MobileMenu() {
 
   // Close menu when route changes
   useEffect(() => {
-    setIsOpen(false);
+    setTimeout(() => setIsOpen(false), 0);
   }, [pathname]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function MobileMenu() {
   // Escape key support
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (e.key === "Escape") setTimeout(() => setIsOpen(false), 0);
     };
 
     if (isOpen) {

@@ -49,7 +49,7 @@ export default function ModuleHistory({ moduleSlug, logs }: ModuleHistoryProps) 
                 {moduleLogs.length > 0 ? (
                     moduleLogs.map((log, i) => {
                         const ojas = log.ojas_score ?? 0;
-                        const date = new Date(log.created_at || Date.now());
+                        const date = log.created_at ? new Date(log.created_at) : new Date();
                         
                         // Generate quick insight
                         let insight = "Balanced State";

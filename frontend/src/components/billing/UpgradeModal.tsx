@@ -61,7 +61,7 @@ export default function UpgradeModal({ userId = "", onSuccess = () => {} }: Upgr
 
     useEffect(() => {
         if (isOpen) {
-            setCanClose(false);
+            setTimeout(() => setCanClose(false), 0);
             const timer = setTimeout(() => {
                 setCanClose(true);
             }, 2500);

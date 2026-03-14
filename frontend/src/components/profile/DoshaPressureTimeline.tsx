@@ -31,9 +31,9 @@ export default function DoshaPressureTimeline({ logs }: DoshaPressureTimelinePro
             <div className="space-y-6">
                 {recentLogs.map((log) => {
                     // Extract doshas from the new log structure if it exists
-                    const vata = log.vata || Math.round(Math.random() * 20 + 20); // Fallback for old logs
-                    const pitta = log.pitta || Math.round(Math.random() * 20 + 20); 
-                    const kapha = log.kapha || Math.round(Math.random() * 20 + 20);
+                    const vata = log.vata || 30; // Fallback for old logs
+                    const pitta = log.pitta || 30;
+                    const kapha = log.kapha || 30;
 
                     return (
                         <div key={log.id} className="group relative">

@@ -27,7 +27,7 @@ export default function ProtocolExplanation({ protocolName }: ProtocolExplanatio
         }
 
         if (isOpen) {
-            setIsOpen(false);
+            setTimeout(() => setIsOpen(false), 0);
             return;
         }
 
