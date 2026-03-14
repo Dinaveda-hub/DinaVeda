@@ -102,7 +102,10 @@ export default async function RootLayout({
         <PhysiologyProvider>
           <UpgradeProvider>
             {/* Unified system lifecycle: SW, OneSignal, auth registration, notifications, PWA prompt */}
-            <SystemController />
+            <SystemController
+              oneSignalAppId={process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID || process.env.ONESIGNAL_APP_ID || ""}
+              oneSignalSafariId={process.env.NEXT_PUBLIC_ONESIGNAL_SAFARI_ID || process.env.ONESIGNAL_SAFARI_ID || ""}
+            />
 
             <div className="flex flex-col md:flex-row min-h-dvh">
               <GlobalNav />

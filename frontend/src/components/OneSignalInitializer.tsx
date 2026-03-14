@@ -2,13 +2,11 @@
 
 import { useEffect } from "react";
 
-const ONESIGNAL_APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
-
-export default function OneSignalInitializer() {
+export default function OneSignalInitializer({ appId, safariWebId }: { appId?: string; safariWebId?: string }) {
   useEffect(() => {
-    console.log("OneSignalInitializer: Mounted. App ID:", ONESIGNAL_APP_ID);
-    if (!ONESIGNAL_APP_ID) {
-      console.warn("OneSignalInitializer: Missing NEXT_PUBLIC_ONESIGNAL_APP_ID");
+    console.log("OneSignalInitializer: Mounted. App ID:", appId);
+    if (!appId) {
+      console.warn("OneSignalInitializer: Missing appId from server");
       return;
     }
 
@@ -39,15 +37,15 @@ export default function OneSignalInitializer() {
           console.log("OneSignal: Initializing with SDK");
           
           const initOptions: any = {
-            appId: ONESIGNAL_APP_ID,
+            appId: appId,
             notifyButton: { enable: true },
             allowLocalhostAsSecureOrigin: process.env.NODE_ENV === "development",
             serviceWorkerPath: "/sw.js",
             serviceWorkerParam: { scope: "/" }
           };
 
-          if (process.env.NEXT_PUBLIC_ONESIGNAL_SAFARI_ID) {
-             initOptions.safari_web_id = process.env.NEXT_PUBLIC_ONESIGNAL_SAFARI_ID;
+          if (safariWebId) {
+             initOptions.safari_web_id = safariWebId;
           }
           
           console.log("OneSignal: Calling init with options", { ...initOptions, appId: '***' });
@@ -65,7 +63,7 @@ export default function OneSignalInitializer() {
     };
 
     init();
-  }, []);
+  }, [appId, safariWebId]);
 
   return null;
 }

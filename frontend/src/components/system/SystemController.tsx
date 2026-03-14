@@ -26,7 +26,7 @@ interface BeforeInstallPromptEvent extends Event {
  *   - Notification monitoring (physiological thresholds)
  *   - PWA install prompt (PwaInstallBanner)
  */
-export default function SystemController() {
+export default function SystemController({ oneSignalAppId, oneSignalSafariId }: { oneSignalAppId?: string; oneSignalSafariId?: string }) {
     const { state, isLoaded, userId } = usePhysiologyState();
 
     // ── PWA Install Prompt ────────────────────────────────
@@ -90,7 +90,7 @@ export default function SystemController() {
     return (
         <>
             {/* Background Tasks (wrapped by PhysiologyProvider via SystemController) */}
-            <OneSignalInitializer />
+            <OneSignalInitializer appId={oneSignalAppId} safariWebId={oneSignalSafariId} />
             <GlobalRegistration />
             <NotificationMonitor />
 
