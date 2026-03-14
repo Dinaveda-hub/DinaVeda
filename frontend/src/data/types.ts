@@ -5,19 +5,20 @@ export type ColorTheme = "blue" | "orange" | "indigo" | "slate" | "emerald" | "a
 export interface SymptomData {
   id: string;
   name: string;
+  primaryKeyword: string;
   summary: string;
   modernDesc: string;
   ayuDesc: string;
   icon: LucideIcon;
   color: ColorTheme;
-  cluster: "digestive" | "mental" | "energy" | "skin" | "metabolism";
+  cluster: "digestive" | "mental" | "energy" | "skin" | "metabolism" | "nervous" | "musculoskeletal";
   relatedCause?: string; 
-  causes?: { title: string; items: string[] }[];
-  redFlags?: string[];
-  signs?: string[];
-  dietarySupports?: { food: string; why: string }[];
-  dietaryAvoids?: { food: string; why: string }[];
-  lifestyleTips?: { title: string; desc: string }[];
+  causes: { title: string; items: string[] }[];
+  redFlags: string[];
+  signs: string[];
+  dietarySupports: { food: string; why: string }[];
+  dietaryAvoids: { food: string; why: string }[];
+  lifestyleTips: { title: string; desc: string }[];
 }
 
 export interface DoshaData {
