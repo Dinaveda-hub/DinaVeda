@@ -429,7 +429,7 @@ export default function SettingsPage() {
                                 {section.items.map((item, i) => {
                                     const Icon = item.icon;
                                     const Component: any = item.link ? Link : 'button';
-                                    const props = item.link ? { href: item.link } : { onClick: () => handleClick(item) };
+                                    const props = item.link ? { href: item.link, prefetch: true } : { onClick: () => handleClick(item) };
 
                                     return (
                                         <Component
