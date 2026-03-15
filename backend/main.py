@@ -18,6 +18,7 @@ from billing.routes import router as billing_router
 from billing.subscription_guard import require_premium
 from analysis.pattern_routes import router as pattern_router
 from analysis.pattern_engine import get_user_patterns
+from ml.ml_service import predict_prakriti
 from fastapi import Depends
 
 load_dotenv()
@@ -57,32 +58,78 @@ app.include_router(pattern_router, prefix="/api", tags=["patterns"])
 # ─────────────────────────────────────────────
 
 class DailyLogPayload(BaseModel):
-    sleep_hours: float
-    sleep_quality: int  # 1-5
-    lunch_before_2: bool
-    dinner_before_8: bool
-    light_dinner: bool
-    no_fried_food: bool
-    no_late_snack: bool
-    wake_before_630: bool
-    tongue_scraping: bool
-    warm_water: bool
-    abhyanga: bool
-    morning_movement: bool
-    vyayama_minutes: int
-    mood: str
+    # Morning
+    sleep_quality: str = "Deep and refreshing"
+    sleep_quality_score: Optional[int] = None
+    sleep_hours: float = 7.5
+    wake_time: str = "Around sunrise"
+    wake_time_score: Optional[int] = None
+    ama: str = "Clean pink"
+    ama_score: Optional[int] = None
+    mala: str = "Regular and comfortable"
+    mala_score: Optional[int] = None
+    agni: str = "Normal hunger"
+    agni_score: Optional[int] = None
+    energy_level: str = "Moderate energy"
+    energy_score: Optional[int] = None
+    mood: str = "Normal"
+    mood_score: Optional[int] = None
 
-    # Advanced Bio-Markers
-    agni: str = "balanced"
-    ama: str = "none"
-    mala: str = "clear"
-    mutra: str = "normal"
-    hydration: int = 2
+    # Evening
+    meal_timing: str = "Regular timing"
+    meal_timing_score: Optional[int] = None
+    digestion_quality: str = "Light and comfortable"
+    digestion_score: Optional[int] = None
+    physical_activity: str = "Moderately active"
+    physical_activity_score: Optional[int] = None
+    hydration: str = "Well hydrated"
+    hydration_score: Optional[int] = None
+    screen_time: str = "Moderate"
+    screen_score: Optional[int] = None
+    stress_level: str = "Normal day"
+    stress_score: Optional[int] = None
+    wind_down_routine: str = "Relaxing routine"
+    wind_down_score: Optional[int] = None
+    evening_mood: str = "Neutral/Steady"
+    evening_mood_score: Optional[int] = None
+    
+    # Context & Baseline
+    user_id: str
+    logged_at: str = ""
+    weekday: int = 0
+    season: str = ""
+    
+    # Prakriti
+    prakriti_vata: float = 0.0
+    prakriti_pitta: float = 0.0
+    prakriti_kapha: float = 0.0
 
+    # Protocol Feedback Mapping
+    recommended_protocol: Optional[str] = None
+    protocol_followed: Optional[bool] = None
+    effect_score: Optional[int] = None
+    
+    # Logic-critical binary signals
+    tongue_scraping: bool = True
+    warm_water: bool = True
+    abhyanga: bool = False
+    nasya: bool = False
+    oil_pulling: bool = False
+    meditation: bool = False
+    pranayama: bool = False
+    
     # Constitution
     prakriti: str = "Unknown"
+    prakriti_vata: float = 0.0
+    prakriti_pitta: float = 0.0
+    prakriti_kapha: float = 0.0
+    
     user_id: str
-    items: list[str]
+    items: list[str] = []
+    custom_note: str = ""
+    logged_at: str = ""
+    weekday: int = 0
+    season: str = ""
 
 class ProtocolExplanationRequest(BaseModel):
     protocol: str
@@ -117,6 +164,9 @@ class ChatPayload(BaseModel):
 class NotifyRequest(BaseModel):
     userId: str
     message: str
+
+class PrakritiRequest(BaseModel):
+    features: dict
 
 
 # ─────────────────────────────────────────────
@@ -236,21 +286,42 @@ def get_default_state():
     }
 
 
+from ml.protocol_learning.predict_protocol_effect import rank_protocols
+
 @app.post("/api/protocols")
 def get_protocols(payload: PhysiologyRequest):
     """
-    Deterministic pipeline: signals → physiology state → selected protocols.
+    Hybrid pipeline: 
+    1. Deterministic signals → physiology state → candidates.
+    2. ML Protocol Ranking → final ranked list.
     """
     state = engine.get_physiology_state(signals=payload.signals)
-    selected_protocols = engine.select_protocols(state)
+    candidate_protocols = engine.select_protocols(state)
+    
+    # Map state to ML features expected by rank_protocols
+    # Default 0-3 scores for ML if not provided in request (fallback to 1 for neutral)
+    ml_state = {
+        'prakriti_vata': 0.33, # Default placeholders if not in session
+        'prakriti_pitta': 0.33,
+        'prakriti_kapha': 0.34,
+        'stress_score': 2 if state['vata'] > 60 else 1,
+        'agni_score': 1 if state['agni'] < 40 else 2,
+        'sleep_quality_score': 1 if state['ojas'] < 40 else 2,
+        # ... other scores mapped from state axes
+    }
+    
+    # Enrich with scores from payload if available (assuming front-end might send them later)
+    # For now, we use the derived biological state to drive ML ranking
+    
+    ranked_results = rank_protocols(ml_state, candidate_protocols)
+    # Extract just the protocol names for the response
+    final_protocols = [r[0] for r in ranked_results]
 
     return {
         "state": state,
-        "protocols": selected_protocols,
-        "protocol_count": len(selected_protocols),
-        "signals_applied": payload.signals,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "engine": "deterministic",
+        "protocols": final_protocols,
+        "protocol_count": len(final_protocols),
+        "engine": "hybrid_ml"
     }
 
 
@@ -313,3 +384,18 @@ async def send_notification_endpoint(payload: NotifyRequest):
         except Exception as e:
             print(f"Notification relay error: {e}")
             raise HTTPException(status_code=500, detail="Internal server error")
+
+@app.post("/api/prakriti")
+async def get_prakriti_prediction(payload: PrakritiRequest):
+    """
+    ML-powered Prakriti prediction endpoint.
+    Takes questionnaire answers and returns probability distribution.
+    """
+    try:
+        probabilities = predict_prakriti(payload.features)
+        return {
+            "probabilities": probabilities
+        }
+    except Exception as e:
+        print(f"Prakriti prediction error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

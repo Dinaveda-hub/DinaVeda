@@ -10,6 +10,7 @@
                 {
                     "answer": "Deep and refreshing",
                     "signal": "restful_sleep",
+                    "score": 3,
                     "effects": {
                         "ojas": 3,
                         "sleep": 3,
@@ -19,6 +20,7 @@
                 {
                     "answer": "Okay but slightly disturbed",
                     "signal": "mild_sleep_disturbance",
+                    "score": 2,
                     "effects": {
                         "sleep": -1,
                         "vata": 2
@@ -27,6 +29,7 @@
                 {
                     "answer": "Frequent awakenings",
                     "signal": "disturbed_sleep",
+                    "score": 1,
                     "effects": {
                         "vata": 5,
                         "sleep": -3,
@@ -36,12 +39,52 @@
                 {
                     "answer": "Very poor sleep",
                     "signal": "poor_sleep",
+                    "score": 0,
                     "effects": {
                         "vata": 7,
                         "sleep": -5,
                         "ojas": -3,
                         "circadian": -3
                     }
+                }
+            ]
+        },
+        {
+            "id": "sleep_duration",
+            "type": "behavior",
+            "priority": 5,
+            "question": "How many hours did you sleep last night?",
+            "time": "morning",
+            "options": [
+                {
+                    "answer": "Less than 5 hours",
+                    "signal": "4.5",
+                    "effects": { "vata": 4, "ojas": -2 }
+                },
+                {
+                    "answer": "5-6 hours",
+                    "signal": "5.5",
+                    "effects": { "vata": 2, "ojas": -1 }
+                },
+                {
+                    "answer": "6-7 hours",
+                    "signal": "6.5",
+                    "effects": { "ojas": 1 }
+                },
+                {
+                    "answer": "7-8 hours",
+                    "signal": "7.5",
+                    "effects": { "ojas": 3, "circadian": 2 }
+                },
+                {
+                    "answer": "8-9 hours",
+                    "signal": "8.5",
+                    "effects": { "kapha": 1, "ojas": 2 }
+                },
+                {
+                    "answer": "More than 9 hours",
+                    "signal": "10.0",
+                    "effects": { "kapha": 4, "agni": -2 }
                 }
             ]
         },
@@ -55,6 +98,7 @@
                 {
                     "answer": "Before sunrise",
                     "signal": "early_wake",
+                    "score": 3,
                     "effects": {
                         "circadian": 3,
                         "kapha": -1
@@ -63,6 +107,7 @@
                 {
                     "answer": "Around sunrise",
                     "signal": "aligned_wake",
+                    "score": 2,
                     "effects": {
                         "circadian": 2
                     }
@@ -70,6 +115,7 @@
                 {
                     "answer": "Late morning",
                     "signal": "late_wake",
+                    "score": 1,
                     "effects": {
                         "kapha": 3,
                         "circadian": -2
@@ -78,6 +124,7 @@
                 {
                     "answer": "Very late",
                     "signal": "oversleep",
+                    "score": 0,
                     "effects": {
                         "kapha": 5,
                         "circadian": -3,
@@ -96,6 +143,7 @@
                 {
                     "answer": "Clean pink",
                     "signal": "clean_tongue",
+                    "score": 3,
                     "effects": {
                         "ama": -2,
                         "agni": 1
@@ -104,6 +152,7 @@
                 {
                     "answer": "Slight coating",
                     "signal": "mild_coating",
+                    "score": 2,
                     "effects": {
                         "ama": 2
                     }
@@ -111,6 +160,7 @@
                 {
                     "answer": "Thick white coating",
                     "signal": "heavy_coating",
+                    "score": 1,
                     "effects": {
                         "ama": 5,
                         "agni": -2
@@ -119,6 +169,7 @@
                 {
                     "answer": "Yellow coating",
                     "signal": "pitta_coating",
+                    "score": 0,
                     "effects": {
                         "pitta": 3,
                         "ama": 3
@@ -136,6 +187,7 @@
                 {
                     "answer": "Regular and comfortable",
                     "signal": "healthy_bowel",
+                    "score": 3,
                     "effects": {
                         "elimination": 3,
                         "digestion": 2
@@ -144,6 +196,7 @@
                 {
                     "answer": "Hard or dry",
                     "signal": "constipation",
+                    "score": 1,
                     "effects": {
                         "vata": 4,
                         "elimination": -3
@@ -152,6 +205,7 @@
                 {
                     "answer": "Loose stool",
                     "signal": "loose_stool",
+                    "score": 1,
                     "effects": {
                         "pitta": 3,
                         "elimination": -2
@@ -160,6 +214,7 @@
                 {
                     "answer": "Skipped bowel movement",
                     "signal": "no_bowel",
+                    "score": 0,
                     "effects": {
                         "ama": 3,
                         "elimination": -3
@@ -177,6 +232,7 @@
                 {
                     "answer": "Strong hunger",
                     "signal": "strong_agni",
+                    "score": 3,
                     "effects": {
                         "agni": 3,
                         "appetite": 3
@@ -185,6 +241,7 @@
                 {
                     "answer": "Normal hunger",
                     "signal": "normal_appetite",
+                    "score": 2,
                     "effects": {
                         "agni": 1
                     }
@@ -192,6 +249,7 @@
                 {
                     "answer": "Low appetite",
                     "signal": "weak_agni",
+                    "score": 1,
                     "effects": {
                         "agni": -3,
                         "ama": 2
@@ -200,6 +258,7 @@
                 {
                     "answer": "No appetite",
                     "signal": "agni_depressed",
+                    "score": 0,
                     "effects": {
                         "agni": -5,
                         "ama": 4
@@ -217,6 +276,7 @@
                 {
                     "answer": "High energy",
                     "signal": "high_energy",
+                    "score": 3,
                     "effects": {
                         "ojas": 2,
                         "mental_clarity": 2
@@ -225,6 +285,7 @@
                 {
                     "answer": "Moderate energy",
                     "signal": "normal_energy",
+                    "score": 2,
                     "effects": {
                         "energy": 0
                     }
@@ -232,6 +293,7 @@
                 {
                     "answer": "Low energy",
                     "signal": "fatigue",
+                    "score": 1,
                     "effects": {
                         "ojas": -2,
                         "vata": 2
@@ -240,6 +302,7 @@
                 {
                     "answer": "Very tired",
                     "signal": "exhaustion",
+                    "score": 0,
                     "effects": {
                         "ojas": -4,
                         "stress": 2
@@ -257,6 +320,7 @@
                 {
                     "answer": "Calm and clear",
                     "signal": "mental_clarity",
+                    "score": 3,
                     "effects": {
                         "stress": -2,
                         "mental_clarity": 3
@@ -265,6 +329,7 @@
                 {
                     "answer": "Normal",
                     "signal": "neutral_mood",
+                    "score": 2,
                     "effects": {
                         "stress": 0
                     }
@@ -272,6 +337,7 @@
                 {
                     "answer": "Irritable",
                     "signal": "irritability",
+                    "score": 1,
                     "effects": {
                         "pitta": 3,
                         "stress": 2
@@ -280,6 +346,7 @@
                 {
                     "answer": "Anxious",
                     "signal": "anxiety",
+                    "score": 0,
                     "effects": {
                         "vata": 4,
                         "stress": 3
@@ -299,6 +366,7 @@
                 {
                     "answer": "Regular timing",
                     "signal": "regular_meals",
+                    "score": 3,
                     "effects": {
                         "circadian": 2,
                         "agni": 2
@@ -307,6 +375,7 @@
                 {
                     "answer": "Slightly irregular",
                     "signal": "irregular_meals",
+                    "score": 2,
                     "effects": {
                         "vata": 2
                     }
@@ -314,6 +383,7 @@
                 {
                     "answer": "Late dinner",
                     "signal": "late_dinner",
+                    "score": 1,
                     "effects": {
                         "kapha": 3,
                         "circadian": -2,
@@ -324,6 +394,7 @@
                 {
                     "answer": "Skipped meals",
                     "signal": "skipped_meals",
+                    "score": 0,
                     "effects": {
                         "vata": 3,
                         "agni": -2
@@ -341,6 +412,7 @@
                 {
                     "answer": "Light and comfortable",
                     "signal": "good_digestion",
+                    "score": 3,
                     "effects": {
                         "digestion": 2
                     }
@@ -348,6 +420,7 @@
                 {
                     "answer": "Mild heaviness",
                     "signal": "mild_heaviness",
+                    "score": 2,
                     "effects": {
                         "kapha": 2,
                         "digestion": -1
@@ -356,6 +429,7 @@
                 {
                     "answer": "Bloating",
                     "signal": "bloating",
+                    "score": 1,
                     "effects": {
                         "bloating": 3,
                         "agni": -2
@@ -364,6 +438,7 @@
                 {
                     "answer": "Burning sensation",
                     "signal": "acid_reflux",
+                    "score": 0,
                     "effects": {
                         "pitta": 3,
                         "digestion": -2
@@ -381,6 +456,7 @@
                 {
                     "answer": "Active and exercised",
                     "signal": "high_activity",
+                    "score": 3,
                     "effects": {
                         "movement": 4,
                         "kapha": -2
@@ -389,6 +465,7 @@
                 {
                     "answer": "Moderately active",
                     "signal": "moderate_activity",
+                    "score": 2,
                     "effects": {
                         "movement": 2
                     }
@@ -396,6 +473,7 @@
                 {
                     "answer": "Mostly sedentary",
                     "signal": "sedentary_day",
+                    "score": 1,
                     "effects": {
                         "kapha": 3,
                         "movement": -2
@@ -404,6 +482,7 @@
                 {
                     "answer": "No movement",
                     "signal": "inactive_day",
+                    "score": 0,
                     "effects": {
                         "kapha": 4,
                         "movement": -3
@@ -421,6 +500,7 @@
                 {
                     "answer": "Well hydrated",
                     "signal": "good_hydration",
+                    "score": 3,
                     "effects": {
                         "hydration": 3
                     }
@@ -428,6 +508,7 @@
                 {
                     "answer": "Moderate",
                     "signal": "moderate_hydration",
+                    "score": 2,
                     "effects": {
                         "hydration": 1
                     }
@@ -435,6 +516,7 @@
                 {
                     "answer": "Low hydration",
                     "signal": "dehydration",
+                    "score": 1,
                     "effects": {
                         "vata": 2,
                         "hydration": -2
@@ -442,7 +524,8 @@
                 },
                 {
                     "answer": "Very little water",
-                    "signal": "severe_dehydration",
+                    "signal": "severe_hydration",
+                    "score": 0,
                     "effects": {
                         "vata": 4,
                         "hydration": -4
@@ -460,6 +543,7 @@
                 {
                     "answer": "Minimal",
                     "signal": "low_screen",
+                    "score": 3,
                     "effects": {
                         "mental_clarity": 1
                     }
@@ -467,6 +551,7 @@
                 {
                     "answer": "Moderate",
                     "signal": "moderate_screen",
+                    "score": 2,
                     "effects": {
                         "mental_clarity": -1
                     }
@@ -474,6 +559,7 @@
                 {
                     "answer": "High screen time",
                     "signal": "high_screen",
+                    "score": 1,
                     "effects": {
                         "mental_clarity": -3,
                         "sleep": -1
@@ -482,6 +568,7 @@
                 {
                     "answer": "Late night screen use",
                     "signal": "late_screen",
+                    "score": 0,
                     "effects": {
                         "mental_clarity": -4,
                         "circadian": -3,
@@ -500,6 +587,7 @@
                 {
                     "answer": "Very calm",
                     "signal": "low_stress",
+                    "score": 0,
                     "effects": {
                         "stress": -2
                     }
@@ -507,6 +595,7 @@
                 {
                     "answer": "Normal day",
                     "signal": "normal_stress",
+                    "score": 1,
                     "effects": {
                         "stress": 0
                     }
@@ -514,6 +603,7 @@
                 {
                     "answer": "Stressful",
                     "signal": "high_stress",
+                    "score": 2,
                     "effects": {
                         "vata": 3,
                         "stress": 3
@@ -522,6 +612,7 @@
                 {
                     "answer": "Very stressful",
                     "signal": "extreme_stress",
+                    "score": 3,
                     "effects": {
                         "vata": 5,
                         "stress": 5,
@@ -540,6 +631,7 @@
                 {
                     "answer": "Relaxing routine",
                     "signal": "good_wind_down",
+                    "score": 3,
                     "effects": {
                         "circadian": 3,
                         "stress": -2
@@ -548,6 +640,7 @@
                 {
                     "answer": "Some relaxation",
                     "signal": "moderate_wind_down",
+                    "score": 2,
                     "effects": {
                         "circadian": 1
                     }
@@ -555,6 +648,7 @@
                 {
                     "answer": "No wind down",
                     "signal": "no_wind_down",
+                    "score": 1,
                     "effects": {
                         "circadian": -2,
                         "stress": 2
@@ -563,6 +657,7 @@
                 {
                     "answer": "Stimulating activities",
                     "signal": "late_stimulation",
+                    "score": 0,
                     "effects": {
                         "vata": 3,
                         "sleep": -2,
@@ -581,6 +676,7 @@
                 {
                     "answer": "Cheerful and positive",
                     "signal": "positive_mood",
+                    "score": 3,
                     "effects": {
                         "mood": 2,
                         "ojas": 1
@@ -589,6 +685,7 @@
                 {
                     "answer": "Neutral/Steady",
                     "signal": "stable_mood",
+                    "score": 2,
                     "effects": {
                         "mood": 0
                     }
@@ -596,6 +693,7 @@
                 {
                     "answer": "Low or Heavy",
                     "signal": "low_mood",
+                    "score": 1,
                     "effects": {
                         "mood": -2,
                         "vata": 1,
@@ -605,6 +703,7 @@
                 {
                     "answer": "Easily Irritated",
                     "signal": "high_irritability",
+                    "score": 0,
                     "effects": {
                         "pitta": 3,
                         "stress": 2,

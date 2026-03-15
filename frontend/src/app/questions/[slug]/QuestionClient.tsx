@@ -30,9 +30,28 @@ export default function QuestionClient({
     damping: 30,
     restDelta: 0.001
   });
+  const JSON_LD = {
+    "@context": "https://schema.org",
+    "@type": "Question",
+    "name": questionTitle,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": `In Ayurvedic clinical practice, "${questionTitle}" is investigated through the state of digestive fire (Agni) and metabolic residue (Ama). Restoration involves addressing Vata, Pitta, or Kapha imbalances.`
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Dr. Rahul K R",
+      "jobTitle": "Ayurvedic Physician"
+    }
+  };
 
   return (
-    <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans overflow-x-hidden selection:bg-forest/20 selection:text-forest">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
+      <div className="bg-[#F8FAF9] text-slate-800 min-h-screen relative font-sans overflow-x-hidden selection:bg-forest/20 selection:text-forest">
       {/* Reading Progress Bar */}
       <motion.div
         className="fixed top-20 left-0 right-0 h-1 bg-emerald-500 origin-left z-[80]"
@@ -73,11 +92,11 @@ export default function QuestionClient({
 
         {/* H1 Question */}
         <div className="space-y-6">
-          <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-forest tracking-tight leading-[1.1] capitalize text-balance">
+          <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-forest tracking-tight mb-8 leading-[1.1] capitalize text-balance">
             {questionTitle}
           </h1>
-          <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed max-w-2xl">
-            Ayurvedic interpretation and physiological signaling of <span className="text-forest italic">"{questionTitle}"</span>.
+          <p className="text-base md:text-lg text-slate-700 font-medium leading-[1.6] max-w-2xl">
+            Ayurvedic interpretation and physiological signaling of <span className="text-forest italic">&quot;{questionTitle}&quot;</span>.
           </p>
         </div>
 
@@ -96,17 +115,16 @@ export default function QuestionClient({
           </div>
         </div>
 
-        {/* Clinical Perspective */}
         <div className="space-y-6 py-10 border-y border-slate-100">
            <div className="flex items-center gap-3 text-emerald-600 mb-2">
               <Compass className="w-5 h-5" />
               <span className="text-xs font-bold uppercase tracking-widest">Clinical Perspective</span>
            </div>
-           <p className="text-base md:text-lg text-slate-700 leading-relaxed font-semibold">
-              In Ayurvedic clinical practice, questions like this are investigated through the state of digestive fire (Agni) and the accumulation of metabolic residue (Ama).
+           <p className="text-base md:text-lg text-slate-700 leading-[1.6] font-semibold">
+              In Ayurvedic clinical practice, questions like this are investigated through the state of <Link href="/guide/agni" className="text-forest border-b border-forest/20 hover:border-forest transition-colors">digestive fire (Agni)</Link> and the accumulation of <Link href="/guide/ama" className="text-rose-600 border-b border-rose-200 hover:border-rose-600 transition-colors">metabolic residue (Ama)</Link>.
            </p>
-           <p className="text-base md:text-lg text-slate-600 leading-relaxed font-medium">
-              Rather than treating the symptom in isolation, we look at the regulatory principles known as Vata, Pitta, and Kapha to understand the systemic origin of the signal.
+           <p className="text-base md:text-lg text-slate-600 leading-[1.6] font-medium">
+              Rather than treating the symptom in isolation, we look at the regulatory principles known as <Link href="/guide/doshas" className="text-indigo-600 border-b border-indigo-200 hover:border-indigo-600 transition-colors">Vata, Pitta, and Kapha</Link> to understand the systemic origin of the signal.
            </p>
         </div>
 
@@ -118,29 +136,14 @@ export default function QuestionClient({
               Possible Contributing Factors
             </h2>
             <ul className="space-y-6">
-              {[
-                {
-                  t: "Metabolic Inefficiency",
-                  d: "Irregular digestive fire (Agni) due to inconsistent nutrition habits."
-                },
-                {
-                  t: "Systemic Blockage",
-                  d: "Accumulation of metabolic residue (Ama) obstructing physiological channels."
-                },
-                {
-                  t: "Nervous System Strain",
-                  d: "Chronic psychological stress affecting Vata (regulatory) balance."
-                },
-                {
-                  t: "Circadian Disruption",
-                  d: "Disruption of natural daily cycles (Dinacharya) impacting repair."
-                }
-              ].map((item, i) => (
+              {symptom.causes.map((cause: any, i: number) => (
                 <li key={i} className="flex items-start gap-4 text-slate-700">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-2.5 shadow-sm shadow-emerald-400" />
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 mt-2.5 shadow-sm shadow-emerald-400" />
                   <div className="space-y-1">
-                    <span className="block font-semibold text-sm uppercase tracking-wider text-forest/80">{item.t}</span>
-                    <p className="font-medium text-base text-slate-600 leading-relaxed">{item.d}</p>
+                    <span className="block font-bold text-sm uppercase tracking-widest text-forest/80">{cause.title}</span>
+                    <p className="font-medium text-base text-slate-600 leading-[1.6]">
+                      {cause.items.join(", ")}
+                    </p>
                   </div>
                 </li>
               ))}
@@ -148,23 +151,25 @@ export default function QuestionClient({
           </div>
         </section>
 
-        {/* Ayurvedic Explanation */}
         <section className="space-y-8 py-8">
           <h2 className="text-2xl md:text-3xl font-bold text-forest tracking-tight">
             Ayurvedic Interpretation
           </h2>
-          <div className="space-y-6 text-slate-700 leading-relaxed font-medium text-base md:text-lg">
+          <div className="space-y-6 text-slate-700 leading-[1.6] font-medium text-base md:text-lg">
             <p>
-              Ayurvedic physiology interprets symptoms as biological signals of systemic imbalance. When digestive fire (Agni) weakens, the body may accumulate metabolic residue (Ama). 
+              Ayurvedic physiology interprets symptoms as biological signals of systemic imbalance. When <Link href="/guide/agni" className="text-forest border-b border-forest/20 hover:border-forest transition-colors">digestive fire (Agni)</Link> weakens, the body may accumulate <Link href="/guide/ama" className="text-rose-600 border-b border-rose-200 hover:border-rose-600 transition-colors">metabolic residue (Ama)</Link>. 
             </p>
             <p>
               This residue often manifests as <span className="text-forest font-bold">{symptom.name.toLowerCase()}</span>, fatigue, or cognitive slowing. Ayurvedic lifestyle protocols are traditionally used to support internal balance and the body's natural regulatory capacity.
             </p>
           </div>
-          <div className="p-8 md:p-10 bg-slate-900 rounded-[2.5rem] text-slate-200 text-base md:text-lg leading-relaxed border border-white/5 shadow-2xl relative overflow-hidden group">
+          <div className="p-10 bg-slate-900 rounded-[3rem] text-slate-200 text-lg leading-[1.6] border border-white/5 shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500 opacity-10 blur-3xl rounded-full" />
-            <span className="text-emerald-400 font-bold uppercase tracking-widest block mb-4 text-xs">Foundational Logic</span>
-            <p className="text-base font-medium">
+            <span className="text-emerald-400 font-bold uppercase tracking-widest block mb-6 text-xs">Foundational Logic</span>
+            <p className="font-bold text-white text-xl md:text-2xl mb-4 italic">
+              "We evaluate the whole metabolic context."
+            </p>
+            <p className="text-base font-medium opacity-80">
               Identifying whether your symptoms reflect Vata, Pitta, or Kapha dominance is essential for determining the most appropriate dietary and lifestyle support patterns.
             </p>
           </div>
@@ -256,5 +261,6 @@ export default function QuestionClient({
         </footer>
       </main>
     </div>
+    </>
   );
 }

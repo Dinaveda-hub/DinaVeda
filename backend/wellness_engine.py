@@ -11,9 +11,11 @@ class VedaEngine:
         self.base_dir = Path(__file__).parent.parent
         self.instructions_path = self.base_dir / "system_instructions.txt"
         self.signals_path = self.base_dir / "frontend" / "src" / "data" / "signals.json"
+        self.protocols_path = self.base_dir / "frontend" / "src" / "data" / "protocols.json"
         
         self.system_instructions = self._load_instructions()
         self.signal_library = self._load_signals()
+        self.protocol_library = self._load_protocols()
         
         api_key = os.getenv("GEMINI_API_KEY")
         self.client = genai.Client(api_key=api_key) if api_key else None
@@ -30,6 +32,67 @@ class VedaEngine:
             with open(self.signals_path, "r", encoding="utf-8") as f:
                 return json.load(f)
         return {}
+
+    def _load_protocols(self) -> list:
+        if self.protocols_path.exists():
+            with open(self.protocols_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        return []
+
+    def get_physiology_state(self, signals: list[str]) -> dict:
+        """
+        Calculates cumulative biological state based on signals.
+        Deterministic axis summation.
+        """
+        state = {
+            "vata": 50.0,
+            "pitta": 50.0,
+            "kapha": 50.0,
+            "agni": 50.0,
+            "ojas": 50.0
+        }
+        
+        for signal_key in signals:
+            signal = self.signal_library.get(signal_key)
+            if not signal:
+                continue
+            
+            effects = signal.get("effects", {})
+            # Map axes from JSON (e.g., vata_axis) to state keys
+            for axis_key, delta in effects.items():
+                clean_key = axis_key.replace("_axis", "")
+                if clean_key in state:
+                    state[clean_key] += delta
+        
+        # Clamp values
+        for k in state:
+            state[k] = max(0.0, min(100.0, state[k]))
+            
+        return state
+
+    def select_protocols(self, state: dict) -> list[str]:
+        """
+        Deterministically selects candidate protocols based on state.
+        Returns a list of protocol names.
+        """
+        candidates = []
+        for protocol in self.protocol_library:
+            # Basic deterministic selection logic: 
+            # If a protocol corrects a deviated axis by more than X, it's a candidate.
+            is_candidate = False
+            for axis, delta in protocol.get("variables", {}).items():
+                clean_axis = axis.replace("_axis", "")
+                current_val = state.get(clean_axis, 50.0)
+                
+                # If axis is high and protocol reduces it, or vice versa
+                if (current_val > 60 and delta < 0) or (current_val < 40 and delta > 0):
+                    is_candidate = True
+                    break
+            
+            if is_candidate:
+                candidates.append(protocol["name"])
+        
+        return candidates[:15] # Limit to top 15 candidates for ranking
 
     def generate_with_fallback(self, prompt: str, system_instr: str | None = None):
         instruction = system_instr if system_instr else self.system_instructions

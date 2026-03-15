@@ -79,6 +79,7 @@ export async function generateMetadata({
     return {
       title,
       description,
+      keywords: symptom.primaryKeyword,
       alternates: { canonical },
       openGraph: {
         title,

@@ -3,7 +3,7 @@ import {
   Flame, Droplets, Target, Moon, Eye, 
   ThermometerSnowflake, ZapOff, Hourglass, 
   ShieldAlert, UserMinus, Lock, AlertCircle, UtensilsCrossed,
-  Thermometer
+  Thermometer, Layers
 } from "lucide-react";
 import { SymptomData } from "./types";
 import { CAUSES } from "./causes";
@@ -19,6 +19,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Wind,
     color: "blue",
     cluster: "digestive",
+    pattern: "Vata imbalance & Vishama Agni",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: [
       "Abdominal pressure after meals",
@@ -46,6 +47,13 @@ export const SYMPTOMS: Record<string, SymptomData> = {
       { title: "Consistent Meal Timing", desc: "Eating at the same time every day trains your Agni to secrete digestive enzymes predictably." },
       { title: "Avoid Eating Under Stress", desc: "Eating while anxious activates the sympathetic nervous system, which shuts down blood flow to the gut." },
       { title: "Brief Post-Meal Walk", desc: "A 10-15 minute gentle walk (Shatapada) assists the mechanical movement of food and gas." }
+    ],
+    faqs: [
+      { q: "Why am I bloated after eating?", a: "Post-meal bloating often indicates that your digestive fire (Agni) is struggling to process the volume or type of food. It can also be caused by swallowing air (aerophagia) or drinking cold liquids that dampen the metabolic heat, leading to incomplete breakdown and fermentation." },
+      { q: "Is bloating always a sign of food intolerance?", a: "Not necessarily. While intolerances like lactose or gluten are common, bloating often stems from 'Vishama Agni' (irregular digestion). In many cases, the timing, environment, and state of mind during eating are as significant as the ingredients themselves." },
+      { q: "Can stress cause bloating?", a: "Yes. The gut-brain axis is highly sensitive; chronic stress or anxiety triggers the sympathetic nervous system, which constricts intestinal muscles and redirects blood flow away from the digestive tract, resulting in trapped gas and discomfort." },
+      { q: "How can I reduce bloating fast?", a: "Sipping warm ginger water, chewing a half-teaspoon of roasted fennel seeds after meals, or applying a warm compress to the abdomen can provide rapid relief by stimulating enzyme flow and relaxing the intestinal smooth muscles." },
+      { q: "Should I avoid fiber if I'm bloated?", a: "You should avoid raw, dry fiber which is difficult to break down. Instead, focus on 'Siddha' (processed) fiber—meaning vegetables that are well-cooked, pureed, or steamed with warming spices like cumin, ginger, and asafoetida." }
     ]
   },
   "low-energy": {
@@ -58,6 +66,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Zap,
     color: "orange",
     cluster: "energy",
+    pattern: "Ojas Depletion / Ama",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Waking up tired", "Heaviness in limbs", "Mental sluggishness", "Cravings for stimulants"],
     causes: [
@@ -82,6 +91,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Brain,
     color: "indigo",
     cluster: "mental",
+    pattern: "Kapha-Ama Influence",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Inability to focus", "Feeling 'spaced out'", "Slowed speech/thoughts"],
     causes: [
@@ -106,6 +116,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Clock,
     color: "slate",
     cluster: "mental",
+    pattern: "Vata-Pitta Drift",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Racing thoughts at night", "Light sleep", "Early waking"],
     causes: [
@@ -130,6 +141,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Activity,
     color: "indigo",
     cluster: "mental",
+    pattern: "Vata Aggravation (Prana Vayu)",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: [
       "Dry skin and cold extremities",
@@ -167,6 +179,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Scale,
     color: "amber",
     cluster: "metabolism",
+    pattern: "Kapha Predominance",
     relatedCause: "kapha-congestion" as keyof typeof CAUSES,
     causes: [
       { title: "Metabolic Stagnation", items: ["Slow digestive fire (Manda Agni)", "High Ama levels", "Kapha-aggravating diet"] },
@@ -191,6 +204,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Thermometer,
     color: "emerald",
     cluster: "digestive",
+    pattern: "Agni Dysfunction",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: [
       "Heaviness in the stomach after even light meals",
@@ -237,6 +251,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Lock,
     color: "blue",
     cluster: "digestive",
+    pattern: "Vata Dryness",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Difficulty passing stool", "Dry/hard pellets", "Feeling of incomplete evacuation", "Gas and bloating"],
     causes: [
@@ -246,6 +261,10 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     redFlags: ["Persistent abdominal pain", "Blood in stool", "Sudden change in bowel habits", "Fever and vomiting"],
     dietarySupports: [{ food: "Soaked raisins/figs", why: "Natural laxative and hydrating" }, { food: "Warm water first thing", why: "Stimulates peristalsis" }],
     dietaryAvoids: [{ food: "Dry crackers/toast", why: "Increases bowel dryness" }],
+    faqs: [
+      { q: "How can I relieve constipation naturally?", a: "Increasing 'Sneha' (internal lubrication) is key. Consuming a teaspoon of warm Ghee in warm water or milk at bedtime, using soaked raisins/figs, and performing a warm oil massage on the lower abdomen can help stimulate peristalsis by countering Vata dryness." },
+      { q: "Is fiber enough for constipation?", a: "Fiber alone can sometimes increase dryness. Ayurveda emphasizes 'warm, moist fiber' (cooked vegetables) over 'dry, rough fiber' (raw salads/bran), combined with adequate healthy fats to ensure smooth movement through the colon." }
+    ],
     lifestyleTips: [
       { title: "Squatting Posture", desc: "Using a footstool during elimination aligns the colon for easier waste passage." },
       { title: "Oil Application", desc: "Applying oil to the lower abdomen stimulates the downward movement of the intestinal nervous system." }
@@ -261,6 +280,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Flame,
     color: "rose",
     cluster: "digestive",
+    pattern: "Pitta Heat",
     relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
     signs: ["Heartburn", "Sour burps", "Burning in chest/throat", "Sharp hunger pangs"],
     causes: [
@@ -285,6 +305,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Wind,
     color: "blue",
     cluster: "digestive",
+    pattern: "Vishama Agni",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["Flatulence", "Abdominal pressure", "Gurgling sounds in the gut"],
     causes: [
@@ -309,6 +330,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: AlertCircle,
     color: "emerald",
     cluster: "digestive",
+    pattern: "Ama Stagnation",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Feeling of sickness", "Increased salivation", "Total lack of interest in food"],
     causes: [
@@ -332,6 +354,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: UtensilsCrossed,
     color: "orange",
     cluster: "digestive",
+    pattern: "Manda Agni",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["No hunger signals", "Food tastes bland", "Feeling full with tiny amounts"],
     causes: [
@@ -357,6 +380,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: ZapOff,
     color: "slate",
     cluster: "energy",
+    pattern: "Ojas Depletion / Ama",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Exhaustion after minimal effort", "Lethargic limbs", "Lack of motivation", "Heavy coating on tongue"],
     causes: [
@@ -381,6 +405,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Moon,
     color: "amber",
     cluster: "energy",
+    pattern: "Low Digestive Fire",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["Heavy head after eating", "Sudden need to nap", "Bloating accompanied by tiredness", "Brain fog immediately following a meal"],
     causes: [
@@ -404,6 +429,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Hourglass,
     color: "emerald",
     cluster: "metabolism",
+    pattern: "Manda Agni / Kapha",
     relatedCause: "kapha-congestion" as keyof typeof CAUSES,
     signs: ["Weight gain despite low caloric intake", "Feeling constantly cold in extremities", "Slow, heavy digestion", "Difficulty losing weight"],
     causes: [
@@ -429,6 +455,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Brain,
     color: "indigo",
     cluster: "nervous",
+    pattern: "Sahasa (Nervous Overload)",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Shoulder and neck tension", "Increased irritability", "Shallow, chest-focused breathing"],
     causes: [
@@ -452,6 +479,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Activity,
     color: "indigo",
     cluster: "mental",
+    pattern: "Chittodvega (Vata Mobility)",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Physical fidgeting", "Inability to remain seated", "Constant desire for sensory change"],
     causes: [
@@ -475,6 +503,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Target,
     color: "indigo",
     cluster: "mental",
+    pattern: "Rajas/Ama Clouding",
     relatedCause: "ama-accumulation" as keyof typeof CAUSES,
     signs: ["Easily distracted by environment", "Increased forgetfulness", "Difficulty completing complex tasks"],
     causes: [
@@ -500,6 +529,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Eye,
     color: "slate",
     cluster: "mental",
+    pattern: "Circadian Dosha Peak",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Predictable waking at 3 AM", "Feeling alert but physically tired", "Difficulty returning to deep sleep"],
     causes: [
@@ -523,6 +553,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Clock,
     color: "slate",
     cluster: "mental",
+    pattern: "Alpa Nidra (Vata Drift)",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Frequent tossing and turning", "Vivid, high-stress dreams", "Nocturnal muscle twitches"],
     causes: [
@@ -547,6 +578,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: UserMinus,
     color: "rose",
     cluster: "skin",
+    pattern: "Pitta Heat",
     relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
     signs: ["Thinning at the crown or temples", "Scalp heat and inflammation", "Premature graying of hair"],
     causes: [
@@ -570,6 +602,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Droplets,
     color: "blue",
     cluster: "skin",
+    pattern: "Vata Dryness",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Visible flaking and scaling", "Rough dermal texture", "Itching exacerbated by dry weather"],
     causes: [
@@ -593,6 +626,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: ShieldAlert,
     color: "rose",
     cluster: "skin",
+    pattern: "Pitta-Rakta Heat & Stagnation",
     relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
     signs: ["Red inflamed dermal bumps", "Excessive oiliness", "Breakouts worsened by humidity"],
     causes: [
@@ -618,6 +652,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Droplets,
     color: "emerald",
     cluster: "metabolism",
+    pattern: "Kapha Stagnation",
     relatedCause: "kapha-congestion" as keyof typeof CAUSES,
     signs: ["Puffy eyes in the morning", "Swelling in the ankles and hands", "Feeling heavy despite no fat gain"],
     causes: [
@@ -641,6 +676,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: ThermometerSnowflake,
     color: "blue",
     cluster: "energy",
+    pattern: "Weak Agni / Vata",
     relatedCause: "weak-agni" as keyof typeof CAUSES,
     signs: ["Numbness in fingers during cold", "Cold toes even indoors", "Pale skin color at the extremities"],
     causes: [
@@ -664,6 +700,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Activity,
     color: "slate",
     cluster: "musculoskeletal",
+    pattern: "Vata / Ama in Sandhi",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Crackling sounds in joints", "Stiffness in the morning", "Sharp or dull localized pain"],
     causes: [
@@ -687,6 +724,7 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     icon: Brain,
     color: "indigo",
     cluster: "nervous",
+    pattern: "Vata-Pitta Vascular Pressure",
     relatedCause: "vata-aggravation" as keyof typeof CAUSES,
     signs: ["Pressure behind eyes", "Tension in temples", "Throbbing sensation"],
     causes: [
@@ -698,6 +736,102 @@ export const SYMPTOMS: Record<string, SymptomData> = {
     lifestyleTips: [
       { title: "Peppermint Oil", desc: "Applying oil to the temples provides a cooling effect and reduces localized muscle tension." },
       { title: "Digital Silence", desc: "Removing sensory input for 15 minutes allows the nervous system to recalibrate and reduce pressure." }
+    ]
+  },
+  "skin-rashes": {
+    id: "skin-rashes",
+    name: "Skin Rashes",
+    primaryKeyword: "natural remedies for skin rash",
+    summary: "Localized redness and inflammation indicating heat in the blood and skin layers.",
+    modernDesc: "Often diagnosed as dermatitis, eczema, or an allergic reaction involving immune system hyper-activity.",
+    ayuDesc: "Rashes (Kustha/Visarpa) occur when Pitta (heat) and Rakta (blood) become aggravated and overflow into the dermal tissues.",
+    icon: ShieldAlert,
+    color: "rose",
+    cluster: "skin",
+    pattern: "Rakta-Pitta Overflow",
+    relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
+    signs: ["Itching and burning sensation", "Redness and swelling", "Localized heat on the skin"],
+    causes: [
+      { title: "Internal Heat", items: ["Excessive spicy/sour/salty foods", "Fermented foods like yogurt and vinegar", "High stress and anger"] }
+    ],
+    redFlags: ["Rash spreading rapidly over the body", "Fever and chills", "Blistering or weeping of the skin", "Difficulty breathing"],
+    dietarySupports: [{ food: "Aloe vera juice", why: "Cools the blood and reduces systemic inflammation" }, { food: "Coconut water", why: "Alkalizing and hydrating for Pitta" }],
+    dietaryAvoids: [{ food: "Chili and Nightshades", why: "Directly increases blood heat" }],
+    lifestyleTips: [
+      { title: "Cool Showers", desc: "Reduces localized heat and calms the inflammatory response." },
+      { title: "Avoid Direct Sun", desc: "Sunlight is highly heating for Pitta and can aggravate the rash." }
+    ]
+  },
+  "bad-breath": {
+    id: "bad-breath",
+    name: "Bad Breath",
+    primaryKeyword: "causes of bad breath from stomach",
+    summary: "Unpleasant oral odor indicating metabolic residue and fermentation in the gut.",
+    modernDesc: "Often attributed to oral hygiene, but chronic cases are linked to gastric health and the microbiome.",
+    ayuDesc: "Bad breath (Mukhadaurgandhya) is a clinical sign of Ama (undigested residue) fermenting in the digestive tract.",
+    icon: AlertCircle,
+    color: "emerald",
+    cluster: "digestive",
+    pattern: "Mukhadaurgandhya (Ama Fermentation)",
+    relatedCause: "ama-accumulation" as keyof typeof CAUSES,
+    signs: ["Coated tongue in the morning", "Metallic or sour taste", "Sense of 'uncleanliness' despite brushing"],
+    causes: [
+      { title: "Fermentation", items: ["Incomplete digestion of proteins", "Late-night heavy meals", "Chronic constipation"] }
+    ],
+    redFlags: ["Fruity odor (potential ketoacidosis)", "Ammonia-like smell", "Sores in the mouth that don't heal"],
+    dietarySupports: [{ food: "Chewing Fennel seeds", why: "Naturally alkalizing and antimicrobial for the oral cavity" }, { food: "Cardamom pods", why: "Stimulates Agni and freshens the breath" }],
+    dietaryAvoids: [{ food: "Heavy evening dairy", why: "Creates a 'coating' in the GI tract that ferment overnight" }],
+    lifestyleTips: [
+      { title: "Morning Tongue Scraping", desc: "The most effective way to remove the daily accumulation of metabolic residue." },
+      { title: "Oil Pulling (Gandusha)", desc: "Swishing warm oil cleanses the oral channels and supports healthy gums." }
+    ]
+  },
+  "irritability": {
+    id: "irritability",
+    name: "Irritability",
+    primaryKeyword: "how to control anger and irritability",
+    summary: "Low threshold for frustration and sudden spikes in mental heat.",
+    modernDesc: "Often linked to high cortisol, sleep deprivation, or blood sugar fluctuations.",
+    ayuDesc: "Irritability (Krodha) is an aggravation of Pitta's sharp and hot qualities within the mental channels (Manovaha Srotas).",
+    icon: Activity,
+    color: "rose",
+    cluster: "mental",
+    pattern: "Sharp Pitta in Mind",
+    relatedCause: "pitta-imbalance" as keyof typeof CAUSES,
+    signs: ["Sudden spikes in impatience", "Critical or judgmental thoughts", "Localized tension in the eyes/jaw"],
+    causes: [
+      { title: "Mental Heat", items: ["Over-working and missed meals", "Excessive perfectionism", "High intake of stimulants like coffee"] }
+    ],
+    redFlags: ["Intense rage or violent thoughts", "Inability to sustain social relationships", "Severe physical symptoms of stress"],
+    dietarySupports: [{ food: "Sweet, juicy fruits", why: "Calms the sharp qualities of the mind and blood" }, { food: "Rose water infusions", why: "The ultimate coolant for mental heat" }],
+    dietaryAvoids: [{ food: "Sour and fermented foods", why: "Directly increases the 'sharp' quality of the mind" }],
+    lifestyleTips: [
+      { title: "Moonlight Walks", desc: "Exposure to cooling moonlight (Soma) helps balance the solar heat of Pitta." },
+      { title: "Pranayama (Sheetali)", desc: "A cooling breath technique that immediately reduces mental and physical heat." }
+    ]
+  },
+  "heaviness": {
+    id: "heaviness",
+    name: "Physical Heaviness",
+    primaryKeyword: "feeling of heaviness in body",
+    summary: "Systemic lethargy and dense sensation in the limbs and abdomen.",
+    modernDesc: "Can be a sign of metabolic slowdown, lymphatic congestion, or high inflammatory markers.",
+    ayuDesc: "Heaviness (Gaurava) is the primary sign of Kapha accumulation or a coating of Ama on the tissues.",
+    icon: Layers,
+    color: "emerald",
+    cluster: "metabolism",
+    pattern: "Kapha-Ama Accumulation",
+    relatedCause: "kapha-congestion" as keyof typeof CAUSES,
+    signs: ["Difficulty getting out of bed", "Feeling 'weighed down'", "Slow movements and thoughts"],
+    causes: [
+      { title: "Metabolic Lead", items: ["Excessive sleep during the day", "Diet high in dense, sweet, and oily foods", "Lack of circulatory stimulation"] }
+    ],
+    redFlags: ["Sudden extreme lethargy", "Difficulty breathing when lying down", "Signs of fluid retention or swelling"],
+    dietarySupports: [{ food: "Bitter and Astringent foods", why: "Dries out the excess 'dampness' and clears the channels" }, { food: "Trikatu (Long pepper, Black pepper, Ginger)", why: "The premier formula for clearing metabolic Lead" }],
+    dietaryAvoids: [{ food: "Dairy and Cold Desserts", why: "Instantly increases the heavy, dense qualities in the system" }],
+    lifestyleTips: [
+      { title: "Dry Lymphatic Massage", desc: "Using a silk glove or brush moves the lymphatic fluid and clears stagnation." },
+      { title: "Fasting or Light Suppers", desc: "Reducing the evening load allows the body to clear existing residue rather than adding to it." }
     ]
   }
 };

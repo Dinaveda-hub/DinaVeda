@@ -1,0 +1,45 @@
+name: Weekly ML Pipeline Retraining
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Run Retraining Processes
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
+          echo "Retraining Protocol Model..."
+          python backend/ml/protocol_learning/train_catboost_model.py
+          echo "Retraining Risk Prediction Model..."
+          python backend/ml/risk_prediction/train_risk_model.py
+
+      - name: Commit Updated Models
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add backend/ml/protocol_learning/protocol_model.pkl
+          git add backend/ml/risk_prediction/risk_model.pkl
+          git commit -m "Automated ML Model Update: Protocol & Risk [skip ci]" || echo "No changes to commit"
+          git push

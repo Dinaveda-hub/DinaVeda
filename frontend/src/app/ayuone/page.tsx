@@ -13,6 +13,7 @@ import { createClient } from "@/utils/supabase/client";
 import PrakritiOnboarding from "@/components/ayuone/PrakritiOnboarding";
 import DailyCheckin from "@/components/ayuone/DailyCheckin";
 import RitualCards from "@/components/ayuone/RitualCards";
+import { getAyurvedicSeason } from "@/utils/ayurTime";
 
 // Lazy-load the heavy Chat Component
 const AyuOneChat = dynamic(() => import('@/components/ayuone/AyuOneChat'), {
@@ -154,19 +155,72 @@ export default function AyuOneHub() {
                 const { data: { user } } = await supabase.auth.getUser();
 
                 if (user) {
+                    // Fetch Prakriti for ML injection
+                    const { data: profile } = await supabase
+                        .from('profiles')
+                        .select('prakriti_result')
+                        .eq('id', user.id)
+                        .single();
+
+                    const prakriti = profile?.prakriti_result;
+                    
                     const logData: any = {
                         user_id: user.id,
                         ojas_score: nextState.ojas || 70,
-                        sleep: answers.sleep_quality?.answer,
+                        
+                        // --- 15 Standardized ML Signals ---
+                        
+                        // Morning Signals
+                        sleep_quality: answers.sleep_quality?.answer,
+                        sleep_quality_score: (answers.sleep_quality as any)?.score,
+                        sleep_hours: parseFloat(answers.sleep_duration?.signal || "7.5"),
                         wake_time: answers.wake_time?.answer,
+                        wake_time_score: (answers.wake_time as any)?.score,
                         ama: answers.tongue_coating?.answer,
+                        ama_score: (answers.tongue_coating as any)?.score,
                         mala: answers.bowel_movement?.answer,
-                        agni: answers.appetite_level?.answer || answers.digestion?.answer,
-                        mood: answers.mental_state?.answer || answers.stress?.answer,
-                        movement: answers.physical_activity?.answer,
-                        routines: answers.meal_timing?.answer || answers.evening_wind_down?.answer,
-                        hydration: answers.hydration?.answer ? (answers.hydration.answer.includes("Well") ? 3 : 2) : 2,
-                        detailed_analysis: `AyuOne ${typeLabel} Check-in completed. Energy: ${answers.energy_level?.answer || 'N/A'}.`
+                        mala_score: (answers.bowel_movement as any)?.score,
+                        agni: answers.appetite_level?.answer,
+                        agni_score: (answers.appetite_level as any)?.score,
+                        energy_level: answers.energy_level?.answer,
+                        energy_score: (answers.energy_level as any)?.score,
+                        mood: answers.mental_state?.answer,
+                        mood_score: (answers.mental_state as any)?.score,
+
+                        // Evening Signals
+                        meal_timing: answers.meal_timing?.answer,
+                        meal_timing_score: (answers.meal_timing as any)?.score,
+                        digestion_quality: answers.digestion?.answer,
+                        digestion_score: (answers.digestion as any)?.score,
+                        physical_activity: answers.physical_activity?.answer,
+                        physical_activity_score: (answers.physical_activity as any)?.score,
+                        hydration: answers.hydration?.answer,
+                        hydration_score: (answers.hydration as any)?.score,
+                        screen_time: answers.screen_exposure?.answer,
+                        screen_score: (answers.screen_exposure as any)?.score,
+                        stress_level: answers.stress?.answer,
+                        stress_score: (answers.stress as any)?.score,
+                        wind_down_routine: answers.evening_wind_down?.answer,
+                        wind_down_score: (answers.evening_wind_down as any)?.score,
+                        evening_mood: answers.evening_mood?.answer,
+                        evening_mood_score: (answers.evening_mood as any)?.score,
+                        
+                        // --- Context & Baseline ---
+                        prakriti_vata: (prakriti?.prakriti_vata ?? 0) / 100,
+                        prakriti_pitta: (prakriti?.prakriti_pitta ?? 0) / 100,
+                        prakriti_kapha: (prakriti?.prakriti_kapha ?? 0) / 100,
+
+                        logged_at: new Date().toISOString(),
+                        weekday: new Date().getDay(),
+                        season: getAyurvedicSeason(),
+                        
+                        detailed_analysis: `AyuOne ${typeLabel} Check-in completed.`,
+                        created_at: new Date().toISOString(),
+
+                        // ML Intervention Feedback
+                        recommended_protocol: null,
+                        protocol_followed: null,
+                        effect_score: null
                     };
 
                     await supabase.from('pulse_logs').insert(logData);

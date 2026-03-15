@@ -44,6 +44,7 @@ export async function generateMetadata({
   return {
     title: `${capitalizedQuestion} Ayurvedic Perspective | Dinaveda`,
     description: `Explore the Ayurvedic interpretation of ${symptom.name.toLowerCase()}. Learn about digestive fire (Agni), metabolic residue (Ama), and traditionally used lifestyle support patterns.`,
+    keywords: symptom.primaryKeyword,
     alternates: {
       canonical: `https://www.dinaveda.com/questions/${slug}`,
     },

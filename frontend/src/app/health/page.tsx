@@ -9,200 +9,9 @@ import {
   Clock, Droplets, ThermometerSnowflake, UserMinus, ShieldAlert
 } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { SYMPTOMS } from "@/data/symptoms";
 
-const SYMPTOMS = [
-  // Digestive
-  { 
-    name: "Bloating", 
-    slug: "bloating", 
-    icon: Wind, 
-    color: "text-blue-500", 
-    desc: "Abdominal distention or gas following meals. Associated with irregular digestive fire (Vishama Agni).",
-    pattern: "Vata imbalance & Vishama Agni"
-  },
-  { 
-    name: "Poor Digestion", 
-    slug: "poor-digestion", 
-    icon: Thermometer, 
-    color: "text-emerald-500", 
-    desc: "Heaviness, acid reflux, or reduced appetite indicating impaired metabolic capacity (Agni).",
-    pattern: "Agni Dysfunction"
-  },
-  { 
-    name: "Constipation", 
-    slug: "constipation", 
-    icon: Lock, 
-    color: "text-blue-600", 
-    desc: "Dryness and downward energy blockage (Apana Vayu) halting natural waste movement.",
-    pattern: "Vata Dryness"
-  },
-  { 
-    name: "Acidity", 
-    slug: "acidity", 
-    icon: Flame, 
-    color: "text-rose-500", 
-    desc: "Excessive metabolic heat overflowing from the gut, involving liquid and hot Pitta qualities.",
-    pattern: "Pitta Heat"
-  },
-  { 
-    name: "Excess Gas", 
-    slug: "gas", 
-    icon: Wind, 
-    color: "text-blue-400", 
-    desc: "Accumulation of air and fermentation products due to a flickering digestive flame.",
-    pattern: "Vishama Agni"
-  },
-  { 
-    name: "Nausea", 
-    slug: "nausea", 
-    icon: AlertCircle, 
-    color: "text-emerald-600", 
-    desc: "Reverse movement of energy due to heavy metabolic stagnation and high Ama.",
-    pattern: "Ama Stagnation"
-  },
-  { 
-    name: "Loss of Appetite", 
-    slug: "loss-of-appetite", 
-    icon: UtensilsCrossed, 
-    color: "text-orange-600", 
-    desc: "Diminished digestive desire indicating a coating (Ama) on the sensing channels.",
-    pattern: "Manda Agni"
-  },
-
-  // Energy & Metabolism
-  { 
-    name: "Fatigue", 
-    slug: "fatigue", 
-    icon: ZapOff, 
-    color: "text-slate-500", 
-    desc: "Deep-seated depletion of vital essence (Ojas) or deep blockage of channels by Ama.",
-    pattern: "Ojas Depletion / Ama"
-  },
-  { 
-    name: "Post-Meal Fatigue", 
-    slug: "post-meal-fatigue", 
-    icon: Moon, 
-    color: "text-amber-600", 
-    desc: "Lethargy following eating signifies that Agni is too weak to process the incoming load.",
-    pattern: "Low Digestive Fire"
-  },
-  { 
-    name: "Slow Metabolism", 
-    slug: "slow-metabolism", 
-    icon: Hourglass, 
-    color: "text-emerald-700", 
-    desc: "Sluggish transformation of food into energy; a Kapha-heavy state of cellular conversion.",
-    pattern: "Manda Agni / Kapha"
-  },
-  { 
-    name: "Weight Gain", 
-    slug: "weight-gain", 
-    icon: Sparkles, 
-    color: "text-amber-700", 
-    desc: "Metabolic stagnation and accumulation of the earth element (Kapha).",
-    pattern: "Kapha Predominance"
-  },
-
-  // Mental & Sleep
-  { 
-    name: "Anxiety", 
-    slug: "anxiety", 
-    icon: Activity, 
-    color: "text-indigo-600", 
-    desc: "Excess Vata (air/ether) moving through the nervous tissue (Majja Dhatu).",
-    pattern: "Vata Aggravation"
-  },
-  { 
-    name: "Stress", 
-    slug: "stress", 
-    icon: Brain, 
-    color: "text-indigo-500", 
-    desc: "Sudden strain that depletes Ojas and forces Vata to move erraticly in the mind.",
-    pattern: "Prana Vata Drift"
-  },
-  { 
-    name: "Brain Fog", 
-    slug: "brain-fog", 
-    icon: Brain, 
-    color: "text-indigo-800", 
-    desc: "Mental Ama—heavy, sticky residue blocking the subtle channels of the mind.",
-    pattern: "Kapha-Ama Influence"
-  },
-  { 
-    name: "Poor Concentration", 
-    slug: "poor-concentration", 
-    icon: Target, 
-    color: "text-indigo-700", 
-    desc: "Unstable focus occurring when the clarity (Sattva) of the mind is clouded.",
-    pattern: "Rajas/Ama Clouding"
-  },
-  { 
-    name: "Insomnia", 
-    slug: "insomnia", 
-    icon: Shield, 
-    color: "text-slate-600", 
-    desc: "Vata-Pitta drift where the nervous system is too mobile to enter Kapha-rest.",
-    pattern: "Vata-Pitta Drift"
-  },
-  { 
-    name: "Night Waking", 
-    slug: "night-waking", 
-    icon: Eye, 
-    color: "text-slate-700", 
-    desc: "Interrupted sleep cycles, often specific to Vata (2-6 AM) or Pitta (10 PM-2 AM) peaks.",
-    pattern: "Circadian Dosha Peak"
-  },
-  { 
-    name: "Restless Sleep", 
-    slug: "restless-sleep", 
-    icon: Clock, 
-    color: "text-slate-800", 
-    desc: "Fragmented sleep indicating that the quality of stability (Tamoguna) is insufficient.",
-    pattern: "Vata Moving Quality"
-  },
-
-  // Skin & Fluid
-  { 
-    name: "Hair Loss", 
-    slug: "hair-loss", 
-    icon: UserMinus, 
-    color: "text-rose-600", 
-    desc: "Excess Pitta heat 'burning' the follicles or Bhrajaka Pitta imbalance.",
-    pattern: "Pitta Heat"
-  },
-  { 
-    name: "Dry Skin", 
-    slug: "dry-skin", 
-    icon: Droplets, 
-    color: "text-blue-500", 
-    desc: "Lack of lubrication (Snehana) and excess of the dry quality of Vata.",
-    pattern: "Vata Dryness"
-  },
-  { 
-    name: "Acne", 
-    slug: "acne", 
-    icon: ShieldAlert, 
-    color: "text-rose-500", 
-    desc: "Eruption of Pitta-heated blood (Rakta) and Ama in the skin pores.",
-    pattern: "Pitta-Rakta Heat"
-  },
-  { 
-    name: "Water Retention", 
-    slug: "water-retention", 
-    icon: Droplets, 
-    color: "text-emerald-500", 
-    desc: "Kapha-related accumulation of heavy water and earth elements in tissues.",
-    pattern: "Kapha Stagnation"
-  },
-  { 
-    name: "Cold Hands & Feet", 
-    slug: "cold-hands-feet", 
-    icon: ThermometerSnowflake, 
-    color: "text-blue-400", 
-    desc: "Reduced circulation indicating Agni is too weak to push warmth to periphery.",
-    pattern: "Weak Agni / Vata"
-  }
-];
+const SYMPTOMS_LIST = Object.values(SYMPTOMS);
 
 const HEALTH_JSON_LD = {
   "@context": "https://schema.org",
@@ -218,11 +27,11 @@ const HEALTH_JSON_LD = {
   ],
   "mainEntity": {
     "@type": "ItemList",
-    "itemListElement": SYMPTOMS.map((s, index) => ({
+    "itemListElement": SYMPTOMS_LIST.map((s, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "name": s.name,
-      "url": `https://dinaveda.com/health/${s.slug}`
+      "url": `https://dinaveda.com/health/${s.id}`
     }))
   }
 };
@@ -342,9 +151,9 @@ export default function HealthHubPage() {
         {/* Symptoms Grid */}
         <section className="py-12 md:py-20 px-6 max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            {SYMPTOMS.map((symptom, i) => (
+            {SYMPTOMS_LIST.map((symptom, i) => (
               <motion.div
-                key={symptom.slug}
+                key={symptom.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -359,19 +168,19 @@ export default function HealthHubPage() {
                 
                 <div className="flex-1 space-y-6 relative z-10">
                   <div className="space-y-2">
-                    <Link href={`/health/${symptom.slug}`} className="block group/title">
+                    <Link href={`/health/${symptom.id}`} className="block group/title">
                       <h2 className="text-xl md:text-2xl font-bold text-forest flex items-center gap-2 group-hover/title:text-emerald-600 transition-colors">
                         {symptom.name} <ArrowRight className="w-5 h-5 opacity-20 group-hover/title:opacity-100 transition-all -translate-x-2 group-hover/title:translate-x-0" />
                       </h2>
                     </Link>
-                    <Link href={`/health/${symptom.slug}`} className="inline-block text-xs font-bold uppercase text-emerald-600 tracking-wider hover:underline py-1">
+                    <Link href={`/health/${symptom.id}`} className="inline-block text-xs font-bold uppercase text-emerald-600 tracking-wider hover:underline py-1">
                       Clinical Overview
                     </Link>
                   </div>
 
                   <div className="space-y-4">
                     <p className="inline-block px-3 py-1 bg-slate-50 rounded-lg text-xs font-bold uppercase text-slate-500 tracking-wider">{symptom.pattern}</p>
-                    <p className="text-slate-700 font-medium leading-relaxed text-base">{symptom.desc}</p>
+                    <p className="text-slate-700 font-medium leading-relaxed text-base">{symptom.summary}</p>
                   </div>
                 </div>
 
@@ -382,7 +191,7 @@ export default function HealthHubPage() {
                     {["Vata", "Pitta", "Kapha"].map((dosha) => (
                       <Link 
                         key={dosha}
-                        href={`/health/${symptom.slug}-${dosha.toLowerCase()}`} 
+                        href={`/health/${symptom.id}-${dosha.toLowerCase()}`} 
                         className="px-4 py-2.5 rounded-xl bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-white hover:bg-forest transition-all border border-slate-100 shadow-sm"
                       >
                         {dosha}

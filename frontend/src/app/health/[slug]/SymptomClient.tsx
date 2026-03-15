@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Shield, AlertCircle, Sparkles, CheckCircle2, Activity, Compass, Layers, Flame, Thermometer, ShieldAlert } from "lucide-react";
+import { ArrowLeft, ArrowRight, Shield, AlertCircle, Sparkles, CheckCircle2, Activity, Compass, Layers, Flame, Thermometer, ShieldAlert, ChevronDown, BookOpen, Search } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { SYMPTOMS, DOSHAS } from "@/data";
 
@@ -83,24 +83,48 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
       {
         "@type": "FAQPage",
         "@id": `https://www.dinaveda.com/health/${slug}#faq`,
-        "mainEntity": [
+        "mainEntity": (symptom.faqs || [
           {
-            "@type": "Question",
-            "name": `Is ${symptom.name.toLowerCase()} always a sign of disease?`,
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": `Not necessarily. In Ayurveda, temporary ${symptom.name.toLowerCase()} often occurs due to lifestyle factors such as irregular eating habits, high stress, or seasonal shifts.`
-            }
+            q: `Is ${symptom.name.toLowerCase()} always a sign of disease?`,
+            a: `Not necessarily. In Ayurveda, temporary ${symptom.name.toLowerCase()} often occurs due to lifestyle factors such as irregular eating habits, high stress, or seasonal shifts.`
           },
           {
-            "@type": "Question",
-            "name": "How long does it take to see improvements?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Improvements depend on the underlying cause and the consistency of adjustments. Subtle shifts often begin within 3-7 days, with structural metabolic balance taking approximately 30 days."
-            }
+            q: "How long does it take to see improvements?",
+            a: "Improvements depend on the underlying cause and the consistency of adjustments. Subtle shifts often begin within 3-7 days, with structural metabolic balance taking approximately 30 days."
           }
-        ]
+        ]).map(f => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a
+          }
+        }))
+      },
+      {
+        "@type": "Article",
+        "@id": `https://www.dinaveda.com/health/${slug}#article`,
+        "headline": `${symptom.name}: Professional Ayurvedic Guidance`,
+        "description": symptom.summary,
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Rahul K R",
+          "url": "https://www.dinaveda.com/about"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Dinaveda",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.dinaveda.com/logo.png"
+          }
+        },
+        "datePublished": "2025-03-01",
+        "dateModified": "2026-03-14",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://www.dinaveda.com/health/${slug}`
+        }
       }
     ]
   };
@@ -161,12 +185,13 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
           </div>
 
           <div className="mt-12 space-y-8">
-            <p className="text-base md:text-lg text-slate-700 font-medium leading-relaxed">
+            <p className="text-base md:text-lg text-slate-700 font-medium leading-[1.6]">
               <strong>{symptom.name}</strong> refers to a broad range of physiological signals often associated with metabolic or digestive inefficiency. 
-              In Ayurvedic clinical practice, this pattern is traditionally interpreted as a indicator of internal imbalance in 
-              digestive fire (Agni) or the accumulation of metabolic residue (Ama).
+              In Ayurvedic clinical practice, this pattern is traditionally interpreted as an indicator of internal imbalance in 
+              <Link href="/guide/agni" className="text-forest border-b border-forest/20 hover:border-forest transition-colors">digestive fire (Agni)</Link> or the accumulation of 
+              <Link href="/guide/ama" className="text-rose-600 border-b border-rose-200 hover:border-rose-600 transition-colors">metabolic residue (Ama)</Link>.
             </p>
-            <p className="text-base text-slate-600 leading-relaxed font-normal">
+            <p className="text-base text-slate-600 leading-[1.6] font-normal">
               {symptom.summary} {symptom.modernDesc}
             </p>
           </div>
@@ -177,11 +202,11 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
         <section className="space-y-16 md:space-y-24">
           {/* 2. Clinical Observation (Experience Signal) */}
           <div className="space-y-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-forest tracking-tight">Clinical Perspective</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-forest tracking-tight">Understanding {symptom.name}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               <div className="p-6 md:p-10 bg-emerald-50/50 rounded-[3rem] border border-emerald-100 relative">
                 <Compass className="absolute top-8 right-8 w-8 h-8 text-emerald-200" />
-                <p className="text-slate-700 leading-relaxed font-medium mb-6 text-base">
+                <p className="text-slate-700 leading-[1.6] font-medium mb-6 text-base">
                   In Ayurvedic clinical practice, patients presenting with <strong>{symptom.name.toLowerCase()}</strong> often report associated patterns such as irregular digestion, poor sleep quality, chronic stress, or dietary imbalance.
                 </p>
                 <div className="space-y-4">
@@ -196,7 +221,7 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
                 </div>
               </div>
               <div className="flex flex-col justify-center space-y-6">
-                <p className="text-slate-600 leading-relaxed font-normal text-base">
+                <p className="text-slate-600 leading-[1.6] font-normal text-base">
                   Addressing these underlying patterns through targeted lifestyle and dietary adjustments may improve symptoms over time by restoring the body's natural regulatory capacity.
                 </p>
                 <div className="p-6 bg-white border border-slate-100 rounded-3xl">
@@ -214,7 +239,8 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
               <h2 className="text-2xl md:text-3xl font-bold mb-8 tracking-tight italic">Physiological Explanation</h2>
               <div className="space-y-6 text-slate-200 leading-relaxed text-base font-medium">
                 <p>
-                  In Ayurvedic physiology, symptoms are interpreted as indicators of imbalance in digestive fire (Agni), metabolic residue (Ama), or the regulatory principles known as Doshas (Vata, Pitta, Kapha).
+                  In Ayurvedic physiology, symptoms are interpreted as indicators of imbalance in <Link href="/guide/agni" className="text-emerald-400 border-b border-emerald-400/20 hover:border-emerald-400 transition-all">digestive fire (Agni)</Link>, 
+                  <Link href="/guide/ama" className="text-rose-400 border-b border-rose-400/20 hover:border-rose-400 transition-all">metabolic residue (Ama)</Link>, or the regulatory principles known as <Link href="/guide/doshas" className="text-indigo-400 border-b border-indigo-400/20 hover:border-indigo-400 transition-all">Doshas</Link> (Vata, Pitta, Kapha).
                 </p>
                 <p>
                   For <strong>{symptom.name}</strong>, {symptom.ayuDesc} Ayurvedic lifestyle practices are traditionally used to support internal equilibrium and the body's natural regulatory capacity.
@@ -234,8 +260,8 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
           {/* 4. Common Causes Section */}
           <div className="space-y-12">
             <div className="max-w-xl">
-              <h2 className="text-2xl md:text-3xl font-bold text-forest tracking-tight mb-4">Common Causes</h2>
-              <p className="text-slate-600 font-medium text-base md:text-lg leading-relaxed">Consistent indicators usually stem from one or more of these contributing factors:</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-forest tracking-tight mb-4">What causes {symptom.name.toLowerCase()}?</h2>
+              <p className="text-slate-600 font-medium text-base md:text-lg leading-[1.6]">Consistent indicators usually stem from one or more of these contributing factors:</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {symptom.causes?.map((group, i) => (
@@ -243,7 +269,7 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
                   <h4 className="font-semibold text-forest mb-6 text-sm uppercase tracking-wider leading-none border-b border-slate-50 pb-4">{group.title}</h4>
                   <ul className="space-y-4">
                     {group.items.map((item, j) => (
-                      <li key={j} className="text-base text-slate-700 font-medium flex items-start gap-3">
+                      <li key={j} className="text-base text-slate-700 font-medium flex items-start gap-3 leading-[1.6]">
                         <Sparkles className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" /> <span>{item}</span>
                       </li>
                     ))}
@@ -259,7 +285,7 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
                     <h4 className="font-semibold text-forest mb-6 text-sm uppercase tracking-wider leading-none border-b border-slate-50 pb-4">{group.title}</h4>
                     <ul className="space-y-4">
                       {group.items.map((item, j) => (
-                        <li key={j} className="text-base text-slate-700 font-medium flex items-start gap-3">
+                        <li key={j} className="text-base text-slate-700 font-medium flex items-start gap-3 leading-[1.6]">
                           <Sparkles className="w-3.5 h-3.5 text-slate-300 shrink-0 mt-0.5" /> <span>{item}</span>
                         </li>
                       ))}
@@ -363,10 +389,17 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
           </div>
 
           {/* 7. FAQ Section */}
-          <div className="space-y-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-forest tracking-tight">Common Questions</h2>
-            <div className="space-y-4 max-w-2xl">
-              {[
+          <div className="space-y-12 pt-12 border-t border-slate-100">
+            <div className="space-y-4">
+              <h2 className="text-2xl md:text-4xl font-extrabold text-forest tracking-tight">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-lg text-slate-600 font-medium max-w-2xl leading-[1.6]">
+                Everything you need to know about {symptom.name.toLowerCase()} from a clinical and physiological perspective.
+              </p>
+            </div>
+            <div className="space-y-6 max-w-3xl">
+              {(symptom.faqs || [
                 {
                   q: `Is ${symptom.name.toLowerCase()} always a sign of disease?`,
                   a: `Not necessarily. In Ayurveda, temporary ${symptom.name.toLowerCase()} often occurs due to lifestyle factors such as irregular eating habits, high stress, or seasonal shifts.`
@@ -375,17 +408,15 @@ export default function SymptomClient({ slug }: SymptomClientProps) {
                   q: "How long does it take to see improvements?",
                   a: "Improvements depend on the underlying cause and the consistency of adjustments. Subtle shifts often begin within 3-7 days, with structural metabolic balance taking approximately 30 days."
                 }
-              ].map((faq, i) => (
-                <details key={i} className="group bg-white border border-slate-100 rounded-[2rem] overflow-hidden transition-all shadow-sm">
-                  <summary className="p-6 md:p-8 font-semibold text-forest cursor-pointer list-none flex justify-between items-center group-open:bg-slate-50 transition-colors text-base md:text-lg">
+              ]).map((faq, i) => (
+                <details key={i} className="group bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden transition-all shadow-sm hover:border-forest/20">
+                  <summary className="p-8 md:p-10 font-bold text-forest cursor-pointer list-none flex justify-between items-center group-open:bg-slate-50 transition-colors text-lg md:text-xl">
                     {faq.q}
-                    <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-open:rotate-180 transition-transform">
-                      <svg className="w-4 h-4 text-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
-                      </svg>
+                    <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center group-open:rotate-180 transition-transform group-hover:bg-forest group-hover:text-white">
+                      <ChevronDown className="w-5 h-5 transition-colors" />
                     </div>
                   </summary>
-                  <div className="px-6 pb-8 md:px-8 md:pb-10 pt-4 text-base text-slate-600 font-medium leading-relaxed">
+                  <div className="px-8 pb-10 md:px-10 md:pb-12 pt-4 text-lg text-slate-700 font-medium leading-[1.6] border-t border-slate-50">
                     {faq.a}
                   </div>
                 </details>

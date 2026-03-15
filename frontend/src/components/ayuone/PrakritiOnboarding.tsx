@@ -54,12 +54,103 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
 
         const metrics = engine.calculateConstitution([finalScores]);
 
+        // ML Prediction Integration
+        let mlProbabilities = null;
+        try {
+            // Map questionnaire answers to CatBoost features
+            // Note: In a real app, these mappings should be robust. 
+            // Here we provide a best-effort mapping to the CSV columns.
+            const answers: Record<string, string> = {
+                "Body Size": selectedAnswers[0]?.label.includes("Thin") ? "Slim" : selectedAnswers[0]?.label.includes("Moderate") ? "Medium" : "Large",
+                "Body Weight": selectedAnswers[1]?.label,
+                "Height": "Average", // Defaulting missing features
+                "Bone Structure": selectedAnswers[0]?.label.includes("Thin") ? "Small" : "Medium",
+                "Complexion": "Fair",
+                "General feel of skin": selectedAnswers[2]?.label,
+                "Texture of Skin": selectedAnswers[2]?.label.includes("Oily") ? "Oily" : "Dry",
+                "Hair Color": "Black",
+                "Appearance of Hair": selectedAnswers[3]?.label,
+                "Shape of face": "Oval",
+                "Eyes": selectedAnswers[4]?.label,
+                "Eyelashes": "Moderate",
+                "Blinking of Eyes": "Moderate",
+                "Cheeks": "Normal",
+                "Nose": "Average",
+                "Teeth and gums": "Healthy",
+                "Lips": "Soft",
+                "Nails": "Healthy",
+                "Appetite": selectedAnswers[6]?.label,
+                "Liking tastes": "Sweet",
+                "Metabolism Type": selectedAnswers[7]?.label.includes("Strong") ? "fast" : "moderate",
+                "Climate Preference": selectedAnswers[5]?.label.includes("Cold") ? "warm" : "cool",
+                "Stress Levels": selectedAnswers[13]?.label.includes("Anxiety") ? "high" : "moderate",
+                "Sleep Patterns": selectedAnswers[8]?.label,
+                "Dietary Habits": "vegetarian",
+                "Physical Activity Level": selectedAnswers[14]?.label,
+                "Water Intake": "moderate",
+                "Digestion Quality": selectedAnswers[7]?.label,
+                "Skin Sensitivity": selectedAnswers[2]?.label.includes("sensitive") ? "sensitive" : "normal"
+            };
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/api/prakriti`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ features: answers })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                mlProbabilities = data.probabilities;
+                console.log("ML Prediction Results:", mlProbabilities);
+            }
+        } catch (error) {
+            console.error("ML Prediction failed:", error);
+        }
+
+        // Overwrite deterministic metrics with ML results if available
+        let finalVata = metrics.prakriti_vata;
+        let finalPitta = metrics.prakriti_pitta;
+        let finalKapha = metrics.prakriti_kapha;
+
+        if (mlProbabilities) {
+            let v = 0, p = 0, k = 0;
+            // Distribute probabilities (handling combination types)
+            Object.entries(mlProbabilities).forEach(([type, prob]: [string, any]) => {
+                const t = type.toLowerCase();
+                const pVal = parseFloat(prob);
+                
+                if (t === 'vata') v += pVal;
+                else if (t === 'pitta') p += pVal;
+                else if (t === 'kapha') k += pVal;
+                else if (t === 'vata+pitta') { v += pVal / 2; p += pVal / 2; }
+                else if (t === 'vata+kapha') { v += pVal / 2; k += pVal / 2; }
+                else if (t === 'pitta+kapha') { p += pVal / 2; k += pVal / 2; }
+                else if (t === 'tridoshic') { v += pVal / 3; p += pVal / 3; k += pVal / 3; }
+            });
+
+            // Normalize and convert to 0-100 scale
+            const mlTotal = v + p + k || 1;
+            finalVata = Math.round((v / mlTotal) * 100);
+            finalPitta = Math.round((p / mlTotal) * 100);
+            finalKapha = Math.round((k / mlTotal) * 100);
+
+            // Correct rounding errors to ensure 100%
+            const diff = 100 - (finalVata + finalPitta + finalKapha);
+            if (diff !== 0) {
+                const max = Math.max(finalVata, finalPitta, finalKapha);
+                if (max === finalVata) finalVata += diff;
+                else if (max === finalPitta) finalPitta += diff;
+                else finalKapha += diff;
+            }
+        }
+
         const finalResult = {
             title: "Core Profile (Prakriti)",
             type: metrics.constitution_string,
-            prakriti_vata: metrics.prakriti_vata,
-            prakriti_pitta: metrics.prakriti_pitta,
-            prakriti_kapha: metrics.prakriti_kapha,
+            prakriti_vata: finalVata,
+            prakriti_pitta: finalPitta,
+            prakriti_kapha: finalKapha,
+            ml_probabilities: mlProbabilities,
             confidence: metrics.confidence,
             is_extreme: metrics.is_extreme,
             insights: [
@@ -97,7 +188,12 @@ export default function PrakritiOnboarding({ onComplete }: PrakritiOnboardingPro
         }
         
         // Pass result back up to the Hub to commit to global state
-        onComplete(metrics);
+        onComplete({
+            ...metrics,
+            prakriti_vata: finalVata,
+            prakriti_pitta: finalPitta,
+            prakriti_kapha: finalKapha
+        });
 
         // Optional Analytics Tracking
         try {

@@ -19,6 +19,8 @@ export interface SymptomData {
   dietarySupports: { food: string; why: string }[];
   dietaryAvoids: { food: string; why: string }[];
   lifestyleTips: { title: string; desc: string }[];
+  faqs?: { q: string; a: string }[];
+  pattern: string;
 }
 
 export interface DoshaData {
